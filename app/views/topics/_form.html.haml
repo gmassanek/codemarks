@@ -1,0 +1,11 @@
+= form_for topic do |form|
+  - if topic.errors.present?
+    .errors
+      - topic.errors.full_messages.each do |err|
+        = err
+  .inputs
+    = form.label :title
+    = form.text_field :title
+    = form.label :description
+    = form.text_field :description
+  = form.submit
