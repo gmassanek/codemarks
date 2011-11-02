@@ -44,5 +44,15 @@ module Cms
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
+
+    config.generators do |g|
+      g.test_framework :rspec
+      g.template_engine :haml
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
   end
 end
