@@ -1,2 +1,8 @@
-%h1= topic.title
-%p= topic.description
+%h1= @topic.title
+%p= @topic.description
+- unless @topic.sponsored_sites.empty?
+  %ul
+    - @topic.sponsored_sites.each do |t|
+      %li= link_to t.site, t.url
+
+

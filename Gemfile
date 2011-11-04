@@ -25,6 +25,7 @@ group :test do
   gem 'capybara'
   gem 'webrat'
   gem 'pickle'
+  gem 'launchy'
 end
 
 group :production do

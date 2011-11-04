@@ -1,3 +1,14 @@
+Given /^the following topics_with_sponsored$/ do |table|
+  table.hashes.each do |attributes|
+    Fabricate(:topic_with_sponsored_links, attributes)
+  end
+end
+Given /^the following topics_without_sponsored$/ do |table|
+  table.hashes.each do |attributes|
+    Fabricate(:topic, attributes)
+  end
+end
+
 When /^I go to the topics page$/ do
   visit topics_path
 end
