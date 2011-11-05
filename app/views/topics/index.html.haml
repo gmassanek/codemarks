@@ -1,6 +1,8 @@
 %h1 Topics
 
 %ul
-  - topics.each do |t|
-    %li= t.title
-    /= t.title
+  - @topics.each do |topic|
+    %li
+      = link_to topic.title, topic
+      |
+      = link_to "Edit", edit_topic_path(topic)

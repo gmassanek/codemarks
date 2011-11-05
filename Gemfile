@@ -6,6 +6,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'decent_exposure'
 gem 'draper'
+gem 'friendly_id', "~> 4.0.0.beta14"
 
 group :development do
 end

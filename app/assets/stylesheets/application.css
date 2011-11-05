@@ -2,6 +2,42 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require reset
  *= require_self
  *= require_tree . 
 */
+
+h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
+h1 { font-size: 160%; }
+h2 { font-size: 150%; }
+h3 { font-size: 140%; }
+h4 { font-size: 130%; }
+h5 { font-size: 120%; }
+h6 { font-size: 110%; }
+
+#container {
+  width: 960px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.flash {
+  padding: 12px;
+}
+
+.notice {
+  background: #FFFFCC;
+  border: 2px solid #FFFF00;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}

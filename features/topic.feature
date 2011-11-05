@@ -20,23 +20,25 @@ Feature: Topic
     When I go to the Rspec topic page
     Then I should see "Rspec"
       And I should see "An awesome testing framework"
-      And I should see a link to "twitter"
+      And I should see a link, "sponsored_twitter" to "http://www.twitter.com/#/myhandle"
+      And the URL should contain "rspec"
 
   Scenario: Creating new topics
     Given the following topics_without_sponsored
       | title |
       | Rspec |
       | Cucumber |
+
     When I add a new topic with title:"Github" 
     Then I should see "Topic created"
       And I should see "Rspec"
       And I should see "Cucumber"
       And I should see "Github"
 
-  Scenario: Creating new topics shows errors
-    Given the following topics_without_sponsored
-      | title |
-      | Rspec |
     When I add a new topic with title:"" 
     Then I should see "Title can't be blank"
+
+    When I go to the Rspec topic edit page
+    Then I should see "Twitter"
+    Then I should see "Github"
 

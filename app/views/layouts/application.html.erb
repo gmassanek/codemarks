@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cms</title>
+  <title>Bookmark killer</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <%= notice %>
-  <%= yield %>
+  <div id="container">
+    <%= render 'layouts/flash', :flash => flash %>
+    <%= yield %>
+  </div>
 
 </body>
 </html>

@@ -1,8 +1,9 @@
-%h1= @topic.title
+%h1.left= @topic.title
+.right
+  = link_to "Edit", edit_topic_path(@topic)
+  = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
+.clear
 %p= @topic.description
 - unless @topic.sponsored_sites.empty?
   %ul
-    - @topic.sponsored_sites.each do |t|
-      %li= link_to t.site, t.url
-
-
+    = render @topic.sponsored_sites

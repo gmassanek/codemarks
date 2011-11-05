@@ -1,11 +1,21 @@
-= form_for topic do |form|
-  - if topic.errors.present?
+= form_for @topic do |form|
+  - if @topic.errors.present?
     .errors
-      - topic.errors.full_messages.each do |err|
+      - @topic.errors.full_messages.each do |err|
         = err
   .inputs
     = form.label :title
+    %br
     = form.text_field :title
+    %br
     = form.label :description
-    = form.text_field :description
+    %br
+    = form.text_area :description
+    = form.fields_for :sponsored_sites do |site_form|
+      %br
+      = site_form.hidden_field :topic_id
+      = site_form.hidden_field :site
+      = site_form.label "#{site_form.object.site}"
+      %br
+      = site_form.text_field :url
   = form.submit

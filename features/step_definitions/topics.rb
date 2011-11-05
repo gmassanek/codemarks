@@ -18,6 +18,11 @@ When /^I go to the ([^"]*) topic page$/ do |arg1|
   visit topic_path topic
 end
 
+When /^I go to the ([^"]*) topic edit page$/ do |arg1|
+  topic = Topic.find_by_title arg1
+  visit edit_topic_path topic
+end
+
 When /^I add a new topic with title:"([^"]*)"$/ do |arg1|
   visit new_topic_path
   page.fill_in "Title", :with => arg1
