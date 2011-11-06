@@ -1,9 +1,14 @@
 %h1.left= @topic.title
+- unless @topic.sponsored_sites.empty?
+  %ul.right.sponsored_sites
+    = render @topic.sponsored_sites
+.clear
 .right
   = link_to "Edit", edit_topic_path(@topic)
   = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
 .clear
 %p= @topic.description
-- unless @topic.sponsored_sites.empty?
+#resource_list
   %ul
-    = render @topic.sponsored_sites
+    - @topic.links.each do |link|
+      %li= link_to link.title, link.url

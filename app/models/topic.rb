@@ -5,6 +5,8 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title
 
+  has_many :link_topics
+  has_many :links, :through => :link_topics
   has_many :sponsored_sites, :inverse_of => :topic, :dependent => :destroy
   accepts_nested_attributes_for :sponsored_sites, :reject_if => lambda {|s| s[:url].blank? || s[:site].blank? }
 end

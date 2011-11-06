@@ -3,6 +3,10 @@ class SponsoredSite < ActiveRecord::Base
   module SponsoredSites
     TWITTER = "twitter"
     GITHUB = "github"
+    RUBYGEMS = "rubygems"
+    RUBYGUIDES = "guides.rubyonrails"
+    RAILSCASTS = "railscasts"
+    RUBYDOC = "rubydoc"
 
     def self.constant_values
       self.constants.collect { |c| const_get(c) }
