@@ -17,3 +17,11 @@ end
 Then /^the URL should contain "([^"]*)"$/ do |arg1|
   page.current_url.should include(arg1)
 end
+
+When /^I click on "([^"]*)"$/ do |arg1|
+  page.click_link_or_button arg1
+end
+
+When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
+  page.fill_in arg1, :with => arg2
+end

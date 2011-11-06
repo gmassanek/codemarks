@@ -6,6 +6,7 @@
 .right
   = link_to "Edit", edit_topic_path(@topic)
   = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
+  = link_to "Add Link", new_link_path(:topic_id => @topic.id)
 .clear
 %p= @topic.description
 #resource_list

@@ -1,0 +1,10 @@
+= form_for @link do |form|
+  = form.label :url
+  = form.url_field :url
+  = form.label :title
+  = form.text_field :title
+
+  = form.fields_for :link_topics do |lt_form|
+    = lt_form.collection_select :topic_id, Topic.all, :id, :title
+
+  = form.submit
