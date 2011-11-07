@@ -3,7 +3,11 @@ class LinksController < ApplicationController
   def new
     @link = Link.new
 
-    @link.link_topics.build(:topic => Topic.find(params[:topic_id]))
+    if params[:topic_id]
+      @link.link_topics.build(:topic => Topic.find(params[:topic_id]))
+    else
+      @link = Link.new
+    end
   end
 
   def create

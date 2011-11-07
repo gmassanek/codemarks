@@ -1,1 +1,4 @@
-%li= link_to link.title, link.url, :target => :blank
+%li
+  .left= link_to link.title, link.url, :target => :blank
+  .right Posted #{time_ago_in_words(link.created_at)}
+  .clear

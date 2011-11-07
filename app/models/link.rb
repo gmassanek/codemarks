@@ -14,4 +14,5 @@ class Link < ActiveRecord::Base
       self.title = SmartLinks::MyCurl.get_title_content(url)
     end
   end
+
 end

@@ -1,13 +1,21 @@
+.left
+  = link_to "Edit", edit_topic_path(@topic)
+  |
+  = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
+  |
+  = link_to "Add Link", new_link_path(:topic_id => @topic.id)
+.clear
 %h1.left= @topic.title
 - unless @topic.sponsored_sites.empty?
   %ul.right.sponsored_sites
     = render @topic.sponsored_sites
 .clear
-.right
-  = link_to "Edit", edit_topic_path(@topic)
-  = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
-  = link_to "Add Link", new_link_path(:topic_id => @topic.id)
-.clear
 %p= @topic.description
+%br
+%h3.left Resources
+.right
+  = link_to "Desc", topic_path(@topic, :order => "desc"), :remote => true
+  = link_to "Asc", topic_path(@topic, :order => "asc"), :remote => true
+.clear
 %ul#resource_list
-  = render @topic.links
+  = render @resources

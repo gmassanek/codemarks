@@ -42,3 +42,6 @@ h6 { font-size: 110%; }
   clear: both;
 }
 
+.field_with_errors input {
+  border: 2px red solid;
+}
