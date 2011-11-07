@@ -44,4 +44,15 @@ describe Link do
 
     it "requires at least one topic association"
   end
+
+  describe "smart links" do
+
+    it "finds the title of the page if no title is provided" do
+      link = Fabricate.build(:link)
+      link.title = nil
+      link.valid?
+      link.title.should_not be_nil
+    end
+
+  end
 end

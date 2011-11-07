@@ -9,7 +9,5 @@
   = link_to "Add Link", new_link_path(:topic_id => @topic.id)
 .clear
 %p= @topic.description
-#resource_list
-  %ul
-    - @topic.links.each do |link|
-      %li= link_to link.title, link.url
+%ul#resource_list
+  = render @topic.links
