@@ -1,0 +1,4 @@
+= form_tag new_link_path, :method => :get, :remote => true, :id => "link_form" do |form|
+  = label_tag :url
+  = url_field_tag :url
+  = submit_tag "Fetch"

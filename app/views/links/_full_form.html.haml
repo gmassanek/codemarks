@@ -1,0 +1,13 @@
+= form_for @link, :html => {:id => "link_form"} do |form|
+  = form.label :url
+  = form.url_field :url
+  %br
+  = form.label :title
+  = form.text_field :title
+
+  %ul
+  - @possible_topics.each do |topic|
+    %li
+      = check_box_tag "topic_ids[]", topic.id
+      = topic.title
+  = form.submit

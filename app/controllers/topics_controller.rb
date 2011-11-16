@@ -33,7 +33,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find params[:id]
     @resources = []
-    @topic.links.each { |l| @resources<<l unless l.nil? }
+    @topic.links.each { |l| @resources << l unless l.nil? }
 
     @resources.sort_by(&:created_at)
     if(params[:order] == "asc")

@@ -2,16 +2,20 @@ class LinksController < ApplicationController
 
   def new
     @link = Link.new
-
-    if params[:topic_id]
-      @link.link_topics.build(:topic => Topic.find(params[:topic_id]))
-    else
-      @link = Link.new
+    if params[:url]
+      @link.url = params[:url]
+      @link.fetch_title
+      @possible_topics = @link.possible_topics
+    end
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
   def create
     @link = Link.new(params[:link])
+    @link.topic_ids = params[:topic_ids]
     if @link.save
       redirect_to @link.topics.first, :notice => "Link created"
     else

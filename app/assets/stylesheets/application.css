@@ -15,6 +15,11 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
+input {
+  padding: 8px;
+  font-size: large;
+}
+
 #container {
   width: 960px;
   padding: 10px;

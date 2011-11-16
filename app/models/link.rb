@@ -1,7 +1,6 @@
 class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
-  accepts_nested_attributes_for :link_topics
   has_many :topics, :through => :link_topics
 
   validates_presence_of :url, :title
@@ -13,6 +12,10 @@ class Link < ActiveRecord::Base
     if !url.blank? && title.blank?
       self.title = SmartLinks::MyCurl.get_title_content(url)
     end
+  end
+
+  def possible_topics
+    SmartLinks::MyCurl.get_possible_topics(url) 
   end
 
 end
