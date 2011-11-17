@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106195224) do
+ActiveRecord::Schema.define(:version => 20111117162404) do
 
   create_table "link_topics", :force => true do |t|
     t.integer  "link_id"
@@ -44,5 +44,10 @@ ActiveRecord::Schema.define(:version => 20111106195224) do
   end
 
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
+
+  create_table "users", :force => true do |t|
+    t.string "email"
+    t.string "password_digest"
+  end
 
 end
