@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title Bookmark killer
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #container
+      = render 'layouts/flash', :flash => flash
+      = link_to "Add Link", new_link_path
+      = yield
