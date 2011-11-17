@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Topic.destroy_all
+["Rspec", "Github", "Cucumber", "Capybara", "Git", "JQuery", "Ruby", "Ruby on Rails"].each do |title|
+  Fabricate(:topic_with_sponsored_links, :title => title)
+end
+puts "#{Topic.count} topics created"
