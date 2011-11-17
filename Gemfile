@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails'
 gem 'decent_exposure'
 gem 'draper'
 gem 'friendly_id', "~> 4.0.0.beta14"
+gem 'bcrypt-ruby'
 
 group :development do
 end
