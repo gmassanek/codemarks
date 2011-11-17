@@ -7,6 +7,16 @@
  *= require_tree . 
 */
 
+$blue: blue;
+$vitaminc: #FF9900;
+$route66: #424242;
+$steadygrey: #E9E9E9;
+$BC: #BCBCBC;
+$gamebooker_blue: #3299BB;
+
+$header-height: 50px;
+
+
 h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
 h1 { font-size: 160%; }
 h2 { font-size: 150%; }
@@ -15,6 +25,20 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
+body {
+  /*background: url('lgrey064.jpg');*/
+  background: $steadygrey;
+}
+.header_wrapper {
+  height: $header-height;
+  background: $vitaminc;
+}
+
+#header {
+  margin-top: -$header-height;
+  height: $header-height;
+}
+
 input {
   padding: 8px;
   font-size: large;
@@ -22,7 +46,6 @@ input {
 
 #container {
   width: 960px;
-  padding: 10px;
   margin: 0 auto;
 }
 
@@ -31,8 +54,8 @@ input {
 }
 
 .notice {
-  background: #FFFFCC;
-  border: 2px solid #FFFF00;
+  background: lighten($gamebooker_blue, 30%);
+  border: 2px solid darken($gamebooker_blue, 10%);
 }
 
 .right {

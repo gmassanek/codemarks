@@ -6,7 +6,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    .header_wrapper
     #container
+      #header
+        Hello Resource Manager
       = render 'layouts/flash', :flash => flash
       = link_to "Add Link", new_link_path
       = yield
