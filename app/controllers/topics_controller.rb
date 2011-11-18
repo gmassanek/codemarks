@@ -35,9 +35,8 @@ class TopicsController < ApplicationController
     @resources = []
     @topic.links.each { |l| @resources << l unless l.nil? }
 
-    @resources.sort_by(&:created_at)
-    if(params[:order] == "asc")
-      puts "Reversing"
+    @resources.sort_by!(&:save_count)
+    unless(params[:order] == "asc")
       @resources.reverse!
     end
   end
