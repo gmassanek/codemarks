@@ -11,5 +11,7 @@
       #header
         Hello Resource Manager
       = render 'layouts/flash', :flash => flash
-      = link_to "Add Link", new_link_path
+      = link_to "Add Link", new_link_path, :id => 'add_link_link'
+      #link_form_container
+        = render '/links/first_form'
       = yield
