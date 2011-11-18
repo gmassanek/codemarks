@@ -5,7 +5,7 @@
 // the compiled file.
 //
 //= require jquery
-// require jquery_ujs
+//= require jquery_ujs
 //= require jquery-ui-1.8.16.custom.min.js
 //= require_tree .
 
@@ -13,12 +13,12 @@ $(function() {
 
   $(".flash").delay(1500).slideUp(1000);
 
-  /* $("#link_form_container").dialog({ autoOpen: false }); */
+  $("#link_form_container").dialog({ autoOpen: false }); 
 
-  /*$("#add_link_link").click(function(event) { */
-  /*  $("#link_form_container").dialog('open') */
-  /*  event.preventDefault(); */
-  /*}); */
+  $("#add_link_link").click(function(event) { 
+    $("#link_form_container").dialog('open') 
+    event.preventDefault(); 
+  }); 
 
 
 });
