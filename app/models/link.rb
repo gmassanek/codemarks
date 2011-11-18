@@ -5,6 +5,7 @@ class Link < ActiveRecord::Base
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp
+  validates_uniqueness_of :url
 
   before_validation :fetch_title 
 
@@ -17,5 +18,5 @@ class Link < ActiveRecord::Base
   def possible_topics
     SmartLinks::MyCurl.get_possible_topics(url) 
   end
-
+  
 end

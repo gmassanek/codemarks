@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
 
+  require 'link_saver'
   def new
     @link = Link.new
     if params[:url]
@@ -14,9 +15,9 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(params[:link])
-    @link.topic_ids = params[:topic_ids]
-    if @link.save
+    
+    @link = ResourceManager::LinkSaver.create_new_link params
+    if @link
       redirect_to @link.topics.first, :notice => "Link created"
     else
       render :new

@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Link.destroy_all
+LinkTopic.destroy_all
 Topic.destroy_all
 ["Rspec", "Github", "Cucumber", "Capybara", "Git", "JQuery", "Ruby", "Ruby on Rails"].each do |title|
   Fabricate(:topic_with_sponsored_links, :title => title)
