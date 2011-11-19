@@ -5,8 +5,11 @@ Cms::Application.routes.draw do
   resources :topics
   resources :links
   resources :users
+  resources :reminders, :only => [:create]
+
 
   post 'links/click', :as => :click_link
+
 
   get "sessions/new", :as => :sign_in
   post "sessions/create", :as => :create_session
