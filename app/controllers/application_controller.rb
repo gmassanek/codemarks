@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
     session[:user_id]
   end
 
+  def current_user
+    User.find current_user_id if logged_in?
+  end
+
 end

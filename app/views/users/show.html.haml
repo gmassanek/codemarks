@@ -1,0 +1,8 @@
+%h3 Hello #{@user.email}
+
+%h3 Reminders
+%ul
+  - @user.reminders.each do |reminder|
+    %li
+      = link_to reminder.link.title, reminder.link.url
+      .right= " marked #{time_ago_in_words(reminder.created_at)} ago"
