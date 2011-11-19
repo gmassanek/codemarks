@@ -8,15 +8,16 @@ gem 'decent_exposure'
 gem 'draper'
 gem 'friendly_id', "~> 4.0.0.beta14"
 gem 'bcrypt-ruby'
+gem 'heroku'
+gem 'fabrication'
+gem 'ffaker'
 
 group :development do
 end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'fabrication'
   gem 'gherkin'
-  gem 'ffaker'
 end
 
 group :test do
