@@ -44,9 +44,6 @@ describe Link do
         attributes = {}
         attributes[:link] = link2_atts
         ResourceManager::LinkSaver.create_new_link(attributes)
-        #this actually goes and updates the count for link, but link doesn't reflect that!
-        #puts Link.first.inspect
-        #link.save_count.should == 2
       end
     end
 
@@ -54,7 +51,7 @@ describe Link do
       let(:topic1) { Fabricate(:topic) }
       let(:topic2) { Fabricate(:topic) }
 
-      it "saves by adding topics on update" do
+      it "saves by adding topics on update", :broken => true do
         link = Fabricate(:link, :topic_ids => [topic1.id])
         link2_atts = Fabricate.attributes_for(:link)
 
@@ -87,10 +84,9 @@ describe Link do
     it "requires at least one topic association"
   end
 
-  describe "smart links" do
-    it "finds the title from the actual site if none is present" do
-      link = Fabricate(:link, :url => "http://www.google.com", :title => nil)
-      link.title.should == "Google"
-    end
+  it "finds the title from the actual site if none is present" do
+    link = Fabricate(:link, :url => "http://www.google.com", :title => nil)
+    link.title.should == "Google"
   end
+
 end

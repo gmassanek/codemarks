@@ -2,6 +2,7 @@ class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
+  belongs_to :user
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp

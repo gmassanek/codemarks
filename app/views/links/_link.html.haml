@@ -2,5 +2,6 @@
   .left
     = link_to link.title, link.url, :target => :blank
     = " - #{link.save_count}"
+    = " - created by #{link.user.email}"
   .right Posted #{time_ago_in_words(link.created_at)}
   .clear

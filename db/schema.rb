@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111117190617) do
+ActiveRecord::Schema.define(:version => 20111119021330) do
 
   create_table "link_topics", :force => true do |t|
     t.integer  "link_id"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20111117190617) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "save_count", :default => 1
+    t.integer  "user_id"
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.integer  "link_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sponsored_sites", :force => true do |t|
