@@ -26,5 +26,12 @@ $(function() {
     event.preventDefault(); 
   }); 
 
+  $(".resource_link").click(function(event) {
+    $(event.target).next("form").submit();
+    event.preventDefault();
+
+  });
+
+
 
 });

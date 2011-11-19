@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111119021330) do
+ActiveRecord::Schema.define(:version => 20111119044458) do
+
+  create_table "clicks", :force => true do |t|
+    t.integer "user_id"
+    t.integer "link_id"
+  end
 
   create_table "link_topics", :force => true do |t|
     t.integer  "link_id"

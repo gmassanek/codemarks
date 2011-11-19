@@ -1,7 +1,8 @@
 %li
   .left
-    = link_to link.title, link.url, :target => :blank
+    = link_to link.title, link.url, :target => :blank, :class => "resource_link", :id => "#{dom_id(link)}"
     = " - #{link.save_count}"
     = " - created by #{link.user.email}"
+    = render '/links/click_form', :link_id => link.id
   .right Posted #{time_ago_in_words(link.created_at)}
   .clear
