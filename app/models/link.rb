@@ -13,9 +13,9 @@ class Link < ActiveRecord::Base
   before_validation :fetch_title 
 
   scope :by_saves, order('save_count desc')
-  scope :by_clicks, select('links.*, COUNT(*) AS click_count') 
+  scope :by_clicks, select('links.id, links.url, COUNT(*) AS click_count') 
                       .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
-                      .group('links.id')
+                      .group('links.id, links.url')
                       .order('click_count DESC')
 
 
