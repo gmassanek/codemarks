@@ -13,11 +13,14 @@ class Link < ActiveRecord::Base
   before_validation :fetch_title 
 
   scope :by_saves, order('save_count desc')
-  scope :by_clicks, select('links.id, links.url, COUNT(*) AS click_count') 
+  scope :clicks, select('links.id, COUNT(*) AS click_count') 
                       .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
-                      .group('links.id, links.url')
+                      .group('links.id')
                       .order('click_count DESC')
 
+  def self.by_clicks
+    self.clicks.collect { |result| self.find result.id }
+  end
 
   def fetch_title
     if !url.blank? && title.blank?
