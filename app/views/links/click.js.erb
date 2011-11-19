@@ -1,1 +1,7 @@
-$(function() { window.location = <%= @url %> });
+window.open("<%= escape_javascript(@link.url) %>", '_blank', 'toolbar=0,location=0,menubar=0');
+$("#<%= "#{dom_id(@link)}_li" %>").replaceWith("<%= escape_javascript(render '/links/link', :link => @link) %>");
+
+
+$(".resource_link").click(function() {
+  prepareResourceLink(event);
+});

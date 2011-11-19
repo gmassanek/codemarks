@@ -9,6 +9,11 @@
 //= require jquery-ui-1.8.16.custom.min.js
 //= require_tree .
 
+function prepareResourceLink(myEvent) {
+    $(myEvent.target).next("form").submit();
+    myEvent.preventDefault();
+}
+
 $(function() {
 
   $(".flash").delay(1500).slideUp(1000);
@@ -26,12 +31,9 @@ $(function() {
     event.preventDefault(); 
   }); 
 
-  $(".resource_link").click(function(event) {
-    $(event.target).next("form").submit();
-    event.preventDefault();
-
+  $(".resource_link").click(function() {
+    prepareResourceLink(event);
   });
 
-
-
 });
+

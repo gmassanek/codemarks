@@ -38,11 +38,11 @@ class TopicsController < ApplicationController
     if params[:sort] == "save_count"
       puts "hello 1"
       @resources = @topic.links.by_saves
-    elsif params[:order] == "clicks"
+    elsif params[:sort] == "clicks"
       puts "hello 2"
       @resources = @topic.links.by_clicks
     else
-      @resources = @topic.links
+      @resources = @topic.links.by_clicks
     end
   end
 

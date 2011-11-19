@@ -1,4 +1,4 @@
-%li
+%li{:id => "#{dom_id(link)}_li"}
   .left
     = link_to link.title, link.url, :target => :blank, :class => "resource_link", :id => "#{dom_id(link)}"
     = " - #{link.save_count} saves"

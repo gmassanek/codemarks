@@ -29,11 +29,11 @@ class LinksController < ApplicationController
   end
 
   def click
-    link = Link.find(params[:link][:id])
-    puts Click.create(:link => link, :user => current_user).inspect
-    link_js =  "window.open(\'#{link.url}\', '_blank', 'toolbar=0,location=0,menubar=0');"
-    puts link_js.inspect
-    render :js => link_js
+    @link = Link.find(params[:link][:id])
+    Click.create(:link => @link, :user => current_user)
+    respond_to do |format|
+      format.js
+    end
   end
 
 end
