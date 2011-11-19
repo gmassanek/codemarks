@@ -9,7 +9,12 @@
 Link.destroy_all
 LinkTopic.destroy_all
 Topic.destroy_all
+
 ["Rspec", "Github", "Cucumber", "Capybara", "Git", "JQuery", "Ruby", "Ruby on Rails"].each do |title|
   Fabricate(:topic_with_sponsored_links, :title => title)
 end
 puts "#{Topic.count} topics created"
+
+User.destroy_all
+Fabricate(:user, :email => "test@example.com", :password => "password")
+puts "#{User.count} users created"

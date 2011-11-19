@@ -10,8 +10,9 @@
     #container
       #header
         Hello Resource Manager
-      = render 'layouts/flash', :flash => flash
+        = render '/layouts/authentication'
       = link_to "Add Link", new_link_path, :id => 'add_link_link'
+      = render '/layouts/flash', :flash => flash
       #link_form_container
         = render '/links/first_form'
       = yield

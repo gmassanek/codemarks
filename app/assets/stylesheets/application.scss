@@ -40,6 +40,10 @@ body {
   height: $header-height;
 }
 
+#authentication {
+  float: right;
+}
+
 input {
   padding: 8px;
   font-size: large;
