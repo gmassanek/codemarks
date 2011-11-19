@@ -13,7 +13,10 @@ $(function() {
 
   $(".flash").delay(1500).slideUp(1000);
 
-  $("#link_form_container").dialog({ autoOpen: false }); 
+  $("#link_form_container").dialog({
+    autoOpen: false,
+    modal: true
+  }); 
 
   $("#add_link_link").click(function(event) { 
     $("#link_form_container").dialog('open') 

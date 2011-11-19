@@ -9,14 +9,17 @@ class Link < ActiveRecord::Base
 
   before_validation :fetch_title 
 
+
   def fetch_title
     if !url.blank? && title.blank?
-      self.title = SmartLinks::MyCurl.get_title_content(url)
+      @http_connection = SmartLinks::MyCurl.new url
+      self.title = @http_connection.title
     end
   end
 
   def possible_topics
-    SmartLinks::MyCurl.get_possible_topics(url) 
+    @http_connection = SmartLinks::MyCurl.new(url) 
+    @http_connection.topics
   end
   
 end
