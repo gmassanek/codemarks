@@ -12,8 +12,8 @@
 %br
 %h3.left Resources
 .right
-  = link_to "Desc", topic_path(@topic, :order => "desc"), :remote => true
-  = link_to "Asc", topic_path(@topic, :order => "asc"), :remote => true
+  = link_to "Clicks", topic_path(@topic, :sort => "clicks"), :remote => true
+  = link_to "Saves", topic_path(@topic, :sort => "save_count"), :remote => true
 .clear
 %ul#resource_list
   = render @resources

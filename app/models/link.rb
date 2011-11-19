@@ -3,12 +3,16 @@ class Link < ActiveRecord::Base
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
   belongs_to :user
+  has_many :clicks
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp
   validates_uniqueness_of :url
 
   before_validation :fetch_title 
+
+  scope :by_saves, order('save_count desc')
+  scope :by_clicks, joins('INNER JOIN `clicks` ON `clicks`.link_id = `links`.id').select("`links`.*").group("`clicks`.link_id").order("count(`clicks`.id) DESC")
 
 
   def fetch_title

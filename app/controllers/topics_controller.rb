@@ -33,11 +33,16 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find params[:id]
     @resources = []
-    @topic.links.each { |l| @resources << l unless l.nil? }
+    #@topic.links.each { |l| @resources << l unless l.nil? }
 
-    @resources.sort_by!(&:save_count)
-    unless(params[:order] == "asc")
-      @resources.reverse!
+    if params[:sort] == "save_count"
+      puts "hello 1"
+      @resources = @topic.links.by_saves
+    elsif params[:order] == "clicks"
+      puts "hello 2"
+      @resources = @topic.links.by_clicks
+    else
+      @resources = @topic.links
     end
   end
 
