@@ -6,7 +6,7 @@
     = " - created by #{link.user.email}" if link.user.present?
     = render '/links/click_form', :link_id => link.id
   .right
-    = link.created_at
+    #{time_ago_in_words(link.created_at)} ago
     - if logged_in?
       = link_to "Remind me", reminders_path(:user_id => current_user.id, :link_id => link.id), :method => :post, :remote => true, :id => "#{ dom_id(link)}_reminder" 
   .clear
