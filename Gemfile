@@ -11,6 +11,7 @@ gem 'bcrypt-ruby'
 gem 'heroku'
 gem 'fabrication'
 gem 'ffaker'
+gem 'nokogiri'
 
 group :development do
 end
