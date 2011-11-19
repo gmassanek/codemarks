@@ -4,11 +4,9 @@
 %ul
   - @user.reminders.unfinished.each do |reminder|
     %li
-      = link_to reminder.link.title, reminder.link.url, :target => :blank, :class => "resource_link"
-      .right= " marked #{time_ago_in_words(reminder.created_at)} ago"
+      = render 'links/link', :link => reminder.link
 %h3 Closed Reminders
 %ul
   - @user.reminders.finished.each do |reminder|
     %li
-      = link_to reminder.link.title, reminder.link.url, :target => :blank, :class => "resource_link"
-      .right= " marked #{time_ago_in_words(reminder.created_at)} ago"
+      = render 'links/link', :link => reminder.link

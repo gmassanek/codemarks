@@ -16,4 +16,5 @@
   = link_to "Saves", topic_path(@topic, :sort => "save_count"), :remote => true
 .clear
 %ul#resource_list
-  = render @resources
+  - @resources.each do |resource|
+    = render resource, :locals => {:right_text => "Posted #{time_ago_in_words(resource.created_at)}"}

@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_email params[:user][:email]
     if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
-      redirect_to root_url, :notice => "Signed in successfully"
+      redirect_to @user, :notice => "Signed in successfully"
     else
       flash[:notice] = "Incorrect sign in credentials.  Try again"
       render :new
