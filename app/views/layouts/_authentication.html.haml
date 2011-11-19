@@ -2,7 +2,7 @@
   - if logged_in?
     = link_to 'Sign Out', sign_out_path, :method => :delete
     |
-    = link_to 'Account', user_path(current_userj
+    = link_to 'Account', user_path(current_user)
   - else
     = link_to 'Sign In', sign_in_path
     |
