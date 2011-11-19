@@ -9,9 +9,10 @@
     .header_wrapper
     #container
       #header
-        Hello Resource Manager
+        = link_to "Hello Resource Manager", root_path
         = render '/layouts/authentication'
-      = link_to "Add Link", new_link_path, :id => 'add_link_link'
+        .clr
+        = link_to "Add Link", new_link_path, :id => 'add_link_link'
       = render '/layouts/flash', :flash => flash
       #link_form_container
         = render '/links/first_form'

@@ -1,0 +1,6 @@
+= form_tag create_session_path do
+  Email
+  = text_field :user, :email
+  Password
+  = password_field :user, :password
+  = submit_tag "Sign in"
