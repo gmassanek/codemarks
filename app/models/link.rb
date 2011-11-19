@@ -4,6 +4,7 @@ class Link < ActiveRecord::Base
   has_many :topics, :through => :link_topics
   belongs_to :user
   has_many :clicks
+  has_many :reminders
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp
@@ -12,7 +13,7 @@ class Link < ActiveRecord::Base
   before_validation :fetch_title 
 
   scope :by_saves, order('save_count desc')
-  scope :by_clicks, joins('INNER JOIN `clicks` ON `clicks`.link_id = `links`.id').select("`links`.*").group("`clicks`.link_id").order("count(`clicks`.id) DESC")
+  scope :by_clicks, joins('LEFT JOIN `clicks` ON `clicks`.link_id = `links`.id').select("`links`.*").group("`clicks`.link_id").order("count(`clicks`.id) DESC")
 
 
   def fetch_title

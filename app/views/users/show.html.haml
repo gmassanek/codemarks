@@ -1,8 +1,14 @@
 %h3 Hello #{@user.email}
 
-%h3 Reminders
+%h3 Open Reminders
 %ul
-  - @user.reminders.each do |reminder|
+  - @user.reminders.unfinished.each do |reminder|
+    %li
+      = link_to reminder.link.title, reminder.link.url, :target => :blank, :class => "resource_link"
+      .right= " marked #{time_ago_in_words(reminder.created_at)} ago"
+%h3 Closed Reminders
+%ul
+  - @user.reminders.finished.each do |reminder|
     %li
       = link_to reminder.link.title, reminder.link.url, :target => :blank, :class => "resource_link"
       .right= " marked #{time_ago_in_words(reminder.created_at)} ago"
