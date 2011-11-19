@@ -11,7 +11,7 @@
 
 function prepareResourceLink(myEvent) {
     $(myEvent.target).next("form").submit();
-    myEvent.preventDefault();
+    //myEvent.preventDefault();
 }
 
 $(function() {
