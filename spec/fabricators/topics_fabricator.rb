@@ -1,6 +1,6 @@
 Fabricator(:topic) do
   title { Faker::Lorem.word }
-  description { Faker::Lorem.paragraph }
+  description { Faker::Lorem.paragraphs(3).join(" ") }
 end
 
 Fabricator(:topic_with_sponsored_links, :from => :topic) do

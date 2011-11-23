@@ -8,6 +8,7 @@ class Click < ActiveRecord::Base
   before_create :update_reminder
 
   def update_reminder
+    return if self.user.nil?
     reminder = self.link.reminders.unfinished.for_user(self.user.id)
     reminder.first.close unless reminder.empty?
   end

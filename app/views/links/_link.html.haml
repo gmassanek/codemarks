@@ -1,5 +1,6 @@
 %li{:id => "#{dom_id(link)}_li"}
   .left
+    = "* " if logged_in? && current_user.has_reminder_for?(link)
     = link_to link.title, link.url, :target => :blank, :class => "resource_link", :id => "#{dom_id(link)}"
     = " - #{link.save_count} saves"
     = " - #{link.clicks.count} clicks"
@@ -7,6 +8,6 @@
     = render '/links/click_form', :link_id => link.id
   .right
     #{time_ago_in_words(link.created_at)} ago
-    - if logged_in?
+    - if logged_in? && !current_user.has_reminder_for?(link)
       = link_to "Remind me", reminders_path(:user_id => current_user.id, :link_id => link.id), :method => :post, :remote => true, :id => "#{ dom_id(link)}_reminder" 
   .clear

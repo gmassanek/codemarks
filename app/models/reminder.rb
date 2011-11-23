@@ -8,6 +8,7 @@ class Reminder < ActiveRecord::Base
   scope :unfinished, where(['completed = ?', false])
   scope :finished, where(['completed = ?', true])
   scope :for_user, lambda {|user_id| where(["user_id = ?", user_id])}
+  scope :for_link, lambda {|link_id| where(["link_id = ?", link_id])}
 
   def close
     puts "Closing"

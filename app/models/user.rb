@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
+  def has_reminder_for?(link)
+    self.reminders.unfinished.for_link(link.id).present?
+  end
+
 end
