@@ -1,5 +1,24 @@
 // Place all the styles related to the Topics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$blue: blue;
+$vitaminc: #FF9900;
+$route66: #424242;
+$steadygrey: #E9E9E9;
+$BC: #BCBCBC;
+$gamebooker_blue: #3299BB;
 
+.topic_element {
+  border: 1px solid $route66;
+  padding: 5px;
+  margin: 5px 0px;
+  border-radius: 7px;
+  background: lighten($BC, 5%);
+}
 
+h6 a {
+  text-decoration: none;
+}
+h6 a:hover {
+  text-decoration: underline;
+}

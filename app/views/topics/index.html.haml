@@ -1,8 +1,13 @@
 %h1 Topics
+.sort_links
+  %p.left
+    Sort by:
+    = link_to "Total Resources", topics_path(:sort => :resource_count)
+    |
+    = link_to "Recent Activity", topics_path(:sort => :recent_activity)
+  %p.right
+    Filter by:
+    = link_to "Mine", topics_path(:filter => :mine)
+  %br.clr
 
-%ul
-  - @topics.each do |topic|
-    %li
-      = link_to topic.title, topic
-      |
-      = link_to "Edit", edit_topic_path(topic)
+= render 'topics_list'
