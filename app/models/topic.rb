@@ -10,7 +10,7 @@ class Topic < ActiveRecord::Base
   has_many :sponsored_sites, :inverse_of => :topic, :dependent => :destroy
   accepts_nested_attributes_for :sponsored_sites, :reject_if => lambda {|s| s[:url].blank? || s[:site].blank? }
 
-  scope :by_resource_count, select('topics.id, COUNT(link_topics.link_id) AS link_count') 
+  scope :ids_by_resource_count, select('topics.id, COUNT(link_topics.link_id) AS link_count') 
                       .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
                       .group('topics.id')
                       .order('link_count DESC')

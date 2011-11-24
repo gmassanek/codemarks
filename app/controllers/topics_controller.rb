@@ -36,10 +36,8 @@ class TopicsController < ApplicationController
     #@topic.links.each { |l| @resources << l unless l.nil? }
 
     if params[:sort] == "save_count"
-      puts "hello 1"
       @resources = @topic.links.by_saves
     elsif params[:sort] == "clicks"
-      puts "hello 2"
       @resources = @topic.links.by_clicks
     else
       @resources = @topic.links.by_clicks
@@ -47,7 +45,17 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.all
+
+    @topics = Topic.scoped
+    sort_order = params[:sort]
+    if sort_order == 'resource_count'
+      @topics = @topics.ids_by_resource_count
+      @topics = @topics.collect {|id| Topic.find id }
+    elsif sort_order == 'recent_activity'
+      @topics = @topics.by_recent_activity
+    elsif sort_order == 'mine'
+      @topics = @topics.mine
+    end
 
     respond_to do |format|
       format.html
