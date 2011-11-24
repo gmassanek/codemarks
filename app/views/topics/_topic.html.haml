@@ -1,0 +1,9 @@
+%li
+  .topic_element
+    %h6.left
+      = link_to topic.title, topic
+      = pluralize(topic.links.count, "resource")
+    .right= link_to "Edit", edit_topic_path(topic)
+    %br.clr
+    %br.clr
+    %p= topic.description
