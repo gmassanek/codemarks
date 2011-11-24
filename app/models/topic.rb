@@ -16,7 +16,9 @@ class Topic < ActiveRecord::Base
                       .order('link_count DESC')
 
 
-  scope :by_recent_activity
+  scope :by_recent_activity, select('distinct topics.*')
+                            .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
+                            .order('link_topics.created_at DESC')
   scope :mine
 
 end
