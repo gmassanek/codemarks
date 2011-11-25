@@ -8,6 +8,7 @@ Cms::Application.routes.draw do
   resources :reminders, :only => [:create]
 
 
+  post 'user_topics/create/:id', :to => 'user_topics#create', :as => :make_topic_mine
   post 'links/click', :as => :click_link
 
 

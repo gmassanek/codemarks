@@ -1,0 +1,4 @@
+$("<%= escape_javascript(render @topic) %>")
+  .hide()
+  .replaceAll($("#<%= dom_id(@topic) %>_li"))
+  .fadeIn();

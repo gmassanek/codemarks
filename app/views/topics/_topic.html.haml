@@ -1,9 +1,15 @@
-%li
+%li{:id => "#{dom_id(topic)}_li"}
   .topic_element
     %h6.left
       = link_to topic.title, topic
       = pluralize(topic.links.count, "resource")
-    .right= link_to "Edit", edit_topic_path(topic)
+    .right
+      = link_to "Edit", edit_topic_path(topic)
+      - if logged_in?
+        - if topic.mine? current_user
+          Mine
+        - else
+          = link_to "Make mine", make_topic_mine_path(topic), :method => :post, :remote => true
     %br.clr
     %br.clr
     %p= topic.description

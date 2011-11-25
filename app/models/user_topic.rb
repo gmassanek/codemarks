@@ -5,4 +5,6 @@ class UserTopic < ActiveRecord::Base
 
   validates_presence_of :user, :topic
 
+  scope :for, lambda { |user_id| where(['user_id = ?', user_id]) }
+
 end
