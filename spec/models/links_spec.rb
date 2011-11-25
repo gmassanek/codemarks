@@ -51,20 +51,17 @@ describe Link do
       let(:topic1) { Fabricate(:topic) }
       let(:topic2) { Fabricate(:topic) }
 
-      it "saves by adding topics on update", :broken => true do
+      it "saves by adding topics on update" do
         link = Fabricate(:link, :topic_ids => [topic1.id])
-        link2_atts = Fabricate.attributes_for(:link)
+        link2_atts = Fabricate.attributes_for(:link, :url => link.url)
 
         attributes = {}
         attributes[:link] = link2_atts
         attributes[:topic_ids] = [topic2.id]
-        ResourceManager::LinkSaver.create_new_link(attributes)
+        link = ResourceManager::LinkSaver.create_new_link(attributes)
 
-        link = Link.first
         link.topic_ids.should == [topic1.id, topic2.id]
-
-        link2_atts = Fabricate.attributes_for(:link)
-        link2_atts[:url] = link.url
+        link.save_count.should == 2
 
       end
     end

@@ -11,10 +11,7 @@ class Reminder < ActiveRecord::Base
   scope :for_link, lambda {|link_id| where(["link_id = ?", link_id])}
 
   def close
-    puts "Closing"
-    puts self.inspect
     self.update_attribute(:completed, true)
-    puts self.inspect
   end
 
 end
