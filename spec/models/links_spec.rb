@@ -39,27 +39,35 @@ describe Link do
     context "counting link saves" do
       it "manages save counts using LinkSave objects" do
         lambda do
-          ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+          ResourceManager::LinkSaver.save_link(link_atts, [topic.id], 0, nil)
         end.should change(LinkSave, :count).by(1)
       end
 
       it "starts save_count at 1" do
-        link = ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+        link = ResourceManager::LinkSaver.save_link(link_atts, [topic.id], 0, nil)
         link.save_count.should == 1
       end
 
       it "increments the count of an existing link when bookmarked again" do
-        link = ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
-        link2 = ResourceManager::LinkSaver.create_link(link_atts, [topic2.id], 0, nil)
+        link = ResourceManager::LinkSaver.save_link(link_atts, [topic.id], 0, nil)
+        link2 = ResourceManager::LinkSaver.save_link(link_atts, [topic2.id], 0, nil)
         link.should == link2
         link.save_count.should == 2
       end
     end
 
-    it "adds to the topic associations when saved again" do
-      ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
-      link = ResourceManager::LinkSaver.create_link(link_atts, [topic2.id], 0, nil)
-      link.topic_ids.should == [topic.id, topic2.id]
+    context "topic associations" do
+      it "adds to the topic associations when saved again" do
+        ResourceManager::LinkSaver.save_link(link_atts, [topic.id], 0, nil)
+        link = ResourceManager::LinkSaver.save_link(link_atts, [topic2.id], 0, nil)
+        link.topic_ids.should == [topic.id, topic2.id]
+      end
+
+      it "creates a user_topic record if there is a current_user" do
+        user = Fabricate(:user)
+        link = ResourceManager::LinkSaver.save_link(link_atts, [topic.id], 0, user.id)
+        user.topics.should include(topic)
+      end
     end
   end
 

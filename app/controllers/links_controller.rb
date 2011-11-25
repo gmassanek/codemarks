@@ -15,7 +15,7 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = ResourceManager::LinkSaver.create_link params[:link], params[:topic_ids], params[:reminder], current_user_id
+    @link = ResourceManager::LinkSaver.save_link params[:link], params[:topic_ids], params[:reminder], current_user_id
     if @link
       redirect_to @link.topics.first, :notice => "Link created"
     else
