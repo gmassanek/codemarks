@@ -57,6 +57,12 @@ class TopicsController < ApplicationController
       @topics = @topics.mine
     end
 
+    if params[:filter] == 'mine' 
+      @topics = @topics.mine(current_user)
+    else
+      @topics = @topics.all
+    end
+
     respond_to do |format|
       format.html
       format.js
