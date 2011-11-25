@@ -1,18 +1,18 @@
 module ResourceManager
   class LinkSaver
 
-    def self.create_new_link(params)
-      link = Link.find_by_url(params[:link][:url])
+    def self.create_link(link_params, topic_ids, reminder_indicator, current_user_id)
+      link = Link.find_by_url(link_params[:url])
 
       if link
-        link = increment_saves(link)
-        update_topics(link, params[:topic_ids])
+        update_topics(link, topic_ids)
       else
-        link = Link.new(params[:link])
-        link.topic_ids = params[:topic_ids]
+        link = Link.new(link_params)
+        link.topic_ids = topic_ids
         link.save
       end
-      save_reminder(link, params[:link][:user_id]) if params[:reminder] == "1" && params[:link][:user_id]
+      save_reminder(link, current_user_id) if reminder_indicator == "1" && current_user_id
+      create_link_save(link, current_user_id)
       return link
 
     end
@@ -22,9 +22,8 @@ module ResourceManager
         Reminder.create(link: link, user_id: user_id)
       end
 
-      def self.increment_saves(link)
-        link.update_attribute(:save_count, link.save_count + 1)
-        return link
+      def self.create_link_save(link, user_id)
+        LinkSave.create(link: link, user_id: user_id)
       end
 
       def self.update_topics(link, topics)

@@ -2,9 +2,10 @@ class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
-  belongs_to :user
   has_many :clicks
   has_many :reminders
+  has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id'
+  belongs_to :user
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp
@@ -17,6 +18,11 @@ class Link < ActiveRecord::Base
                       .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
                       .group('links.id')
                       .order('click_count DESC')
+
+
+  def save_count
+    link_saves.count
+  end
 
   def self.by_clicks
     self.clicks.collect { |result| self.find result.id }

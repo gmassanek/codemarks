@@ -24,61 +24,43 @@ describe Link do
       end
     end
 
-    context "are unique" do
-      let (:link) {Fabricate(:link)}
-      let (:link2) {Fabricate.build(:link)}
-
-      it "requires a unique url" do
-        link2.url = link.url
-        link2.should_not be_valid
-      end
-      
-      it "starts save_count at 1" do
-        link.save_count.should == 1
-      end
-
-      it "increments the count of an existing link when bookmarked again", :broken => true do
-        link2_atts = Fabricate.attributes_for(:link)
-        link2_atts[:url] = link.url
-
-        attributes = {}
-        attributes[:link] = link2_atts
-        ResourceManager::LinkSaver.create_new_link(attributes)
-      end
-    end
-
-    context "updates topics properly" do
-      let(:topic1) { Fabricate(:topic) }
-      let(:topic2) { Fabricate(:topic) }
-
-      it "saves by adding topics on update" do
-        link = Fabricate(:link, :topic_ids => [topic1.id])
-        link2_atts = Fabricate.attributes_for(:link, :url => link.url)
-
-        attributes = {}
-        attributes[:link] = link2_atts
-        attributes[:topic_ids] = [topic2.id]
-        link = ResourceManager::LinkSaver.create_new_link(attributes)
-
-        link.topic_ids.should == [topic1.id, topic2.id]
-        link.save_count.should == 2
-
-      end
+    it "requires a unique url" do
+      link.save
+      link2 = Fabricate.build(:link, :url => link.url)
+      link2.should_not be_valid
     end
   end
 
-  describe "topics associations" do
-    it "accepts and creates topic associations" do
-      link_atts = Fabricate.attributes_for(:link)
-      topic1 = Fabricate(:topic)
-      topic2 = Fabricate(:topic)
-      link_atts[:topic_ids] = [topic1.id, topic2.id]
-      lambda do
-        l = Link.create(link_atts)
-      end.should change(LinkTopic, :count).by(2)
+  describe ResourceManager::LinkSaver do
+    let (:topic) {Fabricate(:topic)}
+    let (:topic2) {Fabricate(:topic)}
+    let (:link_atts) {Fabricate.attributes_for(:link)}
+
+    context "counting link saves" do
+      it "manages save counts using LinkSave objects" do
+        lambda do
+          ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+        end.should change(LinkSave, :count).by(1)
+      end
+
+      it "starts save_count at 1" do
+        link = ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+        link.save_count.should == 1
+      end
+
+      it "increments the count of an existing link when bookmarked again" do
+        link = ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+        link2 = ResourceManager::LinkSaver.create_link(link_atts, [topic2.id], 0, nil)
+        link.should == link2
+        link.save_count.should == 2
+      end
     end
 
-    it "requires at least one topic association"
+    it "adds to the topic associations when saved again" do
+      ResourceManager::LinkSaver.create_link(link_atts, [topic.id], 0, nil)
+      link = ResourceManager::LinkSaver.create_link(link_atts, [topic2.id], 0, nil)
+      link.topic_ids.should == [topic.id, topic2.id]
+    end
   end
 
   it "finds the title from the actual site if none is present" do
@@ -86,4 +68,5 @@ describe Link do
     link.title.should == "Google"
   end
 
+  it "requires at least one topic"
 end
