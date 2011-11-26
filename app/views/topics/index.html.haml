@@ -7,10 +7,7 @@
     = link_to "Recent Activity", topics_path(:sort => :recent_activity), :remote => true
   %p.right
     Filter by:
-    - if params[:filter] == 'mine'
-      = link_to "All", topics_path(:filter => :all)
-    - else
-      = link_to "Mine", topics_path(:filter => :mine)
+    = link_to "Mine", topics_path(:filter => :mine)
   %br.clr
 
 = render 'topics_list'
