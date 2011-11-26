@@ -19,7 +19,11 @@ class Topic < ActiveRecord::Base
   scope :by_recent_activity, select('distinct topics.*')
                             .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
                             .order('link_topics.created_at DESC')
-  scope :mine
+
+  scope :mine, lambda { |user_id| 
+                joins('INNER JOIN `link_topics` on `link_topics`.topic_id = `topics`.id')
+                .joins('INNER JOIN `link_saves` on `link_saves`.link_id = `link_topics`.link_id')
+                .where(['`link_saves`.user_id = ?', user_id]) }
 
 end
 

@@ -47,14 +47,17 @@ class TopicsController < ApplicationController
   def index
 
     @topics = Topic.scoped
+    
+    if params[:filter] == 'mine'
+      @topics = @topics.mine current_user_id
+    end
+
     sort_order = params[:sort]
     if sort_order == 'resource_count'
       @topics = @topics.ids_by_resource_count
       @topics = @topics.collect {|id| Topic.find id }
     elsif sort_order == 'recent_activity'
       @topics = @topics.by_recent_activity
-    elsif sort_order == 'mine'
-      @topics = @topics.mine
     end
 
     respond_to do |format|
