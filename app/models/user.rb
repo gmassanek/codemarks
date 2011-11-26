@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
   has_many :links, :through => :link_saves
   has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'user_id'
   has_many :reminders
-  has_many :topics, :through => :user_topics
-  has_many :user_topics
 
   validates_presence_of :email
 

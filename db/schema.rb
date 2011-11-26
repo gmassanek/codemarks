@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111125214514) do
+ActiveRecord::Schema.define(:version => 20111125173045) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
@@ -66,13 +66,6 @@ ActiveRecord::Schema.define(:version => 20111125214514) do
   end
 
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
-
-  create_table "user_topics", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email"
