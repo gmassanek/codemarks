@@ -20,10 +20,9 @@ module SmartLinks
     end
 
     def topics
-      matched_topics = []
-      Topic.all.each do |topic|
-        matched_topics << topic if has_topic?(topic)
-      end  
+      Topic.all.select do |topic|
+        has_topic? topic
+      end
     end
 
   end

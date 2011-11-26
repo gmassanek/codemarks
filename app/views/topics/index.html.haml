@@ -6,8 +6,9 @@
     |
     = link_to "Recent Activity", topics_path(:sort => :recent_activity), :remote => true
   %p.right
-    Filter by:
-    = link_to "Mine", topics_path(:filter => :mine)
+    - if logged_in?
+      Filter by:
+      = link_to "Mine", topics_path(:filter => :mine)
   %br.clr
 
 = render 'topics_list'

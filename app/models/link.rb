@@ -37,7 +37,8 @@ class Link < ActiveRecord::Base
 
   def possible_topics
     @http_connection = SmartLinks::MyCurl.new(url) 
-    @http_connection.topics
+    topics = @http_connection.topics
+    return topics
   end
   
 end
