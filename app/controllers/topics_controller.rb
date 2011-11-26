@@ -45,22 +45,20 @@ class TopicsController < ApplicationController
   end
 
   def index
-
+    p params
     @topics = Topic.scoped
-    sort_order = params[:sort]
-    if sort_order == 'resource_count'
-      @topics = @topics.ids_by_resource_count
-      @topics = @topics.collect {|id| Topic.find id }
-    elsif sort_order == 'recent_activity'
-      @topics = @topics.by_recent_activity
-    elsif sort_order == 'mine'
-      @topics = @topics.mine
-    end
 
     if params[:filter] == 'mine' 
       @topics = @topics.mine(current_user)
-    else
-      @topics = @topics.all
+    end
+
+    sort_order = params[:sort]
+    if sort_order == 'resource_count'
+      @topics = @topics.ids_by_resource_count
+      # I want to get this working so that you get topics no topic_ids
+      @topics = @topics.collect {|id| Topic.find id }
+    elsif sort_order == 'recent_activity'
+      @topics = @topics.by_recent_activity
     end
 
     respond_to do |format|
