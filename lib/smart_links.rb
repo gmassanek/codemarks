@@ -8,7 +8,7 @@ module SmartLinks
     
     def initialize(url)
       @url ||= url
-      @response = Nokogiri::HTML(open(url))
+      @response = html_response url
     end
     
     def title
@@ -23,6 +23,12 @@ module SmartLinks
       Topic.all.select do |topic|
         has_topic? topic
       end
+    end
+
+    private
+
+    def html_response url
+      Nokogiri::HTML(open(url))
     end
 
   end
