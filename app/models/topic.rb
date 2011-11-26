@@ -7,7 +7,6 @@ class Topic < ActiveRecord::Base
 
   has_many :link_topics
   has_many :links, :through => :link_topics
-  has_many :user_topics
   has_many :sponsored_sites, :inverse_of => :topic, :dependent => :destroy
   accepts_nested_attributes_for :sponsored_sites, :reject_if => lambda {|s| s[:url].blank? || s[:site].blank? }
 
@@ -21,10 +20,6 @@ class Topic < ActiveRecord::Base
                             .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
                             .order('link_topics.created_at DESC')
   scope :mine
-
-  def mine? user
-    !user_topics.for(user.id).empty?
-  end
 
 end
 
