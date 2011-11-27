@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111127192345) do
+ActiveRecord::Schema.define(:version => 20111127221258) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20111127192345) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public",     :default => true
+    t.boolean  "private",    :default => false
   end
 
   create_table "reminders", :force => true do |t|

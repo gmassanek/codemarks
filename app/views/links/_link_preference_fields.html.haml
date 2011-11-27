@@ -2,5 +2,5 @@
   = label_tag :reminder, "Remind me to revisit this", :class => 'right'
   = check_box_tag :reminder, :reminder, true, :class => 'right'
   %br
-  = label_tag :public, "Public", :class => 'right'
-  = check_box_tag :link, :public, !filter_by_mine?, :class => 'right'
+  = label_tag :private, "Private", :class => 'right'
+  = check_box_tag "link[private]", 1, filter_by_mine?, :class => 'right'

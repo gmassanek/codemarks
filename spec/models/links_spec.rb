@@ -70,8 +70,8 @@ describe Link do
 
   it "requires at least one topic"
 
-  it "is public by default" do
+  it "is not private by default" do
     link = Fabricate(:link)
-    link.should be_public
+    link.should_not be_private
   end
 end

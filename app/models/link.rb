@@ -13,11 +13,15 @@ class Link < ActiveRecord::Base
 
   before_validation :fetch_title 
 
-  scope :by_saves, order('save_count desc')
-  scope :clicks, select('links.id, COUNT(*) AS click_count') 
+  scope :by_click_count, select('links.*')
                       .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
                       .group('links.id')
-                      .order('click_count DESC')
+                      .order('count(clicks.id) DESC')
+
+  scope :by_save_count, select("links.*")
+                          .joins("LEFT JOIN link_saves ON link_saves.link_id = links.id")
+                          .group("link_saves.link_id")
+                          .order("count(link_saves.id) DESC")
 
 
   def save_count
