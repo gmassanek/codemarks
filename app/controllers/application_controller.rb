@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  helper_method :logged_in?, :current_user_id, :current_user, :filter_by_mine?
+
   def logged_in?
-    session[:user_id].present?
+    current_user_id.present?
   end
 
   def current_user_id
@@ -11,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     User.find current_user_id if logged_in?
+  end
+
+  def filter_by_mine?
+    session[:filter] == 'mine'
   end
 
 end

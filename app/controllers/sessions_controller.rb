@@ -16,4 +16,9 @@ class SessionsController < ApplicationController
     redirect_to root_path, :notice => "Logged out successfully"
   end
 
+  def filter
+    session[:filter] = params[:filter]
+    redirect_to :back
+  end
+
 end

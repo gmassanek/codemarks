@@ -45,10 +45,9 @@ class TopicsController < ApplicationController
   end
 
   def index
-
     @topics = Topic.scoped
     
-    if params[:filter] == 'mine'
+    if filter_by_mine?
       @topics = @topics.mine current_user_id
     end
 
