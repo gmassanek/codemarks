@@ -1,1 +1,5 @@
-$('#link_form_container').html("<%= escape_javascript(render('full_form')) %>");
+<% if params[:url] %>
+  $('#link_form_container').html("<%= escape_javascript(render('full_form')) %>");
+<% else %>
+  $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
+<% end %>

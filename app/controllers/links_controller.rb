@@ -3,6 +3,7 @@ class LinksController < ApplicationController
   require 'link_saver'
   def new
     @link = Link.new
+    p params
     if params[:url]
       @link.url = params[:url]
       @link.fetch_title

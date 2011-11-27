@@ -6,10 +6,11 @@
   = form.text_field :title
 
   %ul
-  - @possible_topics.each do |topic|
-    %li
-      = check_box_tag "topic_ids[]", topic.id
-      = topic.title
-  = form.submit
-  = check_box_tag "reminder"
-  = label_tag :reminder, "Remind me to revisit this"
+    - @possible_topics.each do |topic|
+      %li
+        = check_box_tag "topic_ids[]", topic.id
+        = topic.title
+  - if logged_in?
+    = render 'link_preference_fields', :form => form
+  .clear
+  .right= form.submit

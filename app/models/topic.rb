@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
   extend FriendlyId
 
-  #paginates_per 5
+  paginates_per 5
 
   friendly_id :title, :use => :slugged
 

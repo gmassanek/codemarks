@@ -23,7 +23,13 @@ $(function() {
     modal: true,
     width: 550,
     closeOnEscape: true,
-    title: "Add Link"
+    title: "Add Link",
+    close: function() {
+      $.ajax({
+        url: "/links/new",
+        beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+      });
+    }
   }); 
 
   $("#add_link_link").click(function(event) { 
