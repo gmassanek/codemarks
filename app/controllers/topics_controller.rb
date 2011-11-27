@@ -32,15 +32,22 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find params[:id]
-    @resources = []
+    @resources = @topic.links.scoped
+
+    if !logged_in?
+      @resources = @resources.public
+    elsif filter_by_mine?
+      @resources = @resources.mine(current_user_id)
+    else
+      @resources = @resources.public_or_mine(current_user_id)
+    end
 
     if params[:sort] == "save_count"
-      @resources = @topic.links.by_save_count
+      @resources = @resources.by_save_count
     elsif params[:sort] == "clicks"
-      @resources = @topic.links.by_click_count
-    else
-      @resources = @topic.links
+      @resources = @resources.by_click_count
     end
+
   end
 
   def index

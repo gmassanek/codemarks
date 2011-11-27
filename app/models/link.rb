@@ -13,6 +13,21 @@ class Link < ActiveRecord::Base
 
   before_validation :fetch_title 
 
+  scope :public, where(['private = ?', false])
+
+  scope :mine, lambda { |user_id| 
+                          select('DISTINCT links.*')
+                          .joins('INNER JOIN link_saves on link_saves.link_id = links.id')
+                          .where(['link_saves.user_id = ?', user_id])
+                      }
+
+  scope :public_or_mine, lambda { |user_id| 
+                            select('DISTINCT links.*')
+                            .joins('INNER JOIN link_saves on link_saves.link_id = links.id')
+                            .where(['links.private = ? OR link_saves.user_id = ?', false, user_id])
+                          }
+
+
   scope :by_click_count, select('links.*')
                       .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
                       .group('links.id')
@@ -22,7 +37,6 @@ class Link < ActiveRecord::Base
                           .joins("LEFT JOIN link_saves ON link_saves.link_id = links.id")
                           .group("link_saves.link_id")
                           .order("count(link_saves.id) DESC")
-
 
   def save_count
     link_saves.count
