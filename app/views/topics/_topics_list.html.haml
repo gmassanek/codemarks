@@ -1,2 +1,3 @@
-%ul#topics_list
+%ul
   = render @topics
+= paginate @topics, :remote => true, :window => 10, :outer_window => -1

@@ -92,6 +92,8 @@ GEM
       thor (~> 0.14)
     json (1.6.1)
     json_pure (1.6.1)
+    kaminari (0.12.4)
+      rails (>= 3.0.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     mail (2.3.0)
@@ -204,6 +206,7 @@ DEPENDENCIES
   haml-rails
   heroku
   jquery-rails
+  kaminari
   launchy
   nokogiri
   pg

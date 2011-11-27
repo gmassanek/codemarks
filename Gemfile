@@ -12,6 +12,7 @@ gem 'heroku'
 gem 'fabrication'
 gem 'ffaker'
 gem 'nokogiri'
+gem 'kaminari'
 
 group :development do
 end

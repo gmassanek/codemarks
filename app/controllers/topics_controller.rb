@@ -33,7 +33,6 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find params[:id]
     @resources = []
-    #@topic.links.each { |l| @resources << l unless l.nil? }
 
     if params[:sort] == "save_count"
       @resources = @topic.links.by_saves
@@ -53,11 +52,12 @@ class TopicsController < ApplicationController
 
     sort_order = params[:sort]
     if sort_order == 'resource_count'
-      @topics = @topics.ids_by_resource_count
-      @topics = @topics.collect {|id| Topic.find id }
+      @topics = @topics.by_resource_count
     elsif sort_order == 'recent_activity'
       @topics = @topics.by_recent_activity
     end
+
+    @topics = @topics.page params[:pg]
 
     respond_to do |format|
       format.html
