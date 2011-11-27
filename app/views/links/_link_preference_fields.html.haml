@@ -1,6 +1,6 @@
 #link_preferences
   = label_tag :reminder, "Remind me to revisit this", :class => 'right'
-  = check_box_tag "reminder", :class => 'right'
+  = check_box_tag :reminder, :reminder, true, :class => 'right'
   %br
-  = form.label :public, :class => 'right'
-  = form.check_box :public, :class => 'right'
+  = label_tag :public, "Public", :class => 'right'
+  = check_box_tag :link, :public, !filter_by_mine?, :class => 'right'
