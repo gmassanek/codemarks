@@ -11,18 +11,18 @@ class Topic < ActiveRecord::Base
   accepts_nested_attributes_for :sponsored_sites, :reject_if => lambda {|s| s[:url].blank? || s[:site].blank? }
 
   scope :ids_by_resource_count, select('topics.id, COUNT(link_topics.link_id) AS link_count') 
-                      .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
+                      .joins('LEFT JOIN `link_topics` ON `link_topics`.topic_id = topics.id')
                       .group('topics.id')
                       .order('link_count DESC')
 
 
   scope :by_recent_activity, select('distinct topics.*')
-                            .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
-                            .order('link_topics.created_at DESC')
+                            .joins('LEFT JOIN `link_topics` ON `link_topics`.topic_id = topics.id')
+                            .order('`link_topics`.created_at DESC')
 
   scope :mine, lambda { |user_id| 
-                joins('INNER JOIN `link_topics` on `link_topics`.topic_id = `topics`.id')
-                .joins('INNER JOIN `link_saves` on `link_saves`.link_id = `link_topics`.link_id')
+                joins('INNER JOIN `link_topics` mylt on `mylt`.topic_id = `topics`.id')
+                .joins('INNER JOIN `link_saves` on `link_saves`.link_id = `mylt`.link_id')
                 .where(['`link_saves`.user_id = ?', user_id]) }
 
 end

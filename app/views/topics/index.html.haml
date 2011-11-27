@@ -2,13 +2,9 @@
 .sort_links
   %p.left
     Sort by:
-    = link_to "Total Resources", topics_path(:sort => :resource_count), :remote => true
+    = link_to "Total Resources", topics_path(:sort => :resource_count)
     |
-    = link_to "Recent Activity", topics_path(:sort => :recent_activity), :remote => true
-  %p.right
-    - if logged_in?
-      Filter by:
-      = link_to "Mine", topics_path(:filter => :mine), :remote => true
+    = link_to "Recent Activity", topics_path(:sort => :recent_activity)
   %br.clr
 
 = render 'topics_list'
