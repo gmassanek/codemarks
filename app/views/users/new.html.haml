@@ -1,0 +1,13 @@
+%h3 Sign Up
+
+= form_for @user do |form|
+  = form.label :email
+  = form.email_field :email
+  %br
+  = form.label :password
+  = form.password_field :password
+  %br
+  = form.label :password_confirmation
+  = form.password_field :password_confirmation
+  %br
+  = form.submit
