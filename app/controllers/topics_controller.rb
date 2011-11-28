@@ -60,6 +60,7 @@ class TopicsController < ApplicationController
     sort_order = params[:sort]
     if sort_order == 'resource_count'
       @topics = @topics.by_resource_count
+      #@topics = @topics.order_by { |topic| topic.resource_count(current_user_id, filter_by_mine?) }
     elsif sort_order == 'recent_activity'
       @topics = @topics.by_recent_activity
     end

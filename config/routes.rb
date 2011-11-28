@@ -1,5 +1,7 @@
 Cms::Application.routes.draw do
 
+  get '/about', :to => 'pages#about', :as => :about_path
+
   root :to => 'topics#index'
 
   resources :topics
