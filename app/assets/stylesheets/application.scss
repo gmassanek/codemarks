@@ -7,7 +7,6 @@
  *= require_self
  *= require_tree . 
 */
-
 $blue: blue;
 $vitaminc: #FF9900;
 $route66: #424242;
@@ -15,8 +14,17 @@ $steadygrey: #E9E9E9;
 $BC: #BCBCBC;
 $gamebooker_blue: #3299BB;
 
-$header-height: 50px;
+$highlight-height: 350px;
+$header-height: 40px;
+$border-radius: 5px;
 
+
+.color1 { margin-left: 2px; border: 1px solid black; float: right; background: $blue; height: 20px; width: 40px; }
+.color2 { margin-left: 2px; border: 1px solid black; float: right; background: $vitaminc; height: 20px; width: 40px; }
+.color3 { margin-left: 2px; border: 1px solid black; float: right; background: $route66; height: 20px; width: 40px; }
+.color4 { margin-left: 2px; border: 1px solid black; float: right; background: $steadygrey; height: 20px; width: 40px; }
+.color5 { margin-left: 2px; border: 1px solid black; float: right; background: $BC; height: 20px; width: 40px; }
+.color6 { margin-left: 2px; border: 1px solid black; float: right; background: $gamebooker_blue; height: 20px; width: 40px; }
 
 h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
 h1 { font-size: 160%; }
@@ -30,14 +38,29 @@ body {
   /*background: url('lgrey064.jpg');*/
   background: $steadygrey;
 }
+
 .header_wrapper {
-  height: $header-height;
-  background: $vitaminc;
+  height: $highlight-height;
+  background: $gamebooker_blue;
 }
 
 #header {
-  margin-top: -$header-height;
+  margin-top: -$highlight-height;
   height: $header-height;
+}
+
+#logo {
+  display: inline;
+}
+
+#logo a {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+#logo a:hover {
+  text-decoration: underline;
 }
 
 #authentication {
@@ -93,4 +116,27 @@ input {
 
 #link_preferences {
   float: right;
+}
+
+.rounded_button {
+  display: block;
+  width: 150px;
+  height: 30px;
+  margin: 3px auto 0px;
+  -webkit-border-radius: 5px;
+  border-radius: $border-radius;
+  background: -webkit-linear-gradient(top, lighten($vitaminc, 10%), darken($vitaminc, 10%));
+  -webkit-box-shadow: inset 0 1px 0 #006699,inset 0 -1px 0 #006699;
+  /* box-shadow: inset 0 0px 0 $route66,inset 0 -1px 0 $route66, inset -1px 0 $route66,inset 0px 0 $route66; */
+  box-shadow: 0 0 5px $route66;
+  color: $route66;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.rounded_button:hover {
+  background: -webkit-linear-gradient(top, $vitaminc, darken($vitaminc, 15%));
 }

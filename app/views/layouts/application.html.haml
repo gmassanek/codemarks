@@ -9,12 +9,19 @@
     .header_wrapper
     #container
       #header
-        = link_to "Hello Resource Manager", root_path
+        #logo= link_to "Hello Resource Manager", root_path
         = render '/layouts/authentication'
+        .color1 bl
+        .color2 vc
+        .color3 66
+        .color4 gr
+        .color5 bc
+        .color6 gb
         .clr
         = render '/layouts/mine'
-        = link_to "Add Link", new_link_path, :id => 'add_link_link'
-      = render '/layouts/flash', :flash => flash
-      #link_form_container
-        = render '/links/first_form'
-      = yield
+        = link_to "Add Link", new_link_path, :id => 'add_link_link', :class => 'rounded_button'
+      #content
+        = render '/layouts/flash', :flash => flash
+        #link_form_container
+          = render '/links/first_form'
+        = yield
