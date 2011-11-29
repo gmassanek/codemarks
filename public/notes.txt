@@ -1,0 +1,34 @@
+pages:
+
+  about
+    link to add resource
+    quick explanation of intent
+    sign in/up links
+  home/topic index
+    link to add resource
+    paged topics sliced by filter/sorts
+  topic show
+    link to add resource
+    paged resources sliced by filter/sorts
+  resource show
+    link to add resource
+    list of all topics for given resource (list of tags)
+  link form (need to get it to work offline)
+    url
+    suggested topics
+    adhoc topics
+    reminder indicator
+    private indicator (always default off)
+  user account page
+    link to add resource
+    reminders
+    password/info resets?
+
+filters: (cookie setting for filter_by to use on all child relations?)
+  public (anonymous)
+  mine (logged in and filter set)
+  both (loggen in, filter not set)
+
+sorts:
+  popularity
+  recently active

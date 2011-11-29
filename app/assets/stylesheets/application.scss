@@ -8,16 +8,27 @@
  *= require_tree . 
 */
 
+/*** VARIABLES ***/
 $blue: blue;
 $vitaminc: #FF9900;
 $route66: #424242;
-$steadygrey: #E9E9E9;
+$grey: #E9E9E9;
 $BC: #BCBCBC;
-$gamebooker_blue: #3299BB;
+$blue: #3299BB;
 
-$header-height: 50px;
+$header-height: 30px;
+$header-extra: 20px;
+$border-radius: 5px;
 
+/*** DEV STUFF ***/
+.color1 { margin-left: 2px; border: 1px solid black; float: left; background: $blue; height: 20px; width: 40px; }
+.color2 { margin-left: 2px; border: 1px solid black; float: left; background: $vitaminc; height: 20px; width: 40px; }
+.color3 { margin-left: 2px; border: 1px solid black; float: left; background: $route66; height: 20px; width: 40px; }
+.color4 { margin-left: 2px; border: 1px solid black; float: left; background: $grey; height: 20px; width: 40px; }
+.color5 { margin-left: 2px; border: 1px solid black; float: left; background: $BC; height: 20px; width: 40px; }
+.color6 { margin-left: 2px; border: 1px solid black; float: left; background: $blue; height: 20px; width: 40px; }
 
+/*** SITE WIDE  ***/
 h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
 h1 { font-size: 160%; }
 h2 { font-size: 150%; }
@@ -27,34 +38,8 @@ h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
 body {
-  /*background: url('lgrey064.jpg');*/
-  background: $steadygrey;
-}
-.header_wrapper {
-  height: $header-height;
-  background: $vitaminc;
-}
-
-#header {
-  margin-top: -$header-height;
-  height: $header-height;
-}
-
-#authentication {
-  float: right;
-}
-
-#filter {
-  float: right;
-}
-
-#add_link_link {
-  float: left
-}
-
-input {
-  padding: 8px;
-  font-size: large;
+  background: -webkit-linear-gradient(top, $blue, darken($blue, 10%));
+  font: 16px/19px "Lucinda Grande";
 }
 
 #container {
@@ -62,13 +47,103 @@ input {
   margin: 0 auto;
 }
 
+#content {
+  border-radius: $border-radius;
+  background: #F4F4F4;
+  padding: 5px 10px;
+}
+
+/*** HEADER  ***/
+.header_wrapper {
+  height: $header-height + $header-extra;
+}
+
+#header {
+  padding: 10px 0px;
+  margin-top: -($header-height + $header-extra);
+  height: $header-height;
+}
+
+#logo {
+  display: inline;
+  a {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+#authentication {
+  float: right;
+
+  ul {
+
+    li {
+      float: left;
+      text-decoration: none;
+      color: white;
+      padding: 5px;
+
+      a {
+        text-decoration: none;
+        color: white;
+        padding: 5px;
+        border: 1px solid transparent;
+        border-radius: $border-radius;
+
+        &:hover, &:focus {
+          text-decoration: none;
+          background: -webkit-linear-gradient(top, darken($blue, 3%), darken($blue, 10%));
+          border: 1px solid darken($blue, 15%);
+        }
+      }
+    }
+  }
+}
+
+#highlights {
+  margin-bottom: 10px;
+
+  #add_link_link {
+    float: right;
+    padding: 5px 10px;
+    border-radius: $border-radius;
+    border: 1px solid darken($vitaminc, 15%);
+    background: -webkit-linear-gradient(top, $vitaminc, darken($vitaminc, 10%));
+    text-decoration: none;
+    color: lighten($grey, 10%);
+    box-shadow: 0px 0px 5px darken($grey, 10%);
+
+    &:hover {
+      background: -webkit-linear-gradient(top, darken($vitaminc, 5%), darken($vitaminc, 15%));
+      color: white;
+    }
+  }
+}
+
+#filter {
+  float: right;
+}
+
+input {
+  padding: 8px;
+  font-size: large;
+}
+
+
 .flash {
   padding: 12px;
+  margin-bottom: 5px;
 }
 
 .notice {
-  background: lighten($gamebooker_blue, 30%);
-  border: 2px solid darken($gamebooker_blue, 10%);
+  background: lighten($blue, 30%);
+  border: 2px solid darken($blue, 10%);
 }
 
 .right {

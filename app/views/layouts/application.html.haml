@@ -6,15 +6,26 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    - if ENV['RAILS_ENV'] == 'development'
+      .color1 bl
+      .color2 vc
+      .color3 66
+      .color4 gr
+      .color5 bc
+      .color6 bl
     .header_wrapper
     #container
       #header
-        = link_to "Hello Resource Manager", root_path
+        #logo= link_to "Resource Manager", root_path
         = render '/layouts/authentication'
-        .clr
+        .clear
+      #highlights
+        = link_to "Add a Link", new_link_path, :id => 'add_link_link'
         = render '/layouts/mine'
-        = link_to "Add Link", new_link_path, :id => 'add_link_link'
+        #link_form_container
+          = render '/links/first_form'
+        .clear
       = render '/layouts/flash', :flash => flash
-      #link_form_container
-        = render '/links/first_form'
-      = yield
+      #content
+        = yield
+        .clear
