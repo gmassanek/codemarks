@@ -1,9 +1,9 @@
 #authentication
   - if logged_in?
-    = link_to 'Sign Out', sign_out_path, :method => :delete
-    |
-    = link_to 'Account', user_path(current_user)
+    %ul
+      %li= link_to 'Sign Out', sign_out_path, :method => :delete
+      %li= link_to 'Account', user_path(current_user)
   - else
-    = link_to 'Sign In', sign_in_path
-    |
-    = link_to 'Sign Up', new_user_path
+    %ul
+      %li= link_to 'Sign Up', new_user_path
+      %li= link_to 'Already a member? Sign In', sign_in_path

@@ -16,7 +16,7 @@ function prepareResourceLink(myEvent) {
 
 $(function() {
 
-  $(".flash").delay(1500).slideUp(1000);
+  $(".flash").delay(2500).slideUp(1000);
 
   $("#link_form_container").dialog({
     autoOpen: false,

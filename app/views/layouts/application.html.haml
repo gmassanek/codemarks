@@ -6,6 +6,13 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    - if ENV['RAILS_ENV'] == 'development'
+      .color1 bl
+      .color2 vc
+      .color3 66
+      .color4 gr
+      .color5 bc
+      .color6 bl
     .header_wrapper
     #container
       #header

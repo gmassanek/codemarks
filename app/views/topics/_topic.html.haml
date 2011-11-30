@@ -4,6 +4,5 @@
       = link_to topic.title, topic
       = pluralize(topic.resource_count(current_user_id, filter_by_mine?), "resource")
     .right= link_to "Edit", edit_topic_path(topic)
-    %br.clr
-    %br.clr
+    .clear
     %p= topic.description
