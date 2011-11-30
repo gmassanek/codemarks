@@ -25,8 +25,10 @@
         .color5 bc
         .color6 gb
         .clr
-        = render '/layouts/mine'
+      #highlights
         = link_to "Add Link", new_link_path, :id => 'add_link_link', :class => 'rounded_button'
+        = render '/layouts/mine'
+        .clear
       #content
         = render '/layouts/flash', :flash => flash
         #link_form_container
