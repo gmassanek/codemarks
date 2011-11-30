@@ -13,17 +13,12 @@
       .color4 gr
       .color5 bc
       .color6 bl
+      .clear
     .header_wrapper
     #container
       #header
         #logo= link_to "Hello Resource Manager", root_path
         = render '/layouts/authentication'
-        .color1 bl
-        .color2 vc
-        .color3 66
-        .color4 gr
-        .color5 bc
-        .color6 gb
         .clr
       #highlights
         = link_to "Add Link", new_link_path, :id => 'add_link_link', :class => 'rounded_button'
@@ -34,3 +29,4 @@
         #link_form_container
           = render '/links/first_form'
         = yield
+        .clear
