@@ -36,8 +36,9 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
-body {
-  background: -webkit-linear-gradient(top, $blue, darken($blue, 10%));
+html {
+  height: 100%;
+  background: -webkit-linear-gradient(top, $blue, darken($blue, 20%));
   font: 16px/19px "Lucinda Grande";
 }
 

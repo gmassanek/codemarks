@@ -16,4 +16,15 @@ describe User do
     end
   end
 
+  context "user topics" do
+
+    let(:user) { Fabricate(:active_user) }
+
+    it "finds all topics associated to a user" do
+      topic = Fabricate(:topic)
+      user.topics.count.should == Topic.count - 1
+    end
+
+  end
+
 end

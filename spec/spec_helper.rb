@@ -10,6 +10,8 @@ TEST_BROKEN = 'false'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::Matchers::MatchArray)
+
 RSpec.configure do |config|
 
   unless TEST_BROKEN == 'true'

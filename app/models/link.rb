@@ -2,9 +2,10 @@ class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
+  has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id'
+  has_many :users, :through => :link_saves
   has_many :clicks
   has_many :reminders
-  has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id'
   belongs_to :user
 
   validates_presence_of :url, :title
@@ -14,12 +15,8 @@ class Link < ActiveRecord::Base
   before_validation :fetch_title 
 
   scope :public, where(['private = ?', false])
-
-  scope :mine, lambda { |user_id| 
-                          select('DISTINCT links.*')
-                          .joins('INNER JOIN link_saves on link_saves.link_id = links.id')
-                          .where(['link_saves.user_id = ?', user_id])
-                      }
+  scope :topics, joins(:link_topics).joins(:topics).select("topics.*")
+  scope :for_topic, lambda { |topic| joins(:link_topics).where(["link_topics.topic_id = ?", topic]) }
 
   scope :public_or_mine, lambda { |user_id| 
                             select('DISTINCT links.*')
@@ -37,6 +34,11 @@ class Link < ActiveRecord::Base
                           .joins("LEFT JOIN link_saves ON link_saves.link_id = links.id")
                           .group("link_saves.link_id")
                           .order("count(link_saves.id) DESC")
+
+  def self.topics(links)
+    link_topics = LinkTopic.for_links(links)
+    Topic.for_link_topics(link_topics)
+  end
 
   def save_count
     link_saves.count
@@ -58,5 +60,6 @@ class Link < ActiveRecord::Base
     topics = @http_connection.topics
     return topics
   end
+
   
 end

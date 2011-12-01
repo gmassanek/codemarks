@@ -5,4 +5,5 @@ class LinkTopic < ActiveRecord::Base
 
   validates_presence_of :link, :topic
 
+  scope :for_links, lambda { |links| where(['link_id in (?)', links]) }
 end

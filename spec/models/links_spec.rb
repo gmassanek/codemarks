@@ -74,4 +74,28 @@ describe Link do
     link = Fabricate(:link)
     link.should_not be_private
   end
+
+  describe "has all sorts of scopes" do
+    before do
+      @lt = Fabricate(:link_topic)
+      @lt2 = Fabricate(:link_topic)
+      @plt = Fabricate(:private_link_topic)
+    end
+    
+    it "find all public Links" do
+      Link.public.should == [@lt.link, @lt2.link]
+    end
+
+    it "returns a list of distinct topics for a group of links" do
+      links = 3.times { Fabricate(:link) }
+      Link.topics(Link.scoped).should == Topic.all
+    end
+
+    it "filters down by topic" do
+      link_topic = Fabricate(:link_topic, :topic => @lt.topic)
+      Link.for_topic(@lt.topic).should == [@lt.link, link_topic.link]
+    end
+
+
+  end
 end
