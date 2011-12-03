@@ -10,7 +10,6 @@ CSV_DIR = "db/seed_data/"
 end
 
 #Topics
-raise ENV['RAILS_ENV'].inspect
 file_name = "rubeco_topics_12-2.csv"
 path_to_file = CSV_DIR + file_name
 
