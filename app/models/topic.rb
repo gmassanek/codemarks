@@ -19,14 +19,14 @@ class Topic < ActiveRecord::Base
                 .joins('INNER JOIN link_saves on link_saves.link_id = mylt.link_id')
                 .where(['link_saves.user_id = ?', user_id]) }
 
-  scope :by_resource_count, select("topics.*")
-                          .joins("LEFT JOIN link_topics ON link_topics.topic_id = topics.id")
-                          .group("link_topics.topic_id")
-                          .order("count(link_topics.id) DESC")
-
-  scope :by_recent_activity, select('DISTINCT topics.*')
-                            .joins('LEFT JOIN link_topics ON link_topics.topic_id = topics.id')
+  scope :by_recent_activity, select('topics.*, link_topics.created_at')
+                            .joins(:link_topics)
                             .order('link_topics.created_at DESC')
+
+  scope :by_resource_count, select("topics.id, topics.title, topics.description, topics.slug, count(link_topics.id) as count")
+                        .joins(:link_topics)
+                        .group("topics.id, topics.title, topics.description, topics.slug")
+                        .order("count DESC")
 
   def resource_count current_user, filter_by_mine
     if current_user.nil?
@@ -50,6 +50,10 @@ class Topic < ActiveRecord::Base
   def self.for_user(user)
     user.topics
   end
+
+#  def self.by_recent_activity
+   # self. LinkTopic.most_recent_by_topics
+  #end
 
 end
 
