@@ -95,7 +95,5 @@ describe Link do
       link_topic = Fabricate(:link_topic, :topic => @lt.topic)
       Link.for_topic(@lt.topic).should == [@lt.link, link_topic.link]
     end
-
-
   end
 end

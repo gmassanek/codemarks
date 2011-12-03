@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
   extend FriendlyId
 
-  paginates_per 5
+  paginates_per 15
   friendly_id :title, :use => :slugged
 
   has_many :link_topics
@@ -32,7 +32,7 @@ class Topic < ActiveRecord::Base
     if current_user.nil?
       self.links.all_public.count
     elsif filter_by_mine
-      self.links.public_and_for_user(current_user).count
+      self.links.for_user(current_user).count
     else
       self.links.public_and_for_user(current_user).count
     end

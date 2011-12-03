@@ -1,25 +1,46 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+require 'smart_links'
+require 'link_saver'
 
-Link.destroy_all
-LinkTopic.destroy_all
-Topic.destroy_all
+CSV_DIR = "db/seed_data/"
 
-["Rspec", "Github", "Cucumber", "Capybara", "Git", "JQuery", "Ruby", "Ruby on Rails"].each do |title|
-  Fabricate(:topic_with_sponsored_links, :title => title)
+#users
+["system@example.com", "test@example.com", "test2@example.com", "test3@example.com"].each do |email|
+  Fabricate(:user, :email => email, :password => "password") unless User.find_by_email(email)
 end
+
+#Topics
+raise ENV['RAILS_ENV'].inspect
+file_name = "rubeco_topics_12-2.csv"
+path_to_file = CSV_DIR + file_name
+
+CSV.foreach(path_to_file, {:headers => true}) do |row|
+  title = row[1]
+  unless Link.find_by_title title
+    description = row[2]
+    Topic.create(title: title, description: description)
+  end
+end
+
+#Links
+file_name = "rubeco_links_12-2.csv"
+path_to_file = CSV_DIR + file_name
+
+CSV.foreach(path_to_file, {:headers => true}) do |row|
+  url = row[1]
+  unless Link.find_by_url(url)
+    link = Link.new(url: url)
+    curler = SmartLinks::MyCurl.new(url)
+    sysuser = User.find_by_email "system.example.com"
+
+    ResourceManager::LinkSaver.create_link({url: url}, curler.topics.collect(&:id), nil, sysuser)
+  end
+end
+
+
 puts "#{Topic.count} topics created"
-
-User.destroy_all
-Fabricate(:user, :email => "test@example.com", :password => "password")
-Fabricate(:user, :email => "test3@example.com", :password => "password")
-Fabricate(:user, :email => "test4example.com", :password => "password")
-
-puts "#{User.count} users created"
 puts "#{Link.count} links created"
-puts "#{Topic.count} topics created"
+puts "#{LinkTopic.count} link topics created"
+puts "#{LinkSave.count} link saves created"
+puts "#{User.count} users created"
+

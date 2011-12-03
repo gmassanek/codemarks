@@ -12,7 +12,7 @@ module SmartLinks
     end
     
     def title
-      response.title
+      response.title if response
     end
 
     def has_topic?(topic)

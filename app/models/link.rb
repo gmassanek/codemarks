@@ -2,7 +2,7 @@ class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
-  has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id'
+  has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id', :dependent => :destroy
   has_many :users, :through => :link_saves
   has_many :clicks
   has_many :reminders
