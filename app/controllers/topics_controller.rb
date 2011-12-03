@@ -35,11 +35,11 @@ class TopicsController < ApplicationController
     @resources = @topic.links.scoped
 
     if !logged_in?
-      @resources = @resources.public
+      @resources = @resources.all_public
     elsif filter_by_mine?
-      @resources = @resources.mine(current_user_id)
+      @resources = @resources.for_user(current_user)
     else
-      @resources = @resources.public_or_mine(current_user_id)
+      @resources = @resources.public_and_for_user(current_user)
     end
 
     if params[:sort] == "save_count"

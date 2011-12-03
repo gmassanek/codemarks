@@ -14,15 +14,17 @@ class Link < ActiveRecord::Base
 
   before_validation :fetch_title 
 
-  scope :public, where(['private = ?', false])
+  scope :all_public, where(['private = ?', false])
+  scope :public_and_for_user, lambda { |user| 
+    joins(:link_saves)
+    .where(['link_saves.user_id = ? OR private = ?', user, false]) 
+    .uniq
+  }
+
+  scope :for_user, lambda { |user| joins(:link_saves).where(['link_saves.user_id = ?', user]) }
+
   scope :topics, joins(:link_topics).joins(:topics).select("topics.*")
   scope :for_topic, lambda { |topic| joins(:link_topics).where(["link_topics.topic_id = ?", topic]) }
-
-  scope :public_or_mine, lambda { |user_id| 
-                            select('DISTINCT links.*')
-                            .joins('INNER JOIN link_saves on link_saves.link_id = links.id')
-                            .where(['links.private = ? OR link_saves.user_id = ?', false, user_id])
-                          }
 
 
   scope :by_click_count, select('links.*')
@@ -35,6 +37,7 @@ class Link < ActiveRecord::Base
                           .group("link_saves.link_id")
                           .order("count(link_saves.id) DESC")
 
+  
   def self.topics(links)
     link_topics = LinkTopic.for_links(links)
     Topic.for_link_topics(link_topics)

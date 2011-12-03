@@ -30,11 +30,11 @@ class Topic < ActiveRecord::Base
 
   def resource_count current_user, filter_by_mine
     if current_user.nil?
-      self.links.public.count
+      self.links.all_public.count
     elsif filter_by_mine
-      current_user.links.count
+      self.links.public_and_for_user(current_user).count
     else
-      self.links.public_or_mine(current_user_id).count
+      self.links.public_and_for_user(current_user).count
     end
   end
 

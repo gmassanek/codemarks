@@ -17,4 +17,9 @@ puts "#{Topic.count} topics created"
 
 User.destroy_all
 Fabricate(:user, :email => "test@example.com", :password => "password")
+Fabricate(:user, :email => "test3@example.com", :password => "password")
+Fabricate(:user, :email => "test4example.com", :password => "password")
+
 puts "#{User.count} users created"
+puts "#{Link.count} links created"
+puts "#{Topic.count} topics created"
