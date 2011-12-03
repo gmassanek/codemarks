@@ -29,11 +29,15 @@ CSV.foreach(path_to_file, {:headers => true}) do |row|
   url = row[1]
   unless Link.find_by_url(url)
     puts "Saving #{url}"
-    link = Link.new(url: url)
-    curler = SmartLinks::MyCurl.new(url)
-    sysuser = User.find_by_email "system.example.com"
+    begin
+      link = Link.new(url: url)
+      curler = SmartLinks::MyCurl.new(url)
+      sysuser = User.find_by_email "system.example.com"
 
-    ResourceManager::LinkSaver.create_link({url: url}, curler.topics.collect(&:id), nil, sysuser)
+      ResourceManager::LinkSaver.create_link({url: url}, curler.topics.collect(&:id), nil, sysuser)
+    rescue
+      "Could not save #{url}"
+    end
   end
 end
 
