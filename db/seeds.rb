@@ -28,6 +28,7 @@ path_to_file = CSV_DIR + file_name
 CSV.foreach(path_to_file, {:headers => true}) do |row|
   url = row[1]
   unless Link.find_by_url(url)
+    puts "Saving #{url}"
     link = Link.new(url: url)
     curler = SmartLinks::MyCurl.new(url)
     sysuser = User.find_by_email "system.example.com"
