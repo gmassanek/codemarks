@@ -32,7 +32,7 @@ $(function() {
     }
   }); 
 
-  $("#add_link_link").click(function(event) { 
+  $("#new_link_link").click(function(event) { 
     $("#link_form_container").dialog('open') 
     event.preventDefault(); 
   }); 

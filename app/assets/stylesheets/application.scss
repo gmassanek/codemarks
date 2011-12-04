@@ -21,11 +21,13 @@ $c3: #d4fffd;
 $c4: #db9655;
 $c5: #de6a00;
 $c6: white;
+$border-color1: lighten($c2, 15%);
 
 $header-height: 30px;
 $header-extra: 60px;
 $header-box: 2px;
 $border-radius: 5px;
+$border-radius-tight: 3px;
 
 /*** DEV STUFF ***/
 .color1 { margin-left: 2px; border: 1px solid black; float: left; background: $c1; height: 20px; width: 40px; }
@@ -67,8 +69,11 @@ html {
 
 #content {
   border-radius: $border-radius;
-  background: #F4F4F4;
-  padding: 5px 10px;
+  background: $c6;
+  margin-top: 10px;
+  padding: 10px 20px 0;
+  background: url('background-white.png') 0 0 no-repeat;
+  background-size: 100%;
 }
 
 /*** HEADER  ***/
@@ -76,7 +81,7 @@ html {
   height: $header-height + $header-extra;
   background: $c6;
   padding-bottom: 1px;
-  border-bottom: 1px solid $c1;
+  border-bottom: 1px solid $c5;
 }
 
 .header_coloring {
@@ -88,6 +93,7 @@ html {
 #header {
   margin-top: -($header-height + $header-extra + $header-box);
   height: $header-height;
+  font-size: 12px;
 }
 
 #logo {
@@ -106,58 +112,115 @@ html {
 
 #authentication {
   float: right;
-  padding: 2px 5px;
-  font-size: 12px;
   font-weight: bold;
   background: -webkit-linear-gradient(lighten($c2, 50%), lighten($c2, 35%));
   border-bottom-right-radius: $border-radius;
   border-bottom-left-radius: $border-radius;
   border-top: 0;
-  box-shadow: 0 1px 1px lighten($c2, 15%);
-
+  box-shadow: 0 1px 1px $border-color1;
+  padding: 9px 5px;
   ul {
 
     li {
       float: left;
       text-decoration: none;
       color: $c1;
-      padding: 5px;
-
+      padding: 0 8px;
+      border-right: 1px solid $border-color1;
+      border-left: 1px solid $c6;
       a {
         text-shadow: $c6 1px 0px 0;
       }
+    }
+
+    li.left {
+      border-left: none;
+    }
+
+    li.right {
+      border-right: none;
     }
   }
 }
 
 #highlights {
-  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 12px;
 
-  #add_link_link {
+  .site_search {
     float: right;
-    padding: 5px 10px;
-    border-radius: $border-radius;
-    border: 1px solid darken($vitaminc, 15%);
-    background: -webkit-linear-gradient(top, $vitaminc, darken($vitaminc, 10%));
-    text-decoration: none;
-    color: lighten($grey, 10%);
-    box-shadow: 0px 0px 5px darken($grey, 10%);
 
-    &:hover {
-      background: -webkit-linear-gradient(top, darken($vitaminc, 5%), darken($vitaminc, 15%));
-      color: white;
+    input {
+      padding: 3px;
+      border: 1px solid $border-color1;
+      border-radius: $border-radius-tight;
+    }
+  }
+
+  ul {
+    float: right;
+    margin: 7px 0;
+
+    li {
+      float: left;
+      padding: 0 5px;
+      border-right: 1px solid $border-color1;
+      border-left: 1px solid $c6;
+
+      a {
+        color: $c5;
+        font-weight: bold;
+        text-shadow: $c6 1px 0px 0;
+
+        &:hover {
+          color: lighten($c5, 15%);
+        }
+      }
+    }
+
+    li.left {
+      border-left: none;
+    }
+
+    li.right {
+      border-right: none;
+    }
+
+  }
+
+  .resource_links {
+    margin: 5px 8px 0 0 ;
+    float: right;
+
+    a {
+      color: $c5;
+      font-weight: bold;
+      text-shadow: $c6 1px 0px 0;
+
+      &:hover {
+        color: lighten($c5, 15%);
+      }
+    }
+  }
+
+  .filter {
+    margin: 5px 8px 0 0;
+    float: right;
+
+    a {
+      color: $c5;
+      font-weight: bold;
+      text-shadow: $c6 1px 0px 0;
+
+      &:hover {
+        color: lighten($c5, 15%);
+      }
     }
   }
 }
 
-#filter {
-  float: right;
-}
 
-input {
-  padding: 8px;
-  font-size: large;
-}
+
 
 
 .flash {
