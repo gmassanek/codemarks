@@ -6,18 +6,11 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    - if ENV['RAILS_ENV'] == 'development'
-      .color1 bl
-      .color2 vc
-      .color3 66
-      .color4 gr
-      .color5 bc
-      .color6 bl
-      .clear
     .header_wrapper
+      .header_coloring
     #container
       #header
-        #logo= link_to "Hello Resource Manager", root_path
+        #logo= link_to "Resource Manager", root_path
         = render '/layouts/authentication'
         .clr
       #highlights
@@ -30,3 +23,11 @@
           = render '/links/first_form'
         = yield
         .clear
+    - if ENV['RAILS_ENV'] == 'development'
+      .color1 c1
+      .color2 c2
+      .color3 c3
+      .color4 c4
+      .color5 c5
+      .color6 c6
+      .clear

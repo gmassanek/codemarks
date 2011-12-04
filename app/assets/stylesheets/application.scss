@@ -15,17 +15,25 @@ $grey: #E9E9E9;
 $BC: #BCBCBC;
 $blue: #3299BB;
 
+$c1: #203e42;
+$c2: #7e9899;
+$c3: #d4fffd;
+$c4: #db9655;
+$c5: #de6a00;
+$c6: white;
+
 $header-height: 30px;
-$header-extra: 20px;
+$header-extra: 60px;
+$header-box: 2px;
 $border-radius: 5px;
 
 /*** DEV STUFF ***/
-.color1 { margin-left: 2px; border: 1px solid black; float: left; background: $blue; height: 20px; width: 40px; }
-.color2 { margin-left: 2px; border: 1px solid black; float: left; background: $vitaminc; height: 20px; width: 40px; }
-.color3 { margin-left: 2px; border: 1px solid black; float: left; background: $route66; height: 20px; width: 40px; }
-.color4 { margin-left: 2px; border: 1px solid black; float: left; background: $grey; height: 20px; width: 40px; }
-.color5 { margin-left: 2px; border: 1px solid black; float: left; background: $BC; height: 20px; width: 40px; }
-.color6 { margin-left: 2px; border: 1px solid black; float: left; background: $blue; height: 20px; width: 40px; }
+.color1 { margin-left: 2px; border: 1px solid black; float: left; background: $c1; height: 20px; width: 40px; }
+.color2 { margin-left: 2px; border: 1px solid black; float: left; background: $c2; height: 20px; width: 40px; }
+.color3 { margin-left: 2px; border: 1px solid black; float: left; background: $c3; height: 20px; width: 40px; }
+.color4 { margin-left: 2px; border: 1px solid black; float: left; background: $c4; height: 20px; width: 40px; }
+.color5 { margin-left: 2px; border: 1px solid black; float: left; background: $c5; height: 20px; width: 40px; }
+.color6 { margin-left: 2px; border: 1px solid black; float: left; background: $c6; height: 20px; width: 40px; }
 
 /*** SITE WIDE  ***/
 h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
@@ -36,10 +44,20 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
+a {
+  color: darken($c2, 10%);
+  text-decoration: none;
+
+  &:hover {
+    color: $c5;
+    text-decoration: none;
+  }
+}
+
 html {
   height: 100%;
-  background: -webkit-linear-gradient(top, $blue, darken($blue, 20%));
-  font: 16px/19px "Lucinda Grande";
+  font: 16px/19px helvetica, arial, freesans, clean, sans-serif;
+
 }
 
 #container {
@@ -56,51 +74,57 @@ html {
 /*** HEADER  ***/
 .header_wrapper {
   height: $header-height + $header-extra;
+  background: $c6;
+  padding-bottom: 1px;
+  border-bottom: 1px solid $c1;
+}
+
+.header_coloring {
+  height: $header-height + $header-extra;
+  $top: lighten($c2, 50%);
+  background: -webkit-linear-gradient(top, $top, darken($top, 10%));
 }
 
 #header {
-  padding: 10px 0px;
-  margin-top: -($header-height + $header-extra);
+  margin-top: -($header-height + $header-extra + $header-box);
   height: $header-height;
 }
 
 #logo {
   display: inline;
   a {
-    color: white;
+    color: $c1;
     font-size: 28px;
     font-weight: bold;
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      color: $c5;
     }
   }
 }
 
 #authentication {
   float: right;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  background: -webkit-linear-gradient(lighten($c2, 50%), lighten($c2, 35%));
+  border-bottom-right-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+  border-top: 0;
+  box-shadow: 0 1px 1px lighten($c2, 15%);
 
   ul {
 
     li {
       float: left;
       text-decoration: none;
-      color: white;
+      color: $c1;
       padding: 5px;
 
       a {
-        text-decoration: none;
-        color: white;
-        padding: 5px;
-        border: 1px solid transparent;
-        border-radius: $border-radius;
-
-        &:hover, &:focus {
-          text-decoration: none;
-          background: -webkit-linear-gradient(top, darken($blue, 3%), darken($blue, 10%));
-          border: 1px solid darken($blue, 15%);
-        }
+        text-shadow: $c6 1px 0px 0;
       }
     }
   }
