@@ -1,6 +1,8 @@
 #authentication
   - if logged_in?
     %ul.piped
+      - gimg = gravatar_image_tag(current_user.email, :gravatar => { :size => 20 })
+      %li.first.last.image= link_to gimg, current_user
       %li.first= link_to 'My Account', user_path(current_user)
       %li.last= link_to 'Log Out', sign_out_path, :method => :delete
   - else

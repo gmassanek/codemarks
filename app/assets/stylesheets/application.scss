@@ -159,7 +159,7 @@ ul.piped {
   border-bottom-left-radius: $border-radius;
   border-top: 0;
   box-shadow: 0 1px 1px $border-color1;
-  padding: 9px 5px;
+  padding: 9px 5px 3px 5px;
   ul {
 
     li {
@@ -167,8 +167,18 @@ ul.piped {
       text-decoration: none;
       color: $c1;
       padding: 0 8px;
+      margin-top: 4px;
       a {
         text-shadow: $c6 1px 0px 0;
+      }
+
+      &.image {
+        //12px total inline
+        padding: 0px;
+        margin-top: -1px;
+        img {
+          border: 1px solid $c6;
+        }
       }
     }
 
