@@ -1,3 +1,10 @@
+GIT
+  remote: https://gmassanek@github.com/gmassanek/rails3-jquery-autocomplete.git
+  revision: 0ba7fbcd6c8e9ebc3be88f03b5b8003fad0f9248
+  specs:
+    rails3-jquery-autocomplete (1.0.5)
+      rails (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -212,6 +219,7 @@ DEPENDENCIES
   pg
   pickle
   rails (= 3.1.1)
+  rails3-jquery-autocomplete!
   rspec-rails
   sass-rails (~> 3.1.0)
   sqlite3

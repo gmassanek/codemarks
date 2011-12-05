@@ -19,4 +19,6 @@ class ApplicationController < ActionController::Base
     session[:filter] == 'mine'
   end
 
+
+
 end

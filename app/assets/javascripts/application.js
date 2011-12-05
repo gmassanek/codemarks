@@ -7,7 +7,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui-1.8.16.custom.min.js
+//= require autocomplete-rails
 //= require_tree .
+
+var TOPICS_PATH = '/topics/'
 
 function prepareResourceLink(myEvent) {
   $(myEvent.target).parent().parent().find("form").submit();
@@ -42,6 +45,10 @@ $(function() {
 
   style_lists();
 
+  $('#topic_autocomplete').bind('railsAutocomplete.select', function(event){
+    var redirect = $("#topic_slug").val()
+    window.location = TOPICS_PATH + redirect;
+  });
 
 });
 
