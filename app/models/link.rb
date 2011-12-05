@@ -63,4 +63,8 @@ class Link < ActiveRecord::Base
     self.save
   end
 
+  def most_popular_topics(n)
+    topics.by_popularity.limit(n)
+  end
+
 end

@@ -5,10 +5,11 @@
   .admin_links Added #{time_ago_in_words(link.created_at)} ago
   .clear
   %ul.topics_list.piped
-    - link.topics.each_with_index do |topic, i|
+    - topics = link.most_popular_topics(5)
+    - topics.each_with_index do |topic, i|
       - classes = []
       - classes << 'first' if i == 0
-      - classes << 'last' if i == link.topics.size-1
+      - classes << 'last' if i == topics.size-1
       %li{:class => classes.join(" ")}
         = link_to topic.title, topic
   = render '/links/click_form', :link_id => link.id

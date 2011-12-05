@@ -42,10 +42,11 @@ class TopicsController < ApplicationController
       @resources = @resources.public_and_for_user(current_user)
     end
 
-    if params[:sort] == "popularity"
-      @resources = @resources.by_popularity
-    elsif params[:sort] == "recent_activity"
+    if params[:sort] == "recent_activity"
       @resources = @resources.by_create_date
+    else
+      params[:sort] = 'popularity'
+      @resources = @resources.by_popularity
     end
 
     @resources = @resources.page params[:pg]
