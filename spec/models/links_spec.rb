@@ -105,11 +105,11 @@ describe Link do
       Link.by_create_date.first.should == Link.last
     end
 
-    it "returns most popular for a given topic" do
-      2.times { Fabricate(:link_save, :link => @lt.link) }
-      Fabricate(:link_topic, :topic => @lt.topic)
-      Link.most_popular_for(@lt.topic).first.should == @lt.link
-    end
+    #it "returns most popular for a given topic" do
+    #  2.times { Fabricate(:link_save, :link => @lt.link) }
+    #  Fabricate(:link_topic, :topic => @lt.topic)
+    #  Link.most_popular_for(@lt.topic).first.should == @lt.link
+    #end
 
   end
 

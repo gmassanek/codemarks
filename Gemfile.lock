@@ -1,7 +1,6 @@
 GIT
   remote: https://gmassanek@github.com/gmassanek/rails3-jquery-autocomplete.git
-  revision: 43da5baa8b5149cb684ffd9a3a764862f1beca0f
-  branch: autofocus
+  revision: 409e33d8ebd98bcaff564a3754bda1c596063dca
   specs:
     rails3-jquery-autocomplete (1.0.5)
       rails (~> 3.0)

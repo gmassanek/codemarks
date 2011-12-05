@@ -57,19 +57,22 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.scoped
-    
-    if filter_by_mine?
-      @topics = @topics.mine current_user_id
+    if !logged_in?
+      @topics = Topic.all_public
+    elsif filter_by_mine?
+      @topics = Topic.for_user(current_user)
+    else
+      @topics = Topic.public_and_for_user(current_user)
     end
 
     sort_order = params[:sort]
     if sort_order == 'resource_count'
       @topics = @topics.by_resource_count
-    elsif sort_order == 'popular'
-      @topics = @topics.by_popularity
     elsif sort_order == 'recent_activity'
       @topics = @topics.by_recent_activity
+    else 
+      params[:sort] = 'popular'
+      @topics = @topics.by_popularity
     end
 
     @topics = @topics.page params[:pg]

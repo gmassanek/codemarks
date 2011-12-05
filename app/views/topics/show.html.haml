@@ -1,12 +1,11 @@
 #topic_details
   %p.title= link_to @topic.title, @topic, :class => "title"
   %ul.data.piped
-    %li.first.last= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
-  .admin_links
-    = link_to "Edit", edit_topic_path(@topic)
-    =# link_to "Delete", @topic, :method => :delete
-  .clear
+    %li.first= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
+    %li.last= link_to "Edit", edit_topic_path(@topic)
+    /li=# link_to "Delete", @topic, :method => :delete
   = render 'sponsored_sites'
+  .clear
   %p.description= @topic.description
   .clear
 

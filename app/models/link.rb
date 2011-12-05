@@ -22,7 +22,10 @@ class Link < ActiveRecord::Base
     .where(['link_saves.user_id = ? OR private = ?', user, false]) 
   }
 
-  scope :for_user, lambda { |user| joins(:link_saves).where(['link_saves.user_id = ?', user]) }
+  scope :for_user, lambda { |user| 
+    joins(:link_saves)
+    .where(['link_saves.user_id = ?', user]) 
+  }
   scope :for_topic, lambda { |topic| joins(:link_topics).where(["link_topics.topic_id = ?", topic]) }
   scope :topics, joins(:link_topics).joins(:topics).select("topics.*")
 

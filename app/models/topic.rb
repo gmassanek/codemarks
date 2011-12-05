@@ -14,25 +14,32 @@ class Topic < ActiveRecord::Base
 
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
 
-  scope :mine, lambda { |user_id| 
-                joins('INNER JOIN link_topics mylt on mylt.topic_id = topics.id')
-                .joins('INNER JOIN link_saves on link_saves.link_id = mylt.link_id')
-                .where(['link_saves.user_id = ?', user_id]) }
+  scope :by_recent_activity, select('topics.*, max("link_topics".created_at) as most_recent_date')
+                            .joins(:link_topics)
+                            .group('"topics".id')
+                            .order('most_recent_date DESC')
 
-  scope :by_recent_activity, select('topics.*, lt.created_at')
-                            .joins("LEFT JOIN (select created_at, topic_id from link_topics group by topic_id order by created_at DESC LIMIT 1) lt on lt.topic_id = topics.id")
-                            .order('lt.created_at DESC')
-
-  scope :by_popularity, select("topics.*, max(links.popularity) as count")
-                            .joins(:link_topics) 
-                            .joins(:links) 
+  scope :by_resource_count, select("topics.*, count(link_topics.id) as count")
+                            .joins(:link_topics)
                             .group("topics.id")
-                            .order('count DESC')
+                            .order("count DESC")
 
-  scope :by_resource_count, select("topics.id, topics.title, topics.description, topics.slug, count(link_topics.id) as count")
-                        .joins(:link_topics)
-                        .group("topics.id, topics.title, topics.description, topics.slug")
-                        .order("count DESC")
+  scope :join_links, joins('LEFT JOIN "link_topics" "my_link_topics" ON "my_link_topics".topic_id = "topics".id')
+                    .joins('LEFT JOIN "links" "my_links" ON "my_links".id = "my_link_topics".link_id')
+  scope :join_link_saves, joins('LEFT JOIN "link_saves" "my_link_saves" ON "my_link_saves".link_id = "my_links".id')
+
+  scope :private, where(["my_links.private = ?", true])
+  scope :where_public, where(["my_links.private = ?", false])
+
+  scope :private_or_for_user, lambda { |user|
+    where(['("my_link_saves".user_id = ? AND "my_links".private = ?) OR "my_links".private = ?', user.id, true, false])
+  }
+
+  scope :group_by_topic, group('"topics".id')  
+
+  def self.by_popularity
+    select('"topics".*, max("my_links".popularity) as count').join_links.group_by_topic.order("count DESC")
+  end
 
   def resource_count current_user, filter_by_mine
     if current_user.nil?
@@ -46,20 +53,15 @@ class Topic < ActiveRecord::Base
 
 
   def self.all_public
-    Link.topics(Link.all_public)
+    join_links.where_public.group_by_topic
   end
 
   def self.public_and_for_user(user)
-    user.topics | Topic.all_public
+    user.public_and_my_topics
   end
 
   def self.for_user(user)
     user.topics
   end
-
-#  def self.by_recent_activity
-   # self. LinkTopic.most_recent_by_topics
-  #end
-
 end
 
