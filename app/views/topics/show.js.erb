@@ -1,4 +1,4 @@
-$('#resources_list').html("<%= escape_javascript(render(@resources)) %>");
+$('#resources_list').replaceWith("<%= escape_javascript(render('/links/links')) %>");
 $("#list_box h3").replaceWith("<%= escape_javascript(render 'resources_list_header')  %>");
 style_lists();
 $(".resource_link").click(function() {

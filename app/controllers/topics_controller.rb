@@ -48,6 +48,8 @@ class TopicsController < ApplicationController
       @resources = @resources.by_create_date
     end
 
+    @resources = @resources.page params[:pg]
+
     respond_to do |format|
       format.html
       format.js
