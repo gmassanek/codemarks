@@ -6,4 +6,4 @@
       %li.first= link_to "Only Mine", filter_session_path(:filter => :mine), :method => :post
     %li= link_to "Add Topic", new_topic_path
 
-  %li{:class => "last #{logged_in? ? '' : 'left'}"}= link_to "Add Link", new_link_path, :id => "new_link_link"
+  %li{:class => "last #{logged_in? ? '' : 'first'}"}= link_to "Add Link", new_link_path, :id => "new_link_link"

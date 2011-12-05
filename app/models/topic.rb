@@ -19,9 +19,15 @@ class Topic < ActiveRecord::Base
                 .joins('INNER JOIN link_saves on link_saves.link_id = mylt.link_id')
                 .where(['link_saves.user_id = ?', user_id]) }
 
-  scope :by_recent_activity, select('topics.*, link_topics.created_at')
-                            .joins(:link_topics)
-                            .order('link_topics.created_at DESC')
+  scope :by_recent_activity, select('topics.*, lt.created_at')
+                            .joins("LEFT JOIN (select created_at, topic_id from link_topics group by topic_id order by created_at DESC LIMIT 1) lt on lt.topic_id = topics.id")
+                            .order('lt.created_at DESC')
+
+  scope :by_popularity, select("topics.*, max(links.popularity) as count")
+                            .joins(:link_topics) 
+                            .joins(:links) 
+                            .group("topics.id")
+                            .order('count DESC')
 
   scope :by_resource_count, select("topics.id, topics.title, topics.description, topics.slug, count(link_topics.id) as count")
                         .joins(:link_topics)
