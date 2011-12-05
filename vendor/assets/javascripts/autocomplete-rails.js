@@ -22,9 +22,11 @@ $(document).ready(function(){
 {
   var self = null;
   jQuery.fn.railsAutocomplete = function() {
-    if (!this.railsAutoCompleter) {
-      this.railsAutoCompleter = new jQuery.railsAutocomplete(this);
-    }
+    //return this.live('focus',function() {
+      if (!this.railsAutoCompleter) {
+        this.railsAutoCompleter = new jQuery.railsAutocomplete(this);
+      }
+    //});
   };
 
   jQuery.railsAutocomplete = function (e) {
@@ -48,7 +50,7 @@ $(document).ready(function(){
       }
 	  var append_to = $(e).attr('append_to');
       $(e).autocomplete({
-		autoFocus: $(e).attr('autofocus') || false,
+		autoFocus: $(e).attr('auto_focus') || false,
 		disabled: $(e).attr('disabled') || false,
 		delay: ($(e).attr('delay') || 300),
 		appendTo: append_to || "body",

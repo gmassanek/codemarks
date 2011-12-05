@@ -1,6 +1,7 @@
 GIT
   remote: https://gmassanek@github.com/gmassanek/rails3-jquery-autocomplete.git
-  revision: 0ba7fbcd6c8e9ebc3be88f03b5b8003fad0f9248
+  revision: 43da5baa8b5149cb684ffd9a3a764862f1beca0f
+  branch: autofocus
   specs:
     rails3-jquery-autocomplete (1.0.5)
       rails (~> 3.0)
@@ -97,7 +98,7 @@ GEM
     jquery-rails (1.0.17)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.6.1)
+    json (1.6.3)
     json_pure (1.6.1)
     kaminari (0.12.4)
       rails (>= 3.0.0)
@@ -108,7 +109,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
-    multi_json (1.0.3)
+    multi_json (1.0.4)
     nokogiri (1.5.0)
     pg (0.11.0)
     pickle (0.4.10)
