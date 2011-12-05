@@ -1,15 +1,15 @@
-.left
-  = link_to "Edit", edit_topic_path(@topic)
-  |
-  = link_to "Delete", topic_path(@topic), :method => :delete, :confirm => "You sure?"
-.clear
-%h1.left= @topic.title
-- unless @topic.sponsored_sites.empty?
-  %ul.right.sponsored_sites
-    = render @topic.sponsored_sites
-.clear
-%p= @topic.description
-%br
+#topic_details
+  %p.title= link_to @topic.title, @topic, :class => "title"
+  %ul.data.piped
+    %li.first.last= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
+  .admin_links
+    = link_to "Edit", edit_topic_path(@topic)
+    =# link_to "Delete", @topic, :method => :delete
+  .clear
+  = render 'sponsored_sites'
+  %p.description= @topic.description
+  .clear
+
 #list_box
   = render 'resources_list_header'
   = render '/links/links'

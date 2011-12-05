@@ -58,65 +58,91 @@ $border-radius-tight: 3px;
       }
     }
   }
+}
 
-  ul#topics_list {
+#topics_list>li {
+  padding: 5px;
+  border-bottom: 1px solid $border-color1;
 
-    li {
-      padding: 5px;
-      border-bottom: 1px solid $border-color1;
+  &.alternate {
+    background: #fcfcfc;
+  }
 
-      &.alternate {
-        background: #fcfcfc;
-      }
+  p {
+    font-weight: normal;
+    float: left;
 
-      p {
-        font-weight: normal;
-        float: left;
-
-        &.title {
-          font-size: 14px;
-          a {
-            color: $c1;
-            font-size: 14px;
-            font-weight: bold;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-
-        &.description {
-          font-size: 13px;
-          padding: 5px 0;
-        }
-      }
-      
-      .admin_links, ul.data {
-        float: left;
-        margin-top: 2px;
-        font-size: 11px;
+    &.title {
+      font-size: 14px;
+      a {
+        color: $c1;
+        font-size: 14px;
         font-weight: bold;
-        color: #999;
 
-        li {
-          float: left;
-          background: none;
-          padding: 0 5px;
-          color: darken($c2, 10%);
-          border-bottom: none;
-
-          &.right {
-            padding-right: 0px;
-          }
+        &:hover {
+          text-decoration: underline;
         }
-      }
-
-      .admin_links {
-        float: right;
       }
     }
 
+    &.description {
+      font-size: 13px;
+      padding: 5px 0;
+    }
   }
 }
 
+.admin_links, ul.data {
+  float: left;
+  margin-top: 7px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #999;
+
+  li {
+    float: left;
+    background: none;
+    color: darken($c2, 10%);
+    border-bottom: none;
+    padding: 0 5px;
+
+    &.right {
+      padding-right: 0px;
+    }
+  }
+
+}
+
+.admin_links {
+  float: right;
+}
+
+#topic_details {
+  p {
+    font-weight: normal;
+    float: left;
+
+    &.title {
+      a {
+        color: $c1;
+        font-size: 18px;
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &.description {
+      font-size: 13px;
+      padding: 5px 0;
+      float: left;
+    }
+  }
+}
+
+.sponsored_sites {
+  margin-top: 10px;
+  float: left;
+}
