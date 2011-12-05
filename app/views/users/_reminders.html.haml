@@ -1,0 +1,4 @@
+%ul#resources_list
+  - @reminders.each do |reminder|
+    = render 'reminder', :reminder => reminder
+  =# paginate @resources, :remote => true, :window => 10, :outer_window => -1

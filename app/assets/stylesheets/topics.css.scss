@@ -73,10 +73,10 @@ $border-radius-tight: 3px;
     float: left;
 
     &.title {
+      color: $c1;
+      font-size: 16px;
+      font-weight: bold;
       a {
-        color: $c1;
-        font-size: 16px;
-        font-weight: bold;
 
         &:hover {
           text-decoration: underline;
@@ -116,17 +116,16 @@ $border-radius-tight: 3px;
   float: right;
 }
 
-#topic_details {
+#page_details {
   p {
     font-weight: normal;
     float: left;
 
     &.title {
+      color: $c1;
+      font-size: 16px;
+      font-weight: bold;
       a {
-        color: $c1;
-        font-size: 16px;
-        font-weight: bold;
-
         &:hover {
           text-decoration: underline;
         }

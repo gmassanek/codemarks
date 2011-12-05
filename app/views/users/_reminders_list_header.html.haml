@@ -1,0 +1,12 @@
+%h3
+  .page_title Reminders
+  %ul.sort_links.piped
+    %li.first= link_to "Popularity", url_for(:only_path => true, :filter => params[:filter], :sort => :popularity), :remote => true, :class => (params[:sort] == 'popularity' ? 'on ' : '')
+    %li= link_to "Date set", url_for(:only_path => true, :filter => params[:filter], :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
+    - if params[:filter] == 'all'
+      %li.last= link_to "Include Closed", url_for(:only_path => true, :sort => params[:sort], :filter => ''), :remote => true, :class => "on"
+    - else
+      %li.last= link_to "Include Closed", url_for(:only_path => true, :sort => params[:sort], :filter => :all), :remote => true
+
+  .clear
+

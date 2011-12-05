@@ -1,12 +1,8 @@
-%h3 Hello #{@user.email}
-
-%h3 Open Reminders
-%ul
-  - @user.reminders.unfinished.each do |reminder|
-    %li
-      = render 'links/link', :link => reminder.link
-%h3 Closed Reminders
-%ul
-  - @user.reminders.finished.each do |reminder|
-    %li
-      = render 'links/link', :link => reminder.link
+#page_details
+  %p.title= @user.email
+  %ul.data.piped
+    %li.first.last= pluralize(@reminders.count, "reminders")
+  .clear
+#list_box
+  = render 'reminders_list_header', :title => "Outstanding Reminders"
+  = render 'reminders'

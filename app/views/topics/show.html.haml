@@ -1,4 +1,4 @@
-#topic_details
+#page_details
   %p.title= link_to @topic.title, @topic, :class => "title"
   %ul.data.piped
     %li.first= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
@@ -10,5 +10,5 @@
   .clear
 
 #list_box
-  = render 'resources_list_header'
+  = render 'resources_list_header', :title => "Resources"
   = render '/links/links'
