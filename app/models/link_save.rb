@@ -5,4 +5,9 @@ class LinkSave < ActiveRecord::Base
 
   validates_presence_of :link
 
+  after_save :calculate_link_popularity 
+
+  def calculate_link_popularity 
+    link.update_priority
+  end
 end

@@ -10,8 +10,7 @@
 //= require_tree .
 
 function prepareResourceLink(myEvent) {
-    $(myEvent.target).parent().parent().find("form").submit();
-    //myEvent.preventDefault();
+  $(myEvent.target).parent().parent().find("form").submit();
 }
 
 $(function() {

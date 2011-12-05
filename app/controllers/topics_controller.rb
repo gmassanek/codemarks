@@ -42,10 +42,10 @@ class TopicsController < ApplicationController
       @resources = @resources.public_and_for_user(current_user)
     end
 
-    if params[:sort] == "save_count"
-      @resources = @resources.by_save_count
-    elsif params[:sort] == "clicks"
-      @resources = @resources.by_click_count
+    if params[:sort] == "popularity"
+      @resources = @resources.by_popularity
+    elsif params[:sort] == "recent_activity"
+      @resources = @resources.by_create_date
     end
 
     respond_to do |format|

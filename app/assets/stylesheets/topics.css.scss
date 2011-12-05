@@ -41,6 +41,7 @@ $border-radius-tight: 3px;
 
         &.on {
           border-radius: 40px;
+          color: $c5;
 
           background-color: lighten($c2, 45%);
           border: 1px solid #BCBCBC;
@@ -52,7 +53,7 @@ $border-radius-tight: 3px;
         color: lighten($c5, 15%);
       }
 
-      &.right {
+      &.last {
         padding-right: 0;
       }
     }

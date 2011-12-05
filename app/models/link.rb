@@ -23,20 +23,21 @@ class Link < ActiveRecord::Base
 
   scope :for_user, lambda { |user| joins(:link_saves).where(['link_saves.user_id = ?', user]) }
 
+  scope :by_popularity, order('popularity DESC')
+  scope :by_create_date, order('created_at DESC')
   scope :topics, joins(:link_topics).joins(:topics).select("topics.*")
   scope :for_topic, lambda { |topic| joins(:link_topics).where(["link_topics.topic_id = ?", topic]) }
 
 
   scope :by_click_count, select('links.*')
-                      .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
-                      .group('links.id')
-                      .order('count(clicks.id) DESC')
+                          .joins('LEFT JOIN clicks ON clicks.link_id = links.id')
+                          .group('links.id')
+                          .order('count(clicks.id) DESC')
 
   scope :by_save_count, select("links.*")
                           .joins("LEFT JOIN link_saves ON link_saves.link_id = links.id")
                           .group("link_saves.link_id")
                           .order("count(link_saves.id) DESC")
-
   
   def self.topics(links)
     link_topics = LinkTopic.for_links(links)
@@ -64,5 +65,9 @@ class Link < ActiveRecord::Base
     return topics
   end
 
-  
+  def update_priority
+    self.popularity = clicks.count + link_saves.count
+    self.save
+  end
+
 end

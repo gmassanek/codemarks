@@ -95,5 +95,28 @@ describe Link do
       link_topic = Fabricate(:link_topic, :topic => @lt.topic)
       Link.for_topic(@lt.topic).should == [@lt.link, link_topic.link]
     end
+
+    it "sorts by popularity" do
+      2.times { Fabricate(:link_save, :link => @lt2.link) }
+      Link.by_popularity.first.should == @lt2.link
+    end
+
+    it "sorts by by_create_date" do
+      Link.by_create_date.first.should == Link.last
+    end
+
+  end
+
+  describe "popularity" do
+    it "increases with a link save" do
+      lt = Fabricate(:link_topic)
+      Fabricate(:link_save, :link => lt.link)
+      Link.last.popularity.should == 1
+    end
+    it "increases with a link click" do
+      lt = Fabricate(:link_topic)
+      Fabricate(:click, :link => lt.link)
+      Link.last.popularity.should == 1
+    end
   end
 end

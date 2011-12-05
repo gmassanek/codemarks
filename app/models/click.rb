@@ -6,6 +6,11 @@ class Click < ActiveRecord::Base
   validates_presence_of :link
 
   before_create :update_reminder
+  after_save :calculate_link_popularity 
+
+  def calculate_link_popularity 
+    link.update_priority
+  end
 
   def update_reminder
     return if self.user.nil?

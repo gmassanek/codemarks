@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
-
   require 'link_saver'
+
   def new
     @link = Link.new
     p params
@@ -31,6 +31,7 @@ class LinksController < ApplicationController
   def click
     @link = Link.find(params[:link][:id])
     Click.create(:link => @link, :user => current_user)
+    raise "click created"
     respond_to do |format|
       format.js
     end
