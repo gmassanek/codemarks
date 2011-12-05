@@ -21,11 +21,12 @@ $c3: #d4fffd;
 $c4: #db9655;
 $c5: #de6a00;
 $c6: white;
-$border-color1: lighten($c2, 15%);
+$border-color1: lighten($c2, 20%);
+$border-color2: #dfdfdf;
 
 $header-height: 30px;
 $header-extra: 60px;
-$header-box: 2px;
+$header-box: 4px;
 $border-radius: 5px;
 $border-radius-tight: 3px;
 
@@ -46,6 +47,20 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
+h3 {
+  /*background: -webkit-linear-gradient(lighten($c2, 40%), lighten($c2, 25%));*/
+  background: white url("background-v2.png") 0 -4px repeat-x;
+  background-size: 100% 115%;
+  padding: 8px;
+  border-bottom: 1px solid $border-color1;
+
+  .page_title {
+    float: left;
+  }
+
+}
+
+
 a {
   color: darken($c2, 10%);
   text-decoration: none;
@@ -58,8 +73,12 @@ a {
 
 html {
   height: 100%;
-  font: 16px/19px helvetica, arial, freesans, clean, sans-serif;
+  font: 12px/16px helvetica, arial, freesans, clean, sans-serif;
+  color: $c1;
+}
 
+body {
+  background: white url('background-v2.png') 0 0 repeat-x;
 }
 
 #container {
@@ -79,15 +98,16 @@ html {
 /*** HEADER  ***/
 .header_wrapper {
   height: $header-height + $header-extra;
-  background: $c6;
+  /*background: $c6;*/
   padding-bottom: 1px;
-  border-bottom: 1px solid $c5;
+  /* border-bottom: 1px solid #d4d4d4 */
 }
 
 .header_coloring {
   height: $header-height + $header-extra;
-  $top: lighten($c2, 50%);
-  background: -webkit-linear-gradient(top, $top, darken($top, 10%));
+  $top: lighten($c2, 60%);
+  /*background: -webkit-linear-gradient(top, $top, darken($top, 10%));*/
+  /* background-color: #f5f5f5; */
 }
 
 #header {
@@ -97,17 +117,38 @@ html {
 }
 
 #logo {
-  display: inline;
+  float: left;
+  margin-top: 20px;
   a {
     color: $c1;
     font-size: 28px;
     font-weight: bold;
     text-decoration: none;
+    text-shadow: $c6 1px 0px 0;
+    -webkit-transition: all 0.25s ease-in-out;
 
     &:hover {
       color: $c5;
     }
+
   }
+}
+
+ul.piped {
+
+  li {
+    border-right: 1px solid $border-color1;
+    border-left: 1px solid $c6;
+
+    &.first {
+      border-left: none;
+    }
+
+    &.last {
+      border-right: none;
+    }
+  }
+
 }
 
 #authentication {
@@ -126,23 +167,15 @@ html {
       text-decoration: none;
       color: $c1;
       padding: 0 8px;
-      border-right: 1px solid $border-color1;
-      border-left: 1px solid $c6;
       a {
         text-shadow: $c6 1px 0px 0;
       }
     }
 
-    li.left {
-      border-left: none;
-    }
-
-    li.right {
-      border-right: none;
-    }
   }
 }
 
+/* search bar, filters, etc */
 #highlights {
   margin-top: 10px;
   font-size: 12px;
@@ -164,58 +197,30 @@ html {
     li {
       float: left;
       padding: 0 5px;
-      border-right: 1px solid $border-color1;
-      border-left: 1px solid $c6;
 
       a {
         color: $c5;
         font-weight: bold;
         text-shadow: $c6 1px 0px 0;
+        padding: 3px 8px;
+        border: 1px solid transparent;
 
         &:hover {
           color: lighten($c5, 15%);
         }
+        
+        &.on {
+          margin: 0 0 0 10px;
+          border-radius: 40px;
+
+          background-color: lighten($c2, 45%);
+          border: 1px solid #BCBCBC;
+          box-shadow: inset 1px 1px 1px rgba(0,0,0,0.05);
+
+        }
       }
     }
 
-    li.left {
-      border-left: none;
-    }
-
-    li.right {
-      border-right: none;
-    }
-
-  }
-
-  .resource_links {
-    margin: 5px 8px 0 0 ;
-    float: right;
-
-    a {
-      color: $c5;
-      font-weight: bold;
-      text-shadow: $c6 1px 0px 0;
-
-      &:hover {
-        color: lighten($c5, 15%);
-      }
-    }
-  }
-
-  .filter {
-    margin: 5px 8px 0 0;
-    float: right;
-
-    a {
-      color: $c5;
-      font-weight: bold;
-      text-shadow: $c6 1px 0px 0;
-
-      &:hover {
-        color: lighten($c5, 15%);
-      }
-    }
   }
 }
 
@@ -233,14 +238,6 @@ html {
   border: 2px solid darken($blue, 10%);
 }
 
-.right {
-  float: right;
-}
-
-.left {
-  float: left;
-}
-
 .clear {
   clear: both;
 }
@@ -250,9 +247,5 @@ html {
 }
 
 .pagination {
-  float: right;
-}
-
-#link_preferences {
   float: right;
 }

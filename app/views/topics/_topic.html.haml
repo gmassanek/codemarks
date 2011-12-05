@@ -1,8 +1,11 @@
 %li
-  .topic_element
-    %h6.left
-      = link_to topic.title, topic
-      = pluralize(topic.resource_count(current_user, filter_by_mine?), "resource")
-    .right= link_to "Edit", edit_topic_path(topic)
-    .clear
-    %p= topic.description
+  %p.title= link_to topic.title, topic, :class => "title"
+  %ul.data.piped
+    %li.first.last= pluralize(topic.resource_count(current_user, filter_by_mine?), "link")
+    /li.last=# last updated #{time_ago_in_words(topic.updated_at)} ago
+  .admin_links
+    = link_to "Edit", edit_topic_path(topic)
+    =# link_to "Delete", topic, :method => :delete
+  .clear
+  %p.description= topic.description
+  .clear

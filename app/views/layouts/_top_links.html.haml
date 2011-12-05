@@ -1,13 +1,9 @@
-%ul
+%ul.piped
   - if logged_in?
     - if filter_by_mine?
-      %li.left
-        Filter:
-        = link_to "All", filter_session_path(:filter => :all), :method => :post
+      %li.first= link_to "Only Mine", filter_session_path(:filter => :all), :class => :on, :method => :post
     - else
-      %li.left
-        Filter:
-        = link_to "Mine", filter_session_path(:filter => :mine), :method => :post
+      %li.first= link_to "Only Mine", filter_session_path(:filter => :mine), :method => :post
     %li= link_to "Add Topic", new_topic_path
 
-  %li{:class => "right #{logged_in? ? '' : 'left'}"}= link_to "Add Link", new_link_path, :id => "new_link_link"
+  %li{:class => "last #{logged_in? ? '' : 'left'}"}= link_to "Add Link", new_link_path, :id => "new_link_link"

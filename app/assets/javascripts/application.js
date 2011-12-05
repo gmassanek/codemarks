@@ -41,5 +41,12 @@ $(function() {
     prepareResourceLink(event);
   });
 
+  style_topics_list();
+
+
 });
+
+function style_topics_list() {
+  $('#topics_list li:nth-child(even)').addClass('alternate');
+}
 

@@ -1,0 +1,8 @@
+%h3
+  .page_title Topics
+  %ul.sort_links.piped
+    = puts params[:sort].inspect
+    %li.first= link_to "Total Resources", topics_path(:sort => :resource_count), :remote => true, :class => (params[:sort] == 'resource_count' ? 'on ' : '')
+    %li= link_to "Popular", topics_path(:sort => :popular), :remote => true, :class => (params[:sort] == 'popular' ? 'on ' : '')
+    %li.last= link_to "Recent Activity", topics_path(:sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
+  .clear
