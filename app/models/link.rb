@@ -1,4 +1,5 @@
 class Link < ActiveRecord::Base
+  paginates_per 15
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
@@ -15,10 +16,10 @@ class Link < ActiveRecord::Base
   before_validation :fetch_title 
 
   scope :all_public, where(['private = ?', false])
+  scope :private, where(['private = ?', true])
   scope :public_and_for_user, lambda { |user| 
     joins(:link_saves)
     .where(['link_saves.user_id = ? OR private = ?', user, false]) 
-    .uniq
   }
 
   scope :for_user, lambda { |user| joins(:link_saves).where(['link_saves.user_id = ?', user]) }

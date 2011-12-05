@@ -2,6 +2,6 @@
   .page_title Resources
   %ul.sort_links.piped
     %li.first= link_to "Popularity", url_for(:only_path => true, :sort => :popularity), :remote => true, :class => (params[:sort] == 'popularity' ? 'on ' : '')
-    %li.last= link_to "Recent Activity", url_for(:only_path => true, :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
+    %li.last= link_to "Date added", url_for(:only_path => true, :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
   .clear
 

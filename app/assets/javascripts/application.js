@@ -46,6 +46,6 @@ $(function() {
 });
 
 function style_lists() {
-  $('#list_box>li:nth-child(even)').addClass('alternate');
+  $('#list_box li:nth-child(even)').addClass('alternate');
 }
 

@@ -2,7 +2,7 @@
   %p.title= link_to link.title, link.url, :target => :blank, :class => "resource_link", :id => "#{dom_id(link)}"
   %ul.data
     %li= render '/links/reminder', :link => link
-  .admin_links Saved #{time_ago_in_words(link.created_at)} ago
+  .admin_links Added #{time_ago_in_words(link.created_at)} ago
   .clear
   %ul.topics_list.piped
     - link.topics.each_with_index do |topic, i|

@@ -83,7 +83,7 @@ describe Link do
     end
     
     it "find all public Links" do
-      Link.public.should == [@lt.link, @lt2.link]
+      Link.all_public.should == [@lt.link, @lt2.link]
     end
 
     it "returns a list of distinct topics for a group of links" do

@@ -40,7 +40,7 @@ class Topic < ActiveRecord::Base
 
 
   def self.all_public
-    Link.topics(Link.public)
+    Link.topics(Link.all_public)
   end
 
   def self.public_and_for_user(user)
