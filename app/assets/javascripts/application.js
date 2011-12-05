@@ -41,12 +41,12 @@ $(function() {
     prepareResourceLink(event);
   });
 
-  style_topics_list();
+  style_lists();
 
 
 });
 
-function style_topics_list() {
-  $('#topics_list li:nth-child(even)').addClass('alternate');
+function style_lists() {
+  $('#list_box>li:nth-child(even)').addClass('alternate');
 }
 

@@ -10,11 +10,6 @@
 .clear
 %p= @topic.description
 %br
-%h3.left Resources
-.right
-  = link_to "Clicks", topic_path(@topic, :sort => "clicks"), :remote => true
-  = link_to "Saves", topic_path(@topic, :sort => "save_count"), :remote => true
-.clear
-%ul#resource_list
-  - @resources.each do |resource|
-    = render resource, :locals => {:right_text => "Posted #{time_ago_in_words(resource.created_at)}"}
+#list_box
+  = render 'resources_list_header'
+  = render '/links/links'

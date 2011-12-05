@@ -48,6 +48,10 @@ class TopicsController < ApplicationController
       @resources = @resources.by_click_count
     end
 
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def index

@@ -1,0 +1,3 @@
+%ul#resources_list
+  - @resources.each do |resource|
+    = render resource, :locals => {:right_text => "Posted #{time_ago_in_words(resource.created_at)}"}

@@ -1,0 +1,7 @@
+%h3
+  .page_title Resources
+  %ul.sort_links.piped
+    %li.first= link_to "Popular", url_for(:only_path => true, :sort => :popular), :remote => true, :class => (params[:sort] == 'popular' ? 'on ' : '')
+    %li.last= link_to "Recent Activity", url_for(:only_path => true, :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
+  .clear
+

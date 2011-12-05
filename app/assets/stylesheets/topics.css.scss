@@ -20,7 +20,7 @@ $header-box: 2px;
 $border-radius: 5px;
 $border-radius-tight: 3px;
 
-#topics {
+#list_box {
   margin-top: 10px;
   border-radius: $border-radius-tight;
   border: 1px solid $border-color1;
@@ -62,7 +62,6 @@ $border-radius-tight: 3px;
 
     li {
       padding: 5px;
-      $top: lighten($c2, 42%);
       border-bottom: 1px solid $border-color1;
 
       &.alternate {

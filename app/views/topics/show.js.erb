@@ -1,2 +1,3 @@
-$('#resource_list').html("<%= escape_javascript(render(@resources)) %>");
-
+$('#resources_list').html("<%= escape_javascript(render(@resources)) %>");
+$("#list_box h3").replaceWith("<%= escape_javascript(render 'resources_list_header')  %>");
+style_lists();
