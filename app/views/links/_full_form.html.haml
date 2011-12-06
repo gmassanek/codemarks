@@ -4,13 +4,13 @@
   %br
   = form.label :title
   = form.text_field :title
-
-  %ul
-    - @possible_topics.each do |topic|
-      %li
-        = check_box_tag "topic_ids[]", topic.id
-        = topic.title
+  = render '/layouts/search', :id => 'link_search_autocomplete'
+  %ul.half_left
+    - @pos_topics1.each do |topic|
+      = render 'topic_checkbox_item', :topic => topic
+  %ul.half_right
+    - @pos_topics2.each do |topic|
+      = render 'topic_checkbox_item', :topic => topic
+  = form.submit
   - if logged_in?
     = render 'link_preference_fields', :form => form
-  .clear
-  .right= form.submit

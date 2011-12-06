@@ -1,3 +1,3 @@
 .site_search
   = text_field_tag :topic_slug, '', :type => :hidden
-  = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => "Search...", :"data-update-elements" =>'{"slug":"#topic_slug"}'
+  = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => "Search...", :"data-update-elements" =>'{"slug":"#topic_slug"}', :id => id

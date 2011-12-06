@@ -115,7 +115,7 @@ ul#resources_list {
       float: left;
     }
 
-    #fetch {
+    input[type=submit]{
       float: right;
       font-size: 14px;
       color: #ffffff;
@@ -156,5 +156,15 @@ ul#resources_list {
         }
     }
 
+  }
+}
+
+#link_preferences {
+  float: right;
+  margin-top: 10px;
+
+  li {
+    float: left;
+    padding: 0 10px;
   }
 }

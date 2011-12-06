@@ -7,7 +7,9 @@ class LinksController < ApplicationController
     if params[:url]
       @link.url = params[:url]
       if @link.fetch_title
-        @possible_topics = @link.possible_topics
+        @pos_topics = @link.possible_topics
+        half = @pos_topics.size/2
+        @pos_topics1, @pos_topics2 = @pos_topics[0, half], @pos_topics.drop(half)
       end
     end
     respond_to do |format|
@@ -36,6 +38,14 @@ class LinksController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def topic_checkbox
+    @topic = Topic.find params[:topic_id]
+    respond_to do |format|
+      format.js
+    end
+
   end
 
 end

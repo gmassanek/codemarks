@@ -50,6 +50,26 @@ $(function() {
     window.location = TOPICS_PATH + redirect;
   });
 
+  $('#link_search_autocomplete').bind('railsAutocomplete.select', function(event){
+    var topic_id = $("#topic_slug").val()
+    alert(topic_id);
+    //$.get("/links/topic_checkbox.js", { topic_id: topic_id} );
+    //$.get({
+    //  url: "/links/topic_checkbox",
+    //  data: { topic_id: topic_id},
+    //  beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+    //});
+    $.ajax({
+      url: "/links/topic_checkbox",
+      data: { topic_id: topic_id},
+      beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+    });
+    
+    //send topic_id to server
+    //have the server give me the partial for a checkbox item for that topic
+    //i'm going inject that partial into list below`
+  });
+
 });
 
 function style_lists() {

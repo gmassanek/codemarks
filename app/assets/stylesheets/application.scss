@@ -216,6 +216,7 @@ ul.piped {
       padding: 3px;
       border: 1px solid $border-color1;
       border-radius: $border-radius-tight;
+      width: 150px;
     }
   }
 
@@ -280,3 +281,12 @@ ul.piped {
   border: 2px red solid;
 }
 
+.half_left {
+  width: 50%;
+  float: left;
+}
+
+.half_right {
+  width: 50%;
+  float: right;
+}

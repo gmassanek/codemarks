@@ -15,12 +15,12 @@ gem 'nokogiri'
 gem 'kaminari'
 gem 'rails3-jquery-autocomplete', :git => 'git://github.com/gmassanek/rails3-jquery-autocomplete.git'
 gem 'gravatar_image_tag'
+gem 'sqlite3'
 
 group :development do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'gherkin'
 end
 
@@ -36,7 +36,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
 end
 
 group :assets do
