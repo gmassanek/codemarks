@@ -58,6 +58,13 @@ h3 {
     float: left;
   }
 
+  .pagination {
+    margin-top: 2px;
+    margin-left: 5px;
+    font-size: 12px;
+    float: left;
+  }
+
 }
 
 
@@ -256,6 +263,3 @@ ul.piped {
   border: 2px red solid;
 }
 
-.pagination {
-  float: right;
-}

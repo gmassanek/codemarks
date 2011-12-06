@@ -1,7 +1,8 @@
 %h3
-  .page_title= title
-  %ul.sort_links.piped
-    %li.first= link_to "Popularity", url_for(:only_path => true, :sort => :popularity), :remote => true, :class => (params[:sort] == 'popularity' ? 'on ' : '')
-    %li.last= link_to "Date added", url_for(:only_path => true, :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
-  .clear
+  .page_title Resources
+  .pagination= paginate @resources, :remote => true, :window => 10, :outer_window => -1
 
+  %ul.sort_links.piped
+    %li.first= render 'shared/sort_link_item', :title => "Popularity", :sort => "popularity", :filter => params[:filter]
+    %li.last= render 'shared/sort_link_item', :title => "Date added", :sort => "recent_activity", :filter => params[:filter]
+  .clear

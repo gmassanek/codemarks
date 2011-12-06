@@ -1,12 +1,8 @@
 %h3
   .page_title Reminders
+  .pagination=# paginate @reminders, :remote => true, :window => 10, :outer_window => -1
   %ul.sort_links.piped
-    %li.first= link_to "Popularity", url_for(:only_path => true, :filter => params[:filter], :sort => :popularity), :remote => true, :class => (params[:sort] == 'popularity' ? 'on ' : '')
-    %li= link_to "Date set", url_for(:only_path => true, :filter => params[:filter], :sort => :recent_activity), :remote => true, :class => (params[:sort] == 'recent_activity' ? 'on ' : '')
-    - if params[:filter] == 'all'
-      %li.last= link_to "Include Closed", url_for(:only_path => true, :sort => params[:sort], :filter => ''), :remote => true, :class => "on"
-    - else
-      %li.last= link_to "Include Closed", url_for(:only_path => true, :sort => params[:sort], :filter => :all), :remote => true
-
+    %li.first= render 'shared/sort_link', :title => "Popularity", :sort => "popularity", :filter => params[:filter]
+    %li= render 'shared/sort_link', :title => "Date Set", :sort => "recent_activity", :filter => params[:filter]
+    %li.last= render 'shared/filter_link', :title => "Include Closed", :sort => params[:sort], :filter => "all"
   .clear
-

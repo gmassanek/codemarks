@@ -72,7 +72,7 @@ class TopicsController < ApplicationController
     elsif sort_order == 'recent_activity'
       @topics = @topics.by_recent_activity
     else 
-      params[:sort] = 'popular'
+      params[:sort] = 'popularity'
       @topics = @topics.by_popularity
     end
 
