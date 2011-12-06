@@ -23,7 +23,7 @@ $(function() {
   $("#link_form_container").dialog({
     autoOpen: false,
     modal: true,
-    width: 550,
+    width: 600,
     closeOnEscape: true,
     title: "Add Link",
     close: function() {
