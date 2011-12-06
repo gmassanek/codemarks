@@ -13,7 +13,7 @@ gem 'fabrication'
 gem 'ffaker'
 gem 'nokogiri'
 gem 'kaminari'
-gem 'rails3-jquery-autocomplete', :git => 'https://gmassanek@github.com/gmassanek/rails3-jquery-autocomplete.git'
+gem 'rails3-jquery-autocomplete', :git => 'git://github.com/gmassanek/rails3-jquery-autocomplete.git'
 gem 'gravatar_image_tag'
 
 group :development do

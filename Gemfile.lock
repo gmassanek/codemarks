@@ -1,5 +1,5 @@
 GIT
-  remote: https://gmassanek@github.com/gmassanek/rails3-jquery-autocomplete.git
+  remote: git://github.com/gmassanek/rails3-jquery-autocomplete.git
   revision: 409e33d8ebd98bcaff564a3754bda1c596063dca
   specs:
     rails3-jquery-autocomplete (1.0.5)
