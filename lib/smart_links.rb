@@ -29,6 +29,8 @@ module SmartLinks
 
     def html_response url
       Nokogiri::HTML(open(url))
+      rescue
+        return nil
     end
 
   end

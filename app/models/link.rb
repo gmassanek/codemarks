@@ -47,8 +47,13 @@ class Link < ActiveRecord::Base
 
   def fetch_title
     if !url.blank? && title.blank?
-      @http_connection = SmartLinks::MyCurl.new url
-      self.title = @http_connection.title
+      http_connection = SmartLinks::MyCurl.new url
+      if http_connection.response.present?
+        self.title = http_connection.title
+      else
+        errors.add(:url, "could not be fetched, still a work in progress")
+        return false
+      end
     end
   end
 

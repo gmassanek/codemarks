@@ -1,4 +1,3 @@
 %ul#resources_list
   - @resources.each do |resource|
     = render resource
-  = paginate @resources, :remote => true, :window => 10, :outer_window => -1

@@ -6,8 +6,9 @@ class LinksController < ApplicationController
     p params
     if params[:url]
       @link.url = params[:url]
-      @link.fetch_title
-      @possible_topics = @link.possible_topics
+      if @link.fetch_title
+        @possible_topics = @link.possible_topics
+      end
     end
     respond_to do |format|
       format.html

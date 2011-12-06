@@ -6,6 +6,6 @@
       %li.first= link_to 'My Account', user_path(current_user)
       %li.last= link_to 'Log Out', sign_out_path, :method => :delete
   - else
-    %ul
+    %ul.piped
       %li.first= link_to 'Sign Up', new_user_path
       %li.last= link_to 'Already a member? Sign In', sign_in_path

@@ -47,6 +47,18 @@ h4 { font-size: 130%; }
 h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
+input {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.inputs {
+  label {
+    margin-right: 5px;
+    font-size: 14px;
+  }
+}
+
 h3 {
   /*background: -webkit-linear-gradient(lighten($c2, 40%), lighten($c2, 25%));*/
   background: white url("background-v2.png") 0 -4px repeat-x;
@@ -253,6 +265,11 @@ ul.piped {
 .notice {
   background: lighten($blue, 30%);
   border: 2px solid darken($blue, 10%);
+}
+
+.error {
+  background: lighten($c4, 30%);
+  border: 2px solid darken($c4, 10%);
 }
 
 .clear {

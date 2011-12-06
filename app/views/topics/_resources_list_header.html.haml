@@ -3,6 +3,6 @@
   .pagination= paginate @resources, :remote => true, :window => 10, :outer_window => -1
 
   %ul.sort_links.piped
-    %li.first= render 'shared/sort_link_item', :title => "Popularity", :sort => "popularity", :filter => params[:filter]
-    %li.last= render 'shared/sort_link_item', :title => "Date added", :sort => "recent_activity", :filter => params[:filter]
+    %li.first= render 'shared/sort_link', :title => "Popularity", :sort => "popularity", :filter => params[:filter]
+    %li.last= render 'shared/sort_link', :title => "Date added", :sort => "recent_activity", :filter => params[:filter]
   .clear
