@@ -111,7 +111,6 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     nokogiri (1.5.0)
-    pg (0.11.0)
     pickle (0.4.10)
       cucumber (>= 0.8)
       rake
@@ -218,7 +217,6 @@ DEPENDENCIES
   kaminari
   launchy
   nokogiri
-  pg
   pickle
   rails (= 3.1.1)
   rails3-jquery-autocomplete!

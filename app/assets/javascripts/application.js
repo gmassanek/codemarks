@@ -12,6 +12,29 @@
 
 var TOPICS_PATH = '/topics/'
 
+function style_lists() {
+  $('#list_box li:nth-child(even)').addClass('alternate');
+}
+
+function prepareAutocompletes() {
+  $(document).ready(function(){
+    $('input[data-autocomplete]').railsAutocomplete();
+  });
+
+  $('#topic_autocomplete').bind('railsAutocomplete.select', function(event){
+    var redirect = $("#topic_slug").val()
+    window.location = TOPICS_PATH + redirect;
+  });
+  $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', function(event){
+    var topic_id = $("#link_form_topic_slug").val()
+    $.ajax({
+      url: "/links/topic_checkbox",
+      data: { topic_id: topic_id},
+      beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+    });
+  });
+}
+
 function prepareResourceLink(myEvent) {
   $(myEvent.target).parent().parent().find("form").submit();
 }
@@ -44,35 +67,9 @@ $(function() {
   });
 
   style_lists();
+  prepareAutocompletes();
 
-  $('#topic_autocomplete').bind('railsAutocomplete.select', function(event){
-    var redirect = $("#topic_slug").val()
-    window.location = TOPICS_PATH + redirect;
-  });
 
-  $('#link_search_autocomplete').bind('railsAutocomplete.select', function(event){
-    var topic_id = $("#topic_slug").val()
-    alert(topic_id);
-    //$.get("/links/topic_checkbox.js", { topic_id: topic_id} );
-    //$.get({
-    //  url: "/links/topic_checkbox",
-    //  data: { topic_id: topic_id},
-    //  beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
-    //});
-    $.ajax({
-      url: "/links/topic_checkbox",
-      data: { topic_id: topic_id},
-      beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
-    });
-    
-    //send topic_id to server
-    //have the server give me the partial for a checkbox item for that topic
-    //i'm going inject that partial into list below`
-  });
 
 });
-
-function style_lists() {
-  $('#list_box li:nth-child(even)').addClass('alternate');
-}
 

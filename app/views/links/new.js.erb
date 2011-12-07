@@ -1,9 +1,7 @@
 <% if params[:url] && @link.errors.empty? %>
   $('#link_form_container').html("<%= escape_javascript(render('full_form')) %>");
-  $(document).ready(function(){
-    $('input[data-autocomplete]').railsAutocomplete();
-  });
-
 <% else %>
   $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
 <% end %>
+
+prepareAutocompletes();
