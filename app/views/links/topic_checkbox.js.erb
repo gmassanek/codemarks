@@ -1,1 +1,5 @@
-$(".half_left").append("<%= escape_javascript(render 'topic_checkbox_item', :checked => true, :topic => @topic) %>");
+var chb = $("#topic_chb_<%= @topic.slug %>");
+console.log(chb);
+//if chb.length>0 {
+  $(".half_left").append("<%= escape_javascript(render 'topic_checkbox_item', :checked => true, :topic => @topic) %>");
+//}

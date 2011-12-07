@@ -5,12 +5,8 @@
   = form.label :title
   = form.text_field :title
   = render '/layouts/search', :prefix => 'link_form'
-  %ul.half_left
-    - @pos_topics1.each do |topic|
-      = render 'topic_checkbox_item', :topic => topic
-  %ul.half_right
-    - @pos_topics2.each do |topic|
-      = render 'topic_checkbox_item', :topic => topic
+  = render 'topic_tags_list', :pos_topics => @pos_topics
+  .clear
   = form.submit
   - if logged_in?
     = render 'link_preference_fields', :form => form

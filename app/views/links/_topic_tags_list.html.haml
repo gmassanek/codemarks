@@ -1,0 +1,10 @@
+- half = pos_topics.size/2
+- pos_topics1, pos_topics2 = pos_topics[0, half], pos_topics.drop(half)
+#topic_tags
+  %ul.half_left
+    - pos_topics1.each do |topic|
+      = render 'topic_checkbox_item', :topic => topic
+  %ul.half_right
+    - @pos_topics2.each do |topic|
+      = render 'topic_checkbox_item', :topic => topic
+

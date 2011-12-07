@@ -66,6 +66,11 @@ $(function() {
     prepareResourceLink(event);
   });
 
+  $("#topic_tags .delete").click(function(event) {
+    event.preventDefault();
+    $(event.currentTarget).closest("li").fadeOut();
+  });
+
   style_lists();
   prepareAutocompletes();
 
