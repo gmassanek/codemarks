@@ -1,4 +1,5 @@
 %li{:id => "#{dom_id(link)}_li"}
+  = render '/links/click_form', :link_id => link.id
   %p.title= link_to link.title, link.url, :target => :blank, :class => "resource_link", :id => "#{dom_id(link)}"
   %ul.data
     %li= render '/links/reminder', :link => link

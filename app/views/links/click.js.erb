@@ -1,6 +1,4 @@
 $("#<%= "#{dom_id(@link)}_li" %>").replaceWith("<%= escape_javascript(render '/links/link', :link => @link) %>");
 
-
-$(".resource_link").click(function() {
-  prepareResourceLink(event);
-});
+$("#authentication").replaceWith("<%= escape_javascript(render '/layouts/authentication') %>");
+prepareResourceLink();

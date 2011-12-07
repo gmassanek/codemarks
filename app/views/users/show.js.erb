@@ -1,7 +1,7 @@
 $('#resources_list').replaceWith("<%= escape_javascript(render('/users/reminders')) %>");
 $("#list_box h3").replaceWith("<%= escape_javascript(render 'reminders_list_header')%>");
 style_lists();
-$(".resource_link").click(function() {
-  prepareResourceLink(event);
-});
+
+prepareResourceLink();
+
 

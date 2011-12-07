@@ -191,6 +191,7 @@ ul.piped {
         text-shadow: $c6 1px 0px 0;
 
         &.reminders {
+          margin-left: 2px;
           padding: 2px 4px;
           background: lighten($c2, 25%);
           border-radius: $border-radius;

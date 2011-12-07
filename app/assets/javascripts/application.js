@@ -42,8 +42,10 @@ function prepareAutocompletes() {
   });
 }
 
-function prepareResourceLink(myEvent) {
-  $(myEvent.target).parent().parent().find("form").submit();
+function prepareResourceLink() {
+  $(".resource_link").click(function(event) {
+    $(event.target).parent().parent().find("form").submit();
+  });
 }
 
 $(function() {
@@ -69,10 +71,7 @@ $(function() {
     event.preventDefault(); 
   }); 
 
-  $(".resource_link").click(function() {
-    prepareResourceLink(event);
-  });
-
+  prepareResourceLink();
   style_lists();
   prepareAutocompletes();
   prepareTagDeletes();
