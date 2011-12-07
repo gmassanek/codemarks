@@ -28,10 +28,6 @@ function prepareAutocompletes() {
     $('input[data-autocomplete]').railsAutocomplete();
   });
 
-  $('#topic_autocomplete').bind('railsAutocomplete.select', function(event){
-    var redirect = $("#topic_slug").val()
-    window.location = TOPICS_PATH + redirect;
-  });
   $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', function(event){
     var topic_id = $("#link_form_topic_slug").val()
     $.ajax({
@@ -49,6 +45,11 @@ function prepareResourceLink() {
 }
 
 $(function() {
+
+  $('#_topic_autocomplete').bind('railsAutocomplete.select', function(event){
+    var redirect = $("#_topic_slug").val()
+    window.location = TOPICS_PATH + redirect;
+  });
 
   $(".flash").delay(2500).slideUp(1000);
 
