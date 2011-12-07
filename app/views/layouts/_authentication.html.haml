@@ -3,7 +3,11 @@
     %ul.piped
       - gimg = gravatar_image_tag(current_user.email, :gravatar => { :size => 20 })
       %li.first.last.image= link_to gimg, current_user
-      %li.first= link_to 'My Account', user_path(current_user)
+      %li.first
+        = link_to 'My Account', user_path(current_user)
+        - resource_count = current_user.reminders.unfinished.count
+        - if resource_count > 0
+          = link_to resource_count, user_path(current_user), :class => "reminders"
       %li.last= link_to 'Log Out', sign_out_path, :method => :delete
   - else
     %ul.piped

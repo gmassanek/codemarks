@@ -189,6 +189,13 @@ ul.piped {
       margin-top: 4px;
       a {
         text-shadow: $c6 1px 0px 0;
+
+        &.reminders {
+          padding: 2px 4px;
+          background: lighten($c2, 25%);
+          border-radius: $border-radius;
+          text-shadow: none;
+        }
       }
 
       &.image {
