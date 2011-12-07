@@ -1,4 +1,4 @@
-<% if params[:url] && @link.errors.empty? %>
+<% if params[:url] %>
   $('#link_form_container').html("<%= escape_javascript(render('full_form')) %>");
 <% else %>
   $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");

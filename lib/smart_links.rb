@@ -16,7 +16,7 @@ module SmartLinks
     end
 
     def has_topic?(topic)
-      response.to_s.downcase.include? topic.title.downcase
+      response.to_s.downcase.include? " #{topic.title.downcase}"
     end
 
     def topics

@@ -1,4 +1,8 @@
 = form_for @link, :html => {:id => "link_form"} do |form|
+  - if @link && @link.errors.present?
+    .errors
+      - @link.errors.full_messages.each do |msg|
+        %p.flash.error= msg
   .inputs
     = form.label :url
     = form.url_field :url

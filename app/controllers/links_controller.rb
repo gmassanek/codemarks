@@ -8,8 +8,8 @@ class LinksController < ApplicationController
       @link.url = params[:url]
       if @link.fetch_title
         @pos_topics = @link.possible_topics
-        half = @pos_topics.size/2
-        @pos_topics1, @pos_topics2 = @pos_topics[0, half], @pos_topics.drop(half)
+      else
+        @pos_topics = []
       end
     end
     respond_to do |format|
@@ -19,9 +19,9 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = ResourceManager::LinkSaver.create_link params[:link], params[:topic_ids], params[:reminder], current_user_id
+    @link = ResourceManager::LinkSaver.create_link params[:link], params[:topic_ids].keys, params[:reminder], current_user_id
     if @link
-      redirect_to @link.topics.first, :notice => "Link created"
+      redirect_to topic_path(@link.topics.first, :sort => :recent_activity), :notice => "Link created"
     else
       render :new
     end

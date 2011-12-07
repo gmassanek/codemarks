@@ -51,7 +51,7 @@ class Link < ActiveRecord::Base
       if http_connection.response.present?
         self.title = http_connection.title
       else
-        errors.add(:url, "could not be fetched, still a work in progress")
+        errors.add(:url, "could not be fetched.  Make sure to add a title and some topics")
         return false
       end
     end
