@@ -2,5 +2,5 @@
 - autocomplete_id = "#{prefix}_topic_autocomplete"
 .site_search
   = text_field_tag :topic_slug, '', :type => :hidden, :id => slug_id
-  = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => "Search topics...", :"data-update-elements" =>"{\"slug\":\"##{slug_id}\"}", :id => autocomplete_id
+  = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => placeholder, :"data-update-elements" =>"{\"slug\":\"##{slug_id}\"}", :id => autocomplete_id
   

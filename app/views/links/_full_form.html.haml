@@ -1,12 +1,15 @@
 = form_for @link, :html => {:id => "link_form"} do |form|
-  = form.label :url
-  = form.url_field :url
-  %br
-  = form.label :title
-  = form.text_field :title
-  = render '/layouts/search', :prefix => 'link_form'
+  .inputs
+    = form.label :url
+    = form.url_field :url
+  .inputs
+    = form.label :title
+    = form.text_field :title
+  = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
+  .clear
   = render 'topic_tags_list', :pos_topics => @pos_topics
   .clear
-  = form.submit
   - if logged_in?
     = render 'link_preference_fields', :form => form
+  = form.submit
+  .clear

@@ -100,24 +100,42 @@ ul#resources_list {
 
 
 #link_form_container {
-  width: 650px;
-    #link_form {
+  width: 600px;
+
+  #link_form {
+    font-size: 14px;
 
     input {
       display: inline;
+
 
       &[type=url], &[type=text] {
         width: 430px;
       }
     }
 
-    .inputs {
+    input#link_form_topic_autocomplete{
+      margin-top: 15px;
       float: left;
+      font-size: 12px;
+
+      padding: 3px;
+      border: 1px solid $border-color1;
+      border-radius: $border-radius-tight;
+      width: 150px;
     }
 
+    .inputs {
+      label {
+        margin-top: 8px;
+        padding: 3px;
+        float: left;
+        width: 25px;
+      }
+    }
+    
     input[type=submit]{
-      float: right;
-      font-size: 14px;
+      float: left;
       color: #ffffff;
       font-weight: bold;
       padding: 7px 20px;
@@ -160,7 +178,7 @@ ul#resources_list {
 }
 
 #link_preferences {
-  float: right;
+  float: left;
   margin-top: 10px;
 
   li {
@@ -170,33 +188,32 @@ ul#resources_list {
 }
 
 #topic_tags {
+  float: left;
+  font-size: 12px;
   ul {
-    padding: 0 5px;
-  }
+    margin: 0 5px;
 
-  .highlight {
-    background: $c5;
-  }
-
-  .unflash {
-    background: #FFF;
-  }
-
-  .delete {
-    float: right;
-
-    &.hover {
-      cursor: pointer;
+    li {
+      margin: 2px;
+      padding: 3px;
+      float: left;
+      background: lighten($c2, 25%);
+      border-radius: $border-radius;
     }
   }
 
-  .half_left {
-    width: 40%;
+  .title {
     float: left;
   }
 
-  .half_right {
-    width: 40%;
-    float: right;
+  .delete {
+    font-size: 10px;
+    font-weight: bold;
+    float: left;
+    margin: 1px 1px 0px 5px;
+
+    &.first {
+      margin-left: none;
+    }
   }
 }

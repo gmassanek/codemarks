@@ -12,6 +12,13 @@
 
 var TOPICS_PATH = '/topics/'
 
+function prepareTagDeletes() {
+  $("#topic_tags .delete").click(function(event) {
+    event.preventDefault();
+    $(event.currentTarget).closest("li").fadeOut();
+  });
+}
+
 function style_lists() {
   $('#list_box li:nth-child(even)').addClass('alternate');
 }
@@ -66,15 +73,9 @@ $(function() {
     prepareResourceLink(event);
   });
 
-  $("#topic_tags .delete").click(function(event) {
-    event.preventDefault();
-    $(event.currentTarget).closest("li").fadeOut();
-  });
-
   style_lists();
   prepareAutocompletes();
-
-
+  prepareTagDeletes();
 
 });
 
