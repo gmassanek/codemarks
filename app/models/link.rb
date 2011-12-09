@@ -3,11 +3,12 @@ class Link < ActiveRecord::Base
 
   has_many :link_topics, :inverse_of => :link
   has_many :topics, :through => :link_topics
+
   has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'link_id', :dependent => :destroy
-  has_many :users, :through => :link_saves
+  #has_many :savers, :through => :link_saves
+  
   has_many :clicks
-  has_many :reminders
-  belongs_to :user
+  #has_many :clickers, :through => :link_saves
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp

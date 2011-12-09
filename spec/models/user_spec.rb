@@ -16,15 +16,12 @@ describe User do
     end
   end
 
-  context "user topics" do
-
-    let(:user) { Fabricate(:active_user) }
-
-    it "finds all topics associated to a user" do
-      topic = Fabricate(:topic)
-      user.topics.count.should == Topic.count - 1
+  context "#has_saved_link?(link)" do
+    it "is true if a LinkSave record exists for that user and link" do
+      link = Fabricate.build(:link)
+      user = Fabricate.build(:user)
+      user.stub!(:links).and_return([link])
+      user.should be_has_saved_link(link)
     end
-
   end
-
 end

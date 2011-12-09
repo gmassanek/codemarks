@@ -7,11 +7,6 @@ Fabricator(:private_link, :from => :link) do
   private { true }
 end
 
-Fabricator(:link_topic) do
-  link!
-  topic!
-end
-
 Fabricator(:private_link_topic, :from => :link_topic) do
   link! { Fabricate(:private_link) }
 end
