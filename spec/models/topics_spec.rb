@@ -11,40 +11,16 @@ describe Topic do
     end
 
     it "needs a unique title" do
-      topic.save
       dup_topic = Fabricate.build(:topic, :title => topic.title)
+      topic.save
       dup_topic.should_not be_valid
     end
 
-    it "has 0 sponsored_sites as a new topic" do
-      topic  = Fabricate(:topic)
-      topic.sponsored_sites.should be_empty
+    it "is global by default" do
+      topic.save!
+      topic.global.should == true
     end
   end
-
-
-  describe "sponsored sites" do
-    
-    it "can be saved through a topic", :broken => true do
-      topic_atts = Fabricate.attributes_for(:topic)
-      full_site_atts = Fabricate.attributes_for(:sponsored_site, :topic => nil)
-      empty_site_atts = Fabricate.attributes_for(:sponsored_site, :url => nil, :site => nil, :topic => nil)
-      topic_atts[:sponsored_sites_attributes] = {"0" => full_site_atts, "1" => empty_site_atts}
-      #topic = Topic.create(topic_atts)
-      #ICKKKKKK
-      topic = Topic.create({"title"=>"Rspec2", "description"=>"", "sponsored_sites_attributes"=>{"0"=>{"topic_id"=>"2", "site"=>"twitter", "url"=>"http://www.twitter.com"}, "1"=>{"topic_id"=>"2", "site"=>"github", "url"=>""}}})
-      topic.sponsored_sites.count.should == 1
-    end
-
-    it "deletes the sponsored link when a topic is deleted" do
-      topic = Fabricate(:topic_with_sponsored_links)
-      lambda do
-        topic.destroy
-      end.should change(SponsoredSite, :count).by(-3)
-    end
-
-  end
-
 
   describe "scopes" do
     before do
