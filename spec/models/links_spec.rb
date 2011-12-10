@@ -82,17 +82,4 @@ describe Link do
     link.should_not be_private
   end
 
-
-  describe "popularity" do
-    it "increases with a link save" do
-      lt = Fabricate(:link_topic)
-      Fabricate(:link_save, :link => lt.link)
-      Link.last.popularity.should == 1
-    end
-    it "increases with a link click" do
-      lt = Fabricate(:link_topic)
-      Fabricate(:click, :link => lt.link)
-      Link.last.popularity.should == 1
-    end
-  end
 end

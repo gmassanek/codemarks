@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209234228) do
+ActiveRecord::Schema.define(:version => 20111210043833) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
@@ -40,9 +40,10 @@ ActiveRecord::Schema.define(:version => 20111209234228) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "private",      :default => false
-    t.integer  "popularity",   :default => 0
-    t.integer  "clicks_count", :default => 0
+    t.boolean  "private",          :default => false
+    t.integer  "popularity",       :default => 0
+    t.integer  "clicks_count",     :default => 0
+    t.integer  "link_saves_count", :default => 0
   end
 
   create_table "topics", :force => true do |t|
