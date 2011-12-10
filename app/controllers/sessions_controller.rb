@@ -1,17 +1,21 @@
+require 'authenticator'
 class SessionsController < ApplicationController
+  #include OOPs
 
   def create
-    @user = OOPs::Authenticator.find_or_create_from_auth_hash request.env['omniauth.auth']
+    if current_user
+      @user = current_user
+      OOPs::Authenticator.add_authentication_to_user @user, params[:provider], request.env['omniauth.auth']
+    else
+      @user = OOPs::Authenticator.find_or_create_user_from_auth_hash params[:provider], request.env['omniauth.auth']
+    end
+
     session[:user_id] = @user.id
     redirect_to @user, :notice => "Signed in successfully"
-    #@user = User.find_by_email params[:user][:email]
-    #if @user && @user.authenticate(params[:user][:password])
-    #  session[:user_id] = @user.id
-    #  redirect_to @user, :notice => "Signed in successfully"
-    #else
-    #  flash[:notice] = "Incorrect sign in credentials.  Try again"
-    #  render :new
-    #end
+  rescue Exception => ex
+    logger.log ex.to_s
+    puts ex.to_s
+    redirect_to root_path, :notice => "Sorry, something went wrong"
   end
 
   def destroy

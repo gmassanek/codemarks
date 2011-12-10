@@ -6,6 +6,7 @@ module OOPs
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
 
         uid = auth_hash[:uid]
+        puts uid.inspect
 
         existing_auth = find_auth(provider, uid)
         return existing_auth.user if existing_auth
