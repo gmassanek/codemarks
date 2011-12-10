@@ -75,7 +75,6 @@ describe Link do
     link.title.should == "Google"
   end
 
-  it "requires at least one topic"
 
   it "is not private by default" do
     link = Fabricate(:link)

@@ -1,5 +1,6 @@
 Cms::Application.routes.draw do
 
+  match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
   get '/links/topic_checkbox', :to => "links#topic_checkbox"

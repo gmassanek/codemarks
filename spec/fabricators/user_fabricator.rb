@@ -1,7 +1,5 @@
 Fabricator(:user) do
   email { Faker::Internet.email }
-  password { "password" }
-  password_confirmation { |u| u.password }
 end
 
 Fabricator(:active_user, :from => :user) do

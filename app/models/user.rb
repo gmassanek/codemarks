@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_secure_password
-
-  validates_presence_of :email
+  has_many :authentications, :inverse_of => :user
 
   has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'user_id'
   has_many :links, :through => :link_saves
@@ -12,12 +10,12 @@ class User < ActiveRecord::Base
 
   has_many :clicks
 
-  def has_saved_link? link
-    links.include? link
+  def authentication_by_provider provider
+    authentications.find(:first, :conditions => ["provider = ?", provider])
   end
 
-  def has_reminder_for?(link)
-    self.reminders.unfinished.for_link(link.id).present?
+  def has_saved_link? link
+    links.include? link
   end
 
 end

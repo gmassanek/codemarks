@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 include Exceptions
+include OOPs
 
 TEST_BROKEN = 'false'
 
@@ -18,6 +19,7 @@ RSpec.configure do |config|
   unless TEST_BROKEN == 'true'
     config.filter_run_excluding :broken => true
   end
+  #config.run_all_when_everything_filtered = true
 
   # == Mock Framework
   #
