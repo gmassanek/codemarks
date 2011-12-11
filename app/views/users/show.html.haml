@@ -1,8 +1,8 @@
 #page_details
   %p.title= @user.email
   %ul.data.piped
-    %li.first.last= pluralize(@reminders.count, "reminders")
+    %li.first.last=# pluralize(@reminders.count, "reminders")
   .clear
 #list_box
-  = render 'reminders_list_header', :title => "Outstanding Reminders"
-  = render 'reminders'
+  =# render 'reminders_list_header', :title => "Outstanding Reminders"
+  =# render 'reminders'

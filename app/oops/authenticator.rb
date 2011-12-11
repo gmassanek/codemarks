@@ -4,9 +4,7 @@ module OOPs
       def find_or_create_user_from_auth_hash provider, auth_hash
         raise AuthHashRequiredError if auth_hash.nil? || auth_hash.empty?
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
-
-        uid = auth_hash[:uid]
-        puts uid.inspect
+        uid = auth_hash["uid"]
 
         existing_auth = find_auth(provider, uid)
         return existing_auth.user if existing_auth

@@ -16,18 +16,18 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    if params[:filter] == "all"
-      @reminders = current_user.reminders
-    else
-      @reminders = current_user.reminders.unfinished
-    end
+    #if params[:filter] == "all"
+    #  @reminders = current_user.reminders
+    #else
+    #  @reminders = current_user.reminders.unfinished
+    #end
 
-    if params[:sort] == "recent_activity"
-      @reminders = @reminders.by_date
-    else
-      params[:sort] = 'popularity'
-      @reminders = @reminders.by_popularity
-    end
+    #if params[:sort] == "recent_activity"
+    #  @reminders = @reminders.by_date
+    #else
+    #  params[:sort] = 'popularity'
+    #  @reminders = @reminders.by_popularity
+    #end
   end
 
 end

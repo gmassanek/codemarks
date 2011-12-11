@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'haml'
-gem 'haml-rails'
 gem 'decent_exposure'
 gem 'draper'
 gem 'friendly_id', "~> 4.0.0.beta14"
@@ -17,18 +16,19 @@ gem 'rails3-jquery-autocomplete', :git => 'git://github.com/gmassanek/rails3-jqu
 gem 'gravatar_image_tag'
 gem 'sqlite3'
 gem 'omniauth-twitter'
+gem 'omniauth-github'
 
 group :development do
 end
 
 group :development, :test do
   gem 'gherkin'
-end
-
-group :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'capybara'
+end
+
+group :test do
 end
 
 group :production do

@@ -5,7 +5,7 @@ Cms::Application.routes.draw do
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
   get '/links/topic_checkbox', :to => "links#topic_checkbox"
 
-  root :to => 'topics#index'
+  root :to => 'pages#landing'
 
   resources :topics
   resources :links
