@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Authenticator do
-  let (:auth_hash) { {uid: 9} }
-  let (:authentication) { Fabricate(:authentication, uid: auth_hash[:uid]) }
+  let (:auth_hash) { {"uid" => 9} }
+  let (:authentication) { Fabricate(:authentication, uid: auth_hash["uid"]) }
 
   context "#find_or_create_user_from_auth_hash" do
     it "errors out if there is no auth hash" do
@@ -71,7 +71,7 @@ describe Authenticator do
     it "updates a user's authentication if they already had that auth" do
       user = Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
        
-      auth_hash[:uid] = 2342
+      auth_hash["uid"] = 2342
       Authenticator.add_authentication_to_user(user, "twitter", auth_hash)
       user.authentication_by_provider("twitter").uid.should == "2342"
     end

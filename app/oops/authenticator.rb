@@ -4,7 +4,7 @@ module OOPs
       def find_or_create_user_from_auth_hash provider, auth_hash
         raise AuthHashRequiredError if auth_hash.nil? || auth_hash.empty?
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
-        uid = auth_hash["uid"]
+        uid = auth_uid(auth_hash)
 
         existing_auth = find_auth(provider, uid)
         return existing_auth.user if existing_auth
@@ -25,10 +25,14 @@ module OOPs
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
 
         if auth = user.authentication_by_provider(provider)
-          auth.update_attributes(uid: auth_hash[:uid])
+          auth.update_attributes(uid: auth_uid(auth_hash))
         else
-          user.authentications.create!(uid: auth_hash[:uid], provider: provider)
+          user.authentications.create!(uid: auth_uid(auth_hash), provider: provider)
         end
+      end
+
+      def auth_uid auth_hash
+        auth_hash["uid"]
       end
     end
   end
