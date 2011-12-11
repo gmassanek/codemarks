@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210151453) do
+ActiveRecord::Schema.define(:version => 20111211192241) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20111210151453) do
     t.integer  "link_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "archived",   :default => false
   end
 
   create_table "link_topics", :force => true do |t|

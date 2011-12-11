@@ -3,6 +3,10 @@
   %ul.data.piped
     %li.first.last=# pluralize(@reminders.count, "reminders")
   .clear
-#list_box
+
+= link_to "view archived", user_path(@user, archived: true), :remote => true
+%ul#list_box
+  - @link_saves.each do |link_save|
+    %li= link_to link_save.title, link_save.url
   =# render 'reminders_list_header', :title => "Outstanding Reminders"
   =# render 'reminders'

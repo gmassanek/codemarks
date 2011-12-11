@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
     session[:filter] == 'mine'
   end
 
-
+  def require_user
+    redirect_to root_path unless logged_in?
+  end
 
 end

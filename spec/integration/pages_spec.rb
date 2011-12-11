@@ -25,15 +25,9 @@ describe "Home page" do
     end
   end
 
-  context "as a returning user" do
-    it "logs me in when I click on the twitter link" do
-      page.click_link "sign in with twitter"
-      page.should have_content "Signed in successfully"
-    end
-
-    it "signs me up when I click on the github link" do
-      page.click_link "sign in with github"
-      page.should have_content "Signed in successfully"
-    end
+  it "redirects to user show page when a user is logged in" do
+    simulate_signed_in
+    visit root_path
+    current_path.should == user_path(@user)
   end
 end

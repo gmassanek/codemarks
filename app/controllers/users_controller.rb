@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :require_user, :only => [:show]
+
   def create
     @user = User.new params[:user]
     if @user.save
@@ -15,7 +17,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+
+    @link_saves = @user.link_saves
+
+    @link_saves = @link_saves.unarchived unless params[:archived]
+    @link_saves = @link_saves.by_save_date
+    #@links = 
     #if params[:filter] == "all"
     #  @reminders = current_user.reminders
     #else
