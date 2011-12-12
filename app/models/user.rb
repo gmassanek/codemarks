@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :clicks
 
+  #validates_presence_of :authentications
+
   def authentication_by_provider provider
     authentications.find(:first, :conditions => ["provider = ?", provider])
   end

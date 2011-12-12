@@ -23,13 +23,18 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 end
 
-def simulate_signed_in
-  visit '/auth/twitter'
-  @user = User.last
-end
-
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:twitter, {
   :uid => '12345',
   :nickname => 'zapnap'
 })
+
+def simulate_signed_in
+  visit '/auth/twitter'
+  @user = User.last
+end
+
+def authenticated_user
+  auth = Fabricate.build(:authentication)
+  user = auth.user
+end
