@@ -14,13 +14,12 @@
         = render '/layouts/authentication'
         .clr
       #highlights
+        #link_form_container
+          = (render '/links/first_form') if logged_in?
         = render '/layouts/search', :prefix => "", :placeholder => "Search topics..."
-        = render '/layouts/top_links'
         .clear
       #content
         = render '/layouts/flash', :flash => flash
-        #link_form_container
-          = render '/links/first_form'
         = yield
         .clear
     -# if ENV['RAILS_ENV'] == 'development'

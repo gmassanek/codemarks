@@ -1,5 +1,8 @@
 <% if params[:url] %>
-  $('#link_form_container').html("<%= escape_javascript(render('full_form')) %>");
+  $("<%= escape_javascript(render('full_form')) %>").hide()
+    .appendTo($('#link_form_container'))
+    .fadeIn(1000);
+
 <% else %>
   $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
 <% end %>

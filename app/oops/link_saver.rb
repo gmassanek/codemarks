@@ -1,11 +1,12 @@
 module OOPs
   class LinkSaver
+  include Exceptions
 
-    include Exceptions
     class << self
 
       def save_link!(link, user, topics, options = {})
         raise LinkRequiredError if link.nil?
+        raise ValidURLRequiredError  if link.url.blank?
         raise TopicsRequiredError if topics.nil? || topics.empty?
         raise UserRequiredError  if user.nil?
 

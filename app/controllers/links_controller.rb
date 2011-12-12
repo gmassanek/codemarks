@@ -1,13 +1,15 @@
 class LinksController < ApplicationController
   require 'link_saver'
+  include OOPs
 
   def new
     @link = Link.new
     p params
     if params[:url]
       @link.url = params[:url]
-      if @link.fetch_title
-        @pos_topics = @link.possible_topics
+      smart_link = SmartLink.new(@link.url)
+      if @link.title = smart_link.title
+        @pos_topics = smart_link.topics
       else
         @pos_topics = []
       end
@@ -19,12 +21,17 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = ResourceManager::LinkSaver.create_link params[:link], params[:topic_ids].keys, params[:reminder], current_user_id
-    if @link
-      redirect_to topic_path(@link.topics.first, :sort => :recent_activity), :notice => "Link created"
-    else
-      render :new
-    end
+    @link = Link.new params[:link]
+    @topics = Topic.find(params[:topic_ids].keys)
+    @link = LinkSaver.save_link! @link, current_user, @topics
+    redirect_to current_user, notice: "Link saved"
+  rescue
+    redirect_to root_path, notice: "Something when wrong"
+
+    
+  rescue Exception => ex
+    puts ex.inspect
+
   end
 
   def show

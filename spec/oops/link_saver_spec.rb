@@ -17,6 +17,13 @@ describe OOPs::LinkSaver do
         }.should raise_error(LinkRequiredError)
       end
 
+      it "a link object with a url" do
+        link = Fabricate.build(:link, url: nil)
+        lambda {
+          OOPs::LinkSaver.save_link!(link, user, topics)
+        }.should raise_error(ValidURLRequiredError)
+      end
+
       it "a valid link" do
         link.url = "adf"
         OOPs::LinkSaver.save_link!(link, user, topics).should be_nil

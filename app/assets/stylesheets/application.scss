@@ -49,8 +49,9 @@ h5 { font-size: 120%; }
 h6 { font-size: 110%; }
 
 input {
-  font-size: 12px;
-  padding: 5px;
+  padding: 3px;
+  border: 1px solid $border-color1;
+  border-radius: $border-radius-tight;
 }
 
 .inputs {
@@ -139,7 +140,7 @@ body {
 #logo {
   //font-family: 'Indie Flower', cursive;
   float: left;
-  margin-top: 20px;
+  margin-top: 10px;
   a {
   font-family: 'Coustard', serif;
     color: $c1;
@@ -290,5 +291,67 @@ ul.piped {
 
 .field_with_errors input {
   border: 2px red solid;
+}
+
+#url_form, #full_link_form {
+  width: 500px;
+  float: left;
+  font-size: 14px;
+
+  .site_search { float: left }
+
+  label {
+    float: left;
+  }
+
+  input {
+    float: left;
+
+    &[type=url], &[type=text] {
+      width: 300px;
+    }
+
+
+    &[type=submit]{
+      float: left;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 3px 20px;
+      cursor: pointer;
+      background: -moz-linear-gradient(
+          top,
+          #db9655 0%,
+          #ffc821 25%,
+          #de6b00);
+      background: -webkit-gradient(
+          linear, left top, left bottom, 
+          from(#db9655),
+          color-stop(0.25, #ffc821),
+          to(#de6b00));
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border: 1px solid #7e9899;
+      -moz-box-shadow:
+          0px 1px 2px rgba(126,152,153,0.5),
+          inset 0px 0px 0px rgba(255,255,255,0.7);
+      -webkit-box-shadow:
+          0px 1px 2px rgba(126,152,153,0.5),
+          inset 0px 0px 0px rgba(255,255,255,0.7);
+      text-shadow:
+          -1px -1px 1px rgba(126,152,153,1),
+          0px 1px 0px rgba(255,255,255,0.3);
+
+      &:hover {
+
+        background: -webkit-gradient(
+            linear, left top, left bottom, 
+            from(lighten($c4, 10%)),
+            color-stop(0.25, #ffc821),
+            to(lighten($c5, 10%)));
+        }
+      }
+  }
+
 }
 

@@ -1,18 +1,21 @@
-module SmartLinks
+module OOPs
+  include Exceptions
 
-  class MyCurl
+  class SmartLink
     require 'open-uri'
     require 'nokogiri'
 
     attr_accessor :url, :response
     
     def initialize(url)
+      raise ValidURLRequiredError if url.blank?
       @url ||= url
       @response = html_response url
+      raise ValidURLRequiredError if @response.nil?
     end
     
     def title
-      response.title if response
+      @response.title
     end
 
     def has_topic?(topic)

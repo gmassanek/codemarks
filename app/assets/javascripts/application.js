@@ -15,7 +15,9 @@ var TOPICS_PATH = '/topics/'
 function prepareTagDeletes() {
   $("#topic_tags .delete").click(function(event) {
     event.preventDefault();
-    $(event.currentTarget).closest("li").fadeOut();
+    $(event.currentTarget).closest("li").fadeOut(500, function() {
+      $(this).remove();
+    });
   });
 }
 
@@ -52,20 +54,6 @@ $(function() {
   });
 
   $(".flash").delay(2500).slideUp(1000);
-
-  $("#link_form_container").dialog({
-    autoOpen: false,
-    modal: true,
-    width: 600,
-    closeOnEscape: true,
-    title: "Add Link",
-    close: function() {
-      $.ajax({
-        url: "/links/new",
-        beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
-      });
-    }
-  }); 
 
   $("#new_link_link").click(function(event) { 
     $("#link_form_container").dialog('open') 

@@ -1,9 +1,7 @@
-= form_tag new_link_path, :method => :get, :remote => true, :id => "link_form" do |form|
+= form_tag new_link_path, :method => :get, :remote => true, :id => "url_form" do |form|
   - if @link && @link.errors.present?
     .errors
       - @link.errors.full_messages.each do |msg|
         %p.flash.error= msg
-  .inputs
-    = label_tag :url
-    = url_field_tag :url
+  = url_field_tag :url, nil, placeholder: "Add link..."
   = submit_tag "Fetch", :id => 'fetch'

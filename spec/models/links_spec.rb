@@ -10,12 +10,6 @@ describe Link do
       link.should_not be_valid
     end
 
-    it "must be unique" do
-      link.save
-      link2 = Fabricate.build(:link, :url => link.url)
-      link2.should_not be_valid
-    end
-
     ["http://www.twitter.com", "https://twitter"].each do |url|
       it "accepts #{url}" do
         link.url = url
