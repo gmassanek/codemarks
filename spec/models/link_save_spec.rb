@@ -27,6 +27,17 @@ describe LinkSave do
     LinkSave.by_save_date.should == [new_ls, med_ls, old_ls]
   end
 
+  it "sorts by popularity" do
+    boring = Fabricate(:link_save)
+    3.times { Fabricate(:click, link: boring.link) }
+    popular = Fabricate(:link_save)
+    9.times { Fabricate(:click, link: popular.link) }
+    pretty_good = Fabricate(:link_save)
+    5.times { Fabricate(:click, link: pretty_good.link) }
+
+    LinkSave.by_popularity.should == [popular, pretty_good, boring]
+  end
+
   it "delegates title and url to it's link" do
     link_save = Fabricate.build(:link_save)
     link = link_save.link

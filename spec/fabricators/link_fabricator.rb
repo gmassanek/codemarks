@@ -1,6 +1,6 @@
 Fabricator(:link) do
   url { Faker::Internet::http_url }
-  title { Faker::Lorem::words(3).join(" ")}
+  title { Faker::Lorem::words(6).join(" ")}
 end
 
 Fabricator(:private_link, :from => :link) do

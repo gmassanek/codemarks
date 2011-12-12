@@ -22,7 +22,12 @@ class UsersController < ApplicationController
     @link_saves = @user.link_saves
 
     @link_saves = @link_saves.unarchived unless params[:archived]
-    @link_saves = @link_saves.by_save_date
+
+    if params[:by_popularity]
+      @link_saves = @link_saves.by_popularity 
+    else
+      @link_saves = @link_saves.by_save_date
+    end
     #@links = 
     #if params[:filter] == "all"
     #  @reminders = current_user.reminders

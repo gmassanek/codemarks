@@ -8,6 +8,10 @@ class LinkSave < ActiveRecord::Base
 
   scope :unarchived, where(['archived = ?', false])
   scope :by_save_date, order('created_at DESC')
+  scope :by_popularity, joins(:link)
+                        .order('clicks_count DESC')
 
   delegate :title, :url, :to => :link
+
+
 end

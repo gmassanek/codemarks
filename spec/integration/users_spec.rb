@@ -45,6 +45,24 @@ describe "User pages" do
             page.should have_link old_ls.title
           end
         end
+
+        it "by popularity default when requested" do
+          boring = Fabricate(:link_save, :user => @user)
+          3.times { Fabricate(:click, link: boring.link) }
+          popular = Fabricate(:link_save, :user => @user)
+          9.times { Fabricate(:click, link: popular.link) }
+          pretty_good = Fabricate(:link_save, :user => @user)
+          5.times { Fabricate(:click, link: pretty_good.link) }
+
+          visit user_path(@user)
+          click_link "by popularity"
+          within("#list_box li:first-child") do
+            page.should have_link popular.title
+          end
+          within("#list_box li:last-child") do
+            page.should have_link boring.title
+          end
+        end
       end
     end
   end
