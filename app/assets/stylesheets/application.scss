@@ -15,10 +15,10 @@ $BC: #BCBCBC;
 $blue: #3299BB;
 
 $c1: #203e42;
-$c2: #7e9899;
 $c3: #d4fffd;
-$c4: #db9655;
-$c5: #de6a00;
+$c2: #364745;
+$c4: #FED103;
+$c5: #AF9A29;
 $c6: white;
 $border-color1: lighten($c2, 20%);
 $border-color2: #dfdfdf;
@@ -331,8 +331,7 @@ ul.piped {
   width: 100%;
   left: 0;
   height: 300px;
-  background: url('old-paper-texture.jpg') 0 0 no-repeat;
-  background-size: 100%;
+  background: url('background-texture2.png') 0 0, -webkit-radial-gradient(50% 65%, ellipse cover, lighten($c2, 10%), $c2 45%);
   z-index: -1;
 }
 
