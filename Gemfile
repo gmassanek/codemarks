@@ -17,6 +17,7 @@ gem 'gravatar_image_tag'
 gem 'sqlite3'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
+gem 'therubyracer'
 
 group :development do
 end
