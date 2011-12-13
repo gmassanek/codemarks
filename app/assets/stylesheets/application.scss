@@ -15,10 +15,10 @@ $BC: #BCBCBC;
 $blue: #3299BB;
 
 $c1: #203e42;
-$c3: #d4fffd;
+$c5: #C76F2B;
 $c2: #364745;
 $c4: #FED103;
-$c5: #AF9A29;
+$c3: #AF9A29;
 $c6: white;
 $border-color1: lighten($c2, 20%);
 $border-color2: #dfdfdf;
@@ -339,9 +339,19 @@ ul.piped {
   margin-top: 50px;
   height: 250px;
   color: white;
-  font-size: 60px;
   text-align: center;
-  text-shadow: 0 3px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    font-size: 60px;
+    text-shadow: 0 3px rgba(0, 0, 0, 0.3);
+  }
+  h3 {
+    font-weight: normal;
+    margin-top: 5px;
+    background: inherit;
+    border-bottom: none;
+    font-size: 30px;
+  }
 }
 
 #site_explanation {
