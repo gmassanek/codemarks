@@ -3,5 +3,5 @@
     .errors
       - @link.errors.full_messages.each do |msg|
         %p.flash.error= msg
-  = url_field_tag :url, nil, placeholder: "Add link..."
-  = submit_tag "Fetch", :id => 'fetch'
+  = url_field_tag :url, nil, placeholder: "http://www.myawesomeblog.com"
+  = submit_tag "Add Link", :id => 'fetch'
