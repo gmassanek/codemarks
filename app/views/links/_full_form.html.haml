@@ -1,12 +1,12 @@
+.clear
 = form_for @link, :html => {:id => "full_link_form"} do |form|
   - if @link && @link.errors.present?
     .errors
       - @link.errors.full_messages.each do |msg|
         %p.flash.error= msg
   = form.url_field :url, :type => :hidden
-  .inputs
-    = form.label :title
-    = form.text_field :title
+  = form.text_field :title, :placeholder => "Title"
+  .clear
   = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
   .clear
   = render 'topic_tags_list', :pos_topics => @pos_topics

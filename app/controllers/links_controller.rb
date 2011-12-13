@@ -4,14 +4,20 @@ class LinksController < ApplicationController
 
   def new
     @link = Link.new
-    p params
     if params[:url]
       @link.url = params[:url]
-      smart_link = SmartLink.new(@link.url)
-      if @link.title = smart_link.title
-        @pos_topics = smart_link.topics
-      else
+      begin
+        smart_link = SmartLink.new(@link.url)
+        if smart_link.response
+          @link.title = smart_link.title
+          @pos_topics = smart_link.topics
+        else
+          @pos_topics = []
+        end
+      rescue
+        @link.errors.add(:url, "is invalid")
         @pos_topics = []
+        puts @link.inspect
       end
     end
     respond_to do |format|
@@ -24,9 +30,9 @@ class LinksController < ApplicationController
     @link = Link.new params[:link]
     @topics = Topic.find(params[:topic_ids].keys)
     @link = LinkSaver.save_link! @link, current_user, @topics
-    redirect_to current_user, notice: "Link saved"
+    redirect_to dashboard_path, notice: "Link saved"
   rescue
-    redirect_to root_path, notice: "Something when wrong"
+    redirect_to :back, notice: "Something when wrong"
 
     
   rescue Exception => ex

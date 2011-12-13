@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe "User pages" do
-  context "Show" do
+  context "Dashboard" do
     it "requires a logged in user" do
       @user = Fabricate(:user)
-      visit user_path(@user)
+      visit dashboard_path
       current_path.should == root_path
     end
 
@@ -17,7 +17,7 @@ describe "User pages" do
         it "unarchived links by default" do
           new_link = Fabricate(:link_save, :user => @user, :archived => false)
           old_link = Fabricate(:link_save, :user => @user, :archived => true)
-          visit user_path(@user)
+          visit dashboard_path
           page.should have_link new_link.title
           page.should_not have_link old_link.title
         end
@@ -25,7 +25,7 @@ describe "User pages" do
         it "archived and unarchived links when I ask for them" do
           new_link = Fabricate(:link_save, :user => @user, :archived => false)
           old_link = Fabricate(:link_save, :user => @user, :archived => true)
-          visit user_path(@user)
+          visit dashboard_path
           page.click_link "view archived"
           page.should have_link new_link.title
           page.should have_link old_link.title
@@ -37,7 +37,7 @@ describe "User pages" do
           old_ls = Fabricate(:link_save, :user => @user, :created_at => 3.years.ago)
           new_ls = Fabricate(:link_save, :user => @user, :created_at => 3.minutes.ago)
           med_ls = Fabricate(:link_save, :user => @user, :created_at => 3.days.ago)
-          visit user_path(@user)
+          visit dashboard_path
           within("#list_box li:first-child") do
             page.should have_link new_ls.title
           end
@@ -54,7 +54,7 @@ describe "User pages" do
           pretty_good = Fabricate(:link_save, :user => @user)
           5.times { Fabricate(:click, link: pretty_good.link) }
 
-          visit user_path(@user)
+          visit dashboard_path
           click_link "by popularity"
           within("#list_box li:first-child") do
             page.should have_link popular.title

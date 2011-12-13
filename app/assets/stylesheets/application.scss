@@ -1,12 +1,10 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require reset
  *= require jquery-ui-1.8.16.custom
  *= require_self
  *= require_tree . 
 */
+
 /*** VARIABLES ***/
 @import url(http://fonts.googleapis.com/css?family=Coustard|Indie+Flower);
 $blue: blue;
@@ -26,7 +24,8 @@ $border-color1: lighten($c2, 20%);
 $border-color2: #dfdfdf;
 
 $header-height: 30px;
-$header-extra: 60px;
+$header-extra: 50px;
+$header-guest-extra: 15px;
 $header-box: 4px;
 $border-radius: 5px;
 $border-radius-tight: 3px;
@@ -99,7 +98,8 @@ html {
 }
 
 body {
-  background: white url('background-v2.png') 0 0 repeat-x;
+  background: url('fabric_2.png') 0 0;
+  //background: white url('background-v2.png') 0 0 repeat-x;
 }
 
 #container {
@@ -109,19 +109,22 @@ body {
 
 #content {
   border-radius: $border-radius;
-  background: $c6;
-  margin-top: 10px;
+  //background: $c6;
   padding: 15px 20px 0;
-  background: url('background-white.png') 0 0 no-repeat;
+  //background: url('background-white.png') 0 0 no-repeat;
   background-size: 100%;
 }
 
 /*** HEADER  ***/
 .header_wrapper {
   height: $header-height + $header-extra;
-  /*background: $c6;*/
   padding-bottom: 1px;
-  /* border-bottom: 1px solid #d4d4d4 */
+  //box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+  //border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  &.guest {
+    height: $header-height + $header-guest-extra;
+  }
 }
 
 .header_coloring {
@@ -133,16 +136,32 @@ body {
 
 #header {
   margin-top: -($header-height + $header-extra + $header-box);
-  height: $header-height;
-  font-size: 12px;
+  height: $header-height + $header-extra + $header-box;
+  &.guest {
+    margin-top: -($header-height + $header-guest-extra + $header-box);
+    margin-left: 35px;
+    margin-right: 35px;
+    height: $header-height + $header-guest-extra + $header-box;
+  }
+  font-size: 14px;
+
+  .site_search {
+    float: right;
+
+    input {
+      padding: 3px;
+      border: 1px solid $border-color1;
+      border-radius: $border-radius-tight;
+      width: 150px;
+    }
+  }
 }
 
 #logo {
-  //font-family: 'Indie Flower', cursive;
   float: left;
   margin-top: 10px;
   a {
-  font-family: 'Coustard', serif;
+    font-family: 'Coustard', serif;
     color: $c1;
     font-size: 28px;
     font-weight: bold;
@@ -153,12 +172,10 @@ body {
     &:hover {
       color: $c5;
     }
-
   }
 }
 
 ul.piped {
-
   li {
     border-right: 1px solid $border-color1;
     border-left: 1px solid $c6;
@@ -171,7 +188,18 @@ ul.piped {
       border-right: none;
     }
   }
+}
 
+#guest_links {
+  float: right;
+  margin-top: 16px;
+  li {
+    float: left;
+    margin-left: 30px;
+    a {
+      //color: white;
+    }
+  }
 }
 
 #authentication {
@@ -216,68 +244,22 @@ ul.piped {
   }
 }
 
-/* search bar, filters, etc */
-#highlights {
-  margin-top: 15px;
-  font-size: 12px;
-
-  .site_search {
-    float: right;
-
-    input {
-      padding: 3px;
-      border: 1px solid $border-color1;
-      border-radius: $border-radius-tight;
-      width: 150px;
-    }
-  }
-
-  ul {
-    float: right;
-    margin: 7px 0;
-
-    li {
-      float: left;
-      padding: 0 5px;
-
-      a {
-        color: $c5;
-        font-weight: bold;
-        text-shadow: $c6 1px 0px 0;
-        padding: 3px 8px;
-        border: 1px solid transparent;
-
-        &:hover {
-          color: lighten($c5, 15%);
-        }
-        
-        &.on {
-          margin: 0 0 0 10px;
-          border-radius: 40px;
-
-          background-color: lighten($c2, 45%);
-          border: 1px solid #BCBCBC;
-          box-shadow: inset 1px 1px 1px rgba(0,0,0,0.05);
-
-        }
-      }
-    }
-
-  }
-}
-
-
-
-
 
 .flash {
   padding: 12px;
   margin-bottom: 5px;
+  postition: absolute;
 }
 
 .notice {
   background: lighten($blue, 30%);
   border: 2px solid darken($blue, 10%);
+  position: absolute;
+  top: 0;
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
+  text-align: center;
 }
 
 .error {
@@ -293,10 +275,18 @@ ul.piped {
   border: 2px red solid;
 }
 
+#link_form_container {
+  position: absolute;
+
+  &.highlighted {
+    background: $c4;
+  }
+}
+
 #url_form, #full_link_form {
-  width: 500px;
   float: left;
   font-size: 14px;
+  width: 400px;
 
   .site_search { float: left }
 
@@ -355,3 +345,22 @@ ul.piped {
 
 }
 
+#banner {
+  position: absolute;
+  top: ($header-height + $header-guest-extra + $header-box);
+  width: 100%;
+  left: 0;
+  height: 350px;
+  background: url('old-paper-texture.jpg') 0 0 no-repeat;
+  background-size: 100%;
+  z-index: -1;
+}
+
+#banner_text {
+  margin-top: 50px;
+  height: 350px;
+  color: white;
+  font-size: 60px;
+  text-align: center;
+  text-shadow: 0 3px rgba(0, 0, 0, 0.3);
+}

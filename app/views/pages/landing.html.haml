@@ -1,2 +1,6 @@
-= link_to "sign in with twitter", sign_in_path(:twitter)
-= link_to "sign in with github", sign_in_path(:github)
+#banner
+#banner_text
+  save. share. discover.
+  .clear
+  = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
+  = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"

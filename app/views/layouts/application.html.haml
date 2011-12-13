@@ -6,18 +6,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .header_wrapper
+    .header_wrapper{:class => "#{logged_in? ? '' : 'guest'}"}
       .header_coloring
     #container
-      #header
-        #logo= link_to "codemarks", root_path
-        = render '/layouts/authentication'
-        .clr
-      #highlights
-        #link_form_container
-          = (render '/links/first_form') if logged_in?
-        = render '/layouts/search', :prefix => "", :placeholder => "Search topics..."
-        .clear
+      = render '/layouts/header'
       #content
         = render '/layouts/flash', :flash => flash
         = yield

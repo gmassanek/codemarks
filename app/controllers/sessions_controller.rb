@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     end
 
     session[:user_id] = @user.id
-    redirect_to @user, :notice => "Signed in successfully"
+    redirect_to dashboard_path, :notice => "Signed in successfully"
   rescue Exception => ex
     logger.info ex.to_s
     puts ex.to_s

@@ -8,18 +8,20 @@ module OOPs
     attr_accessor :url, :response
     
     def initialize(url)
-      raise ValidURLRequiredError if url.blank?
+      valid_url_matches = url.match(URI::regexp)
+      if url.blank? || !valid_url_matches 
+        raise ValidURLRequiredError
+      end
+
       @url ||= url
       @response = html_response url
-      raise ValidURLRequiredError if @response.nil?
     end
     
     def title
-      @response.title
+      @response.title if @response
     end
 
     def has_topic?(topic)
-      #response.to_s.downcase.include? " #{topic.title.downcase}"
       response.content.gsub(/\r/, ' ').gsub(/\n/, " ").to_s.downcase.include? "#{topic.title.downcase}"
     end
 

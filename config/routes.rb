@@ -1,5 +1,7 @@
 Cms::Application.routes.draw do
 
+  get '/dashboard', to: "users#dashboard", as: :dashboard
+
   match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete

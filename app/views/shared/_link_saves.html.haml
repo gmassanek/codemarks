@@ -1,0 +1,4 @@
+%ul#list_box
+  - @link_saves.each do |link_save|
+    %li= link_to link_save.title, link_save.url
+

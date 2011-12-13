@@ -1,0 +1,11 @@
+#page_details
+  %p.title= @user.email
+  %ul.data.piped
+    %li.first.last=# pluralize(@reminders.count, "reminders")
+  .clear
+
+= link_to "view archived", url_for(:only_path => true, sort: params[:sort], archived: true), :remote => true
+= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
+= link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true
+= render '/shared/link_saves'
+

@@ -28,7 +28,7 @@ describe "Home page" do
   it "redirects to user show page when a user is logged in" do
     simulate_signed_in
     visit root_path
-    current_path.should == user_path(@user)
+    current_path.should == dashboard_path
   end
 
 end
@@ -49,7 +49,7 @@ describe "New Link Form" do
       visit root_path
       page.should have_css("input#url", :visible => true)
     end
-
+    
     it "shows the second form when I submit a URL to save", js: true do
       simulate_signed_in
       visit root_path
@@ -57,6 +57,15 @@ describe "New Link Form" do
       page.click_button("fetch")
       page.should have_css("#full_link_form", :visible => true)
       page.find_field("link_title").value.should == "Google"
+    end
+
+    it "shows the second form when I submit a URL to save even if it couldn't fetch the url", js: true do
+      simulate_signed_in
+      visit root_path
+      page.fill_in("url", :with => "http://www.google2342adfa23r4.com")
+      page.click_button("fetch")
+      page.should have_css("#full_link_form", :visible => true)
+      page.find_field("link_title").value.should == ""
     end
 
     it "saves a new link_save", js: true, :broken => true do

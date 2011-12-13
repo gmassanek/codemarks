@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :only => [:show]
+  before_filter :require_user, :only => [:dashboard]
 
   def create
     @user = User.new params[:user]
@@ -16,11 +16,21 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def dashboard
+    @user = current_user
+    @link_saves = @user.link_saves
+    @link_saves = @link_saves.unarchived unless params[:archived]
+
+    if params[:sort] == "by_popularity"
+      @link_saves = @link_saves.by_popularity 
+    else
+      @link_saves = @link_saves.by_save_date
+    end
+  end
+
   def show
     @user = User.find(params[:id])
-
     @link_saves = @user.link_saves
-
     @link_saves = @link_saves.unarchived unless params[:archived]
 
     if params[:by_popularity]

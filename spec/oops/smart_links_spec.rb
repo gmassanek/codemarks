@@ -10,8 +10,14 @@ describe OOPs::SmartLink do
 
   it "requires a valid URL" do
     lambda {
-      SmartLink.new("htp://nothanks")
+      SmartLink.new("/dfd.this_isNotaURL")
     }.should raise_error(ValidURLRequiredError)
+  end
+
+  it "a link object with a url" do
+    lambda {
+      SmartLink.new("http://google2342fasd.com/")
+    }.should_not raise_error(ValidURLRequiredError)
   end
 
   it "extracts the title of a page" do

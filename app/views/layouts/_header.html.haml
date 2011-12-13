@@ -1,0 +1,8 @@
+#header{:class => "#{logged_in? ? '' : 'guest'}"}
+  #logo= link_to "codemarks", root_path
+  = render '/layouts/authentication'
+  = render '/layouts/guest_links'
+  .clear
+  #link_form_container
+    = render '/links/first_form' if logged_in?
+  = render '/layouts/search', :prefix => "", :placeholder => "Search topics..."
