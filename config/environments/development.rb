@@ -28,3 +28,9 @@ Cms::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
 end
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:twitter, {
+  :uid => '12345',
+  :nickname => 'gmassanek'
+})

@@ -119,11 +119,13 @@ body {
 .header_wrapper {
   height: $header-height + $header-extra;
   padding-bottom: 1px;
-  //box-shadow: 0 2px 15px rgba(0,0,0,0.25);
-  //border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
   &.guest {
     height: $header-height + $header-guest-extra;
+    box-shadow: none;
+    border-bottom: 0;
   }
 }
 
@@ -142,8 +144,8 @@ body {
     margin-left: 35px;
     margin-right: 35px;
     height: $header-height + $header-guest-extra + $header-box;
+    font-size: 14px;
   }
-  font-size: 14px;
 
   .site_search {
     float: right;
@@ -350,7 +352,7 @@ ul.piped {
   top: ($header-height + $header-guest-extra + $header-box);
   width: 100%;
   left: 0;
-  height: 350px;
+  height: 300px;
   background: url('old-paper-texture.jpg') 0 0 no-repeat;
   background-size: 100%;
   z-index: -1;
@@ -358,9 +360,21 @@ ul.piped {
 
 #banner_text {
   margin-top: 50px;
-  height: 350px;
+  height: 250px;
   color: white;
   font-size: 60px;
   text-align: center;
   text-shadow: 0 3px rgba(0, 0, 0, 0.3);
+}
+
+#site_explanation {
+  width: 900px;
+  margin: 0 auto;
+
+  li {
+    text-align: center;
+    float: left;
+    padding: 0 20px;
+    width: 260px;
+  }
 }
