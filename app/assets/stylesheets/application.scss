@@ -130,16 +130,12 @@ body {
 .header_coloring {
   height: $header-height + $header-extra;
   $top: lighten($c2, 60%);
-  /*background: -webkit-linear-gradient(top, $top, darken($top, 10%));*/
-  /* background-color: #f5f5f5; */
 }
 
 #header {
   margin-top: -($header-height + $header-extra + $header-box);
   height: $header-height + $header-extra + $header-box;
   &.guest {
-    //margin-left: 35px;
-    //margin-right: 35px;
     font-size: 14px;
   }
 
