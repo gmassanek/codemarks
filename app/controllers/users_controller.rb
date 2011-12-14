@@ -18,6 +18,8 @@ class UsersController < ApplicationController
 
   def dashboard
     @user = current_user
+
+    #if params[:filter]
     @link_saves = @user.link_saves
     @link_saves = @link_saves.unarchived unless params[:archived]
 

@@ -4,8 +4,15 @@
     %li.first.last=# pluralize(@reminders.count, "reminders")
   .clear
 
-= link_to "view archived", url_for(:only_path => true, sort: params[:sort], archived: true), :remote => true
-= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
-= link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true
+%ul#filters.piped
+  %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true
+  %li= link_to "friend feed", url_for(:only_path => true, filter: :friends), :remote => true
+  %li.last= link_to "public codemarks", url_for(:only_path => true, filter: :public), :remote => true
+%ul#sorts.piped
+  - if params[:filter].blank? || params[:filter] == "mine"
+    %li= link_to "view archived", url_for(:only_path => true, sort: params[:sort], archived: true), :remote => true
+  %li.first= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
+  %li.last= link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true
+.clear
 = render '/shared/link_saves'
 

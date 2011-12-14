@@ -173,7 +173,9 @@ ul.piped {
   li {
     border-right: 1px solid $border-color1;
     border-left: 1px solid $c6;
+    float: left;
     //box-shadow: 0 0 18px rgba(0,0,0,0.1);
+    padding: 0 5px;
 
     &.first {
       border-left: none;

@@ -5,6 +5,7 @@
       - @link.errors.full_messages.each do |msg|
         %p.flash.error= msg
   = form.url_field :url, :type => :hidden
+  = form.text_field :host, :type => :hidden
   = form.text_field :title, :placeholder => "Title"
   .clear
   = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
