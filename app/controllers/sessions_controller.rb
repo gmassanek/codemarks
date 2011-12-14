@@ -6,12 +6,15 @@ class SessionsController < ApplicationController
     if current_user
       @user = current_user
       Authenticator.add_authentication_to_user @user, params[:provider], auth_hash
+      session[:user_id] = @user.id
+      flash[:notice] = "Successfully authentication"
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
+      session[:user_id] = @user.id
+      flash[:notice] = "Thanks for signing up!"
     end
+    redirect_to profile_path
 
-    session[:user_id] = @user.id
-    redirect_to dashboard_path, :notice => "Signed in successfully"
   rescue Exception => ex
     logger.info ex.to_s
     puts ex.to_s

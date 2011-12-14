@@ -1,6 +1,7 @@
 Cms::Application.routes.draw do
 
   get '/dashboard', to: "users#dashboard", as: :dashboard
+  get '/profile', to: "users#profile", as: :profile
 
   match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path

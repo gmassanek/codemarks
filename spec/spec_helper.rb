@@ -28,9 +28,18 @@ OmniAuth.config.add_mock(:twitter, {
   :uid => '12345',
   :nickname => 'zapnap'
 })
+OmniAuth.config.add_mock(:github, {
+  :uid => '234234',
+  :nickname => 'zapnap'
+})
 
 def simulate_signed_in
   visit '/auth/twitter'
+  @user = User.last
+end
+
+def simulate_github_signed_in
+  visit '/auth/github'
   @user = User.last
 end
 

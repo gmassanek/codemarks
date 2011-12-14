@@ -4,6 +4,15 @@ class UsersController < ApplicationController
 
   before_filter :require_user, :only => [:dashboard]
 
+  def profile 
+    @user = current_user
+  end
+  
+  def update
+    current_user.update_attribute(:email, params[:user][:email])
+    redirect_to profile_path, :notice => "Email saved"
+  end
+
   def create
     @user = User.new params[:user]
     if @user.save
