@@ -98,8 +98,8 @@
    ========================================================================== */
 
 .btn-github {
-  border-color: #518cc6;
-  border-bottom-color: #2a65a0;
+  border-color: darken(#518cc6, 5%);
+  border-bottom-color: darken(#2a65a0, 5%);
   color: #fff;
   background-color: #599bdc;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
@@ -107,7 +107,7 @@
   background-image: -moz-linear-gradient(#599bdc, #3072b3);
   background-image: -ms-linear-gradient(#599bdc, #3072b3);
   background-image: -o-linear-gradient(#599bdc, #3072b3);
-  background-image: linear-gradient(darken(#599bdc, 5%), darken(#3072b3, 15%));
+  background-image: linear-gradient(darken(#599bdc, 15%), darken(#3072b3, 25%));
   text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
 }
 
@@ -115,9 +115,6 @@
 .btn-github:focus {
   color: #fff;
   border-color: darken(#518cc6, 15%);
-  border-top-color: #518cc6;
-  border-left-color: #518cc6;
-  border-bottom-color: darken(#2a65a0, 15%);
   background-color: darken(#599bdc, 5%);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
   background-image: -moz-linear-gradient(#599bdc, #3072b3);

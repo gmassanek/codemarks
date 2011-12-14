@@ -59,25 +59,25 @@ input {
   }
 }
 
-h3 {
-  /*background: -webkit-linear-gradient(lighten($c2, 40%), lighten($c2, 25%));*/
-  background: white url("background-v2.png") 0 -4px repeat-x;
-  background-size: 100% 115%;
-  padding: 8px;
-  border-bottom: 1px solid $border-color1;
-
-  .page_title {
-    float: left;
-  }
-
-  .pagination {
-    margin-top: 2px;
-    margin-left: 5px;
-    font-size: 12px;
-    float: left;
-  }
-
-}
+//h3 {
+//  /*background: -webkit-linear-gradient(lighten($c2, 40%), lighten($c2, 25%));*/
+//  background: white url("background-v2.png") 0 -4px repeat-x;
+//  background-size: 100% 115%;
+//  padding: 8px;
+//  border-bottom: 1px solid $border-color1;
+//
+//  .page_title {
+//    float: left;
+//  }
+//
+//  .pagination {
+//    margin-top: 2px;
+//    margin-left: 5px;
+//    font-size: 12px;
+//    float: left;
+//  }
+//
+//}
 
 
 a {
@@ -173,6 +173,7 @@ ul.piped {
   li {
     border-right: 1px solid $border-color1;
     border-left: 1px solid $c6;
+    //box-shadow: 0 0 18px rgba(0,0,0,0.1);
 
     &.first {
       border-left: none;
@@ -319,7 +320,8 @@ ul.piped {
 
     &[type=submit]{
       float: left;
-      color: #ffffff;
+      color: $c1;
+      background: $c5;
     }
   }
 
@@ -336,18 +338,19 @@ ul.piped {
 }
 
 #banner_text {
-  margin-top: 50px;
-  height: 250px;
+  margin-top: 35px;
+  height: 265px;
   color: white;
   text-align: center;
 
   h2 {
+    font-family: 'Coustard', serif;
     font-size: 60px;
     text-shadow: 0 3px rgba(0, 0, 0, 0.3);
   }
   h3 {
     font-weight: normal;
-    margin-top: 5px;
+    margin-top: 10px;
     background: inherit;
     border-bottom: none;
     font-size: 30px;
@@ -362,6 +365,6 @@ ul.piped {
     text-align: center;
     float: left;
     padding: 0 20px;
-    width: 260px;
+    width: 258px;
   }
 }

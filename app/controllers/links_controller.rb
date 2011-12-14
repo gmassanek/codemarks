@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
   require 'link_saver'
+  require 'smart_link'
   include OOPs
 
   def new
@@ -10,11 +11,14 @@ class LinksController < ApplicationController
         smart_link = SmartLink.new(@link.url)
         if smart_link.response
           @link.title = smart_link.title
+          @link.host = smart_link.host
           @pos_topics = smart_link.topics
         else
           @pos_topics = []
         end
-      rescue
+      rescue Exception => ex
+        puts ex.inspect
+        logger.debug ex.inspect
         @link.errors.add(:url, "is invalid")
         @pos_topics = []
         puts @link.inspect

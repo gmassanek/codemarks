@@ -31,6 +31,10 @@ module OOPs
       end
     end
 
+    def host
+      URI.parse(@url).host if @response
+    end
+
     private
 
     def html_response url

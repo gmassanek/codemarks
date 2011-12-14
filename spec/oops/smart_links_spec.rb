@@ -32,4 +32,9 @@ describe OOPs::SmartLink do
     smart_link.topics.should include(google)
   end
 
+  it "extracts the uri out of a good link" do
+    smart_link = SmartLink.new("http://www.google.com")
+    smart_link.host.should == "www.google.com"
+  end
+
 end

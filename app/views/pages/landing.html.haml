@@ -1,18 +1,18 @@
 #banner
 #banner_text
-  %h2 save. share. discover.
-  %h3 a new toy for social coders
+  %h2 codemarks
+  %h3 bookmarks for social coders
 
   .clear
   = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
   = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
-%ul#site_explanation
-  %li
+%ul#site_explanation.piped
+  %li.first
     %h3 save
     blogs, tutorials, lessons learned. Categorize them, set reminders, and actually use them again.
   %li
     %h3 share
     with other members of your tech community.  Help newbs get started or philosophize on the next big thing
-  %li
+  %li.last
     %h3 discover
     new resources, new people, new technologies

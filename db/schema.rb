@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211192241) do
+ActiveRecord::Schema.define(:version => 20111213173752) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20111211192241) do
     t.integer  "popularity",       :default => 0
     t.integer  "clicks_count",     :default => 0
     t.integer  "link_saves_count", :default => 0
+    t.string   "host"
   end
 
   create_table "topics", :force => true do |t|

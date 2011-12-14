@@ -35,6 +35,6 @@ OmniAuth.config.add_mock(:twitter, {
   :nickname => 'gmassanek'
 })
 OmniAuth.config.add_mock(:github, {
-  :uid => '12345',
+  :uid => '1234',
   :nickname => 'gmassanek'
 })
