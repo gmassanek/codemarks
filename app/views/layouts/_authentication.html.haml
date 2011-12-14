@@ -4,7 +4,7 @@
       - gimg = gravatar_image_tag(current_user.email, :gravatar => { :size => 20 })
       %li.first.last.image= link_to gimg, current_user
       %li.first
-        = link_to 'My Account', user_path(current_user)
+        = link_to 'My Account', profile_path
         -# resource_count = current_user.reminders.unfinished.count
         -# if resource_count > 0
           = link_to resource_count, user_path(current_user), :class => "reminders"

@@ -5,6 +5,12 @@
 
 Email: #{@user.email}
 
+- if @user.authentication_by_provider(:twitter).present?
+  Twitter authenticated
+- else
+  = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter", id: "twitter_signin" 
 
-= link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter", id: "twitter_signin" unless @user.authentication_by_provider(:twitter).present?
-= link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github", id: "github_signin" unless @user.authentication_by_provider(:github).present?
+- if @user.authentication_by_provider(:github).present?
+  Github authenticated
+- else
+  = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github", id: "github_signin" 
