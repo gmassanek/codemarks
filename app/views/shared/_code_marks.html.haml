@@ -1,0 +1,8 @@
+- puts "Links are #{@links.inspect}"
+- puts "Clicks are #{@clicks.inspect}"
+- puts "Link Saves are #{@link_saves.inspect}"
+%ul#code_marks
+  - @links.each do |link|
+    - click_count = @clicks[link.id].present? ? @clicks[link.id].count : 0
+    - save_count = @link_saves[link.id].present? ? @link_saves[link.id].count : 0
+    = render '/shared/codemark', link:link, click_count: click_count, save_count: save_count

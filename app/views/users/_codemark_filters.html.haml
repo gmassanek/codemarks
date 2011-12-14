@@ -1,0 +1,11 @@
+#filters_and_sorts
+  %ul#filters.piped
+    %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine, :sort => params[:sort]), :remote => true
+    %li= link_to "friend feed", url_for(:only_path => true, filter: :friends, :sort => params[:sort]), :remote => true
+    %li.last= link_to "public codemarks", url_for(:only_path => true, filter: :public, :sort => params[:sort]), :remote => true
+  %ul#sorts.piped
+    - if params[:filter].blank? || params[:filter] == "mine"
+      %li= link_to "view archived", url_for(:only_path => true, sort: params[:sort], archived: true), :remote => true
+    %li.first= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity, :filter => params[:filter]), :remote => true
+    %li.last= link_to "by save date", url_for(:only_path => true, sort: :by_save_date, :filter => params[:filter]), :remote => true
+

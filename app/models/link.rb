@@ -12,6 +12,9 @@ class Link < ActiveRecord::Base
 
   validates_presence_of :url, :title
   validates_format_of :url, :with => URI::regexp
+  
+  scope :for, lambda { |link_saves| joins(:link_saves).where(['link_saves.id in (?)', link_saves]) }
+
   #validates_uniqueness_of :url
 
   #before_validation :fetch_title 

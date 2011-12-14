@@ -25,6 +25,12 @@ describe Link do
     end
   end
 
+  it "gets all links for a list of link saves " do
+    link_save1 = Fabricate(:link_save)
+    link_save2 = Fabricate(:link_save)
+    Link.for([link_save1, link_save2]).should == [link_save1.link, link_save2.link]
+  end
+
   #describe "has all sorts of scopes" do
   #  before do
   #    @lt = Fabricate(:link_topic)

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  require 'popularity'
+  include OOPs
 
   before_filter :require_user, :only => [:dashboard]
 
@@ -19,15 +21,65 @@ class UsersController < ApplicationController
   def dashboard
     @user = current_user
 
-    #if params[:filter]
-    @link_saves = @user.link_saves
-    @link_saves = @link_saves.unarchived unless params[:archived]
+    if params[:filter] == "public"
+      @links = Link.scoped
+      @clicks = Click.all.group_by { |click| click.link.id }
+      @link_saves = LinkSave.scoped
 
-    if params[:sort] == "by_popularity"
-      @link_saves = @link_saves.by_popularity 
+
+
+      if params[:sort] == "by_popularity"
+        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        @links = @links.sort_by { |link| 
+           LinkPopularity.calculate_scoped(link, @clicks, @link_saves)
+        }
+      else
+        @link_saves = @link_saves.by_save_date
+        link_ids = @link_saves.collect(&:link_id)
+        @links = @links.sort do |a, b|
+          link_ids.index(a.id) <=> link_ids.index(b.id)
+        end
+        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+      end
+
+
+
+
     else
-      @link_saves = @link_saves.by_save_date
+      @clicks = @user.clicks.group_by { |click| click.link.id }
+      @link_saves = @user.link_saves
+      @link_saves = @link_saves.unarchived unless params[:archived]
+
+
+      if params[:sort] == "by_popularity"
+        link_ids = @link_saves.collect(&:link_id)
+        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        @links = Link.find(link_ids)
+        @links = @links.sort_by { |link| 
+           LinkPopularity.calculate_scoped(link, @clicks, @link_saves)
+        }
+      else
+        @link_saves = @link_saves.by_save_date
+        link_ids = @link_saves.collect(&:link_id)
+        @links = Link.find(link_ids)
+        @links = @links.sort do |a, b|
+          link_ids.index(a.id) <=> link_ids.index(b.id)
+        end
+        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+      end
+
     end
+
+#    #
+
+#    if params[:sort] == "by_popularity"
+#      @links = @links.sort_by { |link| LinkPopularity.calculate link }
+#    else
+      #@link_saves = @link_saves.sort_by { |ls| ls.created_at }
+      #@links = @links.sort do |a, b| 
+      #  @link_saves[a.id].first.created_at <=> @link_saves[b.id].first.created_at
+      #end
+#    end
   end
 
   def show

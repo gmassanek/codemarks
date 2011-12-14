@@ -1,6 +1,7 @@
-$('#list_box').replaceWith("<%= escape_javascript(render('/shared/link_saves')) %>");
-style_lists();
+$('#code_marks').replaceWith("<%= escape_javascript(render('/shared/code_marks')) %>");
+$('#filters_and_sorts').replaceWith("<%= escape_javascript(render('/users/codemark_filters')) %>");
 
+style_lists();
 prepareResourceLink();
 
 

@@ -1,13 +1,12 @@
 require 'csv'
-require 'smart_links'
+require 'smart_link'
 require 'link_saver'
+include OOPs
 
 CSV_DIR = "db/seed_data/"
 
 #users
-["system@example.com", "test@example.com", "test2@example.com", "test3@example.com"].each do |email|
-  Fabricate(:user, :email => email, :password => "password") unless User.find_by_email(email)
-end
+Fabricate(:user)
 
 #Topics
 file_name = "rubeco_topics_12-2.csv"
@@ -27,16 +26,22 @@ path_to_file = CSV_DIR + file_name
 
 CSV.foreach(path_to_file, {:headers => true}) do |row|
   url = row[1]
+  user = User.first
   unless Link.find_by_url(url)
     puts "Saving #{url}"
     begin
-      link = Link.new(url: url)
-      curler = SmartLinks::MyCurl.new(url)
-      sysuser = User.find_by_email "system.example.com"
-
-      ResourceManager::LinkSaver.create_link({url: url}, curler.topics.collect(&:id), nil, sysuser)
-    rescue
-      "Could not save #{url}"
+      link = Link.new
+      link.url = url
+      smart_link = SmartLink.new(link.url)
+      if smart_link.response
+        link.title = smart_link.title
+        link.host = smart_link.host
+        topics = smart_link.topics
+        LinkSaver.save_link!(link, user, topics) 
+      end
+    rescue Exception => ex
+      puts "Problem saving #{url}"
+      puts ex.inspect
     end
   end
 end

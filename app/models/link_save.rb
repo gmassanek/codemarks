@@ -11,6 +11,10 @@ class LinkSave < ActiveRecord::Base
   scope :by_popularity, joins(:link)
                         .order('clicks_count DESC')
 
+  #scope :by_link, joins(:link).select('DISTINCT(link_id), link_saves.*')
+                        #
+  #scope :by_link, joins(:link).group(:link_id)
+
   delegate :title, :url, :to => :link
 
 

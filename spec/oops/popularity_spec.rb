@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe OOPs::LinkPopularity do
   describe "#calculate" do
+    it "has a popularity of 0 if the link is nil" do
+      OOPs::LinkPopularity.calculate(nil).should == 0
+    end
     it "increases with a link click" do
       link = Fabricate(:link, :clicks_count => 4)
       Fabricate(:click, link: link)

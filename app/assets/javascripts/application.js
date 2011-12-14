@@ -40,9 +40,9 @@ function prepareAutocompletes() {
   });
 }
 
-function prepareResourceLink() {
-  $(".resource_link").click(function(event) {
-    $(event.target).parent().parent().find("form").submit();
+function prepareCodemarks() {
+  $(".codemark").click(function(event) {
+    $(event.target).parent().find("form").submit();
   });
 }
 
@@ -60,7 +60,7 @@ $(function() {
     event.preventDefault(); 
   }); 
 
-  prepareResourceLink();
+  prepareCodemarks();
   style_lists();
   prepareAutocompletes();
   prepareTagDeletes();
