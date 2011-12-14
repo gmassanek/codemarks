@@ -14,7 +14,6 @@ gem 'nokogiri'
 gem 'kaminari'
 gem 'rails3-jquery-autocomplete', :git => 'git://github.com/gmassanek/rails3-jquery-autocomplete.git'
 gem 'gravatar_image_tag'
-gem 'sqlite3'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'therubyracer'
@@ -27,6 +26,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -34,6 +34,7 @@ group :test do
 end
 
 group :production do
+  gem 'pg'
 end
 
 group :assets do
