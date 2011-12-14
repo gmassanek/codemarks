@@ -16,12 +16,12 @@ describe "Home page" do
   context "as a new user" do
     it "signs me up when I click on the twitter link" do
       page.click_link "sign in with twitter"
-      page.should have_content "Signed in successfully"
+      page.should have_content "Thanks for signing up"
     end
 
     it "signs me up when I click on the github link" do
       page.click_link "sign in with github"
-      page.should have_content "Signed in successfully"
+      page.should have_content "Thanks for signing up"
     end
   end
 

@@ -37,10 +37,11 @@ describe "User pages" do
 
           it "only shows a link once, even if it has been saved multiple times" do
             second_save = Fabricate(:link_save, link: @his_link.link)
+            visit dashboard_path
             page.click_link "public codemarks"
-            puts second_save.title.inspect
-            puts second_save.url.inspect
-            puts second_save.link.link_saves.inspect
+            #puts second_save.title.inspect
+            #puts second_save.url.inspect
+            #puts second_save.link.link_saves.inspect
             page.should have_link @my_link.title
             page.should have_xpath("//a[contains(@href,'#{@his_link.url}')]", :count => 1)
           end

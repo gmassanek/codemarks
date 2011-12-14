@@ -36,7 +36,6 @@ describe "User Profile Page" do
 
   it "asks you to link your github" do
     simulate_github_signed_in
-    puts User.last.authentications.inspect
     page.should_not have_link("github_signin")
     page.should have_link("twitter_signin")
   end
