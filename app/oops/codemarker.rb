@@ -1,26 +1,32 @@
 module OOPs
-  class LinkSaver
+  class Codemarker
   include Exceptions
 
     class << self
 
-      def save_link!(link, options = {})
-        raise LinkRequiredError if link.nil?
-        raise ValidURLRequiredError  if link.url.blank?
+      def mark!(codemark)
+        raise LinkRequiredError if codemark.link.nil?
+        raise InvalidLinkError unless codemark.link.valid?
+        raise UserRequiredError if codemark.user.nil?
         #raise TopicsRequiredError if topics.nil? || topics.empty?
-        raise UserRequiredError  if user.nil?
 
-        return nil unless link.valid?
-
+        link = codemark.link
         existing_link = Link.find_by_url(link.url)
         if existing_link
           link = existing_link
         else
           link.save!
         end
-        create_link_save(link, user) unless user.has_saved_link? link
-        #create_link_topics(link, user)
-        return link
+
+        existing_codemark = codemark.user.codemark_for(codemark.link)
+        if existing_codemark
+          existing_codemark.topics = codemark.topics
+          existing_codemark.save
+        else
+          if codemark.save
+            return codemark
+          end
+        end
       end
 
       private
@@ -37,11 +43,6 @@ module OOPs
           topics.each do |topic|
             topic.save! if topic.new_record?
           end
-        end
-
-        def create_link_save(link, user)
-          # TODO: specs are failing here because it's calling link.save somewhere in this call
-          LinkSave.create!(link: link, user: user)
         end
     end
   end

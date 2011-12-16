@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111216044620) do
+ActiveRecord::Schema.define(:version => 20111216154633) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20111216044620) do
     t.datetime "updated_at"
   end
 
-  create_table "link_saves", :force => true do |t|
+  create_table "codemarks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "link_id"
     t.datetime "created_at"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(:version => 20111216044620) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "private",          :default => false
-    t.integer  "popularity",       :default => 0
-    t.integer  "clicks_count",     :default => 0
-    t.integer  "link_saves_count", :default => 0
+    t.boolean  "private",         :default => false
+    t.integer  "popularity",      :default => 0
+    t.integer  "clicks_count",    :default => 0
+    t.integer  "codemarks_count", :default => 0
     t.string   "host"
   end
 

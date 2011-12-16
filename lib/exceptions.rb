@@ -5,4 +5,5 @@ module Exceptions
   class AuthHashRequiredError < StandardError; end
   class AuthProviderRequiredError < StandardError; end
   class ValidURLRequiredError < StandardError; end
+  class InvalidLinkError < StandardError; end
 end

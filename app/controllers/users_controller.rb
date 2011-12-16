@@ -33,22 +33,20 @@ class UsersController < ApplicationController
     if params[:filter] == "public"
       @links = Link.scoped
       @clicks = Click.all.group_by { |click| click.link.id }
-      @link_saves = LinkSave.scoped
-
-
+      @codemarks = Codemark.scoped
 
       if params[:sort] == "by_popularity"
-        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        @codemarks = @codemarks.group_by { |ls| ls.link.id }
         @links = @links.sort_by { |link| 
-           LinkPopularity.calculate_scoped(link, @clicks, @link_saves)
+           LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
         }
       else
-        @link_saves = @link_saves.by_save_date
-        link_ids = @link_saves.collect(&:link_id)
+        @codemarks = @codemarks.by_save_date
+        link_ids = @codemarks.collect(&:link_id)
         @links = @links.sort do |a, b|
           link_ids.index(a.id) <=> link_ids.index(b.id)
         end
-        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        @codemarks = @codemarks.group_by { |ls| ls.link.id }
       end
 
 
@@ -56,25 +54,25 @@ class UsersController < ApplicationController
 
     else
       @clicks = @user.clicks.group_by { |click| click.link.id }
-      @link_saves = @user.link_saves
-      @link_saves = @link_saves.unarchived unless params[:archived]
+      @codemarks = @user.codemarks
+      @codemarks = @codemarks.unarchived unless params[:archived]
 
 
       if params[:sort] == "by_popularity"
-        link_ids = @link_saves.collect(&:link_id)
-        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        link_ids = @codemarks.collect(&:link_id)
+        @codemarks = @codemarks.group_by { |ls| ls.link.id }
         @links = Link.find(link_ids)
         @links = @links.sort_by { |link| 
-           LinkPopularity.calculate_scoped(link, @clicks, @link_saves)
+           LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
         }
       else
-        @link_saves = @link_saves.by_save_date
-        link_ids = @link_saves.collect(&:link_id)
+        @codemarks = @codemarks.by_save_date
+        link_ids = @codemarks.collect(&:link_id)
         @links = Link.find(link_ids)
         @links = @links.sort do |a, b|
           link_ids.index(a.id) <=> link_ids.index(b.id)
         end
-        @link_saves = @link_saves.group_by { |ls| ls.link.id }
+        @codemarks = @codemarks.group_by { |ls| ls.link.id }
       end
 
     end
@@ -84,22 +82,22 @@ class UsersController < ApplicationController
 #    if params[:sort] == "by_popularity"
 #      @links = @links.sort_by { |link| LinkPopularity.calculate link }
 #    else
-      #@link_saves = @link_saves.sort_by { |ls| ls.created_at }
+      #@codemarks = @codemarks.sort_by { |ls| ls.created_at }
       #@links = @links.sort do |a, b| 
-      #  @link_saves[a.id].first.created_at <=> @link_saves[b.id].first.created_at
+      #  @codemarks[a.id].first.created_at <=> @codemarks[b.id].first.created_at
       #end
 #    end
   end
 
   def show
     @user = User.find(params[:id])
-    @link_saves = @user.link_saves
-    @link_saves = @link_saves.unarchived unless params[:archived]
+    @codemarks = @user.codemarks
+    @codemarks = @codemarks.unarchived unless params[:archived]
 
     if params[:by_popularity]
-      @link_saves = @link_saves.by_popularity 
+      @codemarks = @codemarks.by_popularity 
     else
-      @link_saves = @link_saves.by_save_date
+      @codemarks = @codemarks.by_save_date
     end
     #@links = 
     #if params[:filter] == "all"

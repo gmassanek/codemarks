@@ -11,8 +11,8 @@ describe OOPs::LinkPopularity do
       OOPs::LinkPopularity.calculate(Link.last).should == 5
     end
     it "increases with a link save" do
-      link = Fabricate(:link, link_saves_count: 4)
-      Fabricate(:link_save, link: link)
+      link = Fabricate(:link, codemarks_count: 4)
+      Fabricate(:codemark, link: link)
       OOPs::LinkPopularity.calculate(Link.last).should == 5
     end
   end

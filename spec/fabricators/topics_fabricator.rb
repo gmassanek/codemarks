@@ -1,5 +1,5 @@
 Fabricator(:topic) do
-  title { Faker::Lorem.word }
+  title { Faker::Lorem.words(3).join(" ") }
   description { Faker::Lorem.paragraphs(2).join(" ") }
 end
 

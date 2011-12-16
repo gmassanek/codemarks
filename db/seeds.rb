@@ -1,6 +1,6 @@
 require 'csv'
 require 'smart_link'
-require 'link_saver'
+require 'codemarker'
 include OOPs
 
 CSV_DIR = "db/seed_data/"

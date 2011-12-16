@@ -1,7 +1,7 @@
-%li
+%li.topic
   %p.title= link_to topic.title, topic, :class => "title"
   %ul.data.piped
-    %li.first.last= pluralize(topic.resource_count(current_user, filter_by_mine?), "link")
+    %li.first.last= pluralize(topic.codemarks.count, "link")
     /li.last=# last updated #{time_ago_in_words(topic.updated_at)} ago
   .admin_links
     = link_to "Edit", edit_topic_path(topic)

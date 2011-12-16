@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  require 'link_saver'
+  require 'codemarker'
   require 'smart_link'
   include OOPs
 

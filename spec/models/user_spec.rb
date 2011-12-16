@@ -15,11 +15,16 @@ describe User do
     user.should_not be_valid
   end
 
-  context "#has_saved_link?(link)" do
-    it "is true if a LinkSave record exists for that user and link" do
-      link = Fabricate.build(:link)
-      user.stub!(:links).and_return([link])
-      user.should be_has_saved_link(link)
+  context "#codemark_for?(link)" do
+    it "is nil is there isn't one" do
+      codemark = Fabricate(:codemark)
+      user = Fabricate(:user)
+      user.codemark_for(codemark.link).should be_nil
+    end
+
+    it "returns it if it exists" do
+      codemark = Fabricate(:codemark)
+      codemark.user.codemark_for(codemark.link).should == codemark
     end
   end
 
@@ -39,10 +44,10 @@ describe User do
     Authentication.find_by_id(authentication.id).should == nil
   end
 
-  it "has topics that are topics that I have added codemarks for" do
-    loved_topic = Fabricate(:topic)
-    hated_topic = Fabricate(:topic)
-    link_save = Fabricate(:link_save, user: user)
-    raise link_save.user.topics.should == []
+  it "topics are ones that I have added codemarks for" do
+    my_topic = Fabricate(:topic)
+    his_topic = Fabricate(:topic)
+    codemark = Fabricate(:codemark, user: user, topics: [my_topic])
+    user.topics.should == [my_topic]
   end
 end
