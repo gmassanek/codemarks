@@ -32,4 +32,10 @@ describe User do
       user.authentication_by_provider("twitter").should be_nil
     end
   end
+
+  it "deletes all authentications when I delete a user" do
+    authentication = Fabricate(:authentication, user: user, provider: "twitter")
+    authentication.user.destroy
+    Authentication.find_by_id(authentication.id).should == nil
+  end
 end

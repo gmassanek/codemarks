@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     if current_user
-      before_cnt = @user.authentications.count
       @user = current_user
+      before_cnt = @user.authentications.count
       Authenticator.add_authentication_to_user @user, params[:provider], auth_hash
       flash[:notice] = "Successfully authentication"
     else

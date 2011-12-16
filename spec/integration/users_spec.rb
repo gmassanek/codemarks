@@ -30,6 +30,7 @@ describe "User Profile Page" do
       page.click_link "github_signin"
       page.should_not have_link("github_signin")
       page.should_not have_link("twitter_signin")
+      @user.authentications.count.should == 2
       current_path.should == profile_path
     end
   end
