@@ -85,6 +85,17 @@ describe Codemark do
     Codemark.find(codemark.id).topics.count.should == 1
   end
 
+  it "creates new topics for any that don't exist yet" do
+    codemark = Fabricate.build(:codemark)
+    hats = Fabricate.build(:topic, :title => "Hats that I want")
+    topics = codemark.topics
+    topics << hats
+    
+    lambda {
+      codemark.save!
+    }.should change(Topic, :count).by(1)
+  end
+
   it "finds all codemarks for a link" do
     codemark = Fabricate(:codemark)
     codemark2 = Fabricate(:codemark, link: codemark.link)

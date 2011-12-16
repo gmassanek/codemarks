@@ -9,10 +9,16 @@ describe Topic do
       topic.should_not be_valid
     end
 
-    it "needs a unique title" do
+    it "needs a unique title if it doesn't have a user_id" do
       dup_topic = Fabricate.build(:topic, :title => topic.title)
       topic.save
       dup_topic.should_not be_valid
+    end
+
+    it "can be a duplicate title if they all have a different user_id" do
+      dup_topic = Fabricate.build(:topic, title: topic.title, user: Fabricate(:user))
+      topic.save
+      dup_topic.should be_valid
     end
 
     it "is global by default" do

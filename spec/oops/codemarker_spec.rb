@@ -31,15 +31,6 @@ describe Codemarker do
           Codemarker.mark!(codemark)
         }.should raise_error(UserRequiredError)
       end
-
-      it "a list of topics"# do
-      #  lambda {
-      #    Codemarker.mark!(link, user, nil)
-      #  }.should raise_error(TopicsRequiredError)
-      #  lambda {
-      #    Codemarker.mark!(link, user, [])
-      #  }.should raise_error(TopicsRequiredError)
-      #end
     end
 
     context "saves the link" do
@@ -121,11 +112,14 @@ describe Codemarker do
       end
     end
 
-    it "creates new topics if the topic has not been saved before"
-    #  hats = Fabricate.build(:topic, :title => "Hats that I want")
-    #  topics << hats
-    #  hats.should_receive(:save)
-    #  Codemarker.mark!(codemark).id.should_not be_nil
-    #end
+    it "creates new topics if the topic has not been saved before" do
+      hats = Fabricate.build(:topic, :title => "Hats that I want")
+      topics = codemark.topics
+      topics << hats
+      
+      lambda {
+        Codemarker.mark!(codemark)
+      }.should change(Topic, :count).by(1)
+    end
   end
 end
