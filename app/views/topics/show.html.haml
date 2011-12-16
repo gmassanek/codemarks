@@ -4,7 +4,6 @@
     %li.first= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
     %li.last= link_to "Edit", edit_topic_path(@topic)
     /li=# link_to "Delete", @topic, :method => :delete
-  = render 'sponsored_sites'
   .clear
   %p.description= @topic.description
   .clear

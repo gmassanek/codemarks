@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
 
   has_many :authentications, :inverse_of => :user, :dependent => :destroy
+
   has_many :link_saves, :class_name => 'LinkSave', :foreign_key => 'user_id'
   has_many :links, :through => :link_saves
-  has_many :link_topics, :through => :links, :uniq => true
-  has_many :topics, :through => :link_topics, :uniq => true
+  has_many :topics, :through => :link_saves#, :uniq => true
   has_many :clicks
 
   #validates_presence_of :authentications

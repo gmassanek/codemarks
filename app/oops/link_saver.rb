@@ -4,10 +4,10 @@ module OOPs
 
     class << self
 
-      def save_link!(link, user, topics, options = {})
+      def save_link!(link, options = {})
         raise LinkRequiredError if link.nil?
         raise ValidURLRequiredError  if link.url.blank?
-        raise TopicsRequiredError if topics.nil? || topics.empty?
+        #raise TopicsRequiredError if topics.nil? || topics.empty?
         raise UserRequiredError  if user.nil?
 
         return nil unless link.valid?
@@ -19,12 +19,12 @@ module OOPs
           link.save!
         end
         create_link_save(link, user) unless user.has_saved_link? link
-        create_link_topics(link, user, topics)
+        #create_link_topics(link, user)
         return link
       end
 
       private
-        def create_link_topics(link, user, topics)
+        def create_link_topics(link, topics)
           create_new_topics(user, topics)
           cur_topics = link.topics
           topics.reject! { |topic| cur_topics.include? topic }

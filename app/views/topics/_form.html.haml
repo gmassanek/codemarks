@@ -11,11 +11,4 @@
     = form.label :description
     %br
     = form.text_area :description
-    = form.fields_for :sponsored_sites do |site_form|
-      %br
-      = site_form.hidden_field :topic_id
-      = site_form.hidden_field :site
-      = site_form.label "#{site_form.object.site}"
-      %br
-      = site_form.text_field :url
   = form.submit

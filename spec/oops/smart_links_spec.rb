@@ -37,4 +37,5 @@ describe OOPs::SmartLink do
     smart_link.host.should == "www.google.com"
   end
 
+  it "uses the same curl/suggested topics as the previous codemark for that link"
 end

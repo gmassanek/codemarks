@@ -45,6 +45,12 @@ describe LinkSave do
     link_save.url.should == link.url
   end
 
+  it "has topics through codemarks (link saves)" do
+    link_save = Fabricate(:link_save)
+    link_save.topics.should_not be_blank
+  end
+
+
   #it "is deleted if a link is deleted" do
   #  link_save = Fabricate(:link_save)
   #  link_save.link.destroy

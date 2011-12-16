@@ -38,4 +38,11 @@ describe User do
     authentication.user.destroy
     Authentication.find_by_id(authentication.id).should == nil
   end
+
+  it "has topics that are topics that I have added codemarks for" do
+    loved_topic = Fabricate(:topic)
+    hated_topic = Fabricate(:topic)
+    link_save = Fabricate(:link_save, user: user)
+    raise link_save.user.topics.should == []
+  end
 end

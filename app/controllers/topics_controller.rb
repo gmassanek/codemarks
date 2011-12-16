@@ -2,7 +2,6 @@ class TopicsController < ApplicationController
 
   def new
     @topic = Topic.new
-    build_missing_sponsored_sites
   end
 
   def create
@@ -10,14 +9,12 @@ class TopicsController < ApplicationController
     if @topic.save
       redirect_to topics_path, :notice => "Topic created"
     else
-      build_missing_sponsored_sites
       render :new
     end
   end
 
   def edit
     @topic = Topic.find params[:id]
-    build_missing_sponsored_sites
   end
 
   def update
@@ -25,7 +22,6 @@ class TopicsController < ApplicationController
     if @topic.update_attributes params[:topic]
       redirect_to topics_path, :notice => "Topic updated"
     else
-      build_missing_sponsored_sites
       render :edit
     end
   end
@@ -63,7 +59,7 @@ class TopicsController < ApplicationController
     elsif filter_by_mine?
       @topics = Topic.for_user(current_user)
     else
-      @topics = Topic.public_and_for_user(current_user)
+      @topics = current_user.topics
     end
 
     sort_order = params[:sort]
@@ -86,14 +82,5 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic = Topic.find params[:id]
-  end
-
-  private
-
-  def build_missing_sponsored_sites
-    missing_sponsored_sites = SponsoredSite::SponsoredSites.constant_values - @topic.sponsored_sites.collect(&:site)
-    missing_sponsored_sites.each do |site|
-      @topic.sponsored_sites.build(:site => site)
-    end
   end
 end
