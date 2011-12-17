@@ -5,34 +5,28 @@ module OOPs
     require 'open-uri'
     require 'nokogiri'
 
-    attr_accessor :url, :response
+    attr_accessor :link
     
-    def initialize(url)
-      valid_url_matches = url.match(URI::regexp)
-      if url.blank? || !valid_url_matches 
-        raise ValidURLRequiredError
+    def initialize(link)
+      raise LinkRequiredError if link.nil?
+
+      link.valid?
+      if link.errors.include? :url
+        raise InvalidLinkError
       end
 
-      @url ||= url
-      @response = html_response url
+      self.link = link
     end
     
-    def title
-      @response.title if @response
-    end
-
-    def has_topic?(topic)
-      response.content.gsub(/\r/, ' ').gsub(/\n/, " ").to_s.downcase.include? "#{topic.title.downcase}"
-    end
-
-    def topics
-      Topic.all.select do |topic|
-        has_topic? topic
+    def better_link
+      b_link = link
+      response = html_response b_link.url
+      if response
+        b_link.response = response
+        b_link.title = response.title
+        b_link.host = URI.parse(b_link.url).host
       end
-    end
-
-    def host
-      URI.parse(@url).host if @response
+      b_link
     end
 
     private

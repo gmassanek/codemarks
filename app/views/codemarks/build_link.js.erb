@@ -1,0 +1,21 @@
+<% if params[:url] %>
+  $(function() {
+    $("#url_form input[type=submit]").hide();
+    $("<%= escape_javascript(render('codemarks/form')) %>").hide()
+      .appendTo($('#link_form_container'))
+      .slideDown(200);
+
+
+    $("#link_form_container").addClass("highlighted");
+
+  });
+
+
+
+<% else %>
+  $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
+<% end %>
+
+prepareAutocompletes();
+prepareTagDeletes();
+

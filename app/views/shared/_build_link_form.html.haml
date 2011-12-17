@@ -1,4 +1,4 @@
-= form_tag new_link_path, :method => :get, :remote => true, :id => "url_form" do |form|
+= form_tag build_link_path, :method => :get, :remote => true, :id => "url_form" do |form|
   - if @link && @link.errors.present?
     .errors
       - @link.errors.full_messages.each do |msg|

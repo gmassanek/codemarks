@@ -1,24 +1,24 @@
 <% if params[:url] %>
   $(function() {
     $("#url_form input[type=submit]").hide();
-    $("<%= escape_javascript(render('full_form')) %>").hide()
-      .appendTo($('#link_form_container'))
-      .slideDown(200);
+    //$("<%=# escape_javascript(render('full_form')) %>").hide()
+    //  .appendTo($('#link_form_container'))
+    //  .slideDown(200);
 
-    $("#full_link_form").keypress(function(e) {
-      if (e.keyCode == 13) {
-        return false;
-      }
-    });
+    //$("#full_link_form").keypress(function(e) {
+    //  if (e.keyCode == 13) {
+    //    return false;
+    //  }
+    //});
 
-    $(document).keyup(function(e) {
-      if (e.keyCode == 27) {
-        $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
-        $("#link_form_container").removeClass("highlighted");
-      }
-    });
+    //$(document).keyup(function(e) {
+    //  if (e.keyCode == 27) {
+    //    $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
+    //    $("#link_form_container").removeClass("highlighted");
+    //  }
+    //});
 
-    $("#link_form_container").addClass("highlighted");
+    //$("#link_form_container").addClass("highlighted");
 
   });
 
@@ -30,3 +30,5 @@
 
 prepareAutocompletes();
 prepareTagDeletes();
+
+

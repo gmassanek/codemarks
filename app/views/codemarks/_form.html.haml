@@ -1,0 +1,19 @@
+.clear
+= form_for @codemark do |form|
+  - if @codemark.errors.present?
+    .errors
+      - @codemark.errors.full_messages.each do |msg|
+        %p.flash.error= msg
+  - puts @codemark.link.inspect
+  = form.fields_for :link do |link_form|
+    = link_form.url_field :url, :type => :hidden
+    = link_form.text_field :host, :type => :hidden
+    = link_form.text_field :title, :placeholder => "Title"
+  .clear
+  = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
+  .clear
+  = render 'topic_tags_list', :pos_topics => @codemark.topics
+  .clear
+  = form.submit
+  .clear
+

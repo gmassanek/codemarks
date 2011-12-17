@@ -22,8 +22,8 @@ describe "New Codemark Form" do
       visit root_path
       page.fill_in("url", :with => "http://www.google.com")
       page.click_button("fetch")
-      page.should have_css("#full_link_form", :visible => true)
-      page.find_field("link_title").value.should == "Google"
+      page.should have_css("#new_codemark", :visible => true)
+      page.find_field("codemark_link_title").value.should == "Google"
     end
 
     it "shows the second form when I submit a URL to save even if it couldn't fetch the url", js: true do
@@ -31,8 +31,8 @@ describe "New Codemark Form" do
       visit root_path
       page.fill_in("url", :with => "http://www.234fggg_oogle2342adfa23r4.com")
       page.click_button("fetch")
-      page.should have_css("#full_link_form", :visible => true)
-      page.find_field("link_title").value.should == ""
+      page.should have_css("#new_codemark", :visible => true)
+      page.find_field("codemark_link_title").value.should == ""
     end
 
     it "saves a new link_save", js: true, :broken => true do

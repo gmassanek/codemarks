@@ -2,7 +2,7 @@
   /#header.guest
   #logo= link_to "codemarks", root_path
   #link_form_container
-    = render '/links/first_form' if logged_in?
+    = render '/shared/build_link_form' if logged_in?
   = render '/layouts/authentication'
   = render '/layouts/guest_links'
   =# render '/layouts/search', :prefix => "", :placeholder => "Search topics..."
