@@ -1,3 +1,7 @@
+require 'codemarker'
+require 'tagger'
+require 'smart_link'
+
 module OOPs
   class IncomingEmailParser 
     class << self
@@ -7,7 +11,9 @@ module OOPs
         if user
           urls = extract_urls_into_array params[:body]
           urls.each do |url|
+            puts "hello"
             save_codemark(user, url)
+            puts url.inspect
           end
         end
       end
@@ -27,12 +33,17 @@ module OOPs
 
       def save_codemark(user, url)
         link = Link.new(url: url)
-        link = SmartLink.new(link).better_link
-        topics = Tagger.get_tags_for_link link
+        link = OOPs::SmartLink.new(link).better_link
+        topics = OOPs::Tagger.get_tags_for_link link
         codemark = Codemark.new
         codemark.user = user
         codemark.link = link
-        Codemarker.mark!(codemark)
+        puts user.valid?
+        puts "BOOM"
+        puts codemark.inspect
+        puts topics.inspect
+
+        OOPs::Codemarker.mark!(codemark)
       end
     end
   end

@@ -3,6 +3,7 @@ module OOPs
     include Exceptions
     class << self
       def mark!(codemark)
+        puts "got into MARK"
         raise LinkRequiredError if codemark.link.nil?
         raise InvalidLinkError unless codemark.link.valid?
         raise UserRequiredError if codemark.user.nil?
@@ -24,9 +25,8 @@ module OOPs
           codemark = existing_codemark
         end
 
-        if codemark.save
-          return codemark
-        end
+        codemark.save!
+        return codemark
       end
     end
   end

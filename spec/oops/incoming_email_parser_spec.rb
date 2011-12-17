@@ -17,9 +17,12 @@ describe IncomingEmailParser do
 
   it "stores a link if the user exists" do
     Fabricate(:user, email: "test@example.com")
+    google = Fabricate(:topic, title: "google")
     params[:body] = "http://www.google.com /n My Signature"
-    Codemarker.should_receive(:mark!)
-    IncomingEmailParser.parse(params)
+    Tagger.should_receive(:get_tags_for_link).and_return([google])
+    lambda {
+      IncomingEmailParser.parse(params)
+    }.should change(Codemark, :count).by(1)
   end
 
   context "pulls out urls" do
@@ -32,9 +35,6 @@ describe IncomingEmailParser do
     it "for multiple links" do
       body = "here is a link to http://www.google.com and http://www.yahoo.com"
       IncomingEmailParser.extract_urls_into_array(body).should == ["http://www.google.com", "http://www.yahoo.com"]
-    end
-
-    it "uses nicify to turn links into basic URI to go index" do
     end
   end
 end
