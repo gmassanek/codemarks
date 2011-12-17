@@ -19,7 +19,8 @@ module OOPs
           link.save!
         end
         
-        existing_codemark = user.codemark_for(codemark.link)
+        existing_codemark = user.codemark_for(link)
+        puts existing_codemark.inspect
         if existing_codemark
           existing_codemark.topics = codemark.topics
           codemark = existing_codemark

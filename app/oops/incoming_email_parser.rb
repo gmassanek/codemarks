@@ -11,9 +11,7 @@ module OOPs
         if user
           urls = extract_urls_into_array params[:text]
           urls.each do |url|
-            puts "hello"
             save_codemark(user, url)
-            puts url.inspect
           end
         end
       end
@@ -38,10 +36,6 @@ module OOPs
         codemark = Codemark.new
         codemark.user = user
         codemark.link = link
-        puts user.valid?
-        puts "BOOM"
-        puts codemark.inspect
-        puts topics.inspect
 
         OOPs::Codemarker.mark!(codemark)
       end

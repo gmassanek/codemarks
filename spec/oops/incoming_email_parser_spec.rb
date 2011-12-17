@@ -15,14 +15,17 @@ describe IncomingEmailParser do
     IncomingEmailParser.extract_email("there test@example.com it works").should == "test@example.com"
   end
 
-  it "stores a link if the user exists" do
+  it "stores a link if the user exists (but only adds a codemark once)" do
     Fabricate(:user, email: "test@example.com")
     google = Fabricate(:topic, title: "google")
     params[:text] = "http://www.google.com /n My Signature"
-    Tagger.should_receive(:get_tags_for_link).and_return([google])
     lambda {
       IncomingEmailParser.parse(params)
     }.should change(Codemark, :count).by(1)
+
+    lambda {
+      IncomingEmailParser.parse(params)
+    }.should change(Codemark, :count).by(0)
   end
 
   context "pulls out urls" do
