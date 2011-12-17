@@ -1,5 +1,8 @@
 var chb = $("#topic_chb_<%= @topic.slug %>");
 console.log(chb)
+
+$("#save_codemark").removeAttr('disabled');
+
 if (chb.length == 0) {
   $("#topic_tags").append("<%= escape_javascript(render '/codemarks/topic_tag_item', :checked => true, :topic => @topic) %>");
 } else {

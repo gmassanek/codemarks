@@ -2,4 +2,5 @@
   = render '/links/click_form', link_id: link.id
   = link_to link.title, link.url, :target => :blank, :class => 'codemark'
   Clicked #{click_count} times
+  = "-"
   Saved #{save_count} times

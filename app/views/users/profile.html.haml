@@ -1,6 +1,6 @@
 - unless @user.email.present?
   = form_for @user do |form|
-    = form.email_field :email
+    = form.email_field :email, :placeholder => "email"
     = form.submit :Save
 
 Email: #{@user.email}

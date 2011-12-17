@@ -31,6 +31,8 @@
     -moz-user-drag: -moz-none;
     -webkit-user-drag: none;
     user-drag: none;
+
+    z-index: -1;
 }
 
 .btn-auth:hover,

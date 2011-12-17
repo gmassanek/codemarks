@@ -40,6 +40,7 @@ class UsersController < ApplicationController
         @links = @links.sort_by { |link| 
            LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
         }
+        @links.reverse!
       else
         @codemarks = @codemarks.by_save_date
         link_ids = @codemarks.collect(&:link_id)

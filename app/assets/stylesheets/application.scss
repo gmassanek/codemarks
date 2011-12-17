@@ -300,7 +300,8 @@ ul.piped {
   }
 }
 
-#url_form, #full_link_form {
+#url_form, #new_codemark {
+  z-index: 100;
   float: left;
   font-size: 14px;
   width: 400px;

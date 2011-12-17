@@ -33,5 +33,13 @@ $border-radius-tight: 3px;
 #code_marks {
   li {
     padding: 15px;
+
+    a {
+      color: $c3;
+
+      &:hover {
+        color: $c4;
+      }
+    }
   }
 }

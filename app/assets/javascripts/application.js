@@ -15,7 +15,7 @@ var TOPICS_PATH = '/topics/'
 function prepareTagDeletes() {
   $("#topic_tags .delete").click(function(event) {
     event.preventDefault();
-    $(event.currentTarget).closest("li").fadeOut(500, function() {
+    $(event.currentTarget).closest("li").fadeOut(100, function() {
       $(this).remove();
       var topics_count = $("#topic_tags li").length;
       if(topics_count == 0) {
