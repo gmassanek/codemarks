@@ -12,13 +12,11 @@ describe "New Codemark Form" do
     end
 
     it "is on any page if you're logged in" do
-      simulate_signed_in
       visit root_path
       page.should have_css("input#url", :visible => true)
     end
     
     it "shows the second form when I submit a URL to save", js: true do
-      simulate_signed_in
       visit root_path
       page.fill_in("url", :with => "http://www.google.com")
       page.click_button("fetch")
@@ -27,7 +25,6 @@ describe "New Codemark Form" do
     end
 
     it "shows the second form when I submit a URL to save even if it couldn't fetch the url", js: true do
-      simulate_signed_in
       visit root_path
       page.fill_in("url", :with => "http://www.234fggg_oogle2342adfa23r4.com")
       page.click_button("fetch")
@@ -37,7 +34,6 @@ describe "New Codemark Form" do
 
     it "saves a new link_save", js: true, :broken => true do
       # TODO Not getting tagged with any topics and it's blowing up
-      simulate_signed_in
       google = Fabricate(:topic, :title => "news")
       visit root_path
       page.fill_in("url", :with => "http://www.google.com")
@@ -50,6 +46,25 @@ describe "New Codemark Form" do
         current_path.should == root_path
         page.should have_content "Link created"
       }.should change(LinkSave, :count).by(1)
+    end
+
+    it "won't let a user click save without any topics", js: true do
+      visit root_path
+      page.fill_in("url", :with => "http://www.google.com")
+      page.click_button("fetch")
+      page.should_not have_css("li.topic")
+      page.should have_xpath("//input[@name='commit' and @disabled]")
+    end
+
+    it "will save a link (cheating to have it match one)", broken: true do
+      codemark = Fabricate(:codemark)
+      visit root_path
+      page.fill_in("url", :with => codemark.link.url)
+      page.click_button("fetch")
+
+      Codemarker.should_receive(:mark!)
+      save_and_open_page
+      page.click_button("Create Codemark")
     end
   end
 end

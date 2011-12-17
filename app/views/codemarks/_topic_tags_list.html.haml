@@ -1,4 +1,3 @@
-#topic_tags
-  %ul
-    - pos_topics.each do |topic|
-      = render 'topic_tag_item', :topic => topic
+%ul#topic_tags
+  - pos_topics.each do |topic|
+    = render 'topic_tag_item', :topic => topic

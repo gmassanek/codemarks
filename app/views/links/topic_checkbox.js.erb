@@ -1,7 +1,7 @@
 var chb = $("#topic_chb_<%= @topic.slug %>");
 console.log(chb)
 if (chb.length == 0) {
-  $("#topic_tags ul").append("<%= escape_javascript(render 'topic_checkbox_item', :checked => true, :topic => @topic) %>");
+  $("#topic_tags").append("<%= escape_javascript(render '/codemarks/topic_tag_item', :checked => true, :topic => @topic) %>");
 } else {
   chb.closest("li").effect("highlight", {}, 2000);
   //chb.closest("li").toggleClass("highlight", 1000).animate(1000);

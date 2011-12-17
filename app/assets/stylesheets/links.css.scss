@@ -108,10 +108,9 @@ ul#resources_list {
   }
 }
 
-#topic_tags {
-  float: left;
-  font-size: 12px;
-  ul {
+ul#topic_tags {
+    float: left;
+    font-size: 12px;
     margin: 0 5px;
 
     li {
@@ -121,7 +120,6 @@ ul#resources_list {
       background: lighten($c2, 25%);
       border-radius: $border-radius;
     }
-  }
 
   .title {
     float: left;

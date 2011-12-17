@@ -17,6 +17,10 @@ function prepareTagDeletes() {
     event.preventDefault();
     $(event.currentTarget).closest("li").fadeOut(500, function() {
       $(this).remove();
+      var topics_count = $("#topic_tags li").length;
+      if(topics_count == 0) {
+        $("#save_codemark").attr('disabled', 'disabled');
+      }
     });
   });
 }
