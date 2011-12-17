@@ -18,7 +18,7 @@ describe IncomingEmailParser do
   it "stores a link if the user exists" do
     Fabricate(:user, email: "test@example.com")
     google = Fabricate(:topic, title: "google")
-    params[:body] = "http://www.google.com /n My Signature"
+    params[:text] = "http://www.google.com /n My Signature"
     Tagger.should_receive(:get_tags_for_link).and_return([google])
     lambda {
       IncomingEmailParser.parse(params)

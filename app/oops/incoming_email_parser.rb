@@ -9,7 +9,7 @@ module OOPs
         email = extract_email(params[:from])
         user = User.find_by_email(email) if email.present?
         if user
-          urls = extract_urls_into_array params[:body]
+          urls = extract_urls_into_array params[:text]
           urls.each do |url|
             puts "hello"
             save_codemark(user, url)
