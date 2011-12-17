@@ -1,9 +1,10 @@
+require 'incoming_email_parser'
+
 class ListenerController < ApplicationController
   def sendgrid
-    puts params.inspect
-    puts "incoming params"
     logger.info params.inspect
     logger.debug params.inspect
+    IncomingEmailParser.parse(params)
     render :nothing => true, :status => 200, :content_type => 'text/html'
   end
 end
