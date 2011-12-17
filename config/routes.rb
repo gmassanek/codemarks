@@ -4,6 +4,7 @@ Cms::Application.routes.draw do
   get '/profile', to: "users#profile", as: :profile
   get '/codemarks/build_link', to: "codemarks#build_link", as: :build_link
   post '/codemarks', to: "codemarks#create", as: :codemarks
+  post 'listener/sendgrid' => "listener#sendgrid", as: "sendgrid_listener"
 
   match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path
