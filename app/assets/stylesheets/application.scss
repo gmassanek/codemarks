@@ -337,7 +337,7 @@ ul.piped {
   left: 0;
   height: 300px;
   background: url('background-texture2.png') 0 0, -webkit-radial-gradient(50% 65%, ellipse cover, lighten($c2, 10%), $c2 45%);
-  z-index: -5;
+  z-index: -1;
 }
 
 #banner_text {
