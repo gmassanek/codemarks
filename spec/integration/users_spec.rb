@@ -40,4 +40,9 @@ describe "User Profile Page" do
     page.should_not have_link("github_signin")
     page.should have_link("twitter_signin")
   end
+
+  it "prompts you for your email and missing authentication when you log in" do
+    simulate_github_signed_in
+    page.should have_link("profile")
+  end
 end

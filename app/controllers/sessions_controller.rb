@@ -11,9 +11,20 @@ class SessionsController < ApplicationController
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
       session[:user_id] = @user.id
-      flash[:notice] = "Thanks for signing up!"
+      if @user.email.blank? || @user.missing_authentications.present?
+        if @user.email.blank? && @user.missing_authentications.present?
+          puts "1"
+          flash[:notice] = "Complete your #{link_to 'profile', profile_path}. You are missing your email and #{@user.missing_authentications} authentications"
+        elsif @user.email.blank?
+          puts "2"
+          flash[:notice] = "Complete your #{link_to 'profile', profile_path}. You are missing your email"
+        else
+          puts "3"
+          flash[:notice] = "Complete your #{link_to 'profile', profile_path}. You are missing your #{@user.missing_authentications} authentications"
+        end
+      end
     end
-    redirect_to profile_path
+    redirect_to dashboard_path
 
   rescue Exception => ex
     logger.info ex.to_s

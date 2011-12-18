@@ -50,4 +50,9 @@ describe User do
     codemark = Fabricate(:codemark, user: user, topics: [my_topic])
     user.topics.should == [my_topic]
   end
+
+  it "knows which authentications it's missing" do
+    authentication = Fabricate(:authentication, user: user, provider: "twitter")
+    user.missing_authentications.should include(:github)
+  end
 end

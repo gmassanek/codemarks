@@ -9,4 +9,9 @@ describe Authentication do
       end
     end
   end
+
+  it "knows which providers are possible" do
+    Authentication.providers.should include(:twitter)
+    Authentication.providers.should include(:github)
+  end
 end

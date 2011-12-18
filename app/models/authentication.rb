@@ -7,4 +7,8 @@ class Authentication < ActiveRecord::Base
   def self.find_by_provider_and_uid(provider, uid)
     find(:first, :conditions => ["provider = ? AND uid = ?", provider, uid])
   end
+  
+  def self.providers
+    [:twitter, :github]
+  end
 end
