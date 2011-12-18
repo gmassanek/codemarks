@@ -46,7 +46,7 @@ function prepareAutocompletes() {
 
 function prepareCodemarks() {
   $(".codemark").click(function(event) {
-    $(event.target).parent().find("form").submit();
+    $(event.target).closest("li").find("form").submit();
   });
 }
 

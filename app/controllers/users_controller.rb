@@ -57,7 +57,11 @@ class UsersController < ApplicationController
       @clicks = @user.clicks.group_by { |click| click.link.id }
       @codemarks = @user.codemarks
       @codemarks = @codemarks.unarchived unless params[:archived]
-
+      puts "in controller"
+      puts @user.inspect
+      puts @user.codemarks.inspect
+      puts Codemark.all.inspect
+      puts @codemarks.inspect
 
       if params[:sort] == "by_popularity"
         link_ids = @codemarks.collect(&:link_id)

@@ -67,5 +67,16 @@ describe "New Codemark Form" do
       page.click_button("Create Codemark")
     end
   end
+  it "records clicks", js: true, broken: true do
+    simulate_signed_in
+    codemark = Fabricate(:codemark, user: @user)
+    puts codemark.inspect
+    puts @user.codemarks.inspect
+    puts Codemark.all.inspect
+    visit dashboard_path
+    lambda {
+      page.click_link codemark.link.title
+    }.should change(Click, :count).by(1)
+  end
 end
 
