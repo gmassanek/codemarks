@@ -1,14 +1,31 @@
-<% if params[:url] %>
-  $(function() {
+$(function() {
+  prepareAutocompletes();
+  prepareTagDeletes();
+  <% if params[:url] %>
     $("#url_form input[type=submit]").hide();
+    $("#link_form_container").addClass("highlighted");
+
     $("<%= escape_javascript(render('codemarks/form')) %>").hide()
       .appendTo($('#link_form_container'))
       .slideDown(200);
 
-
     $("#url_form, #new_codemark").keyup(function(e) {
       if (e.keyCode == 13) {
         e.preventDefault();
+      }
+    });
+
+    $("#link_form_topic_autocomplete").keyup(function(e) {
+      if (e.keyCode == 13) {
+        alert('boom');
+        e.preventDefault();
+        return false;
+        //var entered_text = $("#link_form_topic_autocomplete").val()
+        //$.ajax({
+        //  url: "/links/topic_checkbox",
+        //  data: { topic_title: entered_text },
+        //  beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+        //});
       }
     });
 
@@ -17,23 +34,14 @@
         $('#link_form_container').html("<%= escape_javascript(render('/shared/build_link_form')) %>");
         $("#link_form_container").removeClass("highlighted");
       }
+
+      var topics_count = $("#topic_tags li").length;
+      if(topics_count == 0) {
+        $("#save_codemark").attr('disabled', 'disabled');
+      }
     });
 
-    var topics_count = $("#topic_tags li").length;
-    if(topics_count == 0) {
-      $("#save_codemark").attr('disabled', 'disabled');
-    }
-   
-    $("#link_form_container").addClass("highlighted");
-
-  });
-
-
-
-<% else %>
+  <% else %>
   $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
-<% end %>
-
-prepareAutocompletes();
-prepareTagDeletes();
-
+  <% end %>
+});

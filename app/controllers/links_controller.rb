@@ -57,7 +57,8 @@ class LinksController < ApplicationController
   end
 
   def topic_checkbox
-    @topic = Topic.find params[:topic_id]
+    @topic = Topic.find_by_id params[:topic_id]
+    @topic_title = params[:topic_title]
     respond_to do |format|
       format.js
     end
