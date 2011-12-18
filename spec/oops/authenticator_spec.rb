@@ -84,28 +84,31 @@ describe Authenticator do
 
   context "capturing user data from authentication hash" do
     let (:auth_hash) {{ :uid => '987877',
-                        :name => "Twitter Monster",
-                        :profile_image_url => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
-                        :location => "San Francisco, CA",
-                        :url => "http://dev.twitter.com",
-                        :followers_count => 123411,
-                        :listed_count => 32,
-                        :description => "The baddest twitter monster on the planet",
-                        :screen_name => "twit_monst11"
+                        :info => {
+                          :name => "Twitter Monster",
+                          :image => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
+                          :location => "San Francisco, CA",
+                          #:url => "http://dev.twitter.com",
+                          #:followers_count => 123411,
+                          #:listed_count => 32,
+                          :description => "The baddest twitter monster on the planet",
+                          :nickname => "twit_monst11"
+                        }
                       }
                     }
     context "twitter" do
-      it "stores a name" do
+      it "stores info from oath hash" do
         user = Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
         twit_auth = user.authentication_by_provider "twitter"
-        twit_auth.name.should == auth_hash[:name]
-        twit_auth.profile_image_url.should == auth_hash[:profile_image_url]
-        twit_auth.location.should == auth_hash[:location]
-        twit_auth.url.should == auth_hash[:url]
-        twit_auth.followers_count.should == auth_hash[:folowers_count]
-        twit_auth.listed_count.should == auth_hash[:listed_count]
-        twit_auth.description.should == auth_hash[:description]
-        twit_auth.screen_name.should == auth_hash[:screen_name]
+        twit_auth.name.should == auth_hash[:info][:name]
+        twit_auth.email.should == auth_hash[:info][:email]
+        twit_auth.image.should == auth_hash[:info][:image]
+        twit_auth.location.should == auth_hash[:info][:location]
+        #twit_auth.url.should == auth_hash[:info][:url]
+        #twit_auth.followers_count.should == auth_hash[:info][:folowers_count]
+        #twit_auth.listed_count.should == auth_hash[:info][:listed_count]
+        twit_auth.description.should == auth_hash[:info][:description]
+        twit_auth.nickname.should == auth_hash[:info][:nickname]
       end
     end
   end

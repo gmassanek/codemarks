@@ -20,13 +20,11 @@ ActiveRecord::Schema.define(:version => 20111218175441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.string   "profile_image_url"
+    t.string   "email"
     t.string   "location"
-    t.string   "url"
-    t.integer  "followers_count"
-    t.integer  "listed_count"
+    t.string   "image"
     t.string   "description"
-    t.string   "screen_name"
+    t.string   "nickname"
   end
 
   create_table "clicks", :force => true do |t|

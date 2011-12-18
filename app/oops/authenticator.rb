@@ -2,8 +2,6 @@ module OOPs
   class Authenticator
     class << self
       def find_or_create_user_from_auth_hash provider, auth_hash
-        logger.info provider.inspect
-        logger.info auth_hash.inspect
         raise AuthHashRequiredError if auth_hash.nil? || auth_hash.empty?
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
         uid = auth_uid(auth_hash)
@@ -13,7 +11,7 @@ module OOPs
 
         user = User.new
         authentication = user.authentications.build(provider: provider, uid: uid)
-        set_extra_fields(authentication, auth_hash)
+        set_info_fields(authentication, auth_hash)
         user.save!
         return user
       end
@@ -38,16 +36,17 @@ module OOPs
         auth_hash["uid"] ||= auth_hash[:uid]
       end
 
-      def set_extra_fields authentication, auth_hash
-        authentication.name = auth_hash["name"] ||= auth_hash[:name]
-        authentication.name = auth_hash["name"] ||= auth_hash[:name]
-        authentication.profile_image_url = auth_hash[:profile_image_url] ||= auth_hash["profile_image_url"]
-        authentication.location = auth_hash[:location] ||= auth_hash["location"]
-        authentication.url = auth_hash[:url] ||= auth_hash["url"]
-        authentication.followers_count = auth_hash[:folowers_count] ||= auth_hash["folowers_count"]
-        authentication.listed_count = auth_hash[:listed_count] ||= auth_hash["listed_count"]
-        authentication.description = auth_hash[:description] ||= auth_hash["description"]
-        authentication.screen_name = auth_hash[:screen_name] ||= auth_hash["screen_name"]
+      def set_info_fields authentication, auth_hash
+        info = auth_hash[:info] ||= auth_hash["info"]
+        authentication.name = info["name"] ||= info[:name]
+        authentication.email = info["email"] ||= info[:email]
+        authentication.location = info[:location] ||= info["location"]
+        authentication.image = info[:image] ||= info["image"]
+        #authentication.url = info[:url] ||= info["url"]
+        #authentication.followers_count = info[:folowers_count] ||= info["folowers_count"]
+        #authentication.listed_count = info[:listed_count] ||= info["listed_count"]
+        authentication.description = info[:description] ||= info["description"]
+        authentication.nickname = info[:nickname] ||= info["nickname"]
       end
     end
   end
