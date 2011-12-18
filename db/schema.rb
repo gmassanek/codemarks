@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111216221318) do
+ActiveRecord::Schema.define(:version => 20111218175441) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20111216221318) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "profile_image_url"
+    t.string   "location"
+    t.string   "url"
+    t.integer  "followers_count"
+    t.integer  "listed_count"
+    t.string   "description"
+    t.string   "screen_name"
   end
 
   create_table "clicks", :force => true do |t|

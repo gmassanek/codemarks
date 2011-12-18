@@ -43,11 +43,9 @@ describe Authenticator do
       user = Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
       user.class.to_s.should == "User"
     end
-
   end
 
   context "creates a new authentication for an existing user" do
-
     let (:user) { Fabricate.build(:user) }
 
     it "breaks if there is no user" do
@@ -82,7 +80,33 @@ describe Authenticator do
         Authenticator.add_authentication_to_user(user, "twitter", auth_hash)
       }.should change(Authentication, :count).by(1)
     end
-
   end
 
+  context "capturing user data from authentication hash" do
+    let (:auth_hash) {{ :uid => '987877',
+                        :name => "Twitter Monster",
+                        :profile_image_url => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
+                        :location => "San Francisco, CA",
+                        :url => "http://dev.twitter.com",
+                        :followers_count => 123411,
+                        :listed_count => 32,
+                        :description => "The baddest twitter monster on the planet",
+                        :screen_name => "twit_monst11"
+                      }
+                    }
+    context "twitter" do
+      it "stores a name" do
+        user = Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
+        twit_auth = user.authentication_by_provider "twitter"
+        twit_auth.name.should == auth_hash[:name]
+        twit_auth.profile_image_url.should == auth_hash[:profile_image_url]
+        twit_auth.location.should == auth_hash[:location]
+        twit_auth.url.should == auth_hash[:url]
+        twit_auth.followers_count.should == auth_hash[:folowers_count]
+        twit_auth.listed_count.should == auth_hash[:listed_count]
+        twit_auth.description.should == auth_hash[:description]
+        twit_auth.screen_name.should == auth_hash[:screen_name]
+      end
+    end
+  end
 end

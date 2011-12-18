@@ -47,3 +47,15 @@ def authenticated_user
   auth = Fabricate.build(:authentication)
   user = auth.user
 end
+
+#OmniAuth.config.add_mock(:twitter, {
+#  :uid => '987877',
+#  :name => "Twitter Monster",
+#  :profile_image_url => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
+#  :location => "San Francisco, CA",
+#  :url => "http://dev.twitter.com",
+#  :followers_count => 123411,
+#  :listed_count => 32,
+#  :description => "The baddest twitter monster on the planet",
+#  :screen_name => "twit_monst11"
+#})
