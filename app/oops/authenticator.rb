@@ -26,9 +26,12 @@ module OOPs
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
 
         if auth = user.authentication_by_provider(provider)
-          auth.update_attributes(uid: auth_uid(auth_hash))
+          set_info_fields(auth, auth_hash)
+          auth.save!
         else
-          user.authentications.create!(uid: auth_uid(auth_hash), provider: provider)
+          authentication = user.authentications.build(provider: provider, uid: auth_uid(auth_hash))
+          set_info_fields(authentication, auth_hash)
+          authentication.save!
         end
       end
 

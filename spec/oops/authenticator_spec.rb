@@ -104,9 +104,18 @@ describe Authenticator do
         twit_auth.email.should == auth_hash[:info][:email]
         twit_auth.image.should == auth_hash[:info][:image]
         twit_auth.location.should == auth_hash[:info][:location]
-        #twit_auth.url.should == auth_hash[:info][:url]
-        #twit_auth.followers_count.should == auth_hash[:info][:folowers_count]
-        #twit_auth.listed_count.should == auth_hash[:info][:listed_count]
+        twit_auth.description.should == auth_hash[:info][:description]
+        twit_auth.nickname.should == auth_hash[:info][:nickname]
+      end
+
+      it "stores info from a second oath hash" do
+        user = Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
+        Authenticator.add_authentication_to_user(user, "github", auth_hash)
+        twit_auth = user.authentication_by_provider "github"
+        twit_auth.name.should == auth_hash[:info][:name]
+        twit_auth.email.should == auth_hash[:info][:email]
+        twit_auth.image.should == auth_hash[:info][:image]
+        twit_auth.location.should == auth_hash[:info][:location]
         twit_auth.description.should == auth_hash[:info][:description]
         twit_auth.nickname.should == auth_hash[:info][:nickname]
       end
