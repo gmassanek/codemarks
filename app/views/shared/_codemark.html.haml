@@ -1,6 +1,10 @@
 %li{:id => "#{dom_id(link)}_li"}
   = render '/links/click_form', link_id: link.id
-  = link_to link.title, link.url, :target => :blank, :class => 'codemark'
-  Clicked #{click_count} times
-  = "-"
-  Saved #{save_count} times
+  %h4
+    #{click_count + save_count}
+    = link_to link.title, link.url, :target => :blank, :class => 'codemark'
+  .time Saved #{time_ago_in_words(link.created_at)}
+  /.saver Saved by #{link.codemarks.first.user.email}
+  .clear
+  = link.host
+  

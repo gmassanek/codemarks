@@ -53,14 +53,14 @@ describe Codemarker do
 
     context "creates a new codemark" do
       it "if I have not saved this link before" do
-        codemark.should_receive(:save)
+        codemark.should_receive(:save!)
         Codemarker.mark!(codemark)
       end
       
       it "even if another user has saved the link before" do
         Fabricate(:codemark, link: codemark.link)
 
-        codemark.should_receive(:save)
+        codemark.should_receive(:save!)
         Codemarker.mark!(codemark)
       end
 

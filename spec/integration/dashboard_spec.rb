@@ -79,10 +79,10 @@ describe "User pages" do
           new_ls = Fabricate(:codemark, :user => @user, :created_at => 3.minutes.ago)
           med_ls = Fabricate(:codemark, :user => @user, :created_at => 3.days.ago)
           visit dashboard_path
-          within("#code_marks li:first-child") do
+          within("#codemarks li:first-child") do
             page.should have_link new_ls.title
           end
-          within("#code_marks li:last-child") do
+          within("#codemarks li:last-child") do
             page.should have_link old_ls.title
           end
         end

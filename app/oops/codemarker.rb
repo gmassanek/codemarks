@@ -3,7 +3,6 @@ module OOPs
     include Exceptions
     class << self
       def mark!(codemark)
-        puts "got into MARK"
         raise LinkRequiredError if codemark.link.nil?
         raise InvalidLinkError unless codemark.link.valid?
         raise UserRequiredError if codemark.user.nil?
@@ -20,7 +19,6 @@ module OOPs
         end
         
         existing_codemark = user.codemark_for(link)
-        puts existing_codemark.inspect
         if existing_codemark
           existing_codemark.topics = codemark.topics
           codemark = existing_codemark

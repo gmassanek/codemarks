@@ -1,7 +1,7 @@
 / puts "Links are #{@links.inspect}"
 / puts "Clicks are #{@clicks.inspect}"
 / puts "Link Saves are #{@link_saves.inspect}"
-%ul#code_marks
+%ul#codemarks
   - @links.each do |link|
     - click_count = @clicks[link.id].present? ? @clicks[link.id].count : 0
     - save_count = @codemarks[link.id].present? ? @codemarks[link.id].count : 0

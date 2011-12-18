@@ -30,15 +30,44 @@ $border-radius-tight: 3px;
   float: right;
 }
 
-#code_marks {
+#filters, #sorts {
+  .current {
+    text-decoration: underline;
+  }
+
   li {
-    padding: 15px;
+    .first {
+      padding-left: 0;
+    }
+    .first {
+      padding-right: 0;
+    }
+  }
+}
+
+#codemarks {
+  li {
+    padding: 10px 0;
+
+    h4 {
+      float: left;
+    }
+
+    .time {
+      float: right;
+    }
+
+    .saver {
+      float: right;
+    }
 
     a {
-      color: $c3;
+      font-size: 16px;
+      font-weight: normal;
+      color: $c5;
 
       &:hover {
-        color: $c4;
+        color: $c3;
       }
     }
   }
