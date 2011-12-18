@@ -18,16 +18,3 @@
       = "#{@user.get(:email)}" if @user.get(:email)
       = "#{@user.get(:description)}" if @user.get(:description)
       = "#{@user.get(:location)}" if @user.get(:location)
-  .clear
-    
-  Location: #{@user.get(:location)}
-
-  - if @user.authentication_by_provider(:twitter).present?
-    Twitter authenticated
-  - else
-    = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter", id: "twitter_signin" 
-
-  - if @user.authentication_by_provider(:github).present?
-    Github authenticated
-  - else
-    = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github", id: "github_signin" 
