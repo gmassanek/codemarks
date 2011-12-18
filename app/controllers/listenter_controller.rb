@@ -1,4 +1,5 @@
 require 'incoming_email_parser'
+include OOPs
 
 class ListenerController < ApplicationController
   def sendgrid
