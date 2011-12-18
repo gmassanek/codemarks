@@ -7,6 +7,10 @@ class UsersController < ApplicationController
   def profile 
     @user = current_user
   end
+
+  def edit
+    @user = current_user
+  end
   
   def update
     current_user.update_attribute(:email, params[:user][:email])

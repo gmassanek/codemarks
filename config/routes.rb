@@ -2,6 +2,7 @@ Cms::Application.routes.draw do
 
   get '/dashboard', to: "users#dashboard", as: :dashboard
   get '/profile', to: "users#profile", as: :profile
+  get '/profile/edit', to: "users#edit", as: :edit_profile
   get '/codemarks/build_link', to: "codemarks#build_link", as: :build_link
   post '/codemarks', to: "codemarks#create", as: :codemarks
   post 'listener/sendgrid' => "listener#sendgrid", as: "sendgrid_listener"

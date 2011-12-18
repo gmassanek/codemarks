@@ -26,6 +26,7 @@ module OOPs
         raise AuthProviderRequiredError if provider.nil? || provider.empty?
 
         if auth = user.authentication_by_provider(provider)
+          auth.uid = auth_uid(auth_hash)
           set_info_fields(auth, auth_hash)
           auth.save!
         else
@@ -41,6 +42,7 @@ module OOPs
 
       def set_info_fields authentication, auth_hash
         info = auth_hash[:info] ||= auth_hash["info"]
+        return if info.nil?
         authentication.name = info["name"] ||= info[:name]
         authentication.email = info["email"] ||= info[:email]
         authentication.location = info[:location] ||= info["location"]

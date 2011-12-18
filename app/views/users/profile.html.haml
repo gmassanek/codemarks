@@ -18,3 +18,5 @@
       = "#{@user.get(:email)}" if @user.get(:email)
       = "#{@user.get(:description)}" if @user.get(:description)
       = "#{@user.get(:location)}" if @user.get(:location)
+  .clear
+  = link_to "Edit", edit_profile_path
