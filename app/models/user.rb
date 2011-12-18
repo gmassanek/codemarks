@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :codemarks
   has_many :links, :through => :codemarks
-  has_many :topics, :through => :codemarks#, :uniq => true
+  has_many :topics, :through => :codemarks
   has_many :clicks
 
   def authentication_by_provider provider
@@ -20,5 +20,15 @@ class User < ActiveRecord::Base
 
   def codemark_for link
     codemarks.for(link).first
+  end
+
+  def get attr
+    val = self.send attr
+    if val
+      return val
+    else
+      auth_vals = authentications.collect { |auth| auth.send attr }
+      return auth_vals.compact.first
+    end
   end
 end

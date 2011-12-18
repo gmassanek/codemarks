@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   require 'popularity'
   include OOPs
 
-  before_filter :require_user, :only => [:dashboard]
+  before_filter :require_user, :only => [:dashboard, :profile]
 
   def profile 
     @user = current_user
@@ -11,20 +11,6 @@ class UsersController < ApplicationController
   def update
     current_user.update_attribute(:email, params[:user][:email])
     redirect_to profile_path, :notice => "Email saved"
-  end
-
-  def create
-    @user = User.new params[:user]
-    if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path, notice: "Thanks for signing up!"
-    else
-      render :new
-    end
-  end
-
-  def new
-    @user = User.new
   end
 
   def dashboard
@@ -49,19 +35,10 @@ class UsersController < ApplicationController
         end
         @codemarks = @codemarks.group_by { |ls| ls.link.id }
       end
-
-
-
-
     else
       @clicks = @user.clicks.group_by { |click| click.link.id }
       @codemarks = @user.codemarks
       @codemarks = @codemarks.unarchived unless params[:archived]
-      puts "in controller"
-      puts @user.inspect
-      puts @user.codemarks.inspect
-      puts Codemark.all.inspect
-      puts @codemarks.inspect
 
       if params[:sort] == "by_popularity"
         link_ids = @codemarks.collect(&:link_id)
@@ -80,19 +57,7 @@ class UsersController < ApplicationController
         end
         @codemarks = @codemarks.group_by { |ls| ls.link.id }
       end
-
     end
-
-#    #
-
-#    if params[:sort] == "by_popularity"
-#      @links = @links.sort_by { |link| LinkPopularity.calculate link }
-#    else
-      #@codemarks = @codemarks.sort_by { |ls| ls.created_at }
-      #@links = @links.sort do |a, b| 
-      #  @codemarks[a.id].first.created_at <=> @codemarks[b.id].first.created_at
-      #end
-#    end
   end
 
   def show
@@ -105,19 +70,5 @@ class UsersController < ApplicationController
     else
       @codemarks = @codemarks.by_save_date
     end
-    #@links = 
-    #if params[:filter] == "all"
-    #  @reminders = current_user.reminders
-    #else
-    #  @reminders = current_user.reminders.unfinished
-    #end
-
-    #if params[:sort] == "recent_activity"
-    #  @reminders = @reminders.by_date
-    #else
-    #  params[:sort] = 'popularity'
-    #  @reminders = @reminders.by_popularity
-    #end
   end
-
 end

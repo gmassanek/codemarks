@@ -55,4 +55,17 @@ describe User do
     authentication = Fabricate(:authentication, user: user, provider: "twitter")
     user.missing_authentications.should include(:github)
   end
+
+  context "grabs extra information from it's authentications" do
+    it "uses an authentication name if none has been explicitly set on the user" do
+      authentication = Fabricate(:authentication, user: user, provider: "twitter", name: "John Smith")
+      user.get(:name).should == "John Smith"
+    end
+
+    it "uses the user name field if it has one" do
+      user.name = "Pete Hodges"
+      user.save
+      user.get(:name).should == "Pete Hodges"
+    end
+  end
 end

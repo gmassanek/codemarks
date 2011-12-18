@@ -4,6 +4,10 @@ describe "User Profile Page" do
   context "Twitter first" do
     before do
       simulate_signed_in
+      @user.name = "John Appleseed"
+      @user.nickname = "johnny_seed"
+      @user.location = ""
+      @user.save
       visit profile_path
     end
 
@@ -22,28 +26,24 @@ describe "User Profile Page" do
       page.should have_content "test@example.com"
     end
 
-    it "asks you to link your github" do
-      page.should have_link("github_signin")
-      page.should_not have_link("twitter_signin")
+    it "has my name" do
+      page.should have_content(@user.name)
     end
 
-    #it "asks you to link your github" do
-    #  page.click_link "github_signin"
-    #  page.should_not have_link("github_signin")
-    #  page.should_not have_link("twitter_signin")
-    #  @user.authentications.count.should == 2
-    #  current_path.should == profile_path
-    #end
+    it "has my email" do
+      page.should have_content(@user.email)
+    end
+
+    it "has my nickname" do
+      page.should have_content(@user.nickname)
+    end
+
+    it "has my location" do
+      page.should have_content(@user.location)
+    end
+
+    it "has my description" do
+      page.should have_content(@user.description)
+    end
   end
-
-  #it "asks you to link your github" do
-  #  simulate_github_signed_in
-  #  page.should_not have_link("github_signin")
-  #  page.should have_link("twitter_signin")
-  #end
-
-  #it "prompts you for your email and missing authentication when you log in" do
-  #  simulate_github_signed_in
-  #  page.should have_link("profile")
-  #end
 end
