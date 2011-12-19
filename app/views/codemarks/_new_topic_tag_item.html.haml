@@ -1,0 +1,4 @@
+%li
+  = check_box_tag "topic_ids[#{topic_title}]", topic_title, :checked, :type => :hidden, :id => "topic_chb_#{topic_title}"
+  .title= topic_title
+  .delete= link_to 'X', '#'

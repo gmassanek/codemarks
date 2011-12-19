@@ -1,0 +1,10 @@
+var chb = $("#topic_chb_<%= @topic_title %>");
+$("#save_codemark").removeAttr('disabled');
+
+if (chb.length == 0) {
+  $("#topic_tags").append("<%= escape_javascript(render '/codemarks/new_topic_tag_item', :topic_title => @topic_title) %>");
+} else {
+  chb.closest("li").effect("highlight", {}, 2000);
+}
+$("#link_form_topic_autocomplete").val("");
+prepareTagDeletes();

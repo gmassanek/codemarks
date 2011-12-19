@@ -66,6 +66,14 @@ describe "New Codemark Form" do
       save_and_open_page
       page.click_button("Create Codemark")
     end
+
+    it "creates a topic for one that was entered", broken: true do
+      visit dashboard_path
+      page.fill_in "url", with: "http://www.google.com"
+      page.click_button "fetch"
+      page.fill_in "link_form_topic_autocomplete", with: "search engine"
+
+    end
   end
   it "records clicks", js: true, broken: true do
     simulate_signed_in
@@ -78,5 +86,6 @@ describe "New Codemark Form" do
       page.click_link codemark.link.title
     }.should change(Click, :count).by(1)
   end
+
 end
 

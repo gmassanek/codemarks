@@ -1,15 +1,10 @@
 var chb = $("#topic_chb_<%= @topic.slug %>");
-console.log(chb)
-
 $("#save_codemark").removeAttr('disabled');
 
 if (chb.length == 0) {
-  $("#topic_tags").append("<%= escape_javascript(render '/codemarks/topic_tag_item', :checked => true, :topic => @topic) %>");
+  $("#topic_tags").append("<%= escape_javascript(render '/codemarks/topic_tag_item', :topic => @topic, :topic_name => @topic_name) %>");
 } else {
   chb.closest("li").effect("highlight", {}, 2000);
-  //chb.closest("li").toggleClass("highlight", 1000).animate(1000);
-    //.switchClass("","highlight", 5000)
-    //.switchClass("highlight","", 5000);//.animate({ .unflash}, 1500);
 }
 $("#link_form_topic_autocomplete").val("");
 $("#link_form_topic_slug").val("");
