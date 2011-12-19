@@ -18,8 +18,8 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    puts session.inspect
     @user = current_user
+
     if params[:filter]
       session[:filter] = params[:filter]
     end

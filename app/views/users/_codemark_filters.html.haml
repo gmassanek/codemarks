@@ -1,6 +1,3 @@
-- puts "from view"
-- puts session.inspect
-- puts session[:sort].inspect
 #filters_and_sorts
   %ul#filters.piped
     %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true, :class => "#{session[:filter] == "mine" ? 'current' : ''}"
