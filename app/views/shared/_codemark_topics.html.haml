@@ -1,0 +1,4 @@
+%ul#topics_tags.piped
+  - @topics[link.id].first(5).each do |topic|
+    %li= link_to topic.title, topic
+    

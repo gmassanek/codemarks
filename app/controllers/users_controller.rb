@@ -62,6 +62,11 @@ class UsersController < ApplicationController
         @codemarks = @codemarks.group_by { |ls| ls.link.id }
       end
     end
+
+    @topics = {}
+    @codemarks.each do |key, value|
+      @topics[key] = Array(*value.collect(&:topics)) 
+    end
   end
 
   def show
