@@ -6,6 +6,16 @@ class User < ActiveRecord::Base
   has_many :topics, :through => :codemarks
   has_many :clicks
 
+  def self.find_by_email email
+    id = User.select('users.id')
+      .joins(:authentications)
+      .where(['users.email = ? OR authentications.email = ?', email, email])
+      .group('users.id')
+      .limit(1)
+      .first
+    User.find(id)
+  end
+
   def authentication_by_provider provider
     authentications.find(:first, :conditions => ["provider = ?", provider])
   end

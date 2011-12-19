@@ -68,4 +68,13 @@ describe User do
       user.get(:name).should == "Pete Hodges"
     end
   end
+
+  it "finds users by email through authentications" do
+    authentication = Fabricate(:authentication)
+    user = authentication.user
+    user.authentication_by_provider(:twitter).provider.should == "twitter"
+    found_user = User.find_by_email(authentication.email)
+    found_user.should == user
+    found_user.get(:email).should == authentication.email
+  end
 end
