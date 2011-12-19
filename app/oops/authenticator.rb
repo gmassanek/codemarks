@@ -17,7 +17,7 @@ module OOPs
       end
 
       def find_auth(provider, uid)
-        Authentication.find_by_provider_and_uid(provider, uid)
+        Authentication.where(["provider = ? and uid = ?", provider, uid.to_s]).first
       end
 
       def add_authentication_to_user(user, provider, auth_hash)
