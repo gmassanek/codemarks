@@ -2,7 +2,7 @@ class Codemark < ActiveRecord::Base
   belongs_to :link, :counter_cache => true
   belongs_to :user
 
-  has_many :codemark_topics
+  has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
 
   validates_presence_of :link

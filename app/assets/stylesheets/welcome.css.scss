@@ -1,0 +1,70 @@
+/*** VARIABLES ***/
+@import url(http://fonts.googleapis.com/css?family=Coustard|Indie+Flower);
+$blue: blue;
+$vitaminc: #FF9900;
+$route66: #424242;
+$grey: #E9E9E9;
+$BC: #BCBCBC;
+$blue: #3299BB;
+
+$c1: #203e42;
+$c5: #C76F2B;
+$c2: #364745;
+$c4: #FED103;
+$c3: #AF9A29;
+$c6: white;
+$border-color1: lighten($c2, 20%);
+$border-color2: #dfdfdf;
+
+$header-height: 30px;
+$header-extra: 15px;
+$header-box: 4px;
+$border-radius: 5px;
+$border-radius-tight: 3px;
+
+
+#welcome {
+  form.edit_user {
+    width: 150px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    width: 500px;
+    margin: 0 auto;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    margin: 10px 0;
+  }
+
+  h4 {
+    text-size: 13px;
+    margin-bottom: 10px 0;
+    width: 300px;
+    text-align: center;
+  }
+
+  p {
+    padding: 5px 0px;
+    font-size: 16px;
+  }
+
+  ul {
+    float: left;
+    width: 900px;
+
+    li {
+      float: left;
+      width: 300px;
+
+      p { 
+        padding: 0 20px;
+        text-align: center; 
+      }
+    }
+  }
+}

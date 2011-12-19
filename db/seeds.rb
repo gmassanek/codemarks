@@ -49,6 +49,5 @@ end
 
 puts "#{Topic.count} topics created"
 puts "#{Link.count} links created"
-puts "#{LinkSave.count} link saves created"
 puts "#{User.count} users created"
 

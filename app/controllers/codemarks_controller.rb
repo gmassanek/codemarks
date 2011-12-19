@@ -14,6 +14,7 @@ class CodemarksController < ApplicationController
       link = SmartLink.new(link).better_link
       @codemark = Codemark.new(link: link)
       @codemark.topics = Tagger.get_tags_for_link link if link.response
+      link.valid?
     end
 
     respond_to do |format|

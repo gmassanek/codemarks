@@ -14,7 +14,11 @@ class UsersController < ApplicationController
   
   def update
     current_user.update_attributes(params[:user])
-    redirect_to profile_path, :notice => "Account saved"
+
+    respond_to do |format|
+      format.html { redirect_to profile_path, :notice => "Account saved" }
+      format.js
+    end
   end
 
   def dashboard
@@ -74,6 +78,9 @@ class UsersController < ApplicationController
     @codemarks.each do |key, value|
       @topics[key] = Array(*value.collect(&:topics)) 
     end
+  end
+
+  def welcome
   end
 
   def show

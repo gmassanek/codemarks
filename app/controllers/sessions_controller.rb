@@ -15,7 +15,14 @@ class SessionsController < ApplicationController
     end
     session[:filter] = "mine"
     session[:sort] = "by_save_date"
-    redirect_to dashboard_path
+
+    puts @user.codemarks.count.inspect
+    if @user.codemarks.count == 0
+      @link = Link.new
+      redirect_to welcome_path
+    else
+      redirect_to dashboard_path
+    end
 
   rescue Exception => ex
     logger.info ex.to_s
