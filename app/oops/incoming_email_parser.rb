@@ -36,6 +36,7 @@ module OOPs
         codemark = Codemark.new
         codemark.user = user
         codemark.link = link
+        codemark.topics = topics
 
         OOPs::Codemarker.mark!(codemark)
       end
