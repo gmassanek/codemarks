@@ -29,10 +29,16 @@ describe IncomingEmailParser do
   end
 
   context "pulls out urls" do
-    it "for a perfect link" do
+    it "for an easy link" do
       body = "http://www.google.com /n My Signature"
       IncomingEmailParser.extract_urls_into_array(body).length.should == 1
       IncomingEmailParser.extract_urls_into_array(body).first.should == "http://www.google.com"
+    end
+
+    it "for a tough link" do
+      body = "http://www.ericsink.com/entries/vv_fast_import.html /n My Signature"
+      IncomingEmailParser.extract_urls_into_array(body).length.should == 1
+      IncomingEmailParser.extract_urls_into_array(body).first.should == "http://www.ericsink.com/entries/vv_fast_import.html"
     end
 
     it "for multiple links" do

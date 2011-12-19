@@ -25,7 +25,7 @@ module OOPs
         reg = URI::regexp
         
         urls = txt.scan(reg).uniq.collect do |uri|
-          "#{uri[0]}://#{uri[3]}"
+          "#{uri[0]}://#{uri[3]}#{uri[6]}"
         end
       end
 
