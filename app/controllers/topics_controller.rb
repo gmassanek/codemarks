@@ -30,22 +30,23 @@ class TopicsController < ApplicationController
     @topic = Topic.find params[:id]
     @resources = @topic.links.scoped
 
-    if !logged_in?
-      @resources = @resources.all_public
-    elsif filter_by_mine?
-      @resources = @resources.for_user(current_user)
-    else
-      @resources = @resources.public_and_for_user(current_user)
-    end
+    #if !logged_in?
+    #  @resources = @resources.all_public
+    #elsif filter_by_mine?
+    #  @resources = @resources.for_user(current_user)
+    #else
+    #  @resources = @resources.public_and_for_user(current_user)
+    #end
 
-    if params[:sort] == "recent_activity"
-      @resources = @resources.by_create_date
-    else
-      params[:sort] = 'popularity'
-      @resources = @resources.by_popularity
-    end
+    #if params[:sort] == "recent_activity"
+    #  @resources = @resources.by_create_date
+    #else
+    #  params[:sort] = 'popularity'
+    #  @resources = @resources.by_popularity
+    #end
 
     @resources = @resources.page params[:pg]
+    @topics = {}
 
     respond_to do |format|
       format.html

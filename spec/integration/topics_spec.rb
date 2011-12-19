@@ -29,4 +29,17 @@ describe "topics" do
       page.should have_selector("li.topic", :count => 3)
     end
   end
+
+  describe "show" do
+    before do
+      @github = Fabricate(:topic, title: "Github")
+      @rspec = Fabricate(:topic, title: "Rspec")
+      @codemark = Fabricate(:codemark, topics: [@rspec])
+      @codemark2 = Fabricate(:codemark, topics: [@rspec, @github])
+    end
+
+    it "doesn't break on the show page" do
+      visit topic_path(@rspec)
+    end
+  end
 end

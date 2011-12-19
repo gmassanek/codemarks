@@ -6,6 +6,8 @@ class Topic < ActiveRecord::Base
 
   has_many :codemark_topics
   has_many :codemarks, :through => :codemark_topics
+  has_many :links, :through => :codemarks
+
   belongs_to :user
 
   validates_presence_of :title

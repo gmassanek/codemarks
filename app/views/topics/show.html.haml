@@ -1,13 +1,14 @@
 #page_details
   %p.title= link_to @topic.title, @topic, :class => "title"
   %ul.data.piped
-    %li.first= pluralize(@topic.resource_count(current_user, filter_by_mine?), "link")
+    %li.first= pluralize(@topic.codemarks.count, "codemark")
     %li.last= link_to "Edit", edit_topic_path(@topic)
     /li=# link_to "Delete", @topic, :method => :delete
   .clear
   %p.description= @topic.description
   .clear
 
-#list_box
-  = render 'resources_list_header', :title => "Resources"
-  = render '/links/links'
+%ul#codemarks
+  =# render 'resources_list_header', :title => "Resources"
+  - @resources.each do |link|
+    = render '/shared/codemark', link:link
