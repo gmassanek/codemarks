@@ -121,5 +121,15 @@ describe Codemarker do
         Codemarker.mark!(codemark)
       }.should change(Topic, :count).by(1)
     end
+
+    it "doesn't use a trailing / on a link" do
+      codemark.save
+      url = codemark.link.url + "/"
+      link = Fabricate.build(:link, url: url)
+
+      codemark2 = Codemark.new(link: link, user: codemark.user, topics: codemark.topics)
+      codemark2 = Codemarker.mark!(codemark2)
+      codemark2.link.should == codemark.link
+    end
   end
 end

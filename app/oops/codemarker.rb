@@ -9,6 +9,10 @@ module OOPs
         #raise TopicsRequiredError if topics.nil? || topics.empty?
 
         link = codemark.link
+        if link.url[-1] == "/"
+          link.url = link.url[0..-2]
+          codemark.link = link
+        end
         user = codemark.user
 
         existing_link = Link.find_by_url(link.url)
