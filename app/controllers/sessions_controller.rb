@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       flash[:notice] = "Signed in"
     end
+    session[:filter] = "mine"
+    session[:sort] = "by_save_date"
     redirect_to dashboard_path
 
   rescue Exception => ex

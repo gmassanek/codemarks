@@ -1,10 +1,13 @@
+- puts "from view"
+- puts session.inspect
+- puts session[:sort].inspect
 #filters_and_sorts
   %ul#filters.piped
-    %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine, :sort => params[:sort]), :remote => true, :class => "#{params[:filter] == "mine" ? 'current' : ''}"
-    %li= link_to "friend feed", url_for(:only_path => true, filter: :friends, :sort => params[:sort]), :remote => true, :class => "#{params[:filter] == "friends" ? 'current' : ''}"
-    %li.last= link_to "public codemarks", url_for(:only_path => true, filter: :public, :sort => params[:sort]), :remote => true, :class => "#{params[:filter] == "public" ? 'current' : ''}"
+    %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true, :class => "#{session[:filter] == "mine" ? 'current' : ''}"
+    %li= link_to "friend feed", url_for(:only_path => true, filter: :friends), :remote => true, :class => "#{session[:filter] == "friends" ? 'current' : ''}"
+    %li.last= link_to "public codemarks", url_for(:only_path => true, filter: :public), :remote => true, :class => "#{session[:filter] == "public" ? 'current' : ''}"
   %ul#sorts.piped
-    - if params[:filter].blank? || params[:filter] == "mine"
-      %li= link_to "view archived", url_for(:only_path => true, sort: params[:sort], archived: true), :remote => true
-    %li.first= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity, :filter => params[:filter]), :remote => true, :class => "#{params[:sort] == "by_popularity" ? 'current' : ''}"
-    %li.last= link_to "by save date", url_for(:only_path => true, sort: :by_save_date, :filter => params[:filter]), :remote => true, :class => "#{params[:sort] == "by_save_date" ? 'current' : ''}"
+    - if session[:filter] == "mine"
+      %li= link_to "view archived", url_for(:only_path => true, archived: true), :remote => true
+    %li.first= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true, :class => "#{session[:sort] == "by_popularity" ? 'current' : ''}"
+    %li.last= link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true, :class => "#{session[:sort] == "by_save_date" ? 'current' : ''}"

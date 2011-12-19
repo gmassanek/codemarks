@@ -18,14 +18,21 @@ class UsersController < ApplicationController
   end
 
   def dashboard
+    puts session.inspect
     @user = current_user
+    if params[:filter]
+      session[:filter] = params[:filter]
+    end
+    if params[:sort]
+      session[:sort] = params[:sort]
+    end
 
-    if params[:filter] == "public"
+    if session[:filter] == "public"
       @links = Link.scoped
       @clicks = Click.all.group_by { |click| click.link.id }
       @codemarks = Codemark.scoped
 
-      if params[:sort] == "by_popularity"
+      if session[:sort] == "by_popularity"
         @codemarks = @codemarks.group_by { |ls| ls.link.id }
         @links = @links.sort_by { |link| 
            LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
@@ -42,9 +49,9 @@ class UsersController < ApplicationController
     else
       @clicks = @user.clicks.group_by { |click| click.link.id }
       @codemarks = @user.codemarks
-      @codemarks = @codemarks.unarchived unless params[:archived]
+      @codemarks = @codemarks.unarchived unless session[:archived]
 
-      if params[:sort] == "by_popularity"
+      if session[:sort] == "by_popularity"
         link_ids = @codemarks.collect(&:link_id)
         @codemarks = @codemarks.group_by { |ls| ls.link.id }
         @links = Link.find(link_ids)
