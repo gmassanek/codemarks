@@ -30,7 +30,9 @@ class CodemarksController < ApplicationController
       @codemark.link = Link.new params[:codemark][:link]
     end
     @codemark.user = current_user
-    @codemark.topics = Topic.find params[:topic_ids].keys.reject! { |topic| topic.match(/[^0-9]/) }
+    topic_ids = params[:topic_ids].keys
+    topic_ids.reject! { |topic| topic.match(/[^0-9]/) }
+    @codemark.topics = Topic.find topic_ids
 
     new_topics = params[:topic_ids].keys
     new_topics.reject! { |topic| !topic.match(/[^0-9]/) }
