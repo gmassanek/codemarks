@@ -1,6 +1,8 @@
 - if logged_in?
+  - result_id = "#{prefix}_topic_count"
   - slug_id = "#{prefix}_topic_slug"
   - autocomplete_id = "#{prefix}_topic_autocomplete"
   .site_search
+    = text_field_tag :results_count, '', :type => :hidden, :id => result_id
     = text_field_tag :topic_slug, '', :type => :hidden, :id => slug_id
-    = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => placeholder, :"data-update-elements" =>"{\"slug\":\"##{slug_id}\"}", :id => autocomplete_id
+    = autocomplete_field_tag :topic_autocomplete, '', topic_title_autocomplete_path, :auto_focus => true, :placeholder => placeholder, :"data-update-elements" =>"{\"slug\":\"##{slug_id}\"}", :id => autocomplete_id, :"data-count" => "#{result_id}", :delay => 100

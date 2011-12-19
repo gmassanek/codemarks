@@ -65,6 +65,12 @@ $(document).ready(function(){
               obj[el.id] = el;
               $(e).data(obj);
             });
+
+            count_ele_id = $(e).attr('data-count');
+            if (count_ele_id != undefined) {
+              count_ele = $("#" + count_ele_id);
+              count_ele.val(arguments[0].length);
+            }
             response.apply(null, arguments);
           });
         },

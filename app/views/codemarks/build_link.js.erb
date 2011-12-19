@@ -1,6 +1,4 @@
 $(function() {
-  prepareAutocompletes();
-  prepareTagDeletes();
   <% if params[:url] %>
     $("#url_form input[type=submit]").hide();
     $("#link_form_container").addClass("highlighted");
@@ -15,17 +13,22 @@ $(function() {
       }
     });
 
-    $("#link_form_topic_autocomplete").keyup(function(e) {
+    $("#ui_active_menuitem").select(function() {
+      alert('selected');
+    });
+
+    $("#link_form_topic_autocomplete").keydown(function(e) {
       if (e.keyCode == 13) {
-        alert('boom');
-        e.preventDefault();
-        return false;
-        //var entered_text = $("#link_form_topic_autocomplete").val()
-        //$.ajax({
-        //  url: "/links/topic_checkbox",
-        //  data: { topic_title: entered_text },
-        //  beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
-        //});
+        if($("#link_form_topic_count").val() == 0) {
+          e.preventDefault();
+
+          var entered = $("#link_form_topic_autocomplete").val();
+          $.ajax({
+            url: "/links/topic_checkbox",
+            data: { topic_title: entered},
+            beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+          });
+        }
       }
     });
 
@@ -44,4 +47,6 @@ $(function() {
   <% else %>
   $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
   <% end %>
+  prepareAutocompletes();
+  prepareTagDeletes();
 });

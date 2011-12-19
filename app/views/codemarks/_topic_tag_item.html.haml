@@ -1,8 +1,4 @@
 %li
-  - if topic.present?
-    = check_box_tag "topic_ids[#{topic.id}]", topic.id, :checked, :type => :hidden, :id => "topic_chb_#{topic.slug}"
-    .title= topic.title
-  - else
-    = check_box_tag "topic_ids[#{topic_name}]", topic_name, :checked, :type => :hidden, :id => "topic_chb_#{topic_name}"
-    .title= topic_title
+  = check_box_tag "topic_ids[#{topic.id}]", topic.id, :checked, :type => :hidden, :id => "topic_chb_#{topic.slug}"
+  .title= topic.title
   .delete= link_to 'X', '#'
