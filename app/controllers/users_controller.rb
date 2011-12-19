@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   end
   
   def update
-    current_user.update_attribute(:email, params[:user][:email])
-    redirect_to profile_path, :notice => "Email saved"
+    current_user.update_attributes(params[:user])
+    redirect_to profile_path, :notice => "Account saved"
   end
 
   def dashboard
