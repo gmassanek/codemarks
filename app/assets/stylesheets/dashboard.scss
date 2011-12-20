@@ -1,6 +1,13 @@
 /*** VARIABLES ***/
 @import "configuration";
 
+#filters_and_sorts {
+  padding-bottom: 5px;
+  font-size: 16px;
+  border-bottom: 1px solid $border_color2;
+  margin-bottom: 10px;
+}
+
 #filters {
   float: left;
 }
@@ -8,6 +15,8 @@
 #sorts {
   float: right;
 }
+
+
 
 #filters, #sorts {
   .current {
@@ -24,68 +33,3 @@
   }
 }
 
-#codemarks {
-  li {
-    padding: 5px 0;
-    border-bottom: 1px solid $border-color2;
-    &:nth-last-child(1) {
-      border-bottom: none;
-    }
-
-
-    h3 {
-      float: left;
-      font-size: 13px;
-
-      a {
-        font-size: 16px;
-        font-weight: normal;
-        color: $c5;
-
-        &:hover {
-          color: $c3;
-        }
-      }
-
-      .pop {
-        font-weight: normal;
-      }
-
-      .host {
-        color: lighten($c2, 40%);
-        font-size: 11px;
-        font-weight: normal;
-      }
-    }
-
-    #topics_tags {
-      float: right;
-
-      li {
-        float: left;
-        padding: 0 5px;
-        border-bottom: none;
-
-        &:nth-last-child(1) {
-          padding-right: 0;
-          border-right: none;
-        }
-      }
-
-    }
-
-    .details {
-      color: lighten($c2, 40%);
-      margin-top: 2px;
-
-      .time {
-        float: left;
-      }
-      .saver {
-        float: left;
-        margin-right: 3px;
-      }
-    }
-
-  }
-}

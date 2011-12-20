@@ -1,10 +1,10 @@
-$("#banner_text h3").html("Thanks <%= escape_javascript(current_user.email) %>. now, get started codemarking");
+$("#banner_text h3").html("Thanks <%= escape_javascript(current_user.email) %>. now, get started by adding your first codemark");
 
 $(".edit_user").fadeOut(500, function() {
   $(this).remove();
   $("#welcome_link_form_container").show();
 });
 
-$("#welcome_link_form_container #codemark_form").submit(function() {
-  $("#welcome_link_form_container").fadeOut();
-});
+//$("#welcome_link_form_container #codemark_form").submit(function() {
+//  $("#welcome_link_form_container").fadeOut();
+//});

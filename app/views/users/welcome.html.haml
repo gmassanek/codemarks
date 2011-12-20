@@ -1,20 +1,38 @@
 :javascript
   $(function() {
-    $("#welcome_link_form_container #url_form").submit(function() {
+    $("#welcome_link_form_container #codemark_form").submit(function() {
       $("#link_form_container #url").val($("#welcome_link_form_container #url").val());
       $("#welcome_link_form_container").fadeOut(1200);
     });
+
+    if( $("#banner_text h3").html() != "save your email" ) {
+      $("#welcome_link_form_container").show();
+    }
+
+    $("a#no_thanks").click(function() {
+      $(this).hide();
+      $("#banner_text h3").html("No worries. Get started by adding your first codemark");
+
+      $(".edit_user").fadeOut(500, function() {
+        $(this).remove();
+        $("#welcome_link_form_container").show();
+      });
+    });
+
   });
 #welcome
   #banner
   #banner_text
     %h2 Welcome to Codemarks!
-    %h3 save your email
-    %br
-    = form_for current_user, remote: true do |form|
-      = form.email_field :email
-      = form.submit 'save'
-    %h4.email
+    - if current_user.email.present?
+      %h3 Thanks #{current_user.email}.  Now, get start by adding your first codemark.
+    - else
+      %h3 save your email
+      %br
+      = form_for current_user, remote: true do |form|
+        = form.email_field :email
+        = form.submit 'save'
+      = link_to 'no thanks', '#', id: "no_thanks"
     #welcome_link_form_container
       = render '/codemarks/form'
       .clear

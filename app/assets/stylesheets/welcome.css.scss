@@ -26,6 +26,15 @@
     display: none; 
   }
 
+  a {
+    color: white;
+    text-shadow: none;
+
+    &:hover {
+      color: $c4;
+    }
+  }
+
   #site_explanation {
   }
 }
