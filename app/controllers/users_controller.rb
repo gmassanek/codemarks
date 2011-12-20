@@ -75,12 +75,12 @@ class UsersController < ApplicationController
     end
 
     @topics = {}
-    puts @codemarks.inspect
-    @codemarks.each do |key, value|
-      puts value.inspect
-      value.each do |codemark|
-        puts codemark.topics.inspect
-        #@topics[key] << codemark.topics
+    @codemarks.each do |link_id, codemarks|
+      @topics[link_id] = []
+      codemarks.each do |codemark|
+        codemark.topics.each do |topic|
+          @topics[link_id] << topic
+        end
       end
     end
   end
