@@ -1,0 +1,45 @@
+/*** VARIABLES ***/
+@import "configuration";
+
+#banner {
+  position: absolute;
+  top: ($header-height + $header-extra + $header-box);
+  width: 100%;
+  left: 0;
+  height: 300px;
+  background: url('background-texture2.png') 0 0, -webkit-radial-gradient(50% 65%, ellipse cover, lighten($c2, 10%), $c2 45%);
+  z-index: -1;
+}
+
+#banner_text {
+  margin-top: 35px;
+  height: 265px;
+  color: white;
+  text-align: center;
+
+  h2 {
+    font-family: 'Coustard', serif;
+    font-size: 60px;
+    text-shadow: 0 3px rgba(0, 0, 0, 0.3);
+  }
+  h3 {
+    font-weight: normal;
+    margin-top: 10px;
+    background: inherit;
+    border-bottom: none;
+    font-size: 30px;
+  }
+}
+
+
+#site_explanation {
+  width: 900px;
+  margin: 0 auto;
+
+  li {
+    text-align: center;
+    float: left;
+    padding: 0 20px;
+    width: 258px;
+  }
+}

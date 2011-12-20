@@ -1,0 +1,21 @@
+= form_for @new_codemark, html: {id: "codemark_form", class: 'second'} do |form|
+  #first
+    - if @new_codemark.errors.present?
+      .errors
+        - @new_codemark.errors.full_messages.each do |msg|
+          %p.flash.error= msg
+    = form.url_field :url, placeholder: "http://www.myawesomeblog.com"
+    = form.submit "Add Link", :id => 'fetch'
+  #second
+    = text_field_tag :second, nil, type: :hidden
+    = form.fields_for @new_codemark.link do |link_form|
+      = link_form.text_field :id, :type => :hidden
+      = link_form.url_field :url, :type => :hidden
+      = link_form.text_field :host, :type => :hidden
+      = link_form.text_field :title, :placeholder => "Title"
+    = render '/codemarks/topic_tags_list', :pos_topics => @new_codemark.topics
+    = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
+    .clear
+    = form.submit 'Mark', id: "save_codemark"
+
+    .clear

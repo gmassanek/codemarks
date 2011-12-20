@@ -1,0 +1,33 @@
+<% if params[:url] %>
+  $(function() {
+    //$("#codemark_form input[type=submit]").hide();
+    $("<%= escape_javascript(render('codemarks/full_form')) %>").hide()
+      .replaceAll($('#codemark_form'))
+      .slideDown(200);
+
+
+    $("#codemark_form").keyup(function(e) {
+      if (e.keyCode == 13) {
+        e.preventDefault();
+      }
+    });
+
+    $(document).keyup(function(e) {
+      if (e.keyCode == 27) {
+        $('#codemark_form').replaceWith("<%= escape_javascript(render('/codemarks/form')) %>");
+      }
+    });
+
+    var topics_count = $("#topic_tags li").length;
+    if(topics_count == 0) {
+      $("#save_codemark").attr('disabled', 'disabled');
+    }
+  });
+
+<% else %>
+  $('#codemark_form').replaceWith("<%= escape_javascript(render('/codemarks/form')) %>");
+<% end %>
+
+prepareAutocompletes();
+prepareTagDeletes();
+

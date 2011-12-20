@@ -60,7 +60,7 @@ $(function() {
   $(".flash").delay(2500).fadeOut(1000);
 
   $("#new_link_link").click(function(event) { 
-    $("#link_form_container").dialog('open') 
+    $("#codemark_form").dialog('open') 
     event.preventDefault(); 
   }); 
 

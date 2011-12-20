@@ -2,40 +2,12 @@
  *= require reset
  *= require jquery-ui-1.8.16.custom
  *= require_self
+ *= require layout
  *= require_tree . 
 */
 
 /*** VARIABLES ***/
-@import url(http://fonts.googleapis.com/css?family=Coustard|Indie+Flower);
-$blue: blue;
-$vitaminc: #FF9900;
-$route66: #424242;
-$grey: #E9E9E9;
-$BC: #BCBCBC;
-$blue: #3299BB;
-
-$c1: #203e42;
-$c5: #C76F2B;
-$c2: #364745;
-$c4: #FED103;
-$c3: #AF9A29;
-$c6: white;
-$border-color1: lighten($c2, 20%);
-$border-color2: #dfdfdf;
-
-$header-height: 30px;
-$header-extra: 15px;
-$header-box: 4px;
-$border-radius: 5px;
-$border-radius-tight: 3px;
-
-/*** DEV STUFF ***/
-.color1 { margin-left: 2px; border: 1px solid black; float: left; background: $c1; height: 20px; width: 40px; }
-.color2 { margin-left: 2px; border: 1px solid black; float: left; background: $c2; height: 20px; width: 40px; }
-.color3 { margin-left: 2px; border: 1px solid black; float: left; background: $c3; height: 20px; width: 40px; }
-.color4 { margin-left: 2px; border: 1px solid black; float: left; background: $c4; height: 20px; width: 40px; }
-.color5 { margin-left: 2px; border: 1px solid black; float: left; background: $c5; height: 20px; width: 40px; }
-.color6 { margin-left: 2px; border: 1px solid black; float: left; background: $c6; height: 20px; width: 40px; }
+@import "configuration";
 
 /*** SITE WIDE  ***/
 h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 0;}
@@ -59,27 +31,6 @@ input {
   }
 }
 
-//h3 {
-//  /*background: -webkit-linear-gradient(lighten($c2, 40%), lighten($c2, 25%));*/
-//  background: white url("background-v2.png") 0 -4px repeat-x;
-//  background-size: 100% 115%;
-//  padding: 8px;
-//  border-bottom: 1px solid $border-color1;
-//
-//  .page_title {
-//    float: left;
-//  }
-//
-//  .pagination {
-//    margin-top: 2px;
-//    margin-left: 5px;
-//    font-size: 12px;
-//    float: left;
-//  }
-//
-//}
-
-
 a {
   color: darken($c2, 10%);
   text-decoration: none;
@@ -101,73 +52,6 @@ body {
   //background: white url('background-v2.png') 0 0 repeat-x;
 }
 
-#container {
-  width: 960px;
-  margin: 0 auto;
-}
-
-#content {
-  border-radius: $border-radius;
-  //background: $c6;
-  padding: 15px 20px 0;
-  //background: url('background-white.png') 0 0 no-repeat;
-  background-size: 100%;
-}
-
-/*** HEADER  ***/
-.header_wrapper {
-  height: $header-height + $header-extra;
-  padding-bottom: 1px;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.25);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-  &.guest {
-    box-shadow: none;
-    border-bottom: 0;
-  }
-}
-
-.header_coloring {
-  height: $header-height + $header-extra;
-  $top: lighten($c2, 60%);
-}
-
-#header {
-  margin-top: -($header-height + $header-extra + $header-box);
-  height: $header-height + $header-extra + $header-box;
-  &.guest {
-    font-size: 14px;
-  }
-
-  .site_search {
-    float: right;
-
-    input {
-      padding: 3px;
-      border: 1px solid $border-color1;
-      border-radius: $border-radius-tight;
-      width: 150px;
-    }
-  }
-}
-
-#logo {
-  float: left;
-  margin-top: 10px;
-  a {
-    font-family: 'Coustard', serif;
-    color: $c1;
-    font-size: 28px;
-    font-weight: bold;
-    text-decoration: none;
-    text-shadow: $c6 1px 0px 0;
-    -webkit-transition: all 0.45s ease-in-out;
-
-    &:hover {
-      color: $c5;
-    }
-  }
-}
 
 ul.piped {
   li {
@@ -186,77 +70,6 @@ ul.piped {
     }
   }
 }
-
-#guest_links, #authentication {
-  float: right;
-  margin-top: 20px;
-  li {
-    float: left;
-    padding: 0 15px;
-
-    &.last {
-      padding-right: 0;
-    }
-
-    a {
-      //color: white;
-    }
-
-    &.image {
-      margin-right: -20px;
-      padding: 0;
-      padding-right: 10px;
-      margin-top: -5px;
-      //margin-top: -1px;
-      img {
-        border: 1px solid $c6;
-      }
-    }
-  }
-}
-
-//#authentication {
-//  float: right;
-//  //font-weight: bold;
-//  //background: -webkit-linear-gradient(lighten($c2, 50%), lighten($c2, 35%));
-//  //border-bottom-right-radius: $border-radius;
-//  //border-bottom-left-radius: $border-radius;
-//  //border-top: 0;
-//  //box-shadow: 0 1px 1px $border-color1;
-//  //padding: 9px 5px 3px 5px;
-//  ul {
-//
-//    li {
-//      float: left;
-//      text-decoration: none;
-//      color: $c1;
-//      padding: 0 8px;
-//      margin-top: 4px;
-//      a {
-//        text-shadow: $c6 1px 0px 0;
-//
-//        &.reminders {
-//          margin-left: 2px;
-//          padding: 2px 4px;
-//          background: lighten($c2, 25%);
-//          border-radius: $border-radius;
-//          text-shadow: none;
-//        }
-//      }
-//
-//      &.image {
-//        //12px total inline
-//        padding: 0px;
-//        margin-top: -1px;
-//        img {
-//          border: 1px solid $c6;
-//        }
-//      }
-//    }
-//
-//  }
-//}
-
 
 .flash {
   padding: 12px;
@@ -286,88 +99,4 @@ ul.piped {
 
 .field_with_errors input {
   border: 2px red solid;
-}
-
-#link_form_container {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  width: 400px;
-  margin-left: -200px;
-
-  &.highlighted {
-    background: $c4;
-  }
-}
-
-#url_form, #new_codemark {
-  z-index: 100;
-  float: left;
-  font-size: 14px;
-  width: 400px;
-
-  .site_search { float: left }
-
-  label {
-    float: left;
-  }
-
-  input {
-    float: left;
-
-    &[type=url], &[type=text] {
-      padding: 4px;
-      width: 300px;
-    }
-
-
-    &[type=submit]{
-      float: left;
-      color: $c1;
-      background: $c5;
-    }
-  }
-
-}
-
-#banner {
-  position: absolute;
-  top: ($header-height + $header-extra + $header-box);
-  width: 100%;
-  left: 0;
-  height: 300px;
-  background: url('background-texture2.png') 0 0, -webkit-radial-gradient(50% 65%, ellipse cover, lighten($c2, 10%), $c2 45%);
-  z-index: -1;
-}
-
-#banner_text {
-  margin-top: 35px;
-  height: 265px;
-  color: white;
-  text-align: center;
-
-  h2 {
-    font-family: 'Coustard', serif;
-    font-size: 60px;
-    text-shadow: 0 3px rgba(0, 0, 0, 0.3);
-  }
-  h3 {
-    font-weight: normal;
-    margin-top: 10px;
-    background: inherit;
-    border-bottom: none;
-    font-size: 30px;
-  }
-}
-
-#site_explanation {
-  width: 900px;
-  margin: 0 auto;
-
-  li {
-    text-align: center;
-    float: left;
-    padding: 0 20px;
-    width: 258px;
-  }
 }

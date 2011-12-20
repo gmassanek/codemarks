@@ -108,31 +108,3 @@ ul#resources_list {
   }
 }
 
-ul#topic_tags {
-    float: left;
-    font-size: 12px;
-    margin: 0 5px;
-
-    li {
-      margin: 2px;
-      padding: 3px;
-      float: left;
-      background: lighten($c2, 25%);
-      border-radius: $border-radius;
-    }
-
-  .title {
-    float: left;
-  }
-
-  .delete {
-    font-size: 10px;
-    font-weight: bold;
-    float: left;
-    margin: 1px 1px 0px 5px;
-
-    &.first {
-      margin-left: none;
-    }
-  }
-}
