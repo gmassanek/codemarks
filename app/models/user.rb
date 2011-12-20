@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   def self.find_by_email email
     id = User.select('users.id')
-      .joins(:authentications)
+      .joins('LEFT JOIN authentications on users.id = authentications.user_id')
       .where(['users.email = ? OR authentications.email = ?', email, email])
       .group('users.id')
       .limit(1)

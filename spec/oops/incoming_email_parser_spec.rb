@@ -16,7 +16,7 @@ describe IncomingEmailParser do
   end
 
   it "stores a link if the user exists (but only adds a codemark once)" do
-    Fabricate(:user, email: "test@example.com")
+    user = Fabricate(:user, email: "test@example.com")
     google = Fabricate(:topic, title: "google")
     params[:text] = "http://www.google.com /n My Signature"
     lambda {
@@ -44,6 +44,16 @@ describe IncomingEmailParser do
     it "for multiple links" do
       body = "here is a link to http://www.google.com and http://www.yahoo.com"
       IncomingEmailParser.extract_urls_into_array(body).should == ["http://www.google.com", "http://www.yahoo.com"]
+    end
+
+    it "saves multiple links" do
+      user = Fabricate(:user, email: "test@example.com")
+      google = Fabricate(:topic, title: "google")
+      yahoo = Fabricate(:topic, title: "yahoo")
+      params[:text] = "here is a link to http://www.google.com and http://www.yahoo.com"
+      lambda {
+        IncomingEmailParser.parse(params)
+      }.should change(Codemark, :count).by(2)
     end
   end
 end
