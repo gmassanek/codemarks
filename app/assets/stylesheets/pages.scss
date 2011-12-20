@@ -62,3 +62,51 @@
     }
   }
 }
+
+#about {
+  p {
+    font-weight: normal;
+    font-size: 14px;
+    text-shadow: none;
+    text-align: left;
+  }
+
+  #banner_text {
+    height: 330px;
+    padding-top: 20px;
+    margin-top: -12px;
+    h2 {
+      padding-bottom: 15px;
+    }
+    h3 {
+      margin-top: 0px;
+      color: white;
+    }
+    li {
+      margin-top: 0px;
+      height: auto;
+      border: none;
+      color: lighten($border-color1, 25%);
+    }
+  }
+
+  #site_explanation {
+    h2 {
+      padding-bottom: 15px;
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    margin: 20px auto;
+    li {
+      margin-top: 0px;
+      height: auto;
+      border: none;
+    }
+
+    &.bottom {
+      width: 600px;
+    }
+  }
+
+}

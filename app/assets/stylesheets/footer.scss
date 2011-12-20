@@ -1,0 +1,16 @@
+/*** VARIABLES ***/
+@import "configuration";
+
+#footer {
+  width: 800px;
+  margin: 80px auto 20px;
+  border-top: 1px solid $border_color2;
+
+  ul {
+    width: 218px;
+    margin: 5px auto 0;
+    text-align: center;
+
+    li { padding: 0 15px; }
+  }
+}
