@@ -77,7 +77,11 @@ class UsersController < ApplicationController
     @topics = {}
     puts @codemarks.inspect
     @codemarks.each do |key, value|
-      @topics[key] = Array(*value.collect(&:topics)) 
+      puts value.inspect
+      value.each do |codemark|
+        puts codemark.topics.inspect
+        #@topics[key] << codemark.topics
+      end
     end
   end
 
