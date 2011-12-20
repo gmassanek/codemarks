@@ -1,5 +1,5 @@
-$("#banner_text h3").html("Thanks <%= escape_javascript(current_user.email) %>. now, get started by adding your first codemark");
-
+$("#banner_text h3").html("Thanks <%= escape_javascript(current_user.email) %>. <br/><br/>Get started by adding your first codemark");
+$("#no_thanks").remove();
 $(".edit_user").fadeOut(500, function() {
   $(this).remove();
   $("#welcome_link_form_container").show();

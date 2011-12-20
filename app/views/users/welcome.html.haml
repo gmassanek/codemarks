@@ -25,7 +25,11 @@
   #banner_text
     %h2 Welcome to Codemarks!
     - if current_user.email.present?
-      %h3 Thanks #{current_user.email}.  Now, get start by adding your first codemark.
+      %h3 
+        Thanks #{current_user.email}.  
+        %br 
+        %br 
+        Get start by adding your first codemark.
     - else
       %h3 save your email
       %br
