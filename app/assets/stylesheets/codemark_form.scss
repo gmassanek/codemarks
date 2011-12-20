@@ -13,7 +13,7 @@
   }
 
   #first {
-    width: 488px;
+    width: 520px;
     margin: 0 auto;
     input {
       &[type=url] {
@@ -21,22 +21,6 @@
         width: 400px;
       }
 
-      &[type=submit] {
-        padding: 3px 4px;
-        font-size: 14px;
-        line-height: 18px;
-        background: -webkit-linear-gradient($c4, $c5);
-        border-color: darken($c5, 5%);
-        border-bottom-color: darken($c5, 15%);
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
-
-        &:hover, &:focus {
-
-        background: -webkit-linear-gradient(darken($c4, 10%), darken($c5, 10%));
-        border-color: darken($c5, 5%);
-        border-bottom-color: darken($c5, 15%);
-        }
-      }
     }
 
   }

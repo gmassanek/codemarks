@@ -5,4 +5,4 @@
         - @new_codemark.errors.full_messages.each do |msg|
           %p.flash.error= msg
     = url_field_tag :url, nil, placeholder: "paste full link URL here"
-    = submit_tag "Add Link", :id => 'fetch'
+    = submit_tag "Add Link", :id => 'fetch', class: 'btn primary small'
