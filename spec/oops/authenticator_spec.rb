@@ -17,11 +17,6 @@ describe Authenticator do
       }.should raise_error(AuthProviderRequiredError)
     end
 
-    it "searches Authentication for an auth by provider and uid" do
-      Authentication.should_receive(:find_by_provider_and_uid).with("twitter", 9)
-      Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash)
-    end
-
     it "returns an existing user given an existing authentication" do
       user = authentication.user
       Authenticator.find_or_create_user_from_auth_hash("twitter", auth_hash).should == user

@@ -39,9 +39,6 @@ describe "User pages" do
             second_save = Fabricate(:codemark, link: @his_codemark.link)
             visit dashboard_path
             page.click_link "public codemarks"
-            #puts second_save.title.inspect
-            #puts second_save.url.inspect
-            #puts second_save.link.codemarks.inspect
             page.should have_link @my_codemark.title
             page.should have_xpath("//a[contains(@href,'#{@his_codemark.url}')]", :count => 1)
           end

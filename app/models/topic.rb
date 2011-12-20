@@ -14,5 +14,6 @@ class Topic < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => :user_id
 
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
+  scope :for_user, lambda { |user| joins(:codemarks).where(["codemarks.user_id = ?",user]) }
 end
 
