@@ -6,25 +6,28 @@
     });
   });
 #welcome
-  %h2 Welcome to Codemarks!
-  /p Codemarks is a new way to collect all the links that you use, come across, want to remember, and want to share. 
-  /p It helps connect like-minded techies to the information you would like to see most from the people you trust the most.
-  /h3 How do I save codemarks?
+  #banner
+  #banner_text
+    %h2 Welcome to Codemarks!
+    %h3 save your email
+    %br
+    = form_for current_user, remote: true do |form|
+      = form.email_field :email
+      = form.submit 'save'
+    %h4.email
+    #welcome_link_form_container
+      = render '/codemarks/form'
+      .clear
 
-  %ul
-    %li 
+
+  %ul#site_explanation.piped
+    %li.first
       %h4 Online
       %p You can add more here at codemarks or, on any sites that have the #{link_to 'codemark widget', widget_path}
     %li 
       %h4 Email
-      %p Type your email address here
-      = form_for current_user, remote: true do |form|
-        = form.email_field :email
-      %p and you can send any codemarks you come across to #{link_to 'save@codemarks.org', 'mailto: save@codemarks.org'}.
-    %li 
+      %p Send any codemarks you want to save or share to #{link_to 'save@codemarks.org', 'mailto: save@codemarks.org'}
+    %li.last
       %h4 Twitter
       %p Coming soon - tweet your codemarks to #{link_to '@codemarks', 'https://www.twitter.com/#/codemarks'} and we'll take it from there
-  %h2 Get started!
-  #welcome_link_form_container
-    = render '/shared/build_link_form'
 

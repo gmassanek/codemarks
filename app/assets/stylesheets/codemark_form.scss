@@ -13,19 +13,41 @@
   }
 
   #first {
-    width: 473px;
+    width: 488px;
     margin: 0 auto;
     input {
       &[type=url] {
         padding: 4px;
         width: 400px;
       }
+
+      &[type=submit] {
+        padding: 3px 4px;
+        font-size: 14px;
+        line-height: 18px;
+        background: -webkit-linear-gradient($c4, $c5);
+        border-color: darken($c5, 5%);
+        border-bottom-color: darken($c5, 15%);
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+
+        &:hover, &:focus {
+
+        background: -webkit-linear-gradient(darken($c4, 10%), darken($c5, 10%));
+        border-color: darken($c5, 5%);
+        border-bottom-color: darken($c5, 15%);
+        }
+      }
     }
+
   }
 
-  .site_search { width: 100%; }
+  .site_search { 
+    width: 85%;
+    margin: 0 auto;
+  }
   .site_search input {
-    width: 100%;
+    width: 85%;
+    margin: 0 auto;
   }
 
   #second {

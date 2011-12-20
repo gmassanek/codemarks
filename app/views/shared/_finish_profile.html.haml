@@ -1,7 +1,0 @@
-#finish_profile
-  You're almost finished setting up your profile.  To be the best codemarker, go to your #{link_to 'profile', profile_path} and 
-  %ul
-    - if current_user.email.blank?
-      %li save your email so you can email your codemarks in
-    - current_user.missing_authentications.each do |auth|
-      %li link you #{auth} account

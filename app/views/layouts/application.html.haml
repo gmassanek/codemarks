@@ -22,16 +22,6 @@
       .header_coloring
     #container
       = render '/layouts/header'
-      =# render '/shared/finish_profile'
       #content
         = render '/layouts/flash', :flash => flash
         = yield
-        .clear
-    -# if ENV['RAILS_ENV'] == 'development'
-      .color1 c1
-      .color2 c2
-      .color3 c3
-      .color4 c4
-      .color5 c5
-      .color6 c6
-      .clear

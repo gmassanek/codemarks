@@ -1,8 +1,9 @@
 /*
  *= require reset
+ *= require layout
+ *= require pages
  *= require jquery-ui-1.8.16.custom
  *= require_self
- *= require layout
  *= require_tree . 
 */
 
@@ -22,6 +23,37 @@ input {
   padding: 3px;
   border: 1px solid $border-color1;
   border-radius: $border-radius-tight;
+
+  &[type=submit] {
+    padding: 5px 1em;
+    border: 1px solid #999;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    color: #222;
+    background: #fff;
+    line-height: 20px;
+    font-size: 16px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    /* iOS */
+    -webkit-appearance: none; /* 1 */
+    /* IE6/7 hacks */
+    *overflow: visible;  /* 2 */
+    *display: inline; /* 3 */
+    *zoom: 1; /* 3 */
+
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    -moz-user-drag: -moz-none;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
 }
 
 .inputs {
@@ -48,7 +80,6 @@ html {
 }
 
 body {
-  background: url('fabric_2.png') 0 0;
   //background: white url('background-v2.png') 0 0 repeat-x;
 }
 

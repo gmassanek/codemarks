@@ -66,6 +66,8 @@
   //background-image: -moz-linear-gradient(#249bc9, lighten(#249bc9, 15%));
   //background-image: -ms-linear-gradient(#249bc9, lighten(#249bc9, 15%));
   //background-image: -o-linear-gradient(#249bc9, lighten(#249bc9, 15%));
+  border-color: darken(#249bc9, 5%);
+  border-bottom-color: darken(#249bc9, 10%);
   background-image: -webkit-linear-gradient(lighten(#249bc9, 5%), darken(#249bc9, 5%));
   text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
 }
