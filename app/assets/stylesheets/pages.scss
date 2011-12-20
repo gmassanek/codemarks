@@ -43,7 +43,8 @@
   margin: 20px auto;
 
   li {
-    border-color: darken($border-color2, 10%);
+    height: 130px;
+    border-right-color: darken($border-color2, 10%);
     font-size: 20px;
     text-align: center;
     float: left;
