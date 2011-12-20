@@ -60,9 +60,9 @@
       li {
         width: 85%;
         margin: 5px auto;
-        background: lighten($border-color2, 10%);
-        border: 1px solid $border-color2;
-        border-radius: $border-radius;
+        //background: lighten($border-color2, 10%);
+        //border: 1px solid $border-color2;
+        //border-radius: $border-radius;
         padding: 3px 5px;
 
         .title {
@@ -73,7 +73,7 @@
           float: right;
           font-size: 10px;
           font-weight: bold;
-          margin: 1px 1px 0px 5px;
+          margin: 4px 3px 0px 5px;
 
           &.first {
             margin-left: none;

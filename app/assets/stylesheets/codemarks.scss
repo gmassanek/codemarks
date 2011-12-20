@@ -9,27 +9,16 @@
   float: right;
 }
 
-#filters, #sorts {
-  .current {
-    text-decoration: underline;
-  }
-
-  li {
-    .first {
-      padding-left: 0;
-    }
-    .first {
-      padding-right: 0;
-    }
-  }
-}
-
 #codemarks {
   li {
-    padding: 5px 0;
+    padding: 10px 0;
+    line-height: 16px;
     border-bottom: 1px solid $border-color2;
     &:nth-last-child(1) {
       border-bottom: none;
+    }
+    &:nth-child(1) {
+      padding-top: 0;
     }
 
 
@@ -63,13 +52,13 @@
 
       li {
         float: left;
-        padding: 0 5px;
-        border-bottom: none;
+        //padding: 0 5px;
+        //border-bottom: none;
 
-        &:nth-last-child(1) {
-          padding-right: 0;
-          border-right: none;
-        }
+        //&:nth-last-child(1) {
+        //  padding-right: 0;
+        //  border-right: none;
+        //}
       }
 
     }

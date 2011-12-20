@@ -5,7 +5,7 @@
         - @new_codemark.errors.full_messages.each do |msg|
           %p.flash.error= msg
     = form.url_field :url, placeholder: "http://www.myawesomeblog.com"
-    = form.submit "Add Link", :id => 'fetch'
+    = form.submit "Add Link", :id => 'fetch', :class => "btn primary"
   #second
     = text_field_tag :second, nil, type: :hidden
     = form.fields_for @new_codemark.link do |link_form|

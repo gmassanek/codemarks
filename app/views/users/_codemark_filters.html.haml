@@ -1,11 +1,15 @@
 #filters_and_sorts
-  %ul#filters.piped
-    %li.first= link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true, :class => "#{session[:filter] == "mine" ? 'current' : ''}"
+  %ul.tabs#filters
+    %li{:class => "#{session[:filter] == "mine" ? 'active' : ' '}"}
+      = link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true
     /li= link_to "friend feed", url_for(:only_path => true, filter: :friends), :remote => true, :class => "#{session[:filter] == "friends" ? 'current' : ''}"
-    %li.last= link_to "public codemarks", url_for(:only_path => true, filter: :public), :remote => true, :class => "#{session[:filter] == "public" ? 'current' : ''}"
-  %ul#sorts.piped
+    %li{:class => "#{session[:filter] == "public" ? 'active' : ' '}"}
+      = link_to "public codemarks", url_for(:only_path => true, filter: :public), :remote => true
+  %ul.pills#sorts
     -# if session[:filter] == "mine"
       %li= link_to "view archived", url_for(:only_path => true, archived: true), :remote => true
-    %li.first= link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true, :class => "#{session[:sort] == "by_popularity" ? 'current' : ''}"
-    %li.last= link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true, :class => "#{session[:sort] == "by_save_date" ? 'current' : ''}"
+    %li{:class => "#{session[:sort] == "by_popularity" ? 'active' : ' '}"}
+      = link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
+    %li{:class => "#{session[:sort] == "by_save_date" ? 'active' : ' '}"}
+      = link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true
   .clear
