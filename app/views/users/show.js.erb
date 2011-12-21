@@ -1,0 +1,5 @@
+$('#codemarks').replaceWith("<%= escape_javascript(render('/shared/codemarks')) %>");
+$('#filters_and_sorts').replaceWith("<%= escape_javascript(render('/users/codemark_filters')) %>");
+
+style_lists();
+prepareCodemarks();

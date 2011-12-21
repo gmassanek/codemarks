@@ -5,7 +5,7 @@
   .clear
 
 =# link_to "view archived", user_path(@user, archived: true), :remote => true
-= render 'codemark_filters'
+= render 'codemark_filters', tabs: false
 .clear
 
 = render '/shared/codemarks'
