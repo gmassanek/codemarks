@@ -1,5 +1,5 @@
 #page_details
-  %p.title= @user.nickname
+  %p.title= @user.get(:nickname)
   %ul.data.piped
     %li.first.last=# pluralize(@reminders.count, "reminders")
   .clear
