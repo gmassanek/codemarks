@@ -5,11 +5,11 @@ describe "User Profile Page" do
     before do
       simulate_signed_in
       @user = Fabricate(:user)
-      visit profile_path
+      visit user_path @user
     end
 
-    it "doesn't break" do
-      visit user_path @user
+    it "doesn't have tabs" do
+      page.should_not have_css("#filters")
     end
 
     it "does what the dashboard does"
