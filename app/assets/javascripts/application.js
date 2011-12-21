@@ -19,7 +19,8 @@ function prepareTagDeletes() {
       $(this).remove();
       var topics_count = $("#topic_tags li").length;
       if(topics_count == 0) {
-        $("#save_codemark").attr('disabled', 'disabled');
+        $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+        //$("#save_codemark").attr('disabled', 'disabled');
       }
     });
   });

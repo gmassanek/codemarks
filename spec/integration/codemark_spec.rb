@@ -20,7 +20,7 @@ describe "New Codemark Form" do
       visit root_path
       page.fill_in("url", :with => "http://www.google.com")
       page.click_button("fetch")
-      page.should have_css("#new_codemark", :visible => true)
+      page.should have_css("#codemark_form.second", :visible => true)
       page.find_field("codemark_link_title").value.should == "Google"
     end
 
@@ -28,7 +28,7 @@ describe "New Codemark Form" do
       visit root_path
       page.fill_in("url", :with => "http://www.234fggg_oogle2342adfa23r4.com")
       page.click_button("fetch")
-      page.should have_css("#new_codemark", :visible => true)
+      page.should have_css("#codemark_form.second", :visible => true)
       page.find_field("codemark_link_title").value.should == ""
     end
 
