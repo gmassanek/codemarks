@@ -1,7 +1,23 @@
 require 'spec_helper'
 
 describe "User Profile Page" do
-  context "shows user info" do
+  context "show" do
+    before do
+      simulate_signed_in
+      @user = Fabricate(:user)
+      visit profile_path
+    end
+
+    it "doesn't break" do
+      visit user_path @user
+    end
+
+    it "does what the dashboard does"
+    it "doesn't show me their private links"
+    it "shows their profile details on the top of the page"
+  end
+
+  context "profile" do
     before do
       simulate_signed_in
       visit profile_path

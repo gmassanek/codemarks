@@ -90,13 +90,43 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @codemarks = @user.codemarks
-    @codemarks = @codemarks.unarchived unless params[:archived]
 
-    if params[:by_popularity]
-      @codemarks = @codemarks.by_popularity 
+    if params[:filter]
+      session[:filter] = params[:filter]
+    end
+    if params[:sort]
+      session[:sort] = params[:sort]
+    end
+
+    @clicks = @user.clicks.group_by { |click| click.link.id }
+    @codemarks = @user.codemarks
+
+    if session[:sort] == "by_popularity"
+      link_ids = @codemarks.collect(&:link_id)
+      @codemarks = @codemarks.group_by { |ls| ls.link.id }
+      @links = Link.find(link_ids)
+      @links = @links.sort_by { |link| 
+         LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
+      }
+      @links.reverse!
     else
       @codemarks = @codemarks.by_save_date
+      link_ids = @codemarks.collect(&:link_id)
+      @links = Link.find(link_ids)
+      @links = @links.sort do |a, b|
+        link_ids.index(a.id) <=> link_ids.index(b.id)
+      end
+      @codemarks = @codemarks.group_by { |ls| ls.link.id }
+    end
+
+    @topics = {}
+    @codemarks.each do |link_id, codemarks|
+      @topics[link_id] = []
+      codemarks.each do |codemark|
+        codemark.topics.each do |topic|
+          @topics[link_id] << topic
+        end
+      end
     end
   end
 end
