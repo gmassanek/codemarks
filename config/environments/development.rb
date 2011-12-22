@@ -29,11 +29,11 @@ Cms::Application.configure do
   config.assets.debug = false
 end
 
-#OmniAuth.config.test_mode = true
-#OmniAuth.config.add_mock(:twitter, {
-#  :uid => '3452345',
-#  :nickname => 'gmassanek'
-#})
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:twitter, {
+  :uid => '3452345',
+  :nickname => 'gmassanek'
+})
 #OmniAuth.config.add_mock(:github, {
 #  :uid => '234234',
 #  :nickname => 'gmassanek'

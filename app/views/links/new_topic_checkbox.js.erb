@@ -6,5 +6,7 @@ if (chb.length == 0) {
 } else {
   chb.closest("li").effect("highlight", {}, 2000);
 }
+$("#fetch").removeAttr("disabled");
 $("#link_form_topic_autocomplete").val("");
+$("#link_form_topic_slug").val("");
 prepareTagDeletes();
