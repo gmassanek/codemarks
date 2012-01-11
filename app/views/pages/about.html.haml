@@ -16,7 +16,15 @@
     %h2 How can I be a great codemarker?
     %li.first
       %h3 Add Content
-      %p Create codemarks online, or by emailing any link to #{ link_to 'save@codemarks.org', 'mailto: save@codemarks.org'}. Codemarks from twitter will be coming soon
+      %p 
+        Create codemarks online, or by emailing any link to #{ link_to 'save@codemarks.org', 'mailto: save@codemarks.org'}. Codemarks from twitter will be coming soon
+    %li
+      %h3 Bookmarklet
+      %p 
+        Drag
+        - url = "javascript:function%20cml1()%7Bvar%20d=document,b=d.body,l=d.location;try%7Bif(!b)%20throw(0);alert(l);%7D%20catch(e)%7Balert('Please%20wait%20until%20the%20page%20has%20loaded.');%7D%7D%20cml1();void(0)"
+        = link_to "this link", url
+        to your bookmark bar
     %li.last
       %h3 Share
       %p The more content, the more we all learn from each other.  Suggest it at your next meetup, and let us know what we can make better
