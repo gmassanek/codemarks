@@ -87,5 +87,10 @@ describe "New Codemark Form" do
     }.should change(Click, :count).by(1)
   end
 
+  it "shows a link for archiving on all of my unarchived codemarks"
+  it "does not show archived links unless I'm filtering to include them"
+  it "let's you filter by archived on an yser show page (profile)"
+  it "removes a codemark from view when you archive it"
+
 end
 
