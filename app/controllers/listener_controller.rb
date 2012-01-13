@@ -8,4 +8,15 @@ class ListenerController < ApplicationController
     IncomingEmailParser.parse(params)
     render :nothing => true, :status => 200, :content_type => 'text/html'
   end
+
+  def bookmarklet
+    @user = current_user
+    url = params[:l]
+
+    @success = IncomingEmailParser.save_bookmarklet(@user, url).present?
+    puts @success.inspect
+    respond_to do |format|
+      format.js
+    end
+  end
 end
