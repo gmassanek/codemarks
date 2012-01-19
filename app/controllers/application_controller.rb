@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_id
-    cookies[:user_id]
+    cookies.signed[:remember_token]
   end
 
   def current_user

@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "Successfully authentication"
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
-      cookies[:user_id] = {:value => @user.id, :expires => 10.years.from_now.utc}
+      cookies.permanent.signed[:remember_token] = @user.id
       flash[:notice] = "Signed in"
     end
     session[:filter] = "mine"
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    reset_cookies
+    cookies[:remember_token] = {:expires => 1.day.ago.utc}
     redirect_to root_path, :notice => "Logged out successfully"
   end
 
