@@ -17,11 +17,8 @@ class LinksController < ApplicationController
           @pos_topics = []
         end
       rescue Exception => ex
-        puts ex.inspect
-        logger.debug ex.inspect
         @link.errors.add(:url, "is invalid")
         @pos_topics = []
-        puts @link.inspect
       end
     end
     respond_to do |format|
