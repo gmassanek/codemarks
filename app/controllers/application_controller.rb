@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_id
-    session[:user_id]
+    cookies[:user_id]
   end
 
   def current_user
