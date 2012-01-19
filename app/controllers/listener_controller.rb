@@ -11,6 +11,8 @@ class ListenerController < ApplicationController
 
   def bookmarklet
     @user = current_user
+    puts @user.inspect
+    logger.info @user.inspect
     url = params[:l]
 
     @success = IncomingEmailParser.save_bookmarklet(@user, url).present?
