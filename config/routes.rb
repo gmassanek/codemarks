@@ -5,6 +5,7 @@ Cms::Application.routes.draw do
   get '/profile', to: "users#profile", as: :profile
   get '/profile/edit', to: "users#edit", as: :edit_profile
   get '/about', to: "pages#about", as: :about
+  resources :codemarks, :only => [:edit]
   get '/codemarks/build_link', to: "codemarks#build_link", as: :build_link
   get '/widget', to: "pages#widget", as: :widget
   post '/codemarks', to: "codemarks#create", as: :codemarks

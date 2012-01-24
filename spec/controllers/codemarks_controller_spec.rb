@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe CodemarksController do
+  context "#edit" do
+    it "works" do
+      codemark = Fabricate(:codemark)
+      get :edit, id: codemark.id
+      response.should be_successful
+    end
+  end
   describe "build_link" do
     before do
       @method = :get

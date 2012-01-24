@@ -4,6 +4,10 @@ class CodemarksController < ApplicationController
   require 'codemarker'
   include OOPs
 
+  def edit
+
+  end
+
   def create
     if params[:second].nil?
       link = Link.find_by_url(params[:url])
