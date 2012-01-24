@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'sqlite3'
+  gem 'jasminerice'
 end
 
 group :test do
