@@ -9,7 +9,7 @@ function cml1()
       z.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
       b.appendChild(z);
       var req = $.ajax({
-        url: "http://www.codemarks.org/listener/bookmarklet?id=USER_IDl="+l,
+        url: "http://www.codemarks.org/listener/bookmarklet?id=USER_ID&l="+l,
         dataType: "script"
       });
       console.log(req);

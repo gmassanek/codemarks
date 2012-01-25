@@ -12,6 +12,6 @@ module ApplicationHelper
     user_id = current_user_id
     user_id ||= 0
     with_user_id = escaped.gsub("USER_ID", user_id.to_s)
-    javascript_prefix + with_user_id
+    with_user_id
   end
 end
