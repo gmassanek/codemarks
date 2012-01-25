@@ -10,15 +10,19 @@ class ListenerController < ApplicationController
   end
 
   def bookmarklet
-    @user = current_user
+    @user = User.find_by_id(params[:id])
     puts @user.inspect
     logger.info @user.inspect
-    url = params[:l]
+    if @user
+      url = params[:l]
 
-    @success = IncomingEmailParser.save_bookmarklet(@user, url).present?
-    puts @success.inspect
-    respond_to do |format|
-      format.js
+      @success = IncomingEmailParser.save_bookmarklet(@user, url).present?
+      puts @success.inspect
+      respond_to do |format|
+        format.js
+      end
+    else
+      render :nothing => true
     end
   end
 end
