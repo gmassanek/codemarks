@@ -5,6 +5,10 @@ require 'smart_link'
 module OOPs
   class IncomingEmailParser 
     class << self
+      def save_bookmarklet user, url
+        save_codemark(user, url) if user
+      end
+
       def parse params
         email = extract_email(params[:from])
         user = User.find_by_email(email) if email.present?
