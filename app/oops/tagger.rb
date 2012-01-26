@@ -3,19 +3,26 @@ module OOPs
     class << self
 
       def get_tags_for_link link
-        return nil if link.response.nil?
-        return topics link.response
+        link_response = link.response
+        return nil if link_response.blank?
+        full_list = title_topics(link.title) | content_topics(link_response.content)
+        full_list[0,5]
       end
 
-      def has_topic?(response, topic)
-        response.content.gsub(/\r/, ' ').gsub(/\n/, " ").to_s.downcase.include? "#{topic.title.downcase}"
+      def title_topics(title)
+        Topic.all.select { |topic| has_topic?(title, topic) }
       end
 
-      def topics response
-        Topic.all.select do |topic|
-          has_topic? response, topic
-        end
+      def content_topics(content)
+        Topic.all.select { |topic| has_topic?(content, topic) }
       end
+
+      private
+
+      def has_topic?(content, topic)
+        content.gsub(/\r/, ' ').gsub(/\n/, " ").to_s.downcase.include? "#{topic.title.downcase}"
+      end
+
     end
   end
 end
