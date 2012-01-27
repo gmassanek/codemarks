@@ -1,13 +1,28 @@
-class Link < ActiveRecord::Base
-  has_many :topics, :through => :codemarks
-  has_many :codemarks, :dependent => :destroy
-  has_many :clicks
+require 'nokogiri'
+require 'open-uri'
 
-  #has_many :savers, :through => :link_saves
-  #has_many :clickers, :through => :link_saves
+class Link
 
-  validates_presence_of :url, :title
-  validates_format_of :url, :with => URI::regexp
+  attr_accessor :url, :site_response, :site_content, :host, :title
 
-  scope :for, lambda { |codemarks| joins(:codemarks).where(['codemarks.id in (?)', codemarks]) }
+  def initialize(url)
+    @url = url
+    @site_response = gathers_site_data
+    parse_site_response
+  end
+
+  def gathers_site_data
+    Nokogiri::HTML(open(url))
+  rescue Exception => e
+  end
+
+  def parse_site_response
+    return unless site_response
+    @title = site_response.title
+    @site_content = site_response.content
+    @host = URI.parse(url).host
+  end
 end
+
+
+#scope :for, lambda { |codemarks| joins(:codemarks).where(['codemarks.id in (?)', codemarks]) }
