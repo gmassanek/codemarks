@@ -28,6 +28,8 @@ group :development, :test do
   gem 'capybara'
   gem 'sqlite3'
   gem 'jasminerice'
+  gem 'cucumber'
+  gem 'cucumber-rails'
 end
 
 group :test do

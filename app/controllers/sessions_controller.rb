@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
     session[:filter] = "mine"
     session[:sort] = "by_save_date"
 
-    puts @user.codemarks.count.inspect
     if @user.codemarks.count == 0
       @link = Link.new
       redirect_to welcome_path
