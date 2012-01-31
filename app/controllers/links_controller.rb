@@ -1,6 +1,5 @@
 class LinksController < ApplicationController
   require 'codemarker'
-  require 'smart_link'
   include OOPs
 
   def new
