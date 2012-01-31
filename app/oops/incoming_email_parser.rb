@@ -1,6 +1,5 @@
 require 'codemarker'
 require 'tagger'
-require 'smart_link'
 
 module OOPs
   class IncomingEmailParser 

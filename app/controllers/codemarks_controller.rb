@@ -1,6 +1,5 @@
 class CodemarksController < ApplicationController
   require 'tagger'
-  require 'smart_link'
   require 'codemarker'
   include OOPs
 
