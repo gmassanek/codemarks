@@ -5,10 +5,10 @@ describe Link do
   let(:valid_url) { "http://www.example.com" }
 
   describe "#commit" do
-    it "saves a link AR object" do
+    it "passes off persistence to AR and returns it" do
       ar_link = mock(:link)
-      ::Link.should_receive(:create).and_return(ar_link)
-      link = Link.new(valid_url)
+      Link.should_receive(:create).and_return(ar_link)
+      link = Codemarks::Link.new(valid_url)
       link.commit
       link.link_record.should == ar_link
     end
@@ -16,7 +16,7 @@ describe Link do
 
   describe "#initialize" do
     it "sets the link's url" do
-      link = Link.new(valid_url)
+      link = Codemarks::Link.new(valid_url)
       link.url.should == valid_url
     end
 
@@ -24,21 +24,23 @@ describe Link do
     # TODO analyze the stubbing here - might need wrapper class for URI
     describe "#gathers_site_response" do
       it "is non-nil for valid urls" do
-        link = Link.new(valid_url)
+        link = Codemarks::Link.new(valid_url)
         link.site_response.should_not be_nil
+        link.should be_valid_url
       end
 
       invalid_urls = ["twitter.com", "twitter", "www.twitter.com"]
       invalid_urls.each do |url|
         it "is nil for invalid urls like #{url}" do
-          link = Link.new(url)
+          link = Codemarks::Link.new(url)
           link.site_response.should be_nil
+          link.should_not be_valid_url
         end
       end
     end
 
     describe "#parse_site_response" do
-      let(:link) { Link.new("") }
+      let(:link) { Codemarks::Link.new("") }
 
       it "does nothing if the site data is blank" do
         link.parse_site_response
@@ -67,7 +69,7 @@ describe Link do
 
       it "sets the host" do
         host = 'www.example.com'
-        link = Link.new(valid_url)
+        link = Codemarks::Link.new(valid_url)
         link.host.should == host
       end
     end

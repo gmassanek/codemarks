@@ -3,7 +3,7 @@ require 'open-uri'
 
 module Codemarks
   class Link
-    attr_accessor :link_record, :site_response, :url, :site_content, :host, :title
+    attr_accessor :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
 
     def initialize(url)
       @url = url
@@ -12,8 +12,11 @@ module Codemarks
     end
 
     def gathers_site_data
-      Nokogiri::HTML(open(url))
+      @valid_url = true
+      return Nokogiri::HTML(open(url))
     rescue Exception => e
+      @valid_url = false
+      return nil
     end
 
     def parse_site_response
@@ -25,6 +28,10 @@ module Codemarks
 
     def commit
       create_link_record
+    end
+
+    def valid_url?
+      self.valid_url
     end
 
     private

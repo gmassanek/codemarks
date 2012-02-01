@@ -3,8 +3,10 @@ class CodemarksController < ApplicationController
   require 'codemarker'
   include OOPs
 
-  def edit
-
+  def build_linkmark
+    @link = Codemarks::Link.new(params[:url])
+    @codemark = Codemark.new
+    @codemark.link = @link
   end
 
   def create

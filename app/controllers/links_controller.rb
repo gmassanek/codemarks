@@ -7,7 +7,7 @@ class LinksController < ApplicationController
     if params[:url]
       @link.url = params[:url]
       begin
-        smart_link = SmartLink.new(@link.url)
+        smart_link = Codemarks::Link.new(@link.url)
         if smart_link.response
           @link.title = smart_link.title
           @link.host = smart_link.host
