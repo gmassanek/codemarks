@@ -5,6 +5,11 @@ class Link; end
 describe Codemarks::Link do
   let(:valid_url) { "http://www.example.com" }
 
+  it "is taggable" do
+    link = Codemarks::Link.new(nil)
+    link.should be_taggable
+  end
+
   describe "#commit" do
     it "creates a link record in the database" do
       Link.should_receive(:create)
