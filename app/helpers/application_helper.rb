@@ -8,10 +8,14 @@ module ApplicationHelper
     javascript_prefix = "javascript:"
     file = File.open(File.join(Rails.root, "public", "bookmarklet.js"), "r").collect
     lines = file.collect { |line| line.strip }
-    escaped = javascript_prefix + URI.escape(lines.join(" "), Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    escaped = javascript_prefix + url_encode_text(lines.join(" "))
     user_id = current_user_id
     user_id ||= 0
     with_user_id = escaped.gsub("USER_ID", user_id.to_s)
     with_user_id
+  end
+
+  def url_encode_text text
+    URI.escape(text, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   end
 end
