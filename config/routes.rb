@@ -9,8 +9,9 @@ Cms::Application.routes.draw do
   get '/codemarks/build_linkmark', to: "codemarks#build_linkmark", as: :build_linkmark
   get '/widget', to: "pages#widget", as: :widget
   post '/codemarks', to: "codemarks#create", as: :codemarks
+
   post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"
-  get 'listener/bookmarklet', :to => "listener#bookmarklet", as: "bookmarklet_listener"
+  get 'listener/prepare_bookmarklet', :to => "listener#prepare_bookmarklet", as: "prepare_bookmarklet"
 
   match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path
