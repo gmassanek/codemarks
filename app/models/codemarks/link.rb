@@ -1,8 +1,10 @@
+require_relative 'taggable'
 require 'nokogiri'
 require 'open-uri'
 
 module Codemarks
   class Link
+    include Codemarks::Taggable
     attr_accessor :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
 
     def initialize(url)
