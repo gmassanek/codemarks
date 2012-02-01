@@ -6,7 +6,7 @@ Cms::Application.routes.draw do
   get '/profile/edit', to: "users#edit", as: :edit_profile
   get '/about', to: "pages#about", as: :about
   resources :codemarks, :only => [:edit]
-  get '/codemarks/build_link', to: "codemarks#build_link", as: :build_link
+  get '/codemarks/build_linkmark', to: "codemarks#build_linkmark", as: :build_linkmark
   get '/widget', to: "pages#widget", as: :widget
   post '/codemarks', to: "codemarks#create", as: :codemarks
   post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"
