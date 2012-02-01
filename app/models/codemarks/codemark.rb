@@ -9,6 +9,5 @@ module Codemarks
     def commit
       @link.commit
     end
-
   end
 end
