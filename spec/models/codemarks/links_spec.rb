@@ -1,16 +1,16 @@
 require_relative '../../../app/models/codemarks/link'
 
+class Link; end
+
 describe Codemarks::Link do
   let(:valid_url) { "http://www.example.com" }
 
   describe "#commit" do
-    #it "passes off persistence to AR and returns it" do
-    #  ar_link = mock(:link)
-    #  ::Link.should_receive(:create).and_return(ar_link)
-    #  link = Codemarks::Link.new(valid_url)
-    #  link.commit
-    #  link.link_record.should == ar_link
-    #end
+    it "creates a link record in the database" do
+      Link.should_receive(:create)
+      link = Codemarks::Link.new(nil)
+      link.commit
+    end
   end
 
   describe "#initialize" do
