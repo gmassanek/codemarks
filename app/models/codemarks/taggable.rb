@@ -3,9 +3,9 @@ require_relative 'tagger'
 module Codemarks
   module Taggable
     def tag
-      tagging_order.each do |attr|
+      tagging_order.collect do |attr|
         Codemarks::Tagger.tag(self.send(attr))
-      end
+      end.flatten.uniq
     end
 
     def taggable?
