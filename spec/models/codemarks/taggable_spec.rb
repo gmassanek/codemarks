@@ -5,9 +5,17 @@ class SomethingTaggable
 end
 
 describe Codemarks::Taggable do
-  it "is taggable" do
-    SomethingTaggable.should be_taggable
+  let(:title) { "Some title" }
+  let(:body) { "that has text" }
+
+  it "examines the attributes of it's parent in tagging order" do
+    taggable_instance = SomethingTaggable.new
+    taggable_instance.stub!(title: title, body: body, :tagging_order => [:title, :body])
+    Codemarks::Tagger.should_receive(:tag).with(title)
+    Codemarks::Tagger.should_receive(:tag).with(body)
+    taggable_instance.tag
   end
+
   it "is taggable" do
     SomethingTaggable.new.should be_taggable
   end
