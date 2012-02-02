@@ -2,28 +2,26 @@ require 'spec_helper'
 
 describe CodemarksController do
   describe "build_linkmark" do
-    let(:url) { Faker::Internet::http_url }
+    let(:valid_url) { "http://www.example.com" }
 
-    it "passes the creation off to Codemarks::Link" do
-      link = mock(Codemarks::Link)
-      Codemarks::Link.should_receive(:new).with(url).and_return(link)
-      get :build_linkmark, format: "js", url: url
-      assigns(:link).should == link
+    it "sends the url to Codemarks::Codemark.new" do
+      Codemarks::Codemark.should_receive(:new).with(valid_url)
+      get :build_linkmark, format: :js, url: valid_url
     end
 
-    it "creates a new codemark with the fresh link" do
-      get :build_linkmark, format: "js", url: url
-      assigns(:codemark).link.url.should == link
+    it "creates a new codemark with the new link" do
+      get :build_linkmark, format: "js", url: valid_url
+      assigns(:codemark).link.url.should == valid_url
     end
 
     it "link has an invalid_url if it is a nonsense url" do
       get :build_linkmark, format: "js", url: "http://thisshouldntblowup"
-      assigns(:link).should_not be_valid_url
+      assigns(:codemark).link.should_not be_valid_url
     end
 
     it "link has an invalid_url if no url is provided" do
       get :build_linkmark, format: "js", url: nil
-      assigns(:link).should_not be_valid_url
+      assigns(:codemark).link.should_not be_valid_url
     end
   end
 end
