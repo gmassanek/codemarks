@@ -5,9 +5,22 @@ class Link; end
 describe Codemarks::Link do
   let(:valid_url) { "http://www.example.com" }
 
-  it "is taggable" do
-    link = Codemarks::Link.new(nil)
-    link.should be_taggable
+
+  describe "is taggable" do
+    it "knows that it is taggable" do
+      link = Codemarks::Link.new(nil)
+      link.should be_taggable
+    end
+
+    it "has a tagging order" do
+      link = Codemarks::Link.new
+      link.tagging_order.should == [:title, :body]
+    end
+
+    it "has a tag method" do
+      link = Codemarks::Link.new
+      link.should respond_to(:tag)
+    end
   end
 
   describe "#commit" do

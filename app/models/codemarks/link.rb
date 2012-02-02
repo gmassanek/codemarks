@@ -7,7 +7,7 @@ module Codemarks
     include Codemarks::Taggable
     attr_accessor :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
 
-    def initialize(url)
+    def initialize(url = nil)
       @url = url
       @site_response = gathers_site_data
       parse_site_response
@@ -34,6 +34,10 @@ module Codemarks
 
     def valid_url?
       self.valid_url
+    end
+
+    def tagging_order
+      [:title, :body]
     end
 
     private
