@@ -37,7 +37,7 @@ module Codemarks
     end
 
     def tagging_order
-      [:title, :body]
+      [:title, :site_content]
     end
 
     private
