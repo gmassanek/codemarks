@@ -1,6 +1,6 @@
 require_relative '../../../app/models/codemarks/tagger'
 
-class Topics; end
+class Topic; end
 
 describe Codemarks::Tagger do
   describe "#tag" do
@@ -8,7 +8,7 @@ describe Codemarks::Tagger do
       text = "Here is some stuff"
       matching_topic = stub(:title => "some")
       random_topic = stub(:title => "rspec")
-      Topics.stub!(:all => [matching_topic, random_topic])
+      Topic.stub!(:all => [matching_topic, random_topic])
       Codemarks::Tagger.tag(text).should == [matching_topic]
     end
   end

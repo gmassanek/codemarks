@@ -14,7 +14,7 @@ describe Codemarks::Link do
 
     it "has a tagging order" do
       link = Codemarks::Link.new
-      link.tagging_order.should == [:title, :body]
+      link.tagging_order.should == [:title, :site_content]
     end
 
     it "has a tag method" do

@@ -16,6 +16,14 @@ describe Codemarks::Taggable do
     taggable_instance.tag
   end
 
+  it "returns the tags the tagger returns" do
+    matching_topic = stub(:topic1)
+    Codemarks::Tagger.stub!(:tag => [matching_topic])
+    taggable_instance = SomethingTaggable.new
+    taggable_instance.stub!(title: title, body: body, :tagging_order => [:title, :body])
+    taggable_instance.tag.should == [matching_topic]
+  end
+
   it "is taggable" do
     SomethingTaggable.new.should be_taggable
   end
