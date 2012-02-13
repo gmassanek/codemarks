@@ -3,12 +3,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_user_id, :current_user, :filter_by_mine?
 
-  before_filter :build_new_codemark
-
-  def build_new_codemark
-    @new_codemark = Codemark.new
-  end
-
   def logged_in?
     current_user_id.present?
   end

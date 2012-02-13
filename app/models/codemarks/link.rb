@@ -7,8 +7,8 @@ module Codemarks
     include Codemarks::Taggable
     attr_accessor :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
 
-    def initialize(url = nil)
-      @url = url
+    def initialize(link_attributes = {})
+      @url = link_attributes[":url"]
       @site_response = gathers_site_data
       parse_site_response
     end
@@ -25,11 +25,12 @@ module Codemarks
       return unless site_response
       @title = site_response.title
       @site_content = site_response.content
-      @host = URI.parse(url).host
+      @host = URI.parse(url).host if url
     end
 
-    def commit
-      create_link_record
+    def self.create(link_attrs)
+      @link_record = LinkRecord.create(link_attrs)
+      @link_record
     end
 
     def valid_url?
@@ -38,12 +39,6 @@ module Codemarks
 
     def tagging_order
       [:title, :site_content]
-    end
-
-    private
-
-    def create_link_record
-      @link_record = ::Link.create(url: @url, site_content: @site_content, host: @host, title: @title)
     end
   end
 end
