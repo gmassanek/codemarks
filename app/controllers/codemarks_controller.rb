@@ -1,13 +1,15 @@
 class CodemarksController < ApplicationController
-  require 'tagger'
-  require 'codemarker'
-  include OOPs
+  include Codemarks
 
   def build_linkmark
-    @codemark = Codemarks::Codemark.new(params[:url])
+    @codemark = Codemarks::Codemark.prepare(:link, params[:resource_attrs])
   end
 
   def create
+    @link = Codemark.create(params[:resource_attrs], params[:resource_attrs], params[:tags], current_user)
+  end
+
+  def old_create
     if params[:second].nil?
       link = Link.find_by_url(params[:url])
       if link

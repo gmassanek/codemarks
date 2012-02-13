@@ -24,55 +24,58 @@ class UsersController < ApplicationController
   def dashboard
     @user = current_user
 
-    if params[:filter]
-      session[:filter] = params[:filter]
-    end
-    if params[:sort]
-      session[:sort] = params[:sort]
-    end
+    @codemarks = []
+    @links = []
 
-    if session[:filter] == "public"
-      @links = Link.scoped
-      @clicks = Click.all.group_by { |click| click.link.id }
-      @codemarks = Codemark.scoped
+    #if params[:filter]
+    #  session[:filter] = params[:filter]
+    #end
+    #if params[:sort]
+    #  session[:sort] = params[:sort]
+    #end
 
-      if session[:sort] == "by_popularity"
-        @codemarks = @codemarks.group_by { |ls| ls.link.id }
-        @links = @links.sort_by { |link| 
-           LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
-        }
-        @links.reverse!
-      else
-        @codemarks = @codemarks.by_save_date
-        link_ids = @codemarks.collect(&:link_id)
-        @links = @links.sort do |a, b|
-          link_ids.index(a.id) <=> link_ids.index(b.id)
-        end
-        @codemarks = @codemarks.group_by { |ls| ls.link.id }
-      end
-    else
-      @clicks = @user.clicks.group_by { |click| click.link.id }
-      @codemarks = @user.codemarks
-      @codemarks = @codemarks.unarchived unless session[:archived]
+    #if session[:filter] == "public"
+    #  @links = Link.scoped
+    #  @clicks = Click.all.group_by { |click| click.link.id }
+    #  @codemarks = Codemark.scoped
 
-      if session[:sort] == "by_popularity"
-        link_ids = @codemarks.collect(&:link_id)
-        @codemarks = @codemarks.group_by { |ls| ls.link.id }
-        @links = Link.find(link_ids)
-        @links = @links.sort_by { |link| 
-           LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
-        }
-        @links.reverse!
-      else
-        @codemarks = @codemarks.by_save_date
-        link_ids = @codemarks.collect(&:link_id)
-        @links = Link.find(link_ids)
-        @links = @links.sort do |a, b|
-          link_ids.index(a.id) <=> link_ids.index(b.id)
-        end
-        @codemarks = @codemarks.group_by { |ls| ls.link.id }
-      end
-    end
+    #  if session[:sort] == "by_popularity"
+    #    @codemarks = @codemarks.group_by { |ls| ls.link.id }
+    #    @links = @links.sort_by { |link| 
+    #       LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
+    #    }
+    #    @links.reverse!
+    #  else
+    #    @codemarks = @codemarks.by_save_date
+    #    link_ids = @codemarks.collect(&:link_id)
+    #    @links = @links.sort do |a, b|
+    #      link_ids.index(a.id) <=> link_ids.index(b.id)
+    #    end
+    #    @codemarks = @codemarks.group_by { |ls| ls.link.id }
+    #  end
+    #else
+    #  @clicks = []
+    #  @codemarks = @user.codemark_records
+    #  @codemarks = @codemarks.unarchived unless session[:archived]
+
+    #  if session[:sort] == "by_popularity"
+    #    link_ids = @codemarks.collect(&:link_id)
+    #    @codemarks = @codemarks.group_by { |ls| ls.link.id }
+    #    @links = Link.find(link_ids)
+    #    @links = @links.sort_by { |link| 
+    #       LinkPopularity.calculate_scoped(link, @clicks, @codemarks)
+    #    }
+    #    @links.reverse!
+    #  else
+    #    @codemarks = @codemarks.by_save_date
+    #    link_ids = @codemarks.collect(&:link_id)
+    #    @links = LinkRecord.find(link_ids)
+    #    @links = @links.sort do |a, b|
+    #      link_ids.index(a.id) <=> link_ids.index(b.id)
+    #    end
+    #    @codemarks = @codemarks.group_by { |cm| cm.link_record.id if cm.link_record}
+    #  end
+    #end
 
     @topics = {}
     @codemarks.each do |link_id, codemarks|

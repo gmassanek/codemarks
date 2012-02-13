@@ -13,7 +13,7 @@ describe Codemarks::Taggable do
     taggable_instance.stub!(title: title, body: body, :tagging_order => [:title, :body])
     Codemarks::Tagger.should_receive(:tag).with(title)
     Codemarks::Tagger.should_receive(:tag).with(body)
-    taggable_instance.tag
+    taggable_instance.proposed_tags
   end
 
   it "returns the tags the tagger returns" do
@@ -21,7 +21,7 @@ describe Codemarks::Taggable do
     Codemarks::Tagger.stub!(:tag => [matching_topic])
     taggable_instance = SomethingTaggable.new
     taggable_instance.stub!(title: title, body: body, :tagging_order => [:title, :body])
-    taggable_instance.tag.should == [matching_topic]
+    taggable_instance.proposed_tags.should == [matching_topic]
   end
 
   it "is taggable" do

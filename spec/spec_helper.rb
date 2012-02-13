@@ -5,6 +5,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 
 include Exceptions
+include Codemarks
 include OOPs
 
 TEST_BROKEN = false
