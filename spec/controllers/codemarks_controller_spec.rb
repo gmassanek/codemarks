@@ -3,25 +3,39 @@ require 'spec_helper'
 describe CodemarksController do
   describe "build_linkmark" do
     let(:valid_url) { "http://www.example.com" }
+    let(:resource_attrs) { { "url" => valid_url } }
 
-    it "sends the url to Codemarks::Codemark.new" do
-      Codemarks::Codemark.should_receive(:new).with(valid_url)
-      get :build_linkmark, format: :js, url: valid_url
+    it "asks for a prepared codemark" do
+      Codemark.should_receive(:prepare).with(:link, resource_attrs)
+      get :build_linkmark, :format  => :js, :resource_attrs => resource_attrs
     end
 
     it "creates a new codemark with the new link" do
-      get :build_linkmark, format: "js", url: valid_url
-      assigns(:codemark).link.url.should == valid_url
+      get :build_linkmark, format: "js", :resource_attrs => resource_attrs
+      assigns(:codemark).resource.url.should == valid_url
     end
 
     it "link has an invalid_url if it is a nonsense url" do
-      get :build_linkmark, format: "js", url: "http://thisshouldntblowup"
-      assigns(:codemark).link.should_not be_valid_url
+      get :build_linkmark, format: "js", :resource_attrs => {url: "http://thisshouldntblowup"}
+      assigns(:codemark).resource.should_not be_valid_url
     end
 
     it "link has an invalid_url if no url is provided" do
-      get :build_linkmark, format: "js", url: nil
-      assigns(:codemark).link.should_not be_valid_url
+      get :build_linkmark, format: "js", :resource_attrs => {}
+      assigns(:codemark).resource.should_not be_valid_url
+    end
+  end
+
+  describe "#create" do
+    it "creates a codemark" do
+      codemark_attrs = {}
+      resource_attrs = {}
+      tags = []
+      user = stub
+      controller.stub!(:current_user => user)
+
+      Codemark.should_receive(:create).with(codemark_attrs, resource_attrs, tags, user)
+      post :create, :format => :js, :codemark_attrs => codemark_attrs, :resource_attrs => resource_attrs, :tags => tags
     end
   end
 end

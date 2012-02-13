@@ -1,4 +1,5 @@
-class Link < ActiveRecord::Base
+class LinkRecord < ActiveRecord::Base
+  set_table_name "links"
   has_many :topics, :through => :codemarks
   has_many :codemarks, :dependent => :destroy
   has_many :clicks

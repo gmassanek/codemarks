@@ -2,9 +2,10 @@ require_relative 'tagger'
 
 module Codemarks
   module Taggable
-    def tag
+    def proposed_tags
       tagging_order.collect do |attr|
-        Codemarks::Tagger.tag(self.send(attr))
+        taggable_attribute_text = self.send(attr)
+        tags = Tagger.tag(taggable_attribute_text) unless taggable_attribute_text.nil?
       end.flatten.uniq
     end
 
