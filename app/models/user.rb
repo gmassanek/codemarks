@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   has_many :authentications, :inverse_of => :user, :dependent => :destroy
 
-  has_many :codemarks
-  has_many :links, :through => :codemarks
-  has_many :topics, :through => :codemarks
+  has_many :codemark_records
+  has_many :links, :through => :codemark_records
+  has_many :topics, :through => :codemark_records
   has_many :clicks
 
   def self.find_by_email email

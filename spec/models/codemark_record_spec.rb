@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Codemark do
+describe CodemarkRecord do
   context "requires" do
     [:link, :user].each do |field|
       it "a #{field}" do

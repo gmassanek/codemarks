@@ -1,5 +1,5 @@
 $(function() {
-  <% if params[:url] %>
+  <% if true %>
     $("#url_form input[type=submit]").hide();
     $("#link_form_container").addClass("highlighted");
 
@@ -34,7 +34,7 @@ $(function() {
 
     $(document).keyup(function(e) {
       if (e.keyCode == 27) {
-        $('#link_form_container').html("<%= escape_javascript(render('/shared/build_link_form')) %>");
+        //$('#link_form_container').html("<%=# escape_javascript(render('/shared/build_link_form')) %>");
         $("#link_form_container").removeClass("highlighted");
       }
 

@@ -1,14 +1,14 @@
 require_relative '../../../app/models/codemarks/link'
+include Codemarks
 
-class Link; end
+class LinkRecord; end
 
 describe Codemarks::Link do
   let(:valid_url) { "http://www.example.com" }
 
-
   describe "is taggable" do
     it "knows that it is taggable" do
-      link = Codemarks::Link.new(nil)
+      link = Codemarks::Link.new
       link.should be_taggable
     end
 
@@ -17,23 +17,24 @@ describe Codemarks::Link do
       link.tagging_order.should == [:title, :site_content]
     end
 
-    it "has a tag method" do
+    it "has a proposed_tags method" do
       link = Codemarks::Link.new
-      link.should respond_to(:tag)
+      link.should respond_to(:proposed_tags)
     end
   end
 
-  describe "#commit" do
+  describe "#create" do
     it "creates a link record in the database" do
-      Link.should_receive(:create)
-      link = Codemarks::Link.new(nil)
-      link.commit
+      LinkRecord.should_receive(:create)
+      Link.create({})
     end
   end
 
   describe "#initialize" do
+    let(:resource_attrs) { { url: valid_url } }
+
     it "sets the link's url" do
-      link = Codemarks::Link.new(valid_url)
+      link = Link.new(resource_attrs)
       link.url.should == valid_url
     end
 
@@ -41,7 +42,7 @@ describe Codemarks::Link do
     # TODO analyze the stubbing here - might need wrapper class for URI
     describe "#gathers_site_response" do
       it "is non-nil for valid urls" do
-        link = Codemarks::Link.new(valid_url)
+        link = Link.new(resource_attrs)
         link.site_response.should_not be_nil
         link.should be_valid_url
       end
@@ -49,7 +50,7 @@ describe Codemarks::Link do
       invalid_urls = ["twitter.com", "twitter", "www.twitter.com"]
       invalid_urls.each do |url|
         it "is nil for invalid urls like #{url}" do
-          link = Codemarks::Link.new(url)
+          link = Link.new({ :url => url })
           link.site_response.should be_nil
           link.should_not be_valid_url
         end
@@ -57,7 +58,7 @@ describe Codemarks::Link do
     end
 
     describe "#parse_site_response" do
-      let(:link) { Codemarks::Link.new("") }
+      let(:link) { Link.new({}) }
 
       it "does nothing if the site data is blank" do
         link.parse_site_response
@@ -86,7 +87,7 @@ describe Codemarks::Link do
 
       it "sets the host" do
         host = 'www.example.com'
-        link = Codemarks::Link.new(valid_url)
+        link = Codemarks::Link.new(resource_attrs)
         link.host.should == host
       end
     end
