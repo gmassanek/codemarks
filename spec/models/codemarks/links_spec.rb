@@ -5,6 +5,7 @@ class LinkRecord; end
 
 describe Codemarks::Link do
   let(:valid_url) { "http://www.example.com" }
+  let(:resource_attrs) { { url: valid_url } }
 
   describe "is taggable" do
     it "knows that it is taggable" do
@@ -31,8 +32,6 @@ describe Codemarks::Link do
   end
 
   describe "#initialize" do
-    let(:resource_attrs) { { url: valid_url } }
-
     it "sets the link's url" do
       link = Link.new(resource_attrs)
       link.url.should == valid_url
@@ -43,7 +42,6 @@ describe Codemarks::Link do
     describe "#gathers_site_response" do
       it "is non-nil for valid urls" do
         link = Link.new(resource_attrs)
-        link.site_response.should_not be_nil
         link.should be_valid_url
       end
 

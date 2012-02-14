@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120127182611) do
+ActiveRecord::Schema.define(:version => 20120214150434) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -34,19 +34,19 @@ ActiveRecord::Schema.define(:version => 20120127182611) do
     t.datetime "updated_at"
   end
 
-  create_table "codemark_topics", :force => true do |t|
-    t.integer  "codemark_id"
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "codemarks", :force => true do |t|
+  create_table "codemark_records", :force => true do |t|
     t.integer  "user_id"
     t.integer  "link_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",   :default => false
+  end
+
+  create_table "codemark_topics", :force => true do |t|
+    t.integer  "codemark_record_id"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "link_topics", :force => true do |t|
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(:version => 20120127182611) do
     t.integer  "codemarks_count", :default => 0
     t.string   "host"
     t.text     "site_data"
-    t.text     "site_content"
   end
 
   create_table "topics", :force => true do |t|
