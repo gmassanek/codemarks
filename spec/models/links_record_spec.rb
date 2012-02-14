@@ -1,16 +1,15 @@
 require 'spec_helper'
 
-describe Link do
+describe LinkRecord do
   let(:valid_url) { "http://www.example.com" }
 
-  required_attributes = [:url, :site_content, :host, :title]
+  required_attributes = [:url, :host, :title]
   required_attributes.each do |attr|
     it "requires a #{attr}" do
-      link = Fabricate.build(:link, attr => nil)
+      link = Fabricate.build(:link_record, attr => nil)
       link.should_not be_valid
     end
   end
-
 end
 
 #it "gets all links for a list of codemarks" do
