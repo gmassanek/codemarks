@@ -8,7 +8,7 @@ module Codemarks
     attr_accessor :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
 
     def initialize(link_attributes = {})
-      @url = link_attributes[":url"]
+      @url = link_attributes[:url]
       @site_response = gathers_site_data
       parse_site_response
     end

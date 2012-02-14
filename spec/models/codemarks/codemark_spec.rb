@@ -57,5 +57,4 @@ describe Codemarks::Codemark do
     end
     it "creates or gathers tags"
   end
-
 end

@@ -1,6 +1,5 @@
 class CodemarkRecord < ActiveRecord::Base
-  set_table_name "codemarks"
-  belongs_to :link_record, :counter_cache => true
+  belongs_to :link_record
   belongs_to :user
 
   has_many :codemark_topics, :dependent => :destroy
