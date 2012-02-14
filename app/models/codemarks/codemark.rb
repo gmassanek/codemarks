@@ -14,10 +14,13 @@ module Codemarks
     end
 
     def self.create(codemark_attrs, resource_attrs, topics, user)
-      link = Link.create(resource_attrs)
-      codemark_attrs[:link] = link
-      codemark_attrs[:codemark_topics] = topics
+      p codemark_attrs
+      link = LinkRecord.create(resource_attrs)
+      p link
+      codemark_attrs[:link_record] = link
+      codemark_attrs[:topic_ids] = topics.keys
       codemark_attrs[:user] = user
+      p codemark_attrs
       codemark_record = CodemarkRecord.create(codemark_attrs)
     end
 

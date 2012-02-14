@@ -1,0 +1,52 @@
+$(function() {
+  <% if params[:url] %>
+    $("#url_form input[type=submit]").hide();
+    $("#link_form_container").addClass("highlighted");
+
+    $("<%= escape_javascript(render('codemarks/form')) %>").hide()
+      .appendTo($('#link_form_container'))
+      .slideDown(200);
+
+    $("#url_form, #new_codemark").keyup(function(e) {
+      if (e.keyCode == 13) {
+        e.preventDefault();
+      }
+    });
+
+    $("#ui_active_menuitem").select(function() {
+      alert('selected');
+    });
+
+    $("#link_form_topic_autocomplete").keydown(function(e) {
+      if (e.keyCode == 13) {
+        if($("#link_form_topic_count").val() == 0) {
+          e.preventDefault();
+
+          var entered = $("#link_form_topic_autocomplete").val();
+          $.ajax({
+            url: "/links/topic_checkbox",
+            data: { topic_title: entered},
+            beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+          });
+        }
+      }
+    });
+
+    $(document).keyup(function(e) {
+      if (e.keyCode == 27) {
+        $('#link_form_container').html("<%= escape_javascript(render('/shared/build_link_form')) %>");
+        $("#link_form_container").removeClass("highlighted");
+      }
+
+      var topics_count = $("#topic_tags li").length;
+      if(topics_count == 0) {
+        $("#save_codemark").attr('disabled', 'disabled');
+      }
+    });
+
+  <% else %>
+  $('#link_form_container').html("<%= escape_javascript(render('first_form')) %>");
+  <% end %>
+  prepareAutocompletes();
+  prepareTagDeletes();
+});
