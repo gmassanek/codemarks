@@ -1,6 +1,4 @@
-require_relative '../../../app/models/codemarks/listener_params_parser'
-
-include Codemarks
+require 'fast_helper'
 
 describe ListenerParamsParser do
   context "bookmarklet" do
