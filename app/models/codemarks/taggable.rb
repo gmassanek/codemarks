@@ -2,25 +2,22 @@ require_relative 'tagger'
 
 module Codemarks
   module Taggable
+
     def proposed_tags
-      tagging_order.collect do |attr|
-        taggable_attribute_text = self.send(attr)
-        tags = Tagger.tag(taggable_attribute_text) unless taggable_attribute_text.nil?
-      end.flatten.uniq
+      tags = []
+      tagging_order.each do |attr|
+        text_to_tag = self.send(attr)
+        if !text_to_tag.nil? && tags.length < 5
+          pos_tags = Tagger.tag(text_to_tag)
+          tags = tags | pos_tags unless pos_tags.nil?
+        end
+      end
+      tags.first(Tagger::TAG_LIMIT)
     end
 
     def taggable?
       true
     end
+
   end
 end
-
-    #def self.included(base)
-    #  base.extend(ClassMethods)
-    #end
-    #module ClassMethods
-    #  def taggable?
-    #    true
-    #  end
-    #end
-
