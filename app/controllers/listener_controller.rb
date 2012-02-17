@@ -3,8 +3,12 @@ include Codemarks
 
 class ListenerController < ApplicationController
   def prepare_bookmarklet
-    @cm = Codemark.prepare(:link, {:url => params[:l]})
+    @codemark = Codemark.prepare(:link, {:url => params[:l]})
     @user_id = params[:id]
+
+    respond_to do |format|
+      format.html { render :layout => nil }
+    end
   end
 
   def bookmarklet

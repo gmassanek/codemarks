@@ -32,4 +32,6 @@ Cms::Application.routes.draw do
   post "sessions/filter", :as => :filter_session
   delete "sessions/destroy", :as => :sign_out
 
+
+  get '/pages/test_bookmarklet?:l&:url', :controller => :pages, :action => :test_bookmarklet, :as => :test_bookarklet
 end
