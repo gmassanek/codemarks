@@ -1,9 +1,19 @@
 module Codemarks
   class Tagger
-    def self.tag text
-      Topic.all.select! do |topic| 
-        text.downcase.include?(topic.title.downcase)
+
+    TAG_LIMIT = 5
+
+    def self.tag(text)
+      matches = Topic.all.select do |t| 
+        sanitize(text).include?(sanitize(t.title))
       end
+      matches.first(TAG_LIMIT)
+    end
+
+    private
+
+    def self.sanitize(text)
+      text.downcase
     end
   end
 end
