@@ -1,6 +1,9 @@
+require 'codemarks/codemark'
+include Codemarks
+
 class ListenerController < ApplicationController
   def prepare_bookmarklet
-    @cm = Codemarks::Codemark.new(params[:l])
+    @cm = Codemark.prepare(:link, {:url => params[:l]})
     @user_id = params[:id]
   end
 
