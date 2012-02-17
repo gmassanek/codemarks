@@ -1,7 +1,5 @@
-require 'codemarker'
-
-module OOPs
-  class IncomingEmailParser 
+module Codemarks
+  class ListenerParamsParser
     class << self
       def save_bookmarklet user, url
         save_codemark(user, url) if user
