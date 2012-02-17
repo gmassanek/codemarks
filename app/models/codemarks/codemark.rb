@@ -14,9 +14,7 @@ module Codemarks
     end
 
     def self.create(codemark_attrs, resource_attrs, topics, user)
-      p codemark_attrs
       link = LinkRecord.create(resource_attrs)
-      p link
       codemark_attrs[:link_record] = link
       codemark_attrs[:topic_ids] = topics.keys
       codemark_attrs[:user] = user
