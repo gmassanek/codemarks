@@ -14,9 +14,9 @@ describe ListenerController do
       assigns[:user_id].should == "4"
     end
 
-    it "assigns @cm" do
+    it "assigns @codemark" do
       cm = mock
-      Codemarks::Codemark.stub!(:new => cm)
+      Codemark.stub!(:new => cm)
       get :prepare_bookmarklet, format: :js, l: valid_url
       assigns[:codemark].should == cm
     end

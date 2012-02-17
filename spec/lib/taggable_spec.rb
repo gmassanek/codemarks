@@ -1,7 +1,4 @@
-require_relative '../../../app/models/codemarks/taggable'
-require_relative '../../../app/models/codemarks/tagger'
-
-include Codemarks
+require 'fast_helper'
 
 class SomethingTaggable
   include Taggable

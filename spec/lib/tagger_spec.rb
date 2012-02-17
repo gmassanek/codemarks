@@ -1,10 +1,8 @@
-require_relative '../../../app/models/codemarks/tagger'
-
-include Codemarks
+require 'fast_helper'
 
 class Topic; end
 
-describe Codemarks::Tagger do
+describe Tagger do
   describe "#tag" do
     let(:titles) { ["rspec", "github", "google", "cucumber", "jquery", "another item"] }
     let(:topics) { titles.inject([]) { |topics, title| topics << stub(:title => title) } }

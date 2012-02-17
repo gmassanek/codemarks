@@ -1,28 +1,10 @@
-require_relative '../../../app/models/codemarks/link'
-include Codemarks
+require 'fast_helper'
 
 class LinkRecord; end
 
-describe Codemarks::Link do
+describe Link do
   let(:valid_url) { "http://www.example.com" }
   let(:resource_attrs) { { url: valid_url } }
-
-  describe "is taggable" do
-    it "knows that it is taggable" do
-      link = Codemarks::Link.new
-      link.should be_taggable
-    end
-
-    it "has a tagging order" do
-      link = Codemarks::Link.new
-      link.tagging_order.should == [:title, :site_content]
-    end
-
-    it "has a proposed_tags method" do
-      link = Codemarks::Link.new
-      link.should respond_to(:proposed_tags)
-    end
-  end
 
   describe "#create" do
     it "creates a link record in the database" do
@@ -32,13 +14,13 @@ describe Codemarks::Link do
   end
 
   describe "#initialize" do
+    # TODO Make these offline tests - probably perfect for VCR
+    # TODO analyze the stubbing here - might need wrapper class for URI
     it "sets the link's url" do
       link = Link.new(resource_attrs)
       link.url.should == valid_url
     end
 
-    # TODO Make these offline tests - probably perfect for VCR
-    # TODO analyze the stubbing here - might need wrapper class for URI
     describe "#gathers_site_response" do
       it "is non-nil for valid urls" do
         link = Link.new(resource_attrs)
@@ -85,25 +67,26 @@ describe Codemarks::Link do
 
       it "sets the host" do
         host = 'www.example.com'
-        link = Codemarks::Link.new(resource_attrs)
+        link = Link.new(resource_attrs)
         link.host.should == host
       end
     end
+
+  describe "is taggable" do
+    it "knows that it is taggable" do
+      link = Link.new
+      link.should be_taggable
+    end
+
+    it "has a tagging order" do
+      link = Link.new
+      link.tagging_order.should == [:title, :site_content]
+    end
+
+    it "has a proposed_tags method" do
+      link = Link.new
+      link.should respond_to(:proposed_tags)
+    end
+  end
   end
 end
-
-#it "gets all links for a list of codemarks" do
-#  codemark1 = Fabricate(:codemark)
-#  codemark2 = Fabricate(:codemark)
-#  Link.for([codemark1, codemark2]).should == [codemark1.link, codemark2.link]
-#end
-#
-#    describe "topics" do
-#      it "are associated through codemarks" do
-#        github = Fabricate(:topic, title: "Github")
-#        codemark = Fabricate(:codemark, topics: [github])
-#        codemark.link.topics.should == [github]
-#      end
-#    end
-#  end
-#end

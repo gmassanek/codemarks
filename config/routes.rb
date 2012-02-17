@@ -1,4 +1,4 @@
-Cms::Application.routes.draw do
+Codemarks::Application.routes.draw do
 
   get '/dashboard', to: "users#dashboard", as: :dashboard
   get '/welcome', to: "users#welcome", as: :welcome
