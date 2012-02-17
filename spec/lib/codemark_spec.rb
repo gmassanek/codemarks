@@ -1,14 +1,10 @@
-require_relative '../../../app/models/codemarks/codemark'
-require_relative '../../../app/models/codemarks/link'
+require 'fast_helper'
 
-include Codemarks
-
-#class Link; end
 class Topic; end
 class LinkRecord; end
 class CodemarkRecord; end
 
-describe Codemarks::Codemark do
+describe Codemark do
   let(:valid_url) { "http://www.example.com" }
 
   describe "#prepare" do
@@ -39,18 +35,18 @@ describe Codemarks::Codemark do
     it "creates a link (resource)" do
       resource_attrs = {}
       CodemarkRecord.stub!(:create)
-      Link.should_receive(:create).with(resource_attrs)
-      Codemark.create({:type => :link}, resource_attrs, [], stub)
+      LinkRecord.should_receive(:create).with(resource_attrs)
+      Codemark.create({:type => :link}, resource_attrs, {"22" => "22"}, stub)
     end
 
     it "makes a new CodemarkRecord" do
       user = stub
-      topics = [1, 2]
+      topics = {"1" => 1}
       link = stub(:id => 1)
-      Link.stub!(:create => link)
+      LinkRecord.stub!(:create => link)
 
       codemark_attrs = {:type => :link}
-      full_attrs = {:type => :link, :link => link, :codemark_topics => topics, :user => user}
+      full_attrs = {:type => :link, :link_record => link, :topic_ids => ["1"], :user => user}
 
       CodemarkRecord.should_receive(:create).with(full_attrs)
       Codemark.create(codemark_attrs, {}, topics, user)
