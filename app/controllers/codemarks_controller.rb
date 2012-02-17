@@ -1,8 +1,4 @@
-require 'codemarks/codemark'
-
 class CodemarksController < ApplicationController
-  include Codemarks
-
   def build_linkmark
     @codemark = Codemark.prepare(:link, params[:resource_attrs])
   end

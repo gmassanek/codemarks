@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Cms::Application.load_tasks
+Codemarks::Application.load_tasks
