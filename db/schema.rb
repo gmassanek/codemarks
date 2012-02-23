@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(:version => 20120214150434) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "link_id"
+    t.integer  "link_record_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "codemark_records", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "link_id"
+    t.integer  "link_record_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",   :default => false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20120214150434) do
   end
 
   create_table "link_topics", :force => true do |t|
-    t.integer  "link_id"
+    t.integer  "link_record_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
