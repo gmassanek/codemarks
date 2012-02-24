@@ -18,29 +18,17 @@ gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'therubyracer'
 gem 'newrelic_rpm'
-
-group :development do
-end
+gem 'pg'
 
 group :development, :test do
-  gem 'gherkin'
+  gem 'cucumber-rails'
+  gem 'rspec-rails', '~> 2.8.0'
   gem 'database_cleaner'
-  gem 'rspec-rails'
+  gem 'gherkin'
   gem 'capybara'
-  gem 'sqlite3'
   gem 'jasminerice'
   gem 'cucumber'
   gem 'cucumber-rails'
-end
-
-group :test do
-  gem 'rspec'
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
-end
-
-group :production do
-  gem 'pg'
 end
 
 group :assets do
