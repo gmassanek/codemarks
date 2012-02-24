@@ -17,27 +17,16 @@ gem 'gravatar_image_tag'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'therubyracer'
-
-group :development do
-end
+gem 'pg'
 
 group :development, :test do
   gem 'gherkin'
   gem 'database_cleaner'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.8.0'
   gem 'capybara'
-  gem 'sqlite3'
   gem 'jasminerice'
   gem 'cucumber'
   gem 'cucumber-rails'
-end
-
-group :test do
-  gem 'rspec'
-end
-
-group :production do
-  gem 'pg'
 end
 
 group :assets do
