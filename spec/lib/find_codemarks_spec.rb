@@ -51,7 +51,7 @@ describe FindCodemarks do
     end
   end
 
-  context "sort orders" do
+  context "ordering" do
     it "defaults to ordering by most recently created" do
       @cm.update_attribute(:created_at, 9.days.ago)
       @cm2.update_attribute(:created_at, 3.days.ago)
@@ -64,7 +64,7 @@ describe FindCodemarks do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
       @cm4= Fabricate(:codemark_record, :user => @user)
-      all_cms = FindCodemarks.new(:sort_by => :save_count)
+      all_cms = FindCodemarks.new(:order_by => :save_count)
       all_cms.codemarks.first.save_count.should == 2
     end
   end
