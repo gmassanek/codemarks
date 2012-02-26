@@ -6,36 +6,48 @@ class FindCodemarks
   end
 
   def codemarks
-    query = CodemarkRecord.scoped
+    codemarks = Arel::Table.new(:codemark_records)
+    subquery = codemarks.project(:id)
+    subquery = subquery.where(codemarks[:user_id].eq(@user)) if @user
+    subquery = subquery.group(codemarks[:link_record_id])
+    subquery = subquery.order(order_by_text)
 
-    query = query.where(:user_id => @user) if @user
-    query = query.group('codemark_records.link_record_id')
-    query = query.select('cms.id, cms.link_record_id, cms.user_id, cms.created_at, cms.updated_at, count(*) as save_count')
-    query = query.joins('INNER JOIN codemark_records cms on codemark_records.id = cms.id')
+    query = CodemarkRecord.scoped
+    query = query.select('*')
 
     query = order(query)
-    query = page(query)
+    query = page_query(query)
     query = query.includes(:link_record)
     query = query.includes(:user)
+    query = query.where(:id => subquery)
     query
   end
 
   private
-  def page(scope)
-    @page ||= 1
-    @per_page ||= 10
-    scope = scope.page(@page) if @page
-    scope = scope.per(@per_page) if @per_page
+  def page_query(scope)
+    scope = scope.page(page)
+    scope = scope.per(per_page)
     scope
   end
 
+  def page
+    @page ||= 1
+  end
+
+  def per_page
+    @per_page ||= 10
+  end
+
   def order(scope)
-    @sort_by ||= "created_at"
-    if @sort_by == 'save_count'
-      sort_text = @sort_by + ' DESC'
+    scope = scope.order(order_by_text)
+  end
+
+  def order_by_text
+    @order_by ||= "created_at"
+    if @order_by == 'save_count'
+      return @order_by + ' DESC'
     else
-      sort_text = 'cms.' + @sort_by + ' DESC'
+      return @order_by + ' DESC'
     end
-    scope = scope.order(sort_text)
   end
 end
