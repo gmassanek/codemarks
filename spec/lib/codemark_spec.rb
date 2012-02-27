@@ -39,6 +39,9 @@ describe Codemark do
       Codemark.create({:type => :link}, resource_attrs, {"22" => "22"}, stub)
     end
 
+    it "unless it is an existing link"
+
+    it "creates new topics if the topic has not been saved before"
     it "makes a new CodemarkRecord" do
       user = stub
       topics = {"1" => 1}
