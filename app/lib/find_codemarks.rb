@@ -7,18 +7,23 @@ class FindCodemarks
 
   def codemarks
     codemarks = Arel::Table.new(:codemark_records)
-    subquery = codemarks.project(:id)
+    subquery = codemarks.project(:id) \
+          .group(codemarks[:link_record_id]) \
     subquery = subquery.where(codemarks[:user_id].eq(@user)) if @user
-    subquery = subquery.group(codemarks[:link_record_id])
-    subquery = subquery.order(order_by_text)
+
+    subquery2 = codemarks.project('id, count(id) as save_count') \
+          .group(codemarks[:link_record_id]) \
+    subquery2 = subquery.where(codemarks[:user_id].eq(@user)) if @user
 
     query = CodemarkRecord.scoped
     query = query.select('*')
+    query = query.joins("INNER JOIN (#{subquery2.to_sql}) cnt ON codemark_records.id = cnt.id")
 
     query = order(query)
     query = page_query(query)
     query = query.includes(:link_record)
     query = query.includes(:user)
+
     query = query.where(:id => subquery)
     query
   end
