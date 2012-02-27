@@ -13,5 +13,5 @@ class CodemarkRecord < ActiveRecord::Base
   scope :by_popularity, joins(:link).order('clicks_count DESC')
   scope :for, lambda { |links| includes(:link).where(['link_id in (?)', links]) }
 
-  delegate :title, :url, :to => :link
+  delegate :title, :url, :to => :link_record
 end
