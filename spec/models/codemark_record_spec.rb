@@ -20,24 +20,6 @@ describe CodemarkRecord do
     CodemarkRecord.unarchived.should == [new_ls]
   end
 
-  it "sorts by save date" do
-    old_ls = Fabricate(:codemark_record, :created_at => 3.years.ago)
-    new_ls = Fabricate(:codemark_record, :created_at => 3.minutes.ago)
-    med_ls = Fabricate(:codemark_record, :created_at => 3.days.ago)
-    CodemarkRecord.by_save_date.should == [new_ls, med_ls, old_ls]
-  end
-
-  it "sorts by popularity" do
-    boring = Fabricate(:codemark_record)
-    3.times { Fabricate(:click, link_record: boring.link_record) }
-    popular = Fabricate(:codemark_record)
-    9.times { Fabricate(:click, link_record: popular.link_record) }
-    pretty_good = Fabricate(:codemark_record)
-    5.times { Fabricate(:click, link_record: pretty_good.link_record) }
-
-    CodemarkRecord.by_popularity.should == [popular, pretty_good, boring]
-  end
-
   it "delegates title and url to it's link" do
     codemark = Fabricate.build(:codemark_record)
     link = codemark.link_record
@@ -96,9 +78,5 @@ describe CodemarkRecord do
     }.should change(Topic, :count).by(1)
   end
 
-  it "finds all codemarks for a link" do
-    codemark = Fabricate(:codemark_record)
-    codemark2 = Fabricate(:codemark_record, link_record: codemark.link_record)
-    CodemarkRecord.for(codemark.link_record).should == [codemark, codemark2]
-  end
+  it "finds all codemarks for a link"
 end
