@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def dashboard
     @user = current_user
 
-    @codemarks = []
+    @codemarks = FindCodemarks.new(:user => @user).codemarks
     @links = []
 
     #if params[:filter]
