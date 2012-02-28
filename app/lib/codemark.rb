@@ -12,10 +12,10 @@ class Codemark
     cm = self.new(type, resource, topics)
   end
 
-  def self.create(codemark_attrs, resource_attrs, topics, user)
+  def self.create(codemark_attrs, resource_attrs, topics_ids, user)
     link = LinkRecord.create(resource_attrs)
     codemark_attrs[:link_record] = link
-    codemark_attrs[:topic_ids] = topics.keys
+    codemark_attrs[:topic_ids] = topics_ids
     codemark_attrs[:user] = user
     codemark_record = CodemarkRecord.create(codemark_attrs)
   end

@@ -1,0 +1,12 @@
+id,url,linkable_type,linkable_id,created_by_id,last_updated_by_id
+2,http://rubydoc.info/github/jnicklas/capybara/master/Capybara,Node,10,1,1
+7,http://rubydoc.info/gems/fabrication/0.8.1/frames,Node,13,1,1
+57,http://www.codeschool.com/courses/rails-for-zombies,Node,8,1,1
+58,http://sandofsky.com/blog/git-workflow.html,Node,5,1,1
+59,http://jqueryui.com/demos/dialog/#modal-form,Node,47,1,1
+8,http://docs.rubygems.org/,Node,12,1,1
+9,http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html,Node,17,1,1
+10,http://haml-lang.com/tutorial.html,Node,17,1,1
+12,http://www.html5rocks.com/en/,Node,25,1,1
+14,http://vandenabeele.com/Rails-on-Ubuntu-Jaunty,Node,26,1,1
+17,http://jimdrannbauer.com/2011/01/29/rails-3-rspec-cucumber-jquery-devise-mongoid-and-compass/,Node,9,1,1
