@@ -54,3 +54,18 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Before('@omniauth_test_success') do
+  OmniAuth.config.test_mode = true
+
+  OmniAuth.config.mock_auth[:facebook] = {
+    "provider"  => "facebook",
+    "uid"       => '12345',
+    "user_info" => {
+      "email" => "email@email.com",
+      "first_name" => "John",
+      "last_name"  => "Doe",
+      "name"       => "John Doe"
+      # any other attributes you want to stub out for testing
+    }
+  }
+end
