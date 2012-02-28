@@ -5,11 +5,38 @@ class LinkRecord; end
 describe Link do
   let(:valid_url) { "http://www.example.com" }
   let(:resource_attrs) { { url: valid_url } }
+  let(:link_record) { stub(:link_record, :id => 4, 
+                                  :url => 'http://www.twitter.com',
+                                  :host => 'twitter.com',
+                                  :title => 'Twitter') }
 
   describe "#create" do
     it "creates a link record in the database" do
       LinkRecord.should_receive(:create)
       Link.create({})
+    end
+  end
+
+  describe "#find" do
+    it "searches LinkRecords by url" do
+      LinkRecord.should_receive(:find_by_url).with(valid_url).and_return(link_record)
+      Link.find(resource_attrs)
+    end
+
+    it "returns a Link not a LinkRecord" do
+      link_record = LinkRecord.new
+      LinkRecord.stub(:find_by_url => link_record)
+      Link.should_receive(:from_link_record).with(link_record)
+      Link.find(resource_attrs)
+    end
+  end
+
+  describe "#from_link_record" do
+    it "turns a LinkRecord into a Link" do
+      link = Link.from_link_record(link_record)
+      link.should be_a(Link)
+      link.url.should == 'http://www.twitter.com'
+      link.id.should == 4
     end
   end
 
