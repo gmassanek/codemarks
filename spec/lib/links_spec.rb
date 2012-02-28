@@ -13,6 +13,23 @@ describe Link do
     end
   end
 
+  describe "#resource_attrs" do
+    it "includes title" do
+      link = Link.new(resource_attrs)
+      link.resource_attrs.keys.should include(:title)
+    end
+
+    it "includes url" do
+      link = Link.new(resource_attrs)
+      link.resource_attrs.keys.should include(:url)
+    end
+
+    it "includes host" do
+      link = Link.new(resource_attrs)
+      link.resource_attrs.keys.should include(:host)
+    end
+  end
+
   describe "#initialize" do
     # TODO Make these offline tests - probably perfect for VCR
     # TODO analyze the stubbing here - might need wrapper class for URI
