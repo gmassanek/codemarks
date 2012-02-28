@@ -21,6 +21,9 @@ class FindCodemarks
 
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.link_record_id = counts.link_record_id")
 
+    query = query.includes(:link_record)
+    query = query.includes(:user)
+
     query = order(query)
     query = page_query(query)
     query
