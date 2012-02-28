@@ -36,7 +36,7 @@ describe Codemark do
       resource_attrs = {}
       CodemarkRecord.stub!(:create)
       LinkRecord.should_receive(:create).with(resource_attrs)
-      Codemark.create({:type => :link}, resource_attrs, {"22" => "22"}, stub)
+      Codemark.create({:type => :link}, resource_attrs, [22], stub)
     end
 
     it "unless it is an existing link"
@@ -44,15 +44,15 @@ describe Codemark do
     it "creates new topics if the topic has not been saved before"
     it "makes a new CodemarkRecord" do
       user = stub
-      topics = {"1" => 1}
+      topic_ids = [1]
       link = stub(:id => 1)
       LinkRecord.stub!(:create => link)
 
       codemark_attrs = {:type => :link}
-      full_attrs = {:type => :link, :link_record => link, :topic_ids => ["1"], :user => user}
+      full_attrs = {:type => :link, :link_record => link, :topic_ids => [1], :user => user}
 
       CodemarkRecord.should_receive(:create).with(full_attrs)
-      Codemark.create(codemark_attrs, {}, topics, user)
+      Codemark.create(codemark_attrs, {}, topic_ids, user)
     end
     it "creates or gathers tags"
   end
