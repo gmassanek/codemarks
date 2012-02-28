@@ -15,8 +15,8 @@ CSV.foreach(path_to_file, {:headers => true}) do |row|
   end
 end
 
-#file_name = "rubeco_links_short_2-27.csv"
-file_name = "rubeco_links_12-2.csv"
+file_name = "rubeco_links_short_2-27.csv"
+#file_name = "rubeco_links_12-2.csv"
 path_to_file = CSV_DIR + file_name
 
 CSV.foreach(path_to_file, {:headers => true}) do |row|
