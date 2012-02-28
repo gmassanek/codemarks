@@ -35,6 +35,8 @@ end
 
 group :test do
   gem 'rspec'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
 end
 
 group :production do
