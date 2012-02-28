@@ -9,3 +9,11 @@ Feature: Saving Codemarks
     When I go to my dashboard
     And I fill out the codemark form with Twitter
     Then I should see "Twitter"
+
+  @javascript @omniauth_test_success
+  Scenario: Saving the same codemark twice
+    Given I am a logged in user
+    And I have a codemark
+    When I go to my dashboard
+    And I fill out the codemark form with mine
+    Then I should have 1 codemark
