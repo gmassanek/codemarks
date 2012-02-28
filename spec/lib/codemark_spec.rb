@@ -1,19 +1,33 @@
 require 'fast_helper'
 
 class Topic; end
-class LinkRecord; end
+class LinkRecord
+  def self.find_by_url(url)
+  end
+end
 class CodemarkRecord; end
 
 describe Codemark do
   let(:valid_url) { "http://www.example.com" }
 
   describe "#prepare" do
-    it "builds and assigns a link(resource) if type is link" do
+      let(:resource_attrs) { {} }
+
+    it "prepares a new resource if it doesn't already exist" do
       link = stub(:tag => nil, :proposed_tags => nil)
-      resource_attrs = {}
       Link.should_receive(:new).with(resource_attrs).and_return(link)
       cm = Codemark.prepare(:link, resource_attrs)
       cm.resource.should == link
+    end
+
+    context "when a resource already exists" do
+      it "gets returned" do
+        link = Link.new
+        Link.should_receive(:find).with(resource_attrs).and_return(link)
+        Link.should_not_receive(:new)
+        cm = Codemark.prepare(:link, resource_attrs)
+        cm.resource.should == link
+      end
     end
 
     it "asks for tags" do

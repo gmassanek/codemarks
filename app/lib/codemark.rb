@@ -7,7 +7,10 @@ class Codemark
 
   def self.prepare(type, resource_attrs)
     type = type
-    resource = resource_class.new(resource_attrs)
+
+    resource = resource_class.find(resource_attrs)
+    resource = resource_class.new(resource_attrs) unless resource
+
     topics = resource.proposed_tags
     cm = self.new(type, resource, topics)
   end
