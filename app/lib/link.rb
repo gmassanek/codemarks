@@ -39,4 +39,12 @@ class Link
   def tagging_order
     [:title, :site_content]
   end
+
+  def resource_attrs
+    {
+      :url => @url,
+      :host => @host,
+      :title => @title
+    }
+  end
 end
