@@ -6,25 +6,23 @@ class FindCodemarks
   end
 
   def codemarks
-    codemarks = Arel::Table.new(:codemark_records)
-    subquery = codemarks.project(:id) \
-          .group(codemarks[:link_record_id]) 
-    subquery = subquery.where(codemarks[:user_id].eq(@user)) if @user
-
-    subquery2 = codemarks.project('id, count(id) as save_count') \
-          .group(codemarks[:link_record_id]) 
-    subquery2 = subquery.where(codemarks[:user_id].eq(@user)) if @user
+    partition_str = 'PARTITION BY "codemark_records".link_record_id ORDER BY "codemark_records".created_at DESC'
+    subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_str}) AS rk")
+    subq = subq.where(['user_id = ?', @user]) if @user
 
     query = CodemarkRecord.scoped
     query = query.select('*')
-    query = query.joins("INNER JOIN (#{subquery2.to_sql}) cnt ON codemark_records.id = cnt.id")
+    query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
+    query = query.where("summary.rk = 1")
+
+    count_query = CodemarkRecord.scoped.select("link_record_id, count(*) as save_count")
+    count_query = count_query.group(:link_record_id)
+    count_query = count_query.where(['user_id = ?', @user]) if @user
+
+    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.link_record_id = counts.link_record_id")
 
     query = order(query)
     query = page_query(query)
-    query = query.includes(:link_record)
-    query = query.includes(:user)
-
-    query = query.where(:id => subquery)
     query
   end
 

@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20120214150434) do
     t.integer  "user_id"
   end
 
-  create_table "links", :force => true do |t|
+  create_table "link_records", :force => true do |t|
     t.string   "url"
     t.string   "title"
     t.datetime "created_at"

@@ -2,17 +2,18 @@ Given /^I am a logged in user$/ do
   visit '/'
   page.click_link('sign in with twitter')
   @user = User.last
-  p @user
 end
 
-Given /^I have (\d+) codemarks$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Given /^I have (\d+) codemarks$/ do |num|
+  num.to_i.times do 
+    Fabricate(:codemark_record, :user => @user)
+  end
 end
 
 When /^I go to my dashboard$/ do
-  pending # express the regexp above with the code you wish you had
+  visit '/'
 end
 
-Then /^I should see (\d+) codemarks$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^I should see (\d+) codemarks$/ do |num|
+  page.should have_selector('.codemark', :count => num.to_i)
 end

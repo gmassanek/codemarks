@@ -7,6 +7,20 @@ describe FindCodemarks do
     @cm2 = Fabricate(:codemark_record, :user => @user)
   end
 
+
+#SELECT cms.* 
+#  FROM codemark_records cms
+#  RIGHT JOIN ( 
+#        SELECT cm.id, 
+#            ROW_NUMBER() OVER(PARTITION BY cm.link_record_id ORDER BY cm.created_at DESC) AS rk 
+#        FROM codemark_records cm
+#       ) summary  ON cms.id = summary.id
+#  WHERE summary.rk = 1 ;
+#
+#SELECT cm.id, COUNT(*) OVER(PARTITION BY cm.link_record_id ORDER BY cm.created_at DESC) AS rk FROM codemark_records cm
+#
+#Item.select("name, rank() OVER (PARTITION BY user_id ORDER BY love_count DESC) AS position").where("position = 1")
+
   context "general result rules" do
     it "doesn't return multiple cms for the same link" do
       user = Fabricate(:user)
@@ -26,7 +40,7 @@ describe FindCodemarks do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
       all_cms = FindCodemarks.new
-      all_cms.codemarks.first.save_count.should == 2
+      all_cms.codemarks.first.save_count.should == "2"
     end
   end
 
@@ -65,7 +79,7 @@ describe FindCodemarks do
       @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
       @cm4= Fabricate(:codemark_record, :user => @user)
       all_cms = FindCodemarks.new(:order_by => :save_count)
-      all_cms.codemarks.first.save_count.should == 2
+      all_cms.codemarks.first.save_count.should == "2"
     end
   end
 
