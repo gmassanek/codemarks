@@ -1,9 +1,5 @@
-#page_details
-  %ul.data.piped
-    %li.first.last=# pluralize(@reminders.count, "reminders")
-  .clear
-
 = render 'codemark_filters', tabs: true
-.clear
 
-= render '/shared/codemarks'
+- @codemarks.each do |codemark|
+  .codemark
+    %h3= codemark.title

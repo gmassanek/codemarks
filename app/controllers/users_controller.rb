@@ -24,8 +24,12 @@ class UsersController < ApplicationController
   def dashboard
     @user = current_user
 
-    @codemarks = FindCodemarks.new(:user => @user).codemarks
-    @links = []
+    if @user && params[:filter] != "public" 
+      finder = FindCodemarks.new(:user => @user)
+    else
+      finder = FindCodemarks.new
+    end
+    @codemarks = finder.codemarks
 
     #if params[:filter]
     #  session[:filter] = params[:filter]
@@ -78,14 +82,14 @@ class UsersController < ApplicationController
     #end
 
     @topics = {}
-    @codemarks.each do |link_id, codemarks|
-      @topics[link_id] = []
-      codemarks.each do |codemark|
-        codemark.topics.each do |topic|
-          @topics[link_id] << topic
-        end
-      end
-    end
+    #@codemarks.each do |link_id, codemarks|
+    #  @topics[link_id] = []
+    #  codemarks.each do |codemark|
+    #    codemark.topics.each do |topic|
+    #      @topics[link_id] << topic
+    #    end
+    #  end
+    #end
   end
 
   def welcome
