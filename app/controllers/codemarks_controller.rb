@@ -5,6 +5,8 @@ class CodemarksController < ApplicationController
 
   def create
     @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], params[:tags], current_user)
+
+    redirect_to root_path, :notice => 'Thanks!'
   end
 
   def old_create
