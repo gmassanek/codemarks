@@ -2,14 +2,10 @@ require 'spec_helper'
 
 describe "User Profile Page" do
   context "show" do
-    before do
+    it "doesn't break" do
       simulate_signed_in
       @user = Fabricate(:user)
       visit user_path @user
-    end
-
-    it "doesn't have tabs" do
-      page.should_not have_css("#filters")
     end
 
     it "does what the dashboard does"
