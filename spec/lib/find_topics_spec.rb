@@ -4,7 +4,7 @@ describe FindTopics do
   before do
   end
 
-  describe "#for_resource" do
+  describe "#existing_topics_for" do
     let(:cm) { Fabricate(:codemark_record) }
     let(:resource) { cm.link_record }
     let!(:cm2) { Fabricate(:codemark_record, :link_record => resource) }
