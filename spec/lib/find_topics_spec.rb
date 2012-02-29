@@ -26,5 +26,7 @@ describe FindTopics do
       topics = FindTopics.existing_topics_for(same_resource)
       topics.collect(&:id).should == [one_topic.id, two_topic.first.id, two_topic.last.id]
     end
+
+    it "can scope by user"
   end
 end

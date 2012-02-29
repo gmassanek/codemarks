@@ -67,7 +67,13 @@ describe FindCodemarks do
       all_cms = FindCodemarks.new(:order_by => :save_count)
       all_cms.codemarks.first.save_count.should == "2"
     end
+
+    context "by popularity" do
+      it "increases with a link click"
+      it "increases with a link save"
+    end
   end
+
 
   context "with paging" do
     it "can take the result from a query and page it" do
