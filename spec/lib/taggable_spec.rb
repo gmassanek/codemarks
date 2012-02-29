@@ -1,7 +1,11 @@
 require 'fast_helper'
 
+class FindTopics; end
 class SomethingTaggable
   include Taggable
+
+  def id
+  end
 end
 
 describe Taggable do
@@ -50,7 +54,8 @@ describe Taggable do
       taggable_instance.proposed_tags.should == [matching_topic]
     end
 
-    it "does not call tagger if the taggable item exists already" do
+    it "defers to existing_tags if the taggable item already exists" do
+      FindTopics.stub(:for_resource)
       taggable_instance.stub(:id => 5)
       Tagger.should_not_receive(:tag)
       taggable_instance.proposed_tags
@@ -60,7 +65,7 @@ describe Taggable do
   describe "#existing_tags" do
     it "finds all codemarks for that resource" do
       taggable_instance.stub(:id => 5)
-      FindCodemarks.should_receive(:for_resource).with(SomethingTaggable, 5)
+      FindTopics.should_receive(:for_resource).with(SomethingTaggable, 5)
       taggable_instance.existing_tags
     end
   end
