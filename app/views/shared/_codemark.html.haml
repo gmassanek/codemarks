@@ -1,16 +1,13 @@
 %li{:id => "#{dom_id(link)}_li"}
   = render '/links/click_form', link_id: link.id
   %h3
-    - click_count ||= 0
-    - save_count ||= 0
-    %span.pop= "#{click_count + save_count}"
     = link_to link.title, link.url, :target => :blank, :class => 'codemark'
     %span.host #{link.host}
   /.saver Saved by #{link.codemarks.first.user.email}
   .clear
   = render '/shared/codemark_topics.html.haml', link: link
   .details
-    - author = link.codemarks.first.user
+    - author = codemark.user
     - name ||= author.get(:nickname)
     - if name.present?
       .saver By #{link_to name, user_path(author)}
