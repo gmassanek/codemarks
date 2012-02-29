@@ -5,6 +5,7 @@
   #second
     = text_field_tag "codemark_attrs[archived]", 'false', :type => :hidden
     = text_field_tag "resource_attrs[host]", @codemark.resource.host, :type => :hidden
+    = text_field_tag "resource_attrs[id]", @codemark.resource.id, :type => :hidden
     = text_field_tag "resource_attrs[title]", @codemark.resource.title, :placeholder => "Title"
     = render '/codemarks/topic_tags_list', :pos_topics => @codemark.topics
     = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."

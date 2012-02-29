@@ -16,7 +16,8 @@ class Codemark
   end
 
   def self.create(codemark_attrs, resource_attrs, topics_ids, user)
-    link = LinkRecord.create(resource_attrs)
+    link = LinkRecord.find_by_id(resource_attrs[:id])
+    link ||= LinkRecord.create(resource_attrs)
     codemark_attrs[:link_record] = link
     codemark_attrs[:topic_ids] = topics_ids
     codemark_attrs[:user] = user
