@@ -1,5 +1,6 @@
 = render 'codemark_filters', tabs: true
 
-- @codemarks.each do |codemark|
-  .codemark
-    %h3= link_to codemark.title, codemark.url
+%ul#codemarks
+  - @codemarks.each do |codemark|
+    .codemark
+      = render '/shared/codemark', :link => codemark.link_record, :codemark => codemark

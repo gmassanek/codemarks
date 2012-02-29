@@ -14,12 +14,6 @@
     padding: 10px 0;
     line-height: 16px;
     border-bottom: 1px solid $border-color2;
-    &:nth-last-child(1) {
-      border-bottom: none;
-    }
-    &:nth-child(1) {
-      padding-top: 0;
-    }
 
 
     h3 {
