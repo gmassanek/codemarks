@@ -32,7 +32,7 @@ class Codemark
 
   def self.resource_class
     #@type.to_s.capitalize.constantize
-    #TODO Should work!
+    #TODO Should work but constantize isn't loaded!
     Link
   end
 end
