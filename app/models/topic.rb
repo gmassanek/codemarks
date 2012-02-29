@@ -5,7 +5,7 @@ class Topic < ActiveRecord::Base
   friendly_id :title, :use => :slugged
 
   has_many :codemark_topics
-  has_many :codemarks, :through => :codemark_topics
+  has_many :codemark_records, :through => :codemark_topics
   has_many :links, :through => :codemarks
 
   belongs_to :user
