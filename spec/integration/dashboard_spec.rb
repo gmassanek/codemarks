@@ -15,8 +15,8 @@ describe "User pages" do
 
       context "filters" do
         before do
-          @my_codemark = Fabricate(:codemark, :user => @user)
-          @his_codemark = Fabricate(:codemark)
+          @my_codemark = Fabricate(:codemark_record, :user => @user)
+          @his_codemark = Fabricate(:codemark_record)
         end
 
         context "mine" do
@@ -36,7 +36,7 @@ describe "User pages" do
           end
 
           it "only shows a link once, even if it has been saved multiple times" do
-            second_save = Fabricate(:codemark, link: @his_codemark.link)
+            second_save = Fabricate(:codemark_record, link_record: @his_codemark.link_record)
             visit dashboard_path
             page.click_link "public codemarks"
             page.should have_link @my_codemark.title
