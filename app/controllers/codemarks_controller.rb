@@ -4,7 +4,8 @@ class CodemarksController < ApplicationController
   end
 
   def create
-    @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], params[:tags], current_user)
+    topic_ids = params[:tags].keys.collect(&:to_i)
+    @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], topic_ids, current_user)
 
     redirect_to root_path, :notice => 'Thanks!'
   end
