@@ -1,5 +1,5 @@
-- if @topics.present?
+- if topics
   %ul#topics_tags.piped
-    - @topics[link.id].shuffle.first(5).each do |topic|
+    - topics.first(5).each do |topic|
       %li= link_to topic.title, topic
     
