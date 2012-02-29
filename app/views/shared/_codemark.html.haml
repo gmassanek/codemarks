@@ -5,10 +5,11 @@
     %span.host #{link.host}
   /.saver Saved by #{link.codemarks.first.user.email}
   .clear
-  = render '/shared/codemark_topics.html.haml', link: link
+  = render '/shared/codemark_topics.html.haml', link: link, topics: codemark.topics
   .details
     - author = codemark.user
     - name ||= author.get(:nickname)
+    - name ||= author.get(:name)
     - if name.present?
       .saver By #{link_to name, user_path(author)}
     .time #{time_ago_in_words(link.created_at)} ago
