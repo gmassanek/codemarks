@@ -116,21 +116,21 @@ describe Link do
       end
     end
 
-  describe "is taggable" do
-    it "knows that it is taggable" do
-      link = Link.new
-      link.should be_taggable
-    end
+    describe "is taggable" do
+      it "knows that it is taggable" do
+        link = Link.new
+        link.should be_taggable
+      end
 
-    it "has a tagging order" do
-      link = Link.new
-      link.tagging_order.should == [:title, :site_content]
-    end
+      it "has a tagging order" do
+        link = Link.new
+        link.tagging_order.should == [:title, :site_content]
+      end
 
-    it "has a proposed_tags method" do
-      link = Link.new
-      link.should respond_to(:proposed_tags)
+      it "has a proposed_tags method" do
+        link = Link.new
+        link.should respond_to(:proposed_tags)
+      end
     end
-  end
   end
 end
