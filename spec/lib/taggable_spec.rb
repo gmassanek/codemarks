@@ -1,5 +1,6 @@
 require 'fast_helper'
 
+class LinkRecord; end
 class FindTopics; end
 class SomethingTaggable
   include Taggable
@@ -66,7 +67,9 @@ describe Taggable do
   describe "#existing_tags" do
     it "finds all codemarks for that resource" do
       taggable_instance.stub(:id => 5)
-      FindTopics.should_receive(:for_resource).with(SomethingTaggable, 5)
+      FindTopics.should_receive(:existing_topics_for).with(LinkRecord, 5)
+      # TODO Should be the line below
+      #FindTopics.should_receive(:existing_topics_for).with(SomethingTaggable, 5)
       taggable_instance.existing_tags
     end
   end
