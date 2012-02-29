@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
     session[:filter] = "mine"
     session[:sort] = "by_save_date"
 
-    puts @user.codemarks.count.inspect
-    if @user.codemarks.count == 0
+    
+    if FindCodemarks.new(:user => @user).codemarks.count == 0
       @link = Link.new
       redirect_to welcome_path
     else
@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
     end
 
   rescue Exception => ex
+    p "Exception in app/controllers/sessions_controller.rb A"
     logger.info ex.to_s
     puts ex.to_s
     redirect_to root_path, :notice => "Sorry, something went wrong"

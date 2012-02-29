@@ -16,6 +16,7 @@ class LinksController < ApplicationController
           @pos_topics = []
         end
       rescue Exception => ex
+        p "Exception in app/controllers/links_controller.rb boooo"
         @link.errors.add(:url, "is invalid")
         @pos_topics = []
       end
