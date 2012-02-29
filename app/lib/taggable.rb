@@ -3,6 +3,9 @@ require_relative 'tagger'
 module Taggable
 
   def proposed_tags
+    unless self.id.nil?
+      return existing_tags
+    end
     tags = []
     tagging_order.each do |attr|
       text_to_tag = self.send(attr)
@@ -16,6 +19,10 @@ module Taggable
 
   def taggable?
     true
+  end
+
+  def existing_tags
+    FindCodemarks.for_resource(self.class, self.id)
   end
 
 end
