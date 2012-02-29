@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find params[:id]
-    @resources = @topic.links.scoped
+    #@resources = @topic.links.scoped
 
     #if !logged_in?
     #  @resources = @resources.all_public
@@ -45,7 +45,8 @@ class TopicsController < ApplicationController
     #  @resources = @resources.by_popularity
     #end
 
-    @resources = @resources.page params[:pg]
+    #@resources = @resources.page params[:pg]
+    @resources = []
     @topics = {}
 
     respond_to do |format|
@@ -55,13 +56,15 @@ class TopicsController < ApplicationController
   end
 
   def index
-    if !logged_in?
+
       @topics = Topic.all
-    elsif filter_by_mine?
-      @topics = Topic.for_user(current_user)
-    else
-      @topics = current_user.topics
-    end
+    #if !logged_in?
+    #  @topics = Topic.all
+    #elsif filter_by_mine?
+    #  @topics = Topic.for_user(current_user)
+    #else
+    #  @topics = current_user.topics
+    #end
 
     #sort_order = params[:sort]
     #if sort_order == 'resource_count'

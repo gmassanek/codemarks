@@ -34,12 +34,14 @@ describe "topics" do
     before do
       @github = Fabricate(:topic, title: "Github")
       @rspec = Fabricate(:topic, title: "Rspec")
-      @codemark = Fabricate(:codemark, topics: [@rspec])
-      @codemark2 = Fabricate(:codemark, topics: [@rspec, @github])
+      @codemark = Fabricate(:codemark_record, topics: [@rspec])
+      @codemark2 = Fabricate(:codemark_record, topics: [@rspec, @github])
     end
 
     it "doesn't break on the show page" do
       visit topic_path(@rspec)
     end
+    
+    it "shows all codemarks for a topic on topic show page"
   end
 end
