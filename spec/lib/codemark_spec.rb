@@ -20,21 +20,29 @@ describe Codemark do
       cm.resource.should == link
     end
 
+    it "asks the new resource for proposed tags" do
+      link = stub(:tag => nil)
+      Link.stub(:new => link)
+      link.should_receive(:proposed_tags)
+      Codemark.prepare(:link, {})
+    end
+
     context "when a resource already exists" do
+      let(:link) { Link.new(resource_attrs) }
+
       it "gets returned" do
-        link = Link.new
         Link.should_receive(:find).with(resource_attrs).and_return(link)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
       end
-    end
 
-    it "asks for tags" do
-      link = stub(:tag => nil)
-      Link.stub(:new => link)
-      link.should_receive(:proposed_tags)
-      Codemark.prepare(:link, {})
+      it "gets topics from existing codemarks for that resource" do
+        Link.should_receive(:find).with(resource_attrs).and_return(link)
+        Link.should_not_receive(:new)
+        cm = Codemark.prepare(:link, resource_attrs)
+        cm.resource.should == link2
+      end
     end
   end
 
