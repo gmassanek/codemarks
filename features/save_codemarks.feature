@@ -1,5 +1,5 @@
 Feature: Saving Codemarks
-  In order to make sence
+  In order to make sense
   As anybody
   I want to save codemarks
 
@@ -11,9 +11,11 @@ Feature: Saving Codemarks
     Then I should see "Twitter"
 
   @javascript @omniauth_test_success
-  Scenario: Saving the same codemark twice
-    Given I am a logged in user
-    And I have a codemark
+  Scenario: Different users saving codemarks with the same resource
+    Given there is 1 codemark
+    And I am a logged in user
     When I go to my dashboard
-    And I fill out the codemark form with mine
+    And I fill out the codemark form with the existing one
     Then I should have 1 codemark
+    And there should be 2 codemarks
+    And there should be 1 links

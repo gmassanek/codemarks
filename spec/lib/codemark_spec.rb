@@ -2,6 +2,8 @@ require 'fast_helper'
 
 class Topic; end
 class LinkRecord
+  def self.find_by_id(id)
+  end
   def self.find_by_url(url)
   end
 end
@@ -41,7 +43,7 @@ describe Codemark do
         Link.should_receive(:find).with(resource_attrs).and_return(link)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
-        cm.resource.should == link2
+        cm.resource.should == link
       end
     end
   end
@@ -54,16 +56,13 @@ describe Codemark do
   end
 
   describe "#create" do
-    it "creates a link (resource)" do
+    it "creates a link resource" do
       resource_attrs = {}
       CodemarkRecord.stub!(:create)
       LinkRecord.should_receive(:create).with(resource_attrs)
       Codemark.create({:type => :link}, resource_attrs, [22], stub)
     end
 
-    it "unless it is an existing link"
-
-    it "creates new topics if the topic has not been saved before"
     it "makes a new CodemarkRecord" do
       user = stub
       topic_ids = [1]
@@ -76,6 +75,26 @@ describe Codemark do
       CodemarkRecord.should_receive(:create).with(full_attrs)
       Codemark.create(codemark_attrs, {}, topic_ids, user)
     end
+
+    context "when a resource already exists" do
+      let(:resource_attrs) { {:id => 4} }
+      let(:link) { Link.new(resource_attrs) }
+
+      it "uses the existing resource" do
+        user = stub
+        link_record = LinkRecord.new
+        LinkRecord.should_receive(:find_by_id).with(resource_attrs[:id]).and_return(link_record)
+        Link.should_not_receive(:create)
+
+        codemark_attrs = {:type => :link}
+        full_attrs = {:type => :link, :link_record => link, :topic_ids => [1], :user => user}
+
+        CodemarkRecord.stub(:create)
+        Codemark.create(codemark_attrs, resource_attrs, [1], user)
+      end
+    end
+
+    it "creates new topics if the topic has not been saved before"
     it "creates or gathers tags"
   end
 end
