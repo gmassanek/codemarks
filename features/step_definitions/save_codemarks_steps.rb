@@ -13,7 +13,11 @@ Given /^I have (a|1) codemark$/ do |arg1|
   @codemark = Fabricate(:codemark_record, :user => @user)
 end
 
-When /^I fill out the codemark form with mine$/ do
+Given /^there is (a|1) codemark$/ do |arg1|
+  @codemark = Fabricate(:codemark_record)
+end
+
+When /^I fill out the codemark form with the existing one$/ do
   page.fill_in("resource_attrs_url", :with => @codemark.url)
   page.click_button("fetch")
   wait_until { find('#resource_attrs_title').visible? }
@@ -22,4 +26,12 @@ end
 
 Then /^I should have (\d+) codemark$/ do |num_codemarks|
   @user.codemark_records.count.should == num_codemarks.to_i
+end
+
+Then /^there should be (\d+) codemarks$/ do |codemark_count|
+  CodemarkRecord.count.should == codemark_count.to_i
+end
+
+Then /^there should be (\d+) links/ do |link_count|
+  LinkRecord.count.should == link_count.to_i
 end
