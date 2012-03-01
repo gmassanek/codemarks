@@ -7,7 +7,7 @@ describe FindTopics do
     let!(:cm2) { Fabricate(:codemark_record, :link_record => resource) }
 
     it "finds all codemarks for the given resource" do
-      topics = FindTopics.existing_topics_for(LinkRecord, resource)
+      topics = FindTopics.existing_topics_for(resource)
       topics.collect(&:id).should == cm.topics.collect(&:id) | cm2.topics.collect(&:id)
     end
 
@@ -20,7 +20,7 @@ describe FindTopics do
                                 :topics => two_topic, 
                                 :link_record => same_resource)
 
-      topics = FindTopics.existing_topics_for(LinkRecord, same_resource)
+      topics = FindTopics.existing_topics_for(same_resource)
       topics.collect(&:id).should == [one_topic.id, two_topic.first.id, two_topic.last.id]
     end
 
