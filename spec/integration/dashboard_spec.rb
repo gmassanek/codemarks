@@ -27,23 +27,6 @@ describe "User pages" do
           end
         end
 
-        context "public" do
-          it "shows all links, including mine" do
-            visit dashboard_path
-            page.click_link "public codemarks"
-            page.should have_link @my_codemark.title
-            page.should have_link @his_codemark.title
-          end
-
-          it "only shows a link once, even if it has been saved multiple times" do
-            second_save = Fabricate(:codemark_record, link_record: @his_codemark.link_record)
-            visit dashboard_path
-            page.click_link "public codemarks"
-            page.should have_link @my_codemark.title
-            page.should have_xpath("//a[contains(@href,'#{@his_codemark.url}')]", :count => 1)
-          end
-        end
-
         context "archived" do
           #it "unarchived links by default" do
           #  new_link = Fabricate(:codemark, :user => @user, :archived => false)
