@@ -26,31 +26,6 @@ describe "User pages" do
             page.should_not have_link @his_codemark.title
           end
         end
-
-        context "archived" do
-          #it "unarchived links by default" do
-          #  new_link = Fabricate(:codemark, :user => @user, :archived => false)
-          #  old_link = Fabricate(:codemark, :user => @user, :archived => true)
-          #  visit dashboard_path
-          #  page.should have_link new_link.title
-          #  page.should_not have_link old_link.title
-          #end
-
-          #it "archived and unarchived links when I ask for them" do
-          #  new_link = Fabricate(:codemark, :user => @user, :archived => false)
-          #  old_link = Fabricate(:codemark, :user => @user, :archived => true)
-          #  visit dashboard_path
-          #  page.click_link "view archived"
-          #  page.should have_link new_link.title
-          #  page.should have_link old_link.title
-          #end
-
-          #it "doesn't show the archived option unless I'm looking at my links" do
-          #  visit dashboard_path
-          #  page.click_link "public codemarks"
-          #  page.should_not have_link "view archived"
-          #end
-        end
       end
 
       context "sorts" do
