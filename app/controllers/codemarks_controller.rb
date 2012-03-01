@@ -11,7 +11,12 @@ class CodemarksController < ApplicationController
   end
 
   def public
-    finder = FindCodemarks.new
+    page = params[:page]
+    if page
+      finder = FindCodemarks.new({:page => page})
+    else
+      finder = FindCodemarks.new
+    end
     @codemarks = finder.codemarks
 
     render 'users/dashboard'

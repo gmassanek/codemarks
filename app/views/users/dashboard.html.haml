@@ -3,3 +3,4 @@
 %ul#codemarks
   - @codemarks.each do |codemark|
     = render '/shared/codemark', :link => codemark.link_record, :codemark => codemark
+= paginate @codemarks, :window => 5, :param_name => :page

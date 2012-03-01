@@ -1,4 +1,4 @@
-@javascript @omniauth_test_success
+@omniauth_test_success
 
 Feature: View Codemarks
   In order to use the site
@@ -16,7 +16,6 @@ Feature: View Codemarks
     And I have 3 codemarks
     And someone else has codemarks
     When I go to my dashboard
-    Then save and open page
     Then I should see 3 codemarks
 
   Scenario: Codemark titles should be links
@@ -29,3 +28,9 @@ Feature: View Codemarks
     Given there are 6 random codemarks
     When I go to the public page
     Then I should see 6 codemarks
+
+  Scenario: Codemarks are paged
+    Given there are 15 random codemarks
+    When I go to the public page
+    And I click "2"
+    Then I should see 5 codemarks
