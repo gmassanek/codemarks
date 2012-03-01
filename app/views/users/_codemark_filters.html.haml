@@ -1,14 +1,11 @@
 #filters_and_sorts
   - if tabs
     %ul.tabs#filters
-      %li{:class => "#{session[:filter] == "mine" ? 'active' : ' '}"}
-        = link_to "my codemarks", url_for(:only_path => true, filter: :mine), :remote => true
-      /li= link_to "friend feed", url_for(:only_path => true, filter: :friends), :remote => true, :class => "#{session[:filter] == "friends" ? 'current' : ''}"
-      %li{:class => "#{session[:filter] == "public" ? 'active' : ' '}"}
-        = link_to "public codemarks", url_for(:only_path => true, filter: :public), :remote => true
+      %li{:class => "#{current_page?(dashboard_path) ? 'active' : ' '}"}
+        = link_to "dashboard", dashboard_path
+      %li{:class => "#{current_page?(public_codemarks_path) ? 'active' : ' '}"}
+        = link_to "public", public_codemarks_path
   %ul.pills#sorts
-    -# if session[:filter] == "mine"
-      %li= link_to "view archived", url_for(:only_path => true, archived: true), :remote => true
     %li{:class => "#{session[:sort] == "by_popularity" ? 'active' : ' '}"}
       = link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
     %li{:class => "#{session[:sort] == "by_save_date" ? 'active' : ' '}"}

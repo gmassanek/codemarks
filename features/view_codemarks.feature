@@ -11,7 +11,7 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
-  Scenario: Only see my Codemarks on my dashboard
+  Scenario: I only see my Codemarks on my dashboard
     Given I am a logged in user
     And I have 3 codemarks
     And someone else has codemarks
