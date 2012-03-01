@@ -10,6 +10,16 @@ Given /^I have (\d+) codemarks$/ do |num|
   end
 end
 
+Given /^there are (\d+) random codemarks$/ do |num|
+  num.to_i.times do
+    Fabricate(:codemark_record)
+  end
+end
+
+Given /^someone else has codemarks$/ do
+  2.times { Fabricate(:codemark_record) }
+end
+
 When /^I go to my dashboard$/ do
   visit '/'
 end
@@ -25,4 +35,8 @@ end
 
 Then /^I should see a link, "([^"]*)"$/ do |link_text|
   page.should have_link(link_text)
+end
+
+When /^I go to the public page$/ do
+  visit '/public'
 end

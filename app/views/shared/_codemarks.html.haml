@@ -1,6 +1,3 @@
-/ puts "Links are #{@links.inspect}"
-/ puts "Clicks are #{@clicks.inspect}"
-/ puts "Link Saves are #{@link_saves.inspect}"
 %ul#codemarks
   - @links.each do |link|
     - click_count = @clicks[link.id].present? ? @clicks[link.id].count : 0

@@ -1,5 +1,6 @@
 Codemarks::Application.routes.draw do
 
+  get '/public', to: "codemarks#public", :as => :public_codemarks
   get '/dashboard', to: "users#dashboard", as: :dashboard
   get '/welcome', to: "users#welcome", as: :welcome
   get '/profile', to: "users#profile", as: :profile

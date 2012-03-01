@@ -10,6 +10,13 @@ class CodemarksController < ApplicationController
     redirect_to root_path, :notice => 'Thanks!'
   end
 
+  def public
+    finder = FindCodemarks.new
+    @codemarks = finder.codemarks
+
+    render 'users/dashboard'
+  end
+
   def old_create
     if params[:second].nil?
       link = Link.find_by_url(params[:url])
