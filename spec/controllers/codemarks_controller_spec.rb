@@ -38,6 +38,21 @@ describe CodemarksController do
       post :create, :format => :js, :codemark_attrs => codemark_attrs, :resource_attrs => resource_attrs, :tags => tags
     end
   end
+
+  describe "#public" do
+    it "calls FindCodemarks" do
+      FindCodemarks.should_receive(:new)
+      get :public
+    end
+
+    it "it assigns codemarks" do
+      FindCodemarks.stub!(:new)
+      codemarks = []
+      FindCodemarks.stub!(:codemark => codemarks)
+      get :public
+      assigns[:codemarks].should == codemarks
+    end
+  end
 end
 
 #    it "creates a new codemark" do
