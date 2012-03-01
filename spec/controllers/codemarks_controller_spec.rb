@@ -30,11 +30,11 @@ describe CodemarksController do
     it "creates a codemark" do
       codemark_attrs = {}
       resource_attrs = {}
-      tags = []
+      tags = {}
       user = stub
       controller.stub!(:current_user => user)
 
-      Codemark.should_receive(:create).with(codemark_attrs, resource_attrs, tags, user)
+      Codemark.should_receive(:create).with(codemark_attrs, resource_attrs, [], user)
       post :create, :format => :js, :codemark_attrs => codemark_attrs, :resource_attrs => resource_attrs, :tags => tags
     end
   end
