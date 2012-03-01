@@ -1,13 +1,12 @@
 #filters_and_sorts
-  - if tabs
-    %ul.tabs#filters
-      %li{:class => "#{current_page?(dashboard_path) ? 'active' : ' '}"}
-        = link_to "dashboard", dashboard_path
-      %li{:class => "#{current_page?(public_codemarks_path) ? 'active' : ' '}"}
-        = link_to "public", public_codemarks_path
+  %ul.tabs#filters
+    %li{:class => tab_class(dashboard_path)}
+      = link_to "dashboard", dashboard_path
+    %li{:class => tab_class(public_codemarks_path)}
+      = link_to "public", public_codemarks_path
   %ul.pills#sorts
-    %li{:class => "#{session[:sort] == "by_popularity" ? 'active' : ' '}"}
-      = link_to "by popularity", url_for(:only_path => true, sort: :by_popularity), :remote => true
-    %li{:class => "#{session[:sort] == "by_save_date" ? 'active' : ' '}"}
-      = link_to "by save date", url_for(:only_path => true, sort: :by_save_date), :remote => true
+    %li{:class => "#{params[:by] == "count" ? 'active' : ' '}"}
+      = link_to "by count", url_for(:only_path => true, by: :count)
+    %li{:class => "#{params[:by] == "date" ? 'active' : ' '}"}
+      = link_to "by date", url_for(:only_path => true, by: :date)
   .clear
