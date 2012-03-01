@@ -1,11 +1,10 @@
-%li{:id => "#{dom_id(link)}_li"}
+%li.codemark{:id => "#{dom_id(link)}_li"}
   = render '/links/click_form', link_id: link.id
   %h3
-    = link_to link.title, link.url, :target => :blank, :class => 'codemark'
+    = link_to link.title, link.url, :target => :blank
     %span.host #{link.host}
-  /.saver Saved by #{link.codemarks.first.user.email}
   .clear
-  = render '/shared/codemark_topics.html.haml', link: link, topics: codemark.topics
+  = render '/shared/codemark_topics', link: link, topics: codemark.topics
   .details
     - author = codemark.user
     - name ||= author.get(:nickname)
