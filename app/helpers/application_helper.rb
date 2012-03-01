@@ -18,4 +18,8 @@ module ApplicationHelper
   def url_encode_text text
     URI.escape(text, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   end
+
+  def tab_class(path)
+    'active' if current_page?(path)
+  end
 end
