@@ -26,9 +26,8 @@ class UsersController < ApplicationController
 
     search_attributes = {}
     search_attributes[:user] = @user if @user
+    search_attributes[:page] = params[:page] if params[:page]
 
-    page = params[:page]
-    search_attributes[:page] = page if page
     @codemarks = FindCodemarks.new(search_attributes).codemarks
     @topics = {}
   end
