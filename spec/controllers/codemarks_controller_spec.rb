@@ -41,14 +41,16 @@ describe CodemarksController do
 
   describe "#public" do
     it "calls FindCodemarks" do
-      FindCodemarks.should_receive(:new)
+      codemarks = []
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.should_receive(:new).and_return(finder)
       get :public
     end
 
     it "it assigns codemarks" do
-      FindCodemarks.stub!(:new)
       codemarks = []
-      FindCodemarks.stub!(:codemark => codemarks)
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.stub!(:new => finder)
       get :public
       assigns[:codemarks].should == codemarks
     end
