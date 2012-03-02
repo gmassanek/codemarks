@@ -17,6 +17,7 @@ gem 'gravatar_image_tag'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'therubyracer'
+gem 'newrelic_rpm'
 
 group :development do
 end

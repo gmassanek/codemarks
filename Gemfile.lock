@@ -112,6 +112,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     multipart-post (1.1.4)
+    newrelic_rpm (3.3.2)
     nokogiri (1.5.0)
     oauth (0.4.5)
     oauth2 (0.5.1)
@@ -232,6 +233,7 @@ DEPENDENCIES
   jasminerice
   jquery-rails
   kaminari
+  newrelic_rpm
   nokogiri
   omniauth-github
   omniauth-twitter
