@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120214150434) do
+ActiveRecord::Schema.define(:version => 20120305145809) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(:version => 20120214150434) do
     t.integer  "link_record_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "link_topics", :force => true do |t|
+    t.integer  "link_record_id"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "codemark_records", :force => true do |t|
