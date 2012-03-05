@@ -14,7 +14,7 @@ class CodemarksController < ApplicationController
   def public
     search_attributes = {}
     search_attributes[:page] = params[:page] if params[:page]
-    search_attributes[:order] = params[:by] if params[:page]
+    search_attributes[:by] = params[:by] if params[:by]
     @codemarks = FindCodemarks.new(search_attributes).codemarks
 
     render 'users/dashboard'
