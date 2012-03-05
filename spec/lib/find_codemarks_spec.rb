@@ -60,11 +60,11 @@ describe FindCodemarks do
       all_cms.codemarks.collect(&:id).should == [@cm2.id, @cm3.id, @cm.id]
     end
 
-    it "can be sorted by save_count" do
+    it "can be orderd by save_count" do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
       @cm4= Fabricate(:codemark_record, :user => @user)
-      all_cms = FindCodemarks.new(:order_by => :save_count)
+      all_cms = FindCodemarks.new(:by => :count)
       all_cms.codemarks.first.save_count.should == "2"
     end
 
