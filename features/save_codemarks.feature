@@ -8,7 +8,6 @@ Feature: Saving Codemarks
     Given I am a logged in user
     When I go to my dashboard
     And I fill out the codemark form with Twitter
-    Then show me the page
     Then I should see "Twitter"
 
   @javascript @omniauth_test_success
