@@ -20,7 +20,8 @@ module Taggable
   end
 
   def existing_tags
-    FindTopics.existing_topics_for(LinkRecord, self.id)
+    resource = LinkRecord.find(self.id)
+    FindTopics.existing_topics_for(resource)
   end
 
 end
