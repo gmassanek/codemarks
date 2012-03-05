@@ -56,11 +56,13 @@ class FindCodemarks
   end
 
   def order_by_text
-    @order_by ||= "created_at"
-    if @order_by == 'save_count'
-      return @order_by + ' DESC'
-    else
-      return @order_by + ' DESC'
-    end
+    order_by_text = order_texts[@by.to_s]
+    order_by_text ||= 'created_at DESC'
+  end
+
+  def order_texts
+    {
+      "count" => 'save_count DESC'
+    }
   end
 end
