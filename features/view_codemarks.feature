@@ -34,3 +34,11 @@ Feature: View Codemarks
     When I go to the public page
     And I click "2"
     Then I should see 5 codemarks
+
+  Scenario: Codemarks can be viewed in save count order
+    Given I am a logged in user
+    And I have 3 codemarks
+    And one of my codemarks has been save 3 other times
+    When I go to my dashboard
+    And I click "by count"
+    Then I should see that codemark first
