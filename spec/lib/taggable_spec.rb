@@ -58,6 +58,7 @@ describe Taggable do
     it "defers to existing_tags if the taggable item already exists" do
       FindTopics.stub(:existing_topics_for)
       #FindTopics.stub(:for_resource)
+      LinkRecord.should_receive(:find).with(5)
       taggable_instance.stub(:id => 5)
       Tagger.should_not_receive(:tag)
       taggable_instance.proposed_tags
@@ -67,7 +68,9 @@ describe Taggable do
   describe "#existing_tags" do
     it "finds all codemarks for that resource" do
       taggable_instance.stub(:id => 5)
-      FindTopics.should_receive(:existing_topics_for).with(LinkRecord, 5)
+      resource = stub
+      LinkRecord.should_receive(:find).with(5).and_return(resource)
+      FindTopics.should_receive(:existing_topics_for).with(resource)
       # TODO Should be the line below
       #FindTopics.should_receive(:existing_topics_for).with(SomethingTaggable, 5)
       taggable_instance.existing_tags
