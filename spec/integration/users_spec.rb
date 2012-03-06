@@ -5,7 +5,7 @@ describe "User Profile Page" do
     before do
       simulate_signed_in
       @user = Fabricate(:user)
-      visit user_path(@user)
+      visit user_path(@user.to_param)
     end
 
     it "contains the user's nickname" do
