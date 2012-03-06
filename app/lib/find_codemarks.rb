@@ -3,12 +3,15 @@ class FindCodemarks
     options.each do |key, val|
       self.instance_variable_set("@#{key.to_s}", val.to_param)
     end
+
+    @user_id = options[:user].id if options[:user]
   end
 
   def codemarks
     @topic = Topic.find(@topic) if @topic
+
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
-    subq = subq.where(['user_id = ?', @user]) if @user
+    subq = subq.where(['user_id = ?', @user_id]) if @user_id
 
     query = CodemarkRecord.scoped
     query = query.select('"codemark_records".*, save_count')
@@ -19,7 +22,6 @@ class FindCodemarks
 
     if @topic
       query = query.joins("INNER JOIN codemark_topics cm_topics on codemark_records.id = cm_topics.codemark_record_id")
-      p @topic
       query = query.where(['cm_topics.topic_id = ?', @topic.id])
     end
 

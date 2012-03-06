@@ -2,10 +2,14 @@ require 'spec_helper'
 
 describe "User Profile Page" do
   context "show" do
-    it "doesn't break" do
+    before do
       simulate_signed_in
       @user = Fabricate(:user)
-      visit user_path @user
+      visit user_path(@user)
+    end
+
+    it "contains the user's nickname" do
+      current_path.should include(@user.nickname)
     end
 
     it "does what the dashboard does"

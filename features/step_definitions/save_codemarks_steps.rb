@@ -1,4 +1,5 @@
 When /^I fill out the codemark form with Twitter$/ do
+  Fabricate(:topic, :title => "twitter")
   page.fill_in("resource_attrs_url", :with => "http://www.twitter.com")
   page.click_button("fetch")
   wait_until { find('#resource_attrs_title').visible? }
