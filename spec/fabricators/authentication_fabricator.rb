@@ -3,5 +3,5 @@ Fabricator(:authentication) do
   uid { rand(999999).to_s }
   name { Faker::Name.name }
   email { Faker::Internet.email }
-  user!
+  user
 end
