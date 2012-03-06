@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
   has_many :topics, :through => :codemark_records
   has_many :clicks
 
+  #validates_presence_of :nickname
+
+  after_save :take_nickname_from_authentication
+
   def self.find_by_email email
     id = User.select('users.id')
       .joins('LEFT JOIN authentications on users.id = authentications.user_id')
@@ -14,6 +18,11 @@ class User < ActiveRecord::Base
       .limit(1)
       .first
     User.find(id)
+  end
+
+  def take_nickname_from_authentication
+    nickname = authentications.first.nickname
+    self.nickname = nickname
   end
 
   def authentication_by_provider provider
