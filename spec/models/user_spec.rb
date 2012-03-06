@@ -7,14 +7,18 @@ describe User do
 
   it "requires at least one authentication"
 
+  it "has a nickname after save" do
+    user.update_attribute(:nickname, nil)
+    user.nickname.should_not be_nil
+  end
+
   context "finds an authentication by provider" do
     it "if one exists" do
       user.authentication_by_provider("twitter").should == authentication
     end
 
     it "returns nil if there isn't one" do
-      user.update_attribute(:authentications, [])
-      user.authentication_by_provider("twitter").should be_nil
+      user.authentication_by_provider("another_servica").should be_nil
     end
   end
 
