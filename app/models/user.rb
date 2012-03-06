@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :nickname, :use => :slugged
+
   has_many :authentications, :inverse_of => :user, :dependent => :destroy
   has_many :codemark_records
   has_many :links, :through => :codemark_records
   has_many :topics, :through => :codemark_records
   has_many :clicks
-
-  #validates_presence_of :nickname
 
   after_save :take_nickname_from_authentication
 
@@ -30,6 +31,7 @@ class User < ActiveRecord::Base
   def take_nickname_from_authentication
     nickname = authentications.first.nickname
     self.nickname = nickname
+    self.slug = nickname
   end
 
   def authentication_by_provider provider
