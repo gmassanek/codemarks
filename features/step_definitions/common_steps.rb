@@ -9,3 +9,10 @@ end
 When /^I click "([^"]*)"$/ do |arg1|
   page.click_link_or_button(arg1)
 end
+
+Given /^I am a logged in user$/ do
+  visit '/'
+  page.click_link('sign in with twitter')
+  @user = User.last
+end
+
