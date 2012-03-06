@@ -1,7 +1,7 @@
 development:
   adapter:   postgresql
   encoding:  unicode
-  database:  codemarks_server_backup
+  database:  codemarks_development
   pool: 5
   min_messages: warning
 
