@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Authenticator do
-  let (:auth_hash) { {"uid" => 9} }
+  let (:auth_hash) { {"uid" => 9, "info" => {"nickname" => Faker::Internet.user_name} } }
   let (:authentication) { Fabricate(:authentication, uid: auth_hash["uid"]) }
 
   context "#find_or_create_user_from_auth_hash" do
