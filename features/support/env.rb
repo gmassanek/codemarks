@@ -57,15 +57,27 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 Before('@omniauth_test_success') do
   OmniAuth.config.test_mode = true
 
+  OmniAuth.config.mock_auth[:twitter] = {
+    "provider"  => "twitter",
+    "uid"       => '12345',
+    "info" => {
+      "nickname"  => "gmassanek",
+      "email" => "email@email.com",
+      "first_name" => "John",
+      "last_name"  => "Doe",
+      "name"       => "John Doe"
+    }
+  }
+
   OmniAuth.config.mock_auth[:facebook] = {
     "provider"  => "facebook",
     "uid"       => '12345',
     "info" => {
+      "nickname"  => "gmassanek",
       "email" => "email@email.com",
       "first_name" => "John",
       "last_name"  => "Doe",
-      "name"       => "John Doe",
-      "nickname"  => "gmassanek",
+      "name"       => "John Doe"
     }
   }
 end

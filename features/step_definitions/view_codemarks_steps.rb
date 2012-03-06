@@ -1,9 +1,3 @@
-Given /^I am a logged in user$/ do
-  visit '/'
-  page.click_link('sign in with twitter')
-  @user = User.last
-end
-
 Given /^I have (\d+) codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do 
