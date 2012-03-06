@@ -71,8 +71,10 @@ describe Authenticator do
 
     it "creates a new user authentication if it's new" do
       user.save!
+      # Shouldn't have to do this
+      user.authentications
       lambda {
-        Authenticator.add_authentication_to_user(user, "twitter", auth_hash)
+        Authenticator.add_authentication_to_user(user, "github", auth_hash)
       }.should change(Authentication, :count).by(1)
     end
   end
