@@ -56,6 +56,5 @@ def simulate_github_signed_in
 end
 
 def authenticated_user
-  auth = Fabricate.build(:authentication)
-  user = auth.user
+  user = Fabricate(:user)
 end
