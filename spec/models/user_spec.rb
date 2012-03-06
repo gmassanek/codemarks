@@ -2,19 +2,10 @@ require 'spec_helper'
 
 describe User do
 
-  #it "requires an email" do
-  #  user = Fabricate.build(:user)
-  #  user.email = nil
-  #  user.should_not be_valid
-  #end
-
   let(:user) { authenticated_user }
   let!(:authentication) { user.authentications.first }
 
-  it "requires at least one authentication", broken: true do
-    # TODO Broken because of fabrications
-    user.should_not be_valid
-  end
+  it "requires at least one authentication"
 
   context "finds an authentication by provider" do
     it "if one exists" do
