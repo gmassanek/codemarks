@@ -2,7 +2,6 @@ class CodemarksController < ApplicationController
 
   def build_linkmark
     @codemark = Codemark.prepare(:link, params[:resource_attrs])
-    p @codemark
   end
 
   def create
