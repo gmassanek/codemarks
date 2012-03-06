@@ -9,6 +9,7 @@ describe User do
   #end
 
   let(:user) { authenticated_user }
+  let!(:authentication) { user.authentications.first }
 
   it "requires at least one authentication", broken: true do
     # TODO Broken because of fabrications
@@ -17,10 +18,11 @@ describe User do
 
   context "finds an authentication by provider" do
     it "if one exists" do
-      authentication = Fabricate(:authentication, user: user, provider: "twitter")
       user.authentication_by_provider("twitter").should == authentication
     end
+
     it "returns nil if there isn't one" do
+      user.update_attribute(:authentications, [])
       user.authentication_by_provider("twitter").should be_nil
     end
   end
@@ -38,7 +40,7 @@ describe User do
 
   context "grabs extra information from it's authentications" do
     it "uses an authentication name if none has been explicitly set on the user" do
-      authentication = Fabricate(:authentication, user: user, provider: "twitter", name: "John Smith")
+      authentication.update_attribute(:name, "John Smith")
       user.get(:name).should == "John Smith"
     end
 
@@ -50,8 +52,8 @@ describe User do
   end
 
   it "finds users by email through authentications" do
-    authentication = Fabricate(:authentication)
-    user = authentication.user
+    user = Fabricate(:user)
+    authentication = user.authentications.first
     user.authentication_by_provider(:twitter).provider.should == "twitter"
     found_user = User.find_by_email(authentication.email)
     found_user.should == user

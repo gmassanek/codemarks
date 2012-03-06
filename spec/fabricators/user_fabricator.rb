@@ -1,5 +1,5 @@
 Fabricator(:user) do
-  #email { Faker::Internet.email }
+  authentications(:count => 1) { |user| Fabricate(:authentication, :user => user) }
 end
 
 Fabricator(:active_user, :from => :user) do
