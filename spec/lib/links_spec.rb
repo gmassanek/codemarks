@@ -1,5 +1,7 @@
 require 'fast_helper'
 
+class LinkRecord; end
+
 describe Link do
   let(:valid_url) { "http://www.example.com" }
   let(:resource_attrs) { { url: valid_url } }
