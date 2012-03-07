@@ -94,4 +94,3 @@ describe "New Codemark Form" do
   it "removes a codemark from view when you archive it"
 
 end
-
