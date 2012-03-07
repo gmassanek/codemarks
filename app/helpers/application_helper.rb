@@ -22,4 +22,9 @@ module ApplicationHelper
   def tab_class(path)
     'active' if current_page?(path)
   end
+
+  def sort_class(sort, default = false)
+    current_sort = params[:by]
+    'active' if (current_sort == sort || (!current_sort && default))
+  end
 end
