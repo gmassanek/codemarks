@@ -6,15 +6,22 @@ class FindCodemarks
   end
 
   def codemarks
+    @topic = Topic.find(@topic) if @topic
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user]) if @user
 
     query = CodemarkRecord.scoped
-    query = query.select('*')
+    query = query.select('"codemark_records".*, save_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
     query = query.where("summary.rk = 1")
 
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.link_record_id = counts.link_record_id")
+
+    if @topic
+      query = query.joins("INNER JOIN codemark_topics cm_topics on codemark_records.id = cm_topics.codemark_record_id")
+      p @topic
+      query = query.where(['cm_topics.topic_id = ?', @topic.id])
+    end
 
     query = query.includes(:link_record)
     query = query.includes(:topics)
@@ -57,11 +64,12 @@ class FindCodemarks
 
   def order_by_text
     order_by_text = order_texts[@by.to_s]
-    order_by_text ||= 'created_at DESC'
+    order_by_text ||= order_texts["default"]
   end
 
   def order_texts
     {
+      "default" => '"codemark_records".created_at DESC',
       "count" => 'save_count DESC'
     }
   end
