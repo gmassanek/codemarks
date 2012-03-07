@@ -28,55 +28,17 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find params[:id]
-    #@resources = @topic.links.scoped
 
-    #if !logged_in?
-    #  @resources = @resources.all_public
-    #elsif filter_by_mine?
-    #  @resources = @resources.for_user(current_user)
-    #else
-    #  @resources = @resources.public_and_for_user(current_user)
-    #end
+    search_attributes = {}
+    search_attributes[:topic] = @topic
+    search_attributes[:page] = params[:page] if params[:page]
+    search_attributes[:by] = params[:by] if params[:by]
 
-    #if params[:sort] == "recent_activity"
-    #  @resources = @resources.by_create_date
-    #else
-    #  params[:sort] = 'popularity'
-    #  @resources = @resources.by_popularity
-    #end
-
-    #@resources = @resources.page params[:pg]
-    @resources = []
-    @topics = {}
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @codemarks = FindCodemarks.new(search_attributes).codemarks
   end
 
   def index
-
-      @topics = Topic.all
-    #if !logged_in?
-    #  @topics = Topic.all
-    #elsif filter_by_mine?
-    #  @topics = Topic.for_user(current_user)
-    #else
-    #  @topics = current_user.topics
-    #end
-
-    #sort_order = params[:sort]
-    #if sort_order == 'resource_count'
-    #  @topics = @topics.by_resource_count
-    #elsif sort_order == 'recent_activity'
-    #  @topics = @topics.by_recent_activity
-    #else 
-    #  params[:sort] = 'popularity'
-    #  @topics = @topics.by_popularity
-    #end
-
-    #@topics = @topics.page params[:pg]
+    @topics = Topic.all
 
     respond_to do |format|
       format.html
