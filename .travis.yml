@@ -7,5 +7,6 @@ before_script:
   #- "export DISPLAY=:99.0"
   #- "sh -e /etc/init.d/xvfb start"
 script:
-  - bundle exec rspec spec/lib
   - bundle exec rspec spec/fast
+  - bundle exec rspec spec/lib spec/controllers spec/integration spec/models
+  - bundle exec cucumber
