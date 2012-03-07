@@ -28,6 +28,13 @@ describe FindCodemarks do
       all_cms = FindCodemarks.new
       all_cms.codemarks.first.save_count.should == "2"
     end
+
+    it "returns the save count when scoped by user" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      all_cms = FindCodemarks.new(:user => user)
+      all_cms.codemarks.first.save_count.should == "2"
+    end
   end
 
   context "for a user" do
