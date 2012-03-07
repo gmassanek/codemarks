@@ -37,22 +37,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user
 
-    if params[:filter]
-      session[:filter] = params[:filter]
-    end
-    if params[:sort]
-      session[:sort] = params[:sort]
-    end
+    search_attributes = {}
+    search_attributes[:user] = @user if @user
+    search_attributes[:page] = params[:page] if params[:page]
+    search_attributes[:by] = params[:by] if params[:by]
 
-    @clicks = @user.clicks.group_by { |click| click.link.id }
-    @codemarks = []
-    @links = []
+    @codemarks = FindCodemarks.new(search_attributes).codemarks
+    @topics = {}
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    render 'users/dashboard'
   end
 end
