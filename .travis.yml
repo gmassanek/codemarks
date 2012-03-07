@@ -8,5 +8,6 @@ before_script:
   #- "sh -e /etc/init.d/xvfb start"
 script:
   - bundle exec rspec spec/fast
-  - bundle exec rspec spec/lib spec/controllers spec/integration spec/models
+  - bundle exec rspec spec/lib 
+  - bundle exec rspec spec/controllers spec/integration spec/models
   - bundle exec cucumber
