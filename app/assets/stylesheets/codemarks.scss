@@ -20,15 +20,12 @@
     line-height: 16px;
     border-bottom: 1px solid $border-color2;
 
-
     h3 {
       float: left;
       font-size: 13px;
 
       a {
         font-size: 16px;
-        //font-weight: normal;
-        //color: $c5;
 
         &:hover {
           color: $c5;
@@ -69,9 +66,10 @@
       .time {
         float: left;
       }
+
       .saver {
         float: left;
-        margin-right: 3px;
+        margin-left: 3px;
       }
     }
 
