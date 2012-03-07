@@ -42,6 +42,16 @@ describe FindCodemarks do
     end
   end
 
+  context "for a topic" do
+    let(:topic) { @cm.topics.first }
+    let(:find_by_topic) { FindCodemarks.new(:topic => topic) }
+
+    it "gets all the Codemarks" do
+      cm3 = Fabricate(:codemark_record, :topic_ids => [topic.id])
+      find_by_topic.codemarks.collect(&:id).should =~ [@cm.id, cm3.id]
+    end
+  end
+
   context "public" do
     it "should find all codemarks regardless of user" do
       user = Fabricate(:user)
