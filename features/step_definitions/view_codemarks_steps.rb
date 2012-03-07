@@ -28,6 +28,17 @@ Given /^I have a codemarks called "([^"]*)"$/ do |title|
   Fabricate(:codemark_record, :link_record => link_record, :user => @user)
 end
 
+Given /^there are (\d+) codemarks for "([^"]*)"$/ do |num_codemarks, topic_title|
+  @topic = Fabricate(:topic, :title => topic_title)
+  num_codemarks.to_i.times do
+    Fabricate(:codemark_record, :topic_ids => [@topic.id])
+  end
+end
+
+When /^I go to the "([^"]*)" topic page$/ do |topic_title|
+  visit topic_path(@topic)
+end
+
 When /^I go to my dashboard$/ do
   visit '/'
 end
