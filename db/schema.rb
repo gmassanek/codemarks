@@ -76,13 +76,6 @@ ActiveRecord::Schema.define(:version => 20120306020617) do
 
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
 
-  create_table "user_topics", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email"
     t.datetime "created_at"
