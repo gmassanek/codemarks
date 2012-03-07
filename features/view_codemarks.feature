@@ -42,3 +42,9 @@ Feature: View Codemarks
     When I go to my dashboard
     And I click "by count"
     Then I should see that codemark first
+
+  Scenario: Can view codemarks on topics
+    Given there are 5 codemarks for "rspec"
+    When I go to the "rspec" topic page
+    Then I should see 5 codemarks
+
