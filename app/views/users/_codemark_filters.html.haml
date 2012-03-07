@@ -1,12 +1,14 @@
 #filters_and_sorts
-  %ul.tabs#filters
-    %li{:class => tab_class(dashboard_path)}
-      = link_to "dashboard", dashboard_path
-    %li{:class => tab_class(public_codemarks_path)}
-      = link_to "public", public_codemarks_path
+  - if tabs
+    %ul.tabs#filters
+      %li{:class => tab_class(dashboard_path)}
+        = link_to "dashboard", dashboard_path
+      %li{:class => tab_class(public_codemarks_path)}
+        = link_to "public", public_codemarks_path
+  = paginate @codemarks, :window => 5, :param_name => :page
   %ul.pills#sorts
-    %li{:class => "#{params[:by] == "count" ? 'active' : ' '}"}
+    %li{:class => sort_class('count')}
       = link_to "by count", url_for(:only_path => true, by: :count)
-    %li{:class => "#{params[:by] == "date" ? 'active' : ' '}"}
+    %li{:class => sort_class('date', true)}
       = link_to "by date", url_for(:only_path => true, by: :date)
   .clear

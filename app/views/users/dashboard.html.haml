@@ -1,6 +1,5 @@
-= render '/users/codemark_filters', tabs: true
+= render '/users/codemark_filters', :tabs => true
 
 %ul#codemarks
   - @codemarks.each do |c|
     = render 'shared/codemark', :codemark => c
-= paginate @codemarks, :window => 5, :param_name => :page
