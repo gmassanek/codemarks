@@ -1,14 +1,14 @@
 #page_details
   %p.title= link_to @topic.title, @topic, :class => "title"
   %ul.data.piped
-    /%li.first= pluralize(@topic.codemarks.count, "codemark")
     %li.last= link_to "Edit", edit_topic_path(@topic)
-    /li=# link_to "Delete", @topic, :method => :delete
   .clear
   %p.description= @topic.description
   .clear
 
+= render '/users/codemark_filters', :tabs => false
+
 %ul#codemarks
-  =# render 'resources_list_header', :title => "Resources"
-  - @resources.each do |link|
-    = render '/shared/codemark', link:link
+  - @codemarks.each do |c|
+    = render 'shared/codemark', :codemark => c
+= paginate @codemarks, :window => 5, :param_name => :page
