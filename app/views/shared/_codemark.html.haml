@@ -7,10 +7,14 @@
   .clear
   = render '/shared/codemark_topics', link: link, topics: codemark.topics
   .details
+    .time #{time_ago_in_words(link.created_at)} ago
     - author = codemark.user
     - name ||= author.get(:nickname)
     - name ||= author.get(:name)
+    - other_count = codemark.save_count.to_i-1
     - if name.present?
-      .saver By #{link_to name, user_path(author)}
-    .time #{time_ago_in_words(link.created_at)} ago
+      .saver
+        by #{link_to name, user_path(author)}
+        - if other_count > 0
+          and #{codemark.save_count.to_i-1 } others
     .clear

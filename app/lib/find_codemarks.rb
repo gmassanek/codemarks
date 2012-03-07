@@ -40,7 +40,6 @@ class FindCodemarks
   def count_query
     count_query = CodemarkRecord.scoped.select("link_record_id, count(*) as save_count")
     count_query = count_query.group(:link_record_id)
-    count_query = count_query.where(['user_id = ?', @user]) if @user
     count_query
   end
 
