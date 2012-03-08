@@ -98,12 +98,12 @@ describe FindCodemarks do
       find_by_user_paged.codemarks.all.count.should == 1
     end
     
-    it "defaults to 10 per page" do
+    it "defaults to 15 per page" do
       15.times do
         Fabricate(:codemark_record)
       end
       all_cms = FindCodemarks.new
-      all_cms.codemarks.all.count.should == 10
+      all_cms.codemarks.all.count.should == 15
     end
   end
 end

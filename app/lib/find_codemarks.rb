@@ -54,7 +54,7 @@ class FindCodemarks
   end
 
   def per_page
-    @per_page ||= 10
+    @per_page ||= 15
   end
 
   def order(scope)
