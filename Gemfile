@@ -21,13 +21,16 @@ gem 'newrelic_rpm'
 gem 'pg'
 
 group :development, :test do
-  gem 'cucumber-rails'
   gem 'rspec-rails', '~> 2.8.0'
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara'
   gem 'jasminerice'
   gem 'cucumber'
+  gem 'cucumber-rails'
+end
+
+group :test do
   gem 'cucumber-rails'
 end
 
