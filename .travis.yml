@@ -7,4 +7,4 @@ script:
   - bundle exec rspec spec/fast
   - bundle exec rspec spec/lib 
   - bundle exec rspec spec/controllers spec/integration spec/models
-  - "bundle exec cucumber --tags @javascript"
+  - "bundle exec cucumber --tags ~@javascript"
