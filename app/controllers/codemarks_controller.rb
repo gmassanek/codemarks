@@ -7,6 +7,8 @@ class CodemarksController < ApplicationController
   def create
     topic_ids = params[:tags].keys.collect(&:to_i) if params[:tags]
     topic_ids ||= []
+
+    Rails.logger.info(topic_ids.inspect)
     @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], topic_ids, current_user)
 
     redirect_to root_path, :notice => 'Thanks!'

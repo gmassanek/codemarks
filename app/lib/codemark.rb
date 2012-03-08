@@ -15,11 +15,11 @@ class Codemark
     cm = self.new(type, resource, topics)
   end
 
-  def self.create(codemark_attrs, resource_attrs, topics_ids, user)
+  def self.create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
     link = LinkRecord.find_by_id(resource_attrs[:id])
     link ||= LinkRecord.create(resource_attrs)
     codemark_attrs[:link_record] = link
-    codemark_attrs[:topic_ids] = topics_ids
+    codemark_attrs[:topic_ids] = build_topics(topics_ids, options[:new_topic_titles])
     codemark_attrs[:user] = user
     codemark_record = CodemarkRecord.create(codemark_attrs)
   end
@@ -35,5 +35,13 @@ class Codemark
     #@type.to_s.capitalize.constantize
     #TODO Should work but constantize isn't loaded!
     Link
+  end
+
+  def self.build_topics(topic_ids, new_topic_titles)
+    return topic_ids if new_topic_titles.nil?
+    new_topic_titles.each do |title|
+      topic_ids << Topic.create!(:title => title).id
+    end
+    topic_ids
   end
 end
