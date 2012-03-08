@@ -15,7 +15,9 @@ test: &TEST
 production:
   adapter:   postgresql
   encoding:  unicode
-  database:  codemarks_production
+  username:  codemarks
+  passowrd:  codemarks
+  database:  codemarks
   pool: 5
   min_messages: warning
 
