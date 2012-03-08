@@ -20,12 +20,15 @@ gem 'therubyracer'
 gem 'pg'
 
 group :development, :test do
-  gem 'cucumber-rails'
   gem 'rspec-rails', '~> 2.8.0'
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara'
   gem 'jasminerice'
+end
+
+group :test do
+  gem 'cucumber-rails'
 end
 
 group :assets do
