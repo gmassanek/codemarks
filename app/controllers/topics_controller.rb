@@ -20,7 +20,7 @@ class TopicsController < ApplicationController
   def update
     @topic = Topic.find params[:id]
     if @topic.update_attributes params[:topic]
-      redirect_to topics_path, :notice => "Topic updated"
+      redirect_to @topic, :notice => "Topic updated"
     else
       render :edit
     end
