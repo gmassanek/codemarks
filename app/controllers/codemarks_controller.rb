@@ -8,8 +8,10 @@ class CodemarksController < ApplicationController
     topic_ids = params[:tags].keys.collect(&:to_i) if params[:tags]
     topic_ids ||= []
 
+    new_topic_titles = params[:topic_ids].keys if params[:topic_ids] 
+
     Rails.logger.info(topic_ids.inspect)
-    @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], topic_ids, current_user)
+    @codemark = Codemark.create(params[:codemark_attrs], params[:resource_attrs], topic_ids, current_user, :new_topic_titles => new_topic_titles)
 
     redirect_to root_path, :notice => 'Thanks!'
   end
