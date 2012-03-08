@@ -30,7 +30,7 @@ Feature: View Codemarks
     Then I should see 6 codemarks
 
   Scenario: Codemarks are paged
-    Given there are 15 random codemarks
+    Given there are 20 random codemarks
     When I go to the public page
     And I click "2"
     Then I should see 5 codemarks
