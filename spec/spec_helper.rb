@@ -9,6 +9,7 @@ include Codemarks
 include OOPs
 
 TEST_BROKEN = false
+SKIP_JS = true
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::Matchers::MatchArray)
@@ -16,6 +17,9 @@ RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::M
 RSpec.configure do |config|
   if TEST_BROKEN == false
     config.filter_run_excluding :broken => true
+  end
+  if SKIP_JS == true
+    config.filter_run_excluding :js => true
   end
 
   config.mock_with :rspec
@@ -52,7 +56,9 @@ def simulate_signed_in
 end
 
 def simulate_github_signed_in
-  @user = Fabricate(:github_user)
+  visit root_path
+  page.click_link("sign in with github")
+  @user = User.last
 end
 
 def authenticated_user
