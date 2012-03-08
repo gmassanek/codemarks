@@ -46,13 +46,13 @@ OmniAuth.config.add_mock(:github, {
 })
 
 def simulate_signed_in
-  visit '/auth/twitter'
+  visit root_path
+  page.click_link("sign in with twitter")
   @user = User.last
 end
 
 def simulate_github_signed_in
-  visit '/auth/github'
-  @user = User.last
+  @user = Fabricate(:github_user)
 end
 
 def authenticated_user
