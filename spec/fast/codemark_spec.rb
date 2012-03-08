@@ -94,7 +94,20 @@ describe Codemark do
       end
     end
 
-    it "creates new topics if the topic has not been saved before"
+    it "creates new topics if the topic has not been saved before" do
+      user = stub
+      topic_ids = [1]
+      link = stub(:id => 1)
+      LinkRecord.stub!(:create => link)
+
+      codemark_attrs = {:type => :link}
+      topic_stub = stub(:topic, :id => 99)
+      full_attrs = {:type => :link, :link_record => link, :topic_ids => [1, 99], :user => user}
+
+      Topic.should_receive(:create!).with(:title => "backbone").and_return(topic_stub)
+      CodemarkRecord.should_receive(:create).with(full_attrs)
+      Codemark.create(codemark_attrs, {}, topic_ids, user, :new_topic_titles => ["backbone"])
+    end
     it "creates or gathers tags"
   end
 end
