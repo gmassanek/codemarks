@@ -31,6 +31,10 @@
     $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
   }
 
+  $(function() {
+    prepareTagDeletes();
+  });
+
 = form_tag codemarks_path, id: "codemark_form", class: 'second' do
   #first
     = url_field_tag "resource_attrs[url]", @codemark.resource.url
