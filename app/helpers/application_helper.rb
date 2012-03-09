@@ -5,14 +5,14 @@ module ApplicationHelper
   end
 
   def bookmarklet_url
-    javascript_prefix = "javascript:"
-    file = File.open(File.join(Rails.root, "public", "bookmarklet.js"), "r").collect
-    lines = file.collect { |line| line.strip }
-    escaped = javascript_prefix + url_encode_text(lines.join(" "))
-    user_id = current_user_id
-    user_id ||= 0
-    with_user_id = escaped.gsub("USER_ID", user_id.to_s)
-    with_user_id
+    if current_user_id
+      javascript_prefix = "javascript:"
+      file = File.open(File.join(Rails.root, "public", "bookmarklet.js"), "r").collect
+      lines = file.collect { |line| line.strip }
+      escaped = javascript_prefix + url_encode_text(lines.join(" "))
+      with_user_id = escaped.gsub("USER_ID", current_user_id.to_s)
+      with_user_id
+    end
   end
 
   def url_encode_text text
