@@ -5,6 +5,13 @@
     }
   });
 
+  $(document).keyup(function(e) {
+    if (e.keyCode == 27) {
+      $('#codemark_form').replaceWith("#{ escape_javascript(render('/codemarks/form')) }");
+    }
+  });
+
+  $('input[data-autocomplete]').railsAutocomplete();
   $("#link_form_topic_autocomplete").keydown(function(e) {
     if (e.keyCode == 13) {
       if($("#link_form_topic_count").val() == 0) {
@@ -17,12 +24,6 @@
           beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
         });
       }
-    }
-  });
-
-  $(document).keyup(function(e) {
-    if (e.keyCode == 27) {
-      $('#codemark_form').replaceWith("#{ escape_javascript(render('/codemarks/form')) }");
     }
   });
 
