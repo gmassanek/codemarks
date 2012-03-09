@@ -13,7 +13,8 @@ class ListenerController < ApplicationController
     if @user
       url = params[:l]
 
-      @success = IncomingEmailParser.save_bookmarklet(@user, url).present?
+      @codemark = Codemark.create(:link, :url => url)
+      Codemark.create(:link, :url => url)
       respond_to do |format|
         format.js
       end
