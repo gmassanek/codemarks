@@ -16,7 +16,7 @@ production:
   adapter:   postgresql
   encoding:  unicode
   username:  codemarks
-  passowrd:  codemarks
+  password:  codemarks
   database:  codemarks
   pool: 5
   min_messages: warning
