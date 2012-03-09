@@ -4,7 +4,7 @@ class ListenerController < ApplicationController
     @user_id = params[:id]
 
     respond_to do |format|
-      format.html { render :layout => nil }
+      format.js
     end
   end
 
