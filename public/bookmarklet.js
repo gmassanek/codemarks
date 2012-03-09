@@ -22,6 +22,7 @@ function waitForJquery(cnt) {
     $.ajax({
       url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
       context: document.body,
+      dataType: "script",
       success: function(response) {
         console.log(response);
         $(this).append(response);
