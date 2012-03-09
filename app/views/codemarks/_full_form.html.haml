@@ -32,7 +32,17 @@
   }
 
   $(function() {
-    prepareTagDeletes();
+    $("#topic_tags .delete").click(function(event) {
+      event.preventDefault();
+      $(event.currentTarget).closest("li").fadeOut(100, function() {
+        $(this).remove();
+        var topics_count = $("#topic_tags li").length;
+        if(topics_count == 0) {
+          $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+          //$("#save_codemark").attr('disabled', 'disabled');
+        }
+      });
+    });
   });
 
 = form_tag codemarks_path, id: "codemark_form", class: 'second' do
