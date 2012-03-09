@@ -8,6 +8,10 @@ function cml1() {
       var z=d.createElement('script');
       z.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
       b.appendChild(z);
+
+      var z=d.createElement('script');
+      z.setAttribute('src','https://www.codemarks.org/autocomplete-rails.js.js');
+      b.appendChild(z);
     }
     waitForJquery(0);
   }
