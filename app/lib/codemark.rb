@@ -33,6 +33,15 @@ class Codemark
     end
   end
 
+  def self.build_and_create(user, type, resource_attrs)
+    prepared_codemark = prepare(type, resource_attrs)
+
+    Codemark.create({},
+                    prepared_codemark.resource.resource_attrs,
+                    prepared_codemark.topics.collect(&:id),
+                    user)
+  end
+
   private
   def initialize(type, resource, topics)
     @type = type

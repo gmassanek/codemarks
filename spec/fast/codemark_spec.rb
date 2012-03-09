@@ -78,22 +78,20 @@ describe Codemark do
       Codemark.create(codemark_attrs, {}, topic_ids, user)
     end
 
-    it "doesn't create a second codemark" do
+    it "creates new topics if the topic has not been saved before" do
       user = stub
-      topic_ids = [1, 2, 3]
+      topic_ids = [1]
       link = stub(:id => 1)
       LinkRecord.stub!(:create => link)
 
       codemark_attrs = {:type => :link}
-      full_attrs = {:type => :link, :topic_ids => [1, 2, 3]}
+      topic_stub = stub(:topic, :id => 99)
+      full_attrs = {:type => :link, :link_record => link, :topic_ids => [1, 99], :user => user}
 
-      cm_record = stub(:topic_ids => [1])
-
-      CodemarkRecord.should_receive(:for_user_and_link).with(user, link).and_return(cm_record)
-      CodemarkRecord.should_not_receive(:create)
-      cm_record.should_receive(:update_attributes).with(full_attrs)
-
-      Codemark.create(codemark_attrs, {}, topic_ids, user)
+      Topic.should_receive(:create!).with(:title => "backbone").and_return(topic_stub)
+      CodemarkRecord.should_receive(:create).with(full_attrs)
+      CodemarkRecord.stub!(:for_user_and_link)
+      Codemark.create(codemark_attrs, {}, topic_ids, user, :new_topic_titles => ["backbone"])
     end
 
     context "when a resource already exists" do
@@ -114,21 +112,17 @@ describe Codemark do
         Codemark.create(codemark_attrs, resource_attrs, [1], user)
       end
     end
+    it "creates or gathers tags"
+  end
 
-    it "creates new topics if the topic has not been saved before" do
+  describe "#build_and_create" do
+    it "creates a codemark" do
+      Topic.stub(:all => [])
       user = stub
-      topic_ids = [1]
-      link = stub(:id => 1)
-      LinkRecord.stub!(:create => link)
-
-      codemark_attrs = {:type => :link}
-      topic_stub = stub(:topic, :id => 99)
-      full_attrs = {:type => :link, :link_record => link, :topic_ids => [1, 99], :user => user}
-
-      Topic.should_receive(:create!).with(:title => "backbone").and_return(topic_stub)
+      LinkRecord.should_receive(:create)
+      CodemarkRecord.should_receive(:create)
       CodemarkRecord.stub!(:for_user_and_link)
-      CodemarkRecord.should_receive(:create).with(full_attrs)
-      Codemark.create(codemark_attrs, {}, topic_ids, user, :new_topic_titles => ["backbone"])
+      Codemark.build_and_create(user, :link, :url => valid_url)
     end
   end
 end
