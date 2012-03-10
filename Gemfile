@@ -27,7 +27,6 @@ group :development, :test do
   gem 'capybara'
   gem 'jasminerice'
   gem 'cucumber'
-  gem 'cucumber-rails'
 end
 
 group :test do
