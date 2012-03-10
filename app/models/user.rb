@@ -20,6 +20,13 @@ class User < ActiveRecord::Base
     User.find(id)
   end
 
+  def self.find_by_authentication(provider, nickname)
+    User.find(:first,
+              :joins => :authentications,
+              :conditions => {:authentications => {:provider => provider, :nickname => nickname}}
+             )
+  end
+
   def take_nickname_from_authentication
     nickname = authentications.first.nickname
     self.nickname = nickname
