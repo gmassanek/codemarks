@@ -46,8 +46,8 @@ class LinksController < ApplicationController
   end
 
   def click
-    @link = Link.find(params[:link][:id])
-    Click.create(:link => @link, :user => current_user)
+    @link = LinkRecord.find(params[:link][:id])
+    Click.create(:link_record => @link, :user => current_user)
     respond_to do |format|
       format.js
     end
