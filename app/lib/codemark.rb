@@ -20,14 +20,15 @@ class Codemark
     link ||= LinkRecord.create(resource_attrs)
 
     existing_codemark = CodemarkRecord.for_user_and_link(user, link)
+    topic_ids = build_topics(topics_ids, options[:new_topic_titles])
     if existing_codemark
-      combination_of_topic_ids = topics_ids | existing_codemark.topic_ids
+      combination_of_topic_ids = topics_ids
       codemark_attrs[:topic_ids] = combination_of_topic_ids
       existing_codemark.update_attributes(codemark_attrs)
     else
       codemark_attrs[:link_record] = link
       codemark_attrs[:user] = user
-      codemark_attrs[:topic_ids] = build_topics(topics_ids, options[:new_topic_titles])
+      codemark_attrs[:topic_ids] = topic_ids
       codemark_record = CodemarkRecord.create(codemark_attrs)
     end
   end
