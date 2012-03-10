@@ -35,8 +35,26 @@ class ListenerController < ApplicationController
   end
 
   def github
-    Rails.logger.info "Hello!!"
-    Rails.logger.info params["payload"]["commits"]
+    payload = params[:payload]
+    payload = JSON.parse(payload)
+    user_name = payload["pusher"]["name"]
+    user = User.find_by_authentication("github", user_name)
+
+    codemarks = []
+    payload["commits"].each do |commit|
+      message = commit["message"]
+      if message.include?("#cm")
+        url = commit["url"]
+        codemarks << Codemark.prepare(:link, {:url => url})
+      end
+    end
+
+    codemarks.each do |cm|
+      Codemark.create({},
+                      cm.resource.resource_attrs,
+                      cm.topics.collect(&:id),
+                      user)
+    end
 
     respond_to do |format|
       format.html { head :ok }

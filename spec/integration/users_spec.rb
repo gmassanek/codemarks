@@ -44,6 +44,15 @@ describe "User Profile Page" do
     end
   end
 
+  it "finds a user by authenticaion and username" do
+    user = Fabricate(:user)
+    authentication = user.authentications.first
+    provider = authentication.provider
+    nickname = authentication.nickname
+
+    User.find_by_authentication(provider, nickname).should == user
+  end
+
   context "lets you update your info" do
     before do
       simulate_signed_in
