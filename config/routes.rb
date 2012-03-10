@@ -13,6 +13,7 @@ Codemarks::Application.routes.draw do
 
   post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"
   get 'listener/prepare_bookmarklet', :to => "listener#prepare_bookmarklet", as: "prepare_bookmarklet"
+  get 'listener/bookmarklet', :to => "listener#bookmarklet", as: "bookmarklet"
 
   match 'auth/:provider/callback', to: 'sessions#create'
   get '/about', :to => 'pages#about', :as => :about_path
