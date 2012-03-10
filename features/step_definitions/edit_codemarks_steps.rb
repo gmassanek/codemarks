@@ -10,3 +10,11 @@ Then /^I should see the data for my codemark in the codemark form$/ do
     page.should have_content(codemark.topics.first.title)
   end
 end
+
+When /^I accept the prompt$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+Then /^I not see my codemark$/ do
+  page.should_not have_selector('.codemark')
+end

@@ -28,4 +28,13 @@ class CodemarksController < ApplicationController
     render 'users/dashboard'
   end
 
+  def destroy
+    @codemark = CodemarkRecord.find(params[:id])
+    @codemark.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
