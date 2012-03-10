@@ -1,34 +1,35 @@
 :javascript
-  window.jQuery("#codemark_form").keyup(function(e) {
+  $("#codemark_form").keyup(function(e) {
     if (e.keyCode == 13) {
       e.preventDefault();
     }
   });
 
   function removeForm() {
-    window.jQuery('#codemark_form').dialog('close');
-    window.jQuery('#codemark_form').fadeOut().remove();
+    $('#codemark_form').dialog('close');
+    $('#codemark_form').fadeOut().remove();
   }
 
-  window.jQuery(document).keyup(function(e) {
+  $(document).keyup(function(e) {
     if (e.keyCode == 27) {
       removeForm();
     }
   });
 
-  var topics_count = window.jQuery("#topic_tags li").length;
+  var topics_count = $("#topic_tags li").length;
   if(topics_count == 0) {
-    window.jQuery("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+    $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
   }
 
-  window.jQuery(function() {
-    window.jQuery("#topic_tags .delete").click(function(event) {
+  $(function() {
+    $("#topic_tags .delete").click(function(event) {
       event.preventDefault();
-      window.jQuery(event.currentTarget).closest("li").fadeOut(100, function() {
-        window.jQuery(this).remove();
-        var topics_count = window.jQuery("#topic_tags li").length;
+      $(event.currentTarget).closest("li").fadeOut(100, function() {
+        $(this).remove();
+        var topics_count = $("#topic_tags li").length;
         if(topics_count == 0) {
-          window.jQuery("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+          $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+          //$("#save_codemark").attr('disabled', 'disabled');
         }
       });
     });
@@ -37,9 +38,9 @@
   function ajax_submit() {
     console.log('submitting');
     var url = "http://www.codemarks.org/listener/bookmarklet?";
-    var form_data = window.jQuery("#codemark_form").serialize();
+    var form_data = $("#codemark_form").serialize();
 
-    window.jQuery.ajax({
+    $.ajax({
       url: url + form_data, 
       dataType: "json"
     });
@@ -47,7 +48,7 @@
     removeForm();
   }
 
-  window.jQuery('#codemark_form .btn').click(function(e) {
+  $('#codemark_form .btn').click(function(e) {
     e.preventDefault();
     ajax_submit();
   });
