@@ -134,3 +134,7 @@ ul.piped {
 .field_with_errors input {
   border: 2px red solid;
 }
+
+.pagination .current {
+  text-decoration: underline;
+}
