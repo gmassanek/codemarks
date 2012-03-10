@@ -38,6 +38,7 @@ class ListenerController < ApplicationController
     p "Hello!!"
     p params["payload"]["commits"]
 
+
     respond_to do |format|
       format.html { head :ok }
     end
