@@ -16,7 +16,7 @@ class CodemarksController < ApplicationController
                                 current_user, 
                                 :new_topic_titles => new_topic_titles)
 
-    redirect_to root_path, :notice => 'Thanks!'
+    redirect_to :back, :notice => 'Thanks!'
   end
 
   def public
