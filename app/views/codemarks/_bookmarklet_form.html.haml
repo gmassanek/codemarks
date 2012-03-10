@@ -6,6 +6,7 @@
   });
 
   function removeForm() {
+    $('#codemarklet_container').prev('.ui-dialog-titlebar-close').click()
     $('#codemark_form').dialog('close');
     $('#codemark_form').fadeOut().remove();
   }
