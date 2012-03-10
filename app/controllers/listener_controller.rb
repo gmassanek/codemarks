@@ -38,7 +38,6 @@ class ListenerController < ApplicationController
     Rails.logger.info "Hello!!"
     Rails.logger.info params["payload"]["commits"]
 
-
     respond_to do |format|
       format.html { head :ok }
     end
