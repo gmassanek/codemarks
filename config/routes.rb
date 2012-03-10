@@ -6,7 +6,7 @@ Codemarks::Application.routes.draw do
   get '/profile/edit', to: "users#edit", as: :edit_profile
   get '/about', to: "pages#about", as: :about
 
-  resources :codemarks
+  resources :codemarks, :only => [:create, :destroy]
   get '/codemarks/build_linkmark', to: "codemarks#build_linkmark", as: :build_linkmark
   get '/public', to: "codemarks#public", :as => :public_codemarks
 

@@ -40,7 +40,7 @@ function prepareAutocompletes() {
 }
 
 function prepareCodemarks() {
-  $(".codemark").click(function(event) {
+  $(".codemark_link").click(function(event) {
     $(event.target).closest("li").find("form").submit();
   });
 }
