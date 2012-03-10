@@ -1,0 +1,86 @@
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.ui-widget-overlay { background: #666666 50% 50% repeat; opacity: .50;filter:Alpha(Opacity=50); }
+#codemark_form {
+  z-index: 100;
+  border: 2px solid #dfdfdf;
+  border-radius: 5px;
+  float: left;
+  width: 600px; }
+  #codemark_form #first {
+    width: 520px;
+    margin: 0 auto; }
+    #codemark_form #first input[type=url] {
+      padding: 4px;
+      width: 400px; }
+  #codemark_form .site_search {
+    width: 85%;
+    margin: 0 auto; }
+  #codemark_form .site_search input {
+    width: 85%;
+    margin: 0 auto; }
+  #codemark_form #second {
+    width: 95%;
+    margin: 0 auto; }
+    #codemark_form #second input#codemark_link_title {
+      width: 100%; }
+  #codemark_form.first {
+    border: 2px solid transparent; }
+    #codemark_form.first #second {
+      display: none; }
+  #codemark_form.second {
+    background: white; }
+  #codemark_form ul#topic_tags {
+    font-size: 12px;
+    width: 100%; }
+    #codemark_form ul#topic_tags li {
+      width: 85%;
+      margin: 5px auto;
+      padding: 3px 5px; }
+      #codemark_form ul#topic_tags li .title {
+        float: left; }
+      #codemark_form ul#topic_tags li .delete {
+        float: right;
+        font-size: 10px;
+        font-weight: bold;
+        margin: 4px 3px 0px 5px; }
+        #codemark_form ul#topic_tags li .delete.first {
+          margin-left: none; }
+
+#codemarks ul {
+    list-style: none;
+  }
+#codemarks li {
+
+  padding: 10px 0;
+  line-height: 16px;
+  border-bottom: 1px solid #dfdfdf; }
+  #codemarks li h3 {
+    float: left;
+    font-size: 13px; }
+    #codemarks li h3 a {
+      font-size: 16px; }
+      #codemarks li h3 a:hover {
+        color: #c76f2b; }
+    #codemarks li h3 .pop {
+      font-weight: normal; }
+    #codemarks li h3 .host {
+      color: #98b1ae;
+      font-size: 11px;
+      font-weight: normal; }
+  #codemarks li #topics_tags {
+    float: right; }
+    #codemarks li #topics_tags li {
+      float: left;
+      padding: 0 5px;
+      border-bottom: none; }
+      #codemarks li #topics_tags li:nth-last-child(1) {
+        padding-right: 0;
+        border-right: none; }
+  #codemarks li .details {
+    color: #98b1ae;
+    margin-top: 2px; }
+    #codemarks li .details .time {
+      float: left; }
+    #codemarks li .details .saver {
+      float: left;
+      margin-left: 3px; }

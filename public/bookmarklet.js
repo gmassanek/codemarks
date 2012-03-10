@@ -28,13 +28,24 @@ function cml1() {
 function waitForJquery(cnt) {
   if(cnt>20) return;
   if(window.jQuery) {
-    var z=document.createElement('script');
-    z.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
-    document.body.appendChild(z);
+    var a=document.createElement('script');
+    a.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
+    document.body.appendChild(a);
 
-    var z=document.createElement('script');
-    z.setAttribute('src','http://www.codemarks.org/autocomplete-rails.js');
-    document.body.appendChild(z);
+    var b=document.createElement('script');
+    b.setAttribute('src','http://www.codemarks.org/autocomplete-rails.js');
+    document.body.appendChild(b);
+
+    var c=document.createElement('div');
+    c.setAttribute('id','codemarklet_container');
+    document.body.appendChild(c);
+
+    var d=document.createElement('link');
+    d.setAttribute('href','http://www.codemarks.org/codemarklet.css');
+    d.setAttribute('media','screen');
+    d.setAttribute('rel','stylesheet');
+    d.setAttribute('type','text/css');
+    document.head.appendChild(d);
 
     $.ajax({
       url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
