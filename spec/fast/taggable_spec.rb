@@ -56,11 +56,18 @@ describe Taggable do
     end
 
     it "defers to existing_tags if the taggable item already exists" do
-      FindTopics.stub(:existing_topics_for)
-      #FindTopics.stub(:for_resource)
+      FindTopics.stub(:existing_topics_for).and_return([1,2,3,4,5])
       LinkRecord.should_receive(:find).with(5)
       taggable_instance.stub(:id => 5)
       Tagger.should_not_receive(:tag)
+      taggable_instance.proposed_tags
+    end
+
+    it "ignores existing_tags if there aren't enough" do
+      FindTopics.stub(:existing_topics_for).and_return([])
+      LinkRecord.should_receive(:find).with(5)
+      taggable_instance.stub(:id => 5)
+      Tagger.should_receive(:tag).and_return([1,2,3,4,5])
       taggable_instance.proposed_tags
     end
   end
