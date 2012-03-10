@@ -35,6 +35,7 @@ class ListenerController < ApplicationController
   end
 
   def github
-    Rails.logger.info(params)
+    p params
+    p params["payload"]["commits"]
   end
 end
