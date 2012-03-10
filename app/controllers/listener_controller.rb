@@ -35,8 +35,8 @@ class ListenerController < ApplicationController
   end
 
   def github
-    p "Hello!!"
-    p params["payload"]["commits"]
+    Rails.logger.info "Hello!!"
+    Rails.logger.info params["payload"]["commits"]
 
 
     respond_to do |format|
