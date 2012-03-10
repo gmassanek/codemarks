@@ -1,11 +1,3 @@
-Given /^I have (\d+) codemarks$/ do |num|
-  @codemarks = []
-  num.to_i.times do 
-    @codemarks << Fabricate(:codemark_record, :user => @user)
-  end
-  @codemarks
-end
-
 Given /^there are (\d+) random codemarks$/ do |num|
   num.to_i.times do
     Fabricate(:codemark_record)
