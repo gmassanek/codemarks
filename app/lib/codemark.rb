@@ -18,10 +18,18 @@ class Codemark
   def self.create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
     link = LinkRecord.find_by_id(resource_attrs[:id])
     link ||= LinkRecord.create(resource_attrs)
-    codemark_attrs[:link_record] = link
-    codemark_attrs[:topic_ids] = build_topics(topics_ids, options[:new_topic_titles])
-    codemark_attrs[:user] = user
-    codemark_record = CodemarkRecord.create(codemark_attrs)
+
+    existing_codemark = CodemarkRecord.for_user_and_link(user, link)
+    if existing_codemark
+      combination_of_topic_ids = topics_ids | existing_codemark.topic_ids
+      codemark_attrs[:topic_ids] = combination_of_topic_ids
+      existing_codemark.update_attributes(codemark_attrs)
+    else
+      codemark_attrs[:link_record] = link
+      codemark_attrs[:user] = user
+      codemark_attrs[:topic_ids] = build_topics(topics_ids, options[:new_topic_titles])
+      codemark_record = CodemarkRecord.create(codemark_attrs)
+    end
   end
 
   private

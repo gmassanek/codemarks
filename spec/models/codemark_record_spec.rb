@@ -79,4 +79,10 @@ describe CodemarkRecord do
   end
 
   it "finds all codemarks for a link"
+
+  it "finds codemarks for a user and a link combination" do
+    user = Fabricate(:user)
+    codemark_record = Fabricate(:codemark_record, :user => user)
+    CodemarkRecord.for_user_and_link(user, codemark_record.link_record).should == codemark_record
+  end
 end
