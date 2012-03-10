@@ -3,7 +3,10 @@ require_relative 'tagger'
 module Taggable
 
   def proposed_tags
-    return existing_tags if self.id
+    if self.id
+      tags = existing_tags
+      return tags if tags && tags.length > 0
+    end
     tags = []
     tagging_order.each do |attr|
       text_to_tag = self.send(attr)
