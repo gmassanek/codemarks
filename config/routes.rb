@@ -36,4 +36,6 @@ Codemarks::Application.routes.draw do
 
 
   get '/pages/test_bookmarklet?:l&:url', :controller => :pages, :action => :test_bookmarklet, :as => :test_bookarklet
+
+  post '/listener/github'
 end

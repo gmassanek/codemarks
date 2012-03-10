@@ -33,4 +33,8 @@ class ListenerController < ApplicationController
     IncomingEmailParser.parse(params)
     render :nothing => true, :status => 200, :content_type => 'text/html'
   end
+
+  def github
+    Rails.logger.info(params)
+  end
 end
