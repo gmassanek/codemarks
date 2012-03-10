@@ -9,17 +9,21 @@ class ListenerController < ApplicationController
   end
 
   def bookmarklet
-    @user = User.find_by_id(params[:id])
-    if @user
-      url = params[:l]
+    topic_ids = params[:tags].keys.collect(&:to_i) if params[:tags]
+    topic_ids ||= []
 
-      @codemark = Codemark.create(:link, :url => url)
-      Codemark.create(:link, :url => url)
-      respond_to do |format|
-        format.js
-      end
-    else
-      render :nothing => true
+    new_topic_titles = params[:topic_ids].keys if params[:topic_ids] 
+
+    user = User.find(params["user_id"])
+
+    @codemark = Codemark.create(params[:codemark_attrs], 
+                                params[:resource_attrs], 
+                                topic_ids, 
+                                user,
+                                :new_topic_titles => new_topic_titles)
+
+    respond_to do |format|
+      format.json { head :ok }
     end
   end
 

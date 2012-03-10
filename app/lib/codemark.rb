@@ -21,6 +21,7 @@ class Codemark
     codemark_attrs[:link_record] = link
     codemark_attrs[:topic_ids] = build_topics(topics_ids, options[:new_topic_titles])
     codemark_attrs[:user] = user
+    Rails.logger.info(codemark_attrs)
     codemark_record = CodemarkRecord.create(codemark_attrs)
   end
 
