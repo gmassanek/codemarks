@@ -11,22 +11,6 @@
     }
   });
 
-  $('input[data-autocomplete]').railsAutocomplete();
-  $("#link_form_topic_autocomplete").keydown(function(e) {
-    if (e.keyCode == 13) {
-      if($("#link_form_topic_count").val() == 0) {
-        e.preventDefault();
-
-        var entered = $("#link_form_topic_autocomplete").val();
-        $.ajax({
-          url: "/links/topic_checkbox",
-          data: { topic_title: entered},
-          beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
-        });
-      }
-    }
-  });
-
   var topics_count = $("#topic_tags li").length;
   if(topics_count == 0) {
     $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
@@ -46,7 +30,7 @@
     });
   });
 
-= form_tag codemarks_url, id: "codemark_form", class: 'second' do
+= form_tag codemarks_url, id: "codemark_form", class: 'second', :remote => true do
   #first
     = url_field_tag "resource_attrs[url]", @codemark.resource.url
     = submit_tag "Add Link", :id => 'fetch', :class => "btn primary"
@@ -56,5 +40,4 @@
     = text_field_tag "resource_attrs[host]", @codemark.resource.host, :type => :hidden
     = text_field_tag "resource_attrs[title]", @codemark.resource.title, :placeholder => "Title"
     = render '/codemarks/topic_tags_list', :pos_topics => @codemark.topics
-    = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
     .clear
