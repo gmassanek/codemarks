@@ -47,10 +47,8 @@ function waitForJquery(cnt) {
     d.setAttribute('type','text/css');
     document.head.appendChild(d);
 
-    var old$ = $;
-    $ = window.jQuery;
-    if($('#codemark_form').length === 0) {
-      $.ajax({
+    if(window.jQuery('#codemark_form').length === 0) {
+      window.jQuery.ajax({
         url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
         context: document.body,
         dataType: "script"
