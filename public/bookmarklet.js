@@ -47,11 +47,13 @@ function waitForJquery(cnt) {
     d.setAttribute('type','text/css');
     document.head.appendChild(d);
 
-    $.ajax({
-      url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
-      context: document.body,
-      dataType: "script"
-    });
+    if($('#codemark_form').length === 0) {
+      $.ajax({
+        url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
+        context: document.body,
+        dataType: "script"
+      });
+    }
   } else {
     window.setTimeout(function(){waitForJquery(cnt+1)}, 100);
   }
