@@ -35,7 +35,11 @@ class ListenerController < ApplicationController
   end
 
   def github
-    p params
+    p "Hello!!"
     p params["payload"]["commits"]
+
+    respond_to do |format|
+      format.html { head :ok }
+    end
   end
 end
