@@ -1,3 +1,4 @@
 $(function() {
     $('#codemarklet_container').prepend("<%= escape_javascript(render('/codemarks/bookmarklet_form')) %>").dialog({ modal: true });
+    $ = old$;
 });
