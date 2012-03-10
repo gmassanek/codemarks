@@ -5,9 +5,14 @@
     }
   });
 
+  function removeForm() {
+    $('#codemark_form').dialog('close');
+    $('#codemark_form').fadeOut().remove();
+  }
+
   $(document).keyup(function(e) {
     if (e.keyCode == 27) {
-      $('#codemark_form').replaceWith("#{ escape_javascript(render('/codemarks/form')) }");
+      removeForm();
     }
   });
 
@@ -30,21 +35,17 @@
     });
   });
 
-  function success() {
-    console.log('success');
-  }
-
   function ajax_submit() {
     console.log('submitting');
     var url = "http://www.codemarks.org/listener/bookmarklet?";
-    var callback = "callback=?&";
     var form_data = $("#codemark_form").serialize();
+
     $.ajax({
-      url: url + callback + form_data, 
-      dataType: "json",
-      jsonp: success
+      url: url + form_data, 
+      dataType: "json"
     });
-    $("#codemark_form").fadeOut();
+
+    removeForm();
   }
 
   $('#codemark_form .btn').click(function(e) {
