@@ -35,6 +35,7 @@ describe CodemarksController do
       controller.stub!(:current_user => user)
 
       Codemark.should_receive(:create).with(codemark_attrs, resource_attrs, [], user, :new_topic_titles => nil)
+      @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
       post :create, :format => :js, :codemark_attrs => codemark_attrs, :resource_attrs => resource_attrs, :tags => tags
     end
   end
