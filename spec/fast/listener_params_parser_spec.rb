@@ -13,8 +13,14 @@ describe ListenerParamsParser do
     it "extracts a url from an email body" do
       ListenerParamsParser.extract_urls_from_body("hey there http://www.example.com").should == ["http://www.example.com"]
     end
+
     it "extracts multiple urls from an email body" do
       ListenerParamsParser.extract_urls_from_body("http://www.google.com hey there http://www.example.com").should == ["http://www.google.com", "http://www.example.com"]
+    end
+
+    it "doesn't pick up junk from sendgrid" do
+      body = "\n\nBegin forwarded message:\n\n> From: Dave Hoover <dhh@groupon.com>\n> Subject: coderwall\n> Date: March 10, 2012 5:06:52 PM CST\n> To: development@groupon.com\n> \n> If you in any way active on Github, it would rock if you'd hook into coderwall:\n> http://coderwall.com/i/4f271951973bf00004000646/bW1aF0tCM%2Bw\n> \n> I think we can do better than 26th place: http://coderwall.com/leaderboard\n\n"
+      ListenerParamsParser.extract_urls_from_body(body).should == ["http://coderwall.com/i/4f271951973bf00004000646/bW1aF0tCM%2Bw", "http://coderwall.com/leaderboard"]
     end
   end
 
