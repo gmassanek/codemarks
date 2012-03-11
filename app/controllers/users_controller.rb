@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  require 'popularity'
   include OOPs
 
   before_filter :require_user, :only => [:dashboard, :profile]
