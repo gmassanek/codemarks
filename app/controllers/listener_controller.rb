@@ -28,8 +28,11 @@ class ListenerController < ApplicationController
   end
 
   def sendgrid
-    email = params["envelope"]["from"]
+    user = Fabricate(:user, :email => "geoff@gmail.com")
+    email = JSON.parse(params["envelope"])["from"]
+    p email
     user = User.find_by_email(email)
+    p user
 
     if user
       urls = ListenerParamsParser.extract_urls_from_body(params["text"])
