@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  include OOPs
-
   before_filter :require_user, :only => [:dashboard, :profile]
 
   def profile 

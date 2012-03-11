@@ -3,23 +3,32 @@
     - if @user.get(:image).present?
       = image_tag @user.get(:image), class: "profile"
     = "#{@user.get(:name)}" if @user.get(:name)
-    = "(#{@user.get(:nickname)})" if @user.get(:nickname)
+    = "#{@user.get(:nickname)}" if @user.get(:nickname)
     = link_to "Edit", edit_profile_path
-    .icons
-      - twit = image_tag 'twitter.png'
-      - if @user.authentication_by_provider(:twitter).present?
-        = twit
-      - else
-        = link_to twit, sign_in_path(:twitter)
-      - git = image_tag 'github.png'
-      - if @user.authentication_by_provider(:github).present?
-        = git
-      - else
-        = link_to git, sign_in_path(:github)
-    .subtle
-      = "#{@user.get(:email)}" if @user.get(:email)
-      %br
-      = "#{@user.get(:description)}" if @user.get(:description)
-      %br
-      = "#{@user.get(:location)}" if @user.get(:location)
-  .clear
+  %br
+  %br
+  .nickname
+    Nickname:
+    = @user.nickname
+  .email
+    Email:
+    = @user.get(:email)
+  .description
+    Description:
+    = @user.get(:description)
+  .location
+    Location:
+    = @user.get(:location)
+  %br
+  %h4 Authentications (click on image link to add authentication)
+  .icons
+    - twit = image_tag 'twitter.png'
+    - if @user.authentication_by_provider(:twitter).present?
+      = twit
+    - else
+      = link_to twit, '/auth/twitter'
+    - git = image_tag 'github.png'
+    - if @user.authentication_by_provider(:github).present?
+      = git
+    - else
+      = link_to git, '/auth/github'
