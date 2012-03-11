@@ -1,13 +1,7 @@
 require 'spec_helper'
 
 describe "User pages" do
-  context "Dashboard" do
-    it "requires a logged in user" do
-      @user = Fabricate(:user)
-      visit dashboard_path
-      current_path.should == root_path
-    end
-
+  context "Show" do
     context "viewing my own page" do
       before do
         simulate_signed_in
@@ -21,61 +15,10 @@ describe "User pages" do
 
         context "mine" do
           it "is the default" do
-            visit dashboard_path
+            visit short_user_path(@user)
             page.should have_link @my_codemark.title
             page.should_not have_link @his_codemark.title
           end
-        end
-      end
-
-      context "sorts" do
-        it "by save date by default", js: true, broken: true do
-          old_ls = Fabricate(:codemark, :user => @user, :created_at => 3.years.ago)
-          new_ls = Fabricate(:codemark, :user => @user, :created_at => 3.minutes.ago)
-          med_ls = Fabricate(:codemark, :user => @user, :created_at => 3.days.ago)
-          visit dashboard_path
-          page.click_link "by save date"
-          puts Codemark.all.inspect
-          save_and_open_page
-          within("#codemarks li:first-child") do
-            page.should have_link new_ls.title
-          end
-          within("#codemarks li:last-child") do
-            page.should have_link old_ls.title
-          end
-        end
-
-        it "by popularity default when requested", :broken => true do
-          boring = Fabricate(:codemark, :user => @user)
-          3.times { Fabricate(:click, link: boring.link, :user => @user) }
-          popular = Fabricate(:codemark, :user => @user)
-          9.times { Fabricate(:click, link: popular.link, :user => @user) }
-          pretty_good = Fabricate(:codemark, :user => @user)
-          5.times { Fabricate(:click, link: pretty_good.link, :user => @user) }
-
-          visit dashboard_path + "?sort=by_popularity"
-          puts "just clicked 'by popularity'"
-          within("#code_marks li:first-child") do
-            page.should have_link popular.title
-          end
-          within("#code_marks li:last-child") do
-            page.should have_link boring.title
-          end
-        end
-      end
-
-      context "combo sorts and filters", broken: true, js: true do
-        it "maintains a filter after you click a new sort" do
-          my_ls = Fabricate(:codemark, :user => @user)
-          my_ls2 = Fabricate(:codemark, :user => @user)
-          his_ls = Fabricate(:codemark)
-
-          visit dashboard_path
-          page.should_not have_link his_ls.title
-          page.click_link "public codemarks"
-          page.should have_link his_ls.title
-          page.click_link "by popularity"
-          page.should have_link his_ls.title
         end
       end
     end
