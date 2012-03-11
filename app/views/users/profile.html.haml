@@ -1,7 +1,7 @@
 #profile
   %h3
     - if @user.get(:image).present?
-      #{image_tag @user.get(:image), class: "profile"}
+      = image_tag @user.get(:image), class: "profile"
     = "#{@user.get(:name)}" if @user.get(:name)
     = "(#{@user.get(:nickname)})" if @user.get(:nickname)
     = link_to "Edit", edit_profile_path
