@@ -10,7 +10,12 @@ describe ListenerParamsParser do
   end
 
   context "email" do
-    it "parses params for an email"
+    it "extracts a url from an email body" do
+      ListenerParamsParser.extract_urls_from_body("hey there http://www.example.com").should == ["http://www.example.com"]
+    end
+    it "extracts multiple urls from an email body" do
+      ListenerParamsParser.extract_urls_from_body("http://www.google.com hey there http://www.example.com").should == ["http://www.google.com", "http://www.example.com"]
+    end
   end
 
   #let(:params) { {:from => "<Test User> test@example.com" } }

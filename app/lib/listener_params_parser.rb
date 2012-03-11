@@ -3,6 +3,14 @@ class ListenerParamsParser
     def prepare_bookmarklet(params)
       { :url => params[:l] }
     end
+
+    def extract_urls_from_body(body)
+      reg = URI::regexp
+      
+      urls = body.scan(reg).uniq.collect do |uri|
+        "#{uri[0]}://#{uri[3]}#{uri[6]}"
+      end
+    end
   end
   #class << self
   #  def save_bookmarklet user, url
