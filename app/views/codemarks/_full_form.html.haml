@@ -20,8 +20,8 @@
         var entered = $("#link_form_topic_autocomplete").val();
         $.ajax({
           url: "/links/topic_checkbox",
-          data: { topic_title: entered},
-          beforeSend: function(request) { request.setRequestHeader("Accept", "text/javascript"); }
+          data: { topic_title: entered },
+          dataType: "script"
         });
       }
     }
