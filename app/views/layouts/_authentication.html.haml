@@ -1,9 +1,9 @@
 - if logged_in?
   #authentication
     %ul.piped
-      - if @user.get(:image).present?
-        - image = image_tag @user.get(:image), class: "profile"
-      %li.first.last.image= link_to image, profile_path(current_user)
+      - if current_user && current_user.get(:image).present?
+        - image = image_tag current_user.get(:image), class: "profile"
+        %li.first.last.image= link_to image, profile_path(current_user)
       %li.first
         = link_to current_user.nickname, profile_path(current_user)
         -# resource_count = current_user.reminders.unfinished.count
