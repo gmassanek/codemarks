@@ -14,17 +14,17 @@ describe "User Profile Page" do
 
     it "does what the dashboard does"
     it "doesn't show me their private links"
-    it "shows their profile details on the top of the page"
+    it "shows their account details on the top of the page"
   end
 
-  context "profile" do
+  context "account" do
     before do
       simulate_signed_in
-      visit profile_path(@user)
+      visit account_path(@user)
     end
 
-    it "lands you on the user profile page" do
-      current_path.should == profile_path(@user)
+    it "lands you on the user account page" do
+      current_path.should == account_path(@user)
     end
 
     it "has my name" do
@@ -60,7 +60,7 @@ describe "User Profile Page" do
   context "lets you update your info" do
     before do
       simulate_signed_in
-      visit profile_path(@user)
+      visit account_path(@user)
       page.click_link "Edit"
     end
 
