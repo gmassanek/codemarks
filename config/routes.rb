@@ -21,8 +21,8 @@ Codemarks::Application.routes.draw do
 
   resources :topics
 
-  resources :links
   get '/links/topic_checkbox', :to => "links#topic_checkbox"
+  resources :links
   post 'links/click', :as => :click_link
 
   resources :users
