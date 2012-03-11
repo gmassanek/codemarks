@@ -29,9 +29,11 @@ class User < ActiveRecord::Base
   end
 
   def take_nickname_from_authentication
-    nickname = authentications.first.nickname
-    self.nickname = nickname
-    self.slug = nickname
+    if self.nickname.nil?
+      nickname = authentications.first.nickname
+      self.nickname = nickname
+      self.slug = nickname
+    end
   end
 
   def authentication_by_provider provider

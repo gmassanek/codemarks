@@ -11,7 +11,7 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
-  Scenario: I only see my Codemarks on my dashboard
+  Scenario: I only see my Codemarks on my page
     Given I am a logged in user
     And I have 3 codemarks
     And someone else has codemarks
@@ -28,6 +28,12 @@ Feature: View Codemarks
     Given there are 6 random codemarks
     When I go to the public page
     Then I should see 6 codemarks
+
+  Scenario: Viewing someone else's codemarks
+    Given gmassanek is a user with a codemark
+    When I go to his page
+    Then I should see his codemark
+    And I should see a tab with his name
 
   Scenario: Codemarks are paged
     Given there are 20 random codemarks
