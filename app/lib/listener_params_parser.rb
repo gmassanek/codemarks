@@ -5,11 +5,11 @@ class ListenerParamsParser
     end
 
     def extract_urls_from_body(body)
-      reg = URI::regexp
-      
-      urls = body.scan(reg).uniq.collect do |uri|
-        "#{uri[0]}://#{uri[3]}#{uri[6]}"
+      protocols = %w[http]
+      matches = protocols.map do |pr| 
+        URI::extract(body, pr)
       end
+      return matches.flatten.compact
     end
   end
   #class << self
