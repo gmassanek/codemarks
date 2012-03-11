@@ -28,9 +28,16 @@ class ListenerController < ApplicationController
   end
 
   def sendgrid
-    logger.info params.inspect
-    logger.debug params.inspect
-    IncomingEmailParser.parse(params)
+    email = params["envelope"]["from"]
+    user = User.find_by_email(email)
+
+    if user
+      urls = ListenerParamsParser.extract_urls_from_body(params["text"])
+      urls.each do |url|
+        Codemark.build_and_create(user, :link, {:url => url})
+      end
+    end
+
     render :nothing => true, :status => 200, :content_type => 'text/html'
   end
 
@@ -60,4 +67,7 @@ class ListenerController < ApplicationController
       format.html { head :ok }
     end
   end
+
+  private
+
 end
