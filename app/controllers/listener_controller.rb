@@ -30,12 +30,11 @@ class ListenerController < ApplicationController
   def sendgrid
     user = Fabricate(:user, :email => "geoff@gmail.com")
     email = JSON.parse(params["envelope"])["from"]
-    p email
     user = User.find_by_email(email)
-    p user
 
     if user
       urls = ListenerParamsParser.extract_urls_from_body(params["text"])
+      Rails.logger.info("email urls: " + urls.inspect)
       urls.each do |url|
         Codemark.build_and_create(user, :link, {:url => url})
       end
