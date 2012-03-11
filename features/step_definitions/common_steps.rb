@@ -1,7 +1,7 @@
 Given /^I have (\d+) codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do
-    @codemarks << Fabricate(:codemark_record, :user => @user)
+    @codemarks << Fabricate(:codemark_record, :user => @current_user)
   end
   @codemarks
 end
@@ -9,7 +9,7 @@ end
 Given /^I am a logged in user$/ do
   visit '/'
   page.click_link('sign in with twitter')
-  @user = User.last
+  @current_user = User.last
 end
 
 When /^I click "([^"]*)"$/ do |arg1|

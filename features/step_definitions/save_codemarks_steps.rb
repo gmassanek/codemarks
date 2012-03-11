@@ -26,7 +26,7 @@ When /^I fill out the codemark form with the existing one$/ do
 end
 
 Then /^I should have (\d+) codemark$/ do |num_codemarks|
-  @user.codemark_records.count.should == num_codemarks.to_i
+  @current_user.codemark_records.count.should == num_codemarks.to_i
 end
 
 Then /^there should be (\d+) codemarks$/ do |codemark_count|
@@ -35,4 +35,12 @@ end
 
 Then /^there should be (\d+) links/ do |link_count|
   LinkRecord.count.should == link_count.to_i
+end
+
+Then /^I should see the data for that codemark in the codemark form$/ do
+  wait_until { find('#resource_attrs_title').visible? }
+  within("#codemark_form") do
+    page.should have_selector('#resource_attrs_title', :content => @codemark.title)
+    page.should have_content(@codemark.topics.first.title)
+  end
 end

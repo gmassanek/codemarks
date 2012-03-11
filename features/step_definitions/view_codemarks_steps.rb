@@ -17,7 +17,7 @@ end
 
 Given /^I have a codemarks called "([^"]*)"$/ do |title|
   link_record = Fabricate(:link_record, :title => title)
-  Fabricate(:codemark_record, :link_record => link_record, :user => @user)
+  Fabricate(:codemark_record, :link_record => link_record, :user => @current_user)
 end
 
 Given /^there are (\d+) codemarks for "([^"]*)"$/ do |num_codemarks, topic_title|

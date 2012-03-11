@@ -125,4 +125,13 @@ describe Codemark do
       Codemark.build_and_create(user, :link, :url => valid_url)
     end
   end
+
+  describe "#steal" do
+    it "copies someone else's codemark for me" do
+      user = stub
+      codemark_record = stub(:topic_ids => [1,2,3], :link_record_id => 1)
+      CodemarkRecord.should_receive(:create).with(:user => user, :link_record_id => 1, :topic_ids => [1,2,3])
+      Codemark.steal(codemark_record, user)
+    end
+  end
 end
