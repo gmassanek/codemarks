@@ -5,7 +5,7 @@ describe "User Profile Page" do
     before do
       simulate_signed_in
       @user = Fabricate(:user)
-      visit user_path(@user.to_param)
+      visit short_user_path(@user.to_param)
     end
 
     it "contains the user's nickname" do
@@ -20,11 +20,11 @@ describe "User Profile Page" do
   context "profile" do
     before do
       simulate_signed_in
-      visit profile_path
+      visit profile_path(@user)
     end
 
     it "lands you on the user profile page" do
-      current_path.should == profile_path
+      current_path.should == profile_path(@user)
     end
 
     it "has my name" do
@@ -60,7 +60,7 @@ describe "User Profile Page" do
   context "lets you update your info" do
     before do
       simulate_signed_in
-      visit profile_path
+      visit profile_path(@user)
       page.click_link "Edit"
     end
 
@@ -71,7 +71,7 @@ describe "User Profile Page" do
     it "saves your email address" do
       page.fill_in "user_email", :with => "test@example.com"
       page.click_button "Save"
-      User.find(@user.id).email.should == "test@example.com"
+      @user.reload.email.should == "test@example.com"
       page.should have_content "test@example.com"
     end
 

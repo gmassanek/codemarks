@@ -14,7 +14,7 @@
     - other_count = codemark.save_count.to_i-1
     - if name.present?
       .saver
-        by #{link_to name, user_path(author)}
+        by #{link_to name, short_user_path(author)}
         - if other_count > 0
           and #{codemark.save_count.to_i-1 } others
       - if author == current_user
