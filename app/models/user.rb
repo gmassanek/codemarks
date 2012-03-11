@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
       .group('users.id')
       .limit(1)
       .first
-    User.find(id)
+    User.find_by_id(id)
   end
 
   def self.find_by_authentication(provider, nickname)
