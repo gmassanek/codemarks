@@ -2,11 +2,8 @@
   #authentication
     %ul.piped
       - if current_user && current_user.get(:image).present?
-        - image = image_tag current_user.get(:image), class: "profile"
-        %li.first.last.image= link_to image, profile_path(current_user)
+        - image = image_tag current_user.get(:image), class: "account"
+        %li.first.last.image= link_to image, account_path(current_user)
       %li.first
-        = link_to current_user.nickname, profile_path(current_user)
-        -# resource_count = current_user.reminders.unfinished.count
-        -# if resource_count > 0
-          = link_to resource_count, user_path(current_user), :class => "reminders"
+        = link_to current_user.nickname, account_path(current_user)
       %li.last= link_to 'Log Out', sign_out_path, :method => :delete

@@ -32,7 +32,7 @@ Codemarks::Application.routes.draw do
 
   resources :users, :only => [:show, :update]
   get '/:id', :to => 'users#show', :as => "short_user"
-  get '/:id/profile', to: "users#profile", as: :profile
-  get '/:id/profile/edit', to: "users#edit", as: :edit_profile
+  get '/:id/account', to: "users#account", as: :account
+  get '/:id/account/edit', to: "users#edit", as: :edit_account
 
 end
