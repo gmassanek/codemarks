@@ -42,6 +42,12 @@ class Codemark
                     user)
   end
 
+  def self.steal(codemark_record, user)
+    CodemarkRecord.create(:user => user, 
+                          :link_record_id => codemark_record.link_record_id, 
+                          :topic_ids => codemark_record.topic_ids)
+  end
+
   private
   def initialize(type, resource, topics)
     @type = type

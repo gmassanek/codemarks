@@ -19,3 +19,11 @@ Feature: Saving Codemarks
     Then I should have 1 codemark
     And there should be 2 codemarks
     And there should be 1 links
+
+  @javascript @omniauth_test_success
+  Scenario: Stealing somebody's codemark
+    Given I am a logged in user
+    And gmassanek is a user with a codemark
+    When I go to the public page
+    And I click "steal"
+    Then I should see the data for that codemark in the codemark form

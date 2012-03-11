@@ -22,4 +22,7 @@
         = link_to "edit", "", :class => "edit_codemark"
         \-
         = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
+      - else
+        \-
+        = link_to "steal", "", :class => "edit_codemark"
     .clear
