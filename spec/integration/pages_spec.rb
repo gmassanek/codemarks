@@ -34,7 +34,7 @@ describe "Home page" do
   it "redirects to user show page when a user is logged in" do
     simulate_signed_in
     visit root_path
-    current_path.should == dashboard_path
+    current_path.should == short_user_path(@user)
   end
 
 end
