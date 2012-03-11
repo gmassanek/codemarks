@@ -36,6 +36,7 @@ class ListenerController < ApplicationController
       urls = ListenerParamsParser.extract_urls_from_body(params["text"])
       Rails.logger.info("email urls: " + urls.inspect)
       urls.each do |url|
+        Rails.logger.info("saving " + url)
         Codemark.build_and_create(user, :link, {:url => url})
       end
     end
