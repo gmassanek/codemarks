@@ -1,8 +1,8 @@
 /*** VARIABLES ***/
 @import "configuration";
 
-#profile {
-  img.profile {
+#account {
+  img.account {
     float: left;
     padding: 2px;
     border: 1px solid $border-color2;
@@ -38,7 +38,7 @@
 
 }
 
-#edit_profile {
+#edit_account {
   input {
     width: 300px;
   }
