@@ -6,6 +6,9 @@
           = link_to "mine", short_user_path(current_user)
       %li{:class => tab_class(public_codemarks_path)}
         = link_to "public", public_codemarks_path
+      - if @user && @user.id != current_user_id
+        %li{:class => tab_class(short_user_path(@user))}
+          = link_to @user.nickname, short_user_path(@user)
   = paginate @codemarks, :window => 5, :param_name => :page
   %ul.pills#sorts
     %li{:class => sort_class('count')}
