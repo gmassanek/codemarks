@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   friendly_id :nickname, :use => :slugged
 
   has_many :authentications, :inverse_of => :user, :dependent => :destroy
-  has_many :codemark_records
+  has_many :codemark_records, :dependent => :destroy
   has_many :links, :through => :codemark_records
   has_many :topics, :through => :codemark_records
   has_many :clicks

@@ -54,4 +54,12 @@ describe User do
     found_user.should == user
     found_user.get(:email).should == authentication.email
   end
+
+  it "should destroy it's codemarks" do
+    user = Fabricate(:user)
+    Fabricate(:codemark_record, :user => user)
+    lambda {
+      user.destroy
+    }.should change(CodemarkRecord, :count).by(-1)
+  end
 end
