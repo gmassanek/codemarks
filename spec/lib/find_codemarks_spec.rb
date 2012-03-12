@@ -99,7 +99,6 @@ describe FindCodemarks do
     end
   end
 
-
   context "with paging" do
     it "can take the result from a query and page it" do
       find_by_user_paged = FindCodemarks.new(:user => @user, :page => 1, :per_page => 1)
