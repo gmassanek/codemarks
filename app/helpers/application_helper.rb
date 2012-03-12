@@ -33,7 +33,7 @@ module ApplicationHelper
     if author.id == current_user_id
       short_user_url(current_user)
     else
-      public_codemarks_path
+      public_codemarks_url
     end
   end
 
