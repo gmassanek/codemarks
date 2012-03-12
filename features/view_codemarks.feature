@@ -54,3 +54,9 @@ Feature: View Codemarks
     When I go to the "rspec" topic page
     Then I should see 5 codemarks
 
+  Scenario: Can filter between mine and public on topics show
+    Given I am a logged in user
+    And superman is a user with a codemark
+    When I go to that topic page
+    Then I should see his codemark
+    And I should see a tab with my name
