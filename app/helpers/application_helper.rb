@@ -47,9 +47,9 @@ module ApplicationHelper
   def tweet_out_text(codemark)
     author = codemark.user
     if author.id == current_user_id
-      "#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others #{short_user_url(current_user)}"
+      "#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others"
     else
-      "#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more #{public_codemarks_url}"
+      "#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more"
     end
   end
 end
