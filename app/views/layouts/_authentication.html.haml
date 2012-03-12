@@ -1,9 +1,20 @@
 - if logged_in?
   #authentication
     %ul.piped
-      - if current_user && current_user.get(:image).present?
+      - if current_user.get(:image).present?
         - image = image_tag current_user.get(:image), class: "account"
         %li.first.last.image= link_to image, account_path(current_user)
       %li.first
         = link_to current_user.nickname, account_path(current_user)
       %li.last= link_to 'Log Out', sign_out_path, :method => :delete
+- else
+  #authentication
+    %ul.piped
+      %li.first
+        = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
+      %li
+        = link_to 'Public Codemarks', public_codemarks_path
+      %li
+        = link_to 'Sign Up', root_path
+      %li.last
+        = link_to 'Sign In', root_path

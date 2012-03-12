@@ -22,7 +22,7 @@
       .header_coloring
     #container
       = render '/layouts/header'
-      = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
+      = (render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...') if logged_in?
       #content
         = render '/layouts/flash', :flash => flash
         = yield
