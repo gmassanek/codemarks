@@ -94,3 +94,7 @@ Then /^I should see that codemark first$/ do
     page.should have_content(@codemark.title)
   end
 end
+
+Then /^I should see a twitter share link$/ do
+  pending # express the regexp above with the code you wish you had
+end

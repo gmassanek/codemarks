@@ -27,4 +27,21 @@ module ApplicationHelper
     current_sort = params[:by]
     'active' if (current_sort == sort || (!current_sort && default))
   end
+
+  def tweet_out_link
+    if logged_in?
+      short_user_url(current_user)
+    else
+      public_path
+    end
+  end
+
+  def tweet_out_text(codemark)
+    author = codemark.user
+    if author.id == current_user_id
+      "#{codemark.link_record.url} - just added a #codemark about #{codemark.topics.first.title}. See my others #{short_user_url(current_user)}"
+    else
+      "#{codemark.link_record.url} - just found a #codemark about #{codemark.topics.first.title}. See some more #{public_codemarks_url}"
+    end
+  end
 end
