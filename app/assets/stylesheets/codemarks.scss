@@ -20,6 +20,10 @@
     line-height: 16px;
     border-bottom: 1px solid $border-color2;
 
+    &:nth-last-child(1) {
+      border-bottom: none;
+    }
+
     h3 {
       float: left;
       font-size: 13px;
