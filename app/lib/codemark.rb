@@ -25,6 +25,7 @@ class Codemark
       combination_of_topic_ids = topics_ids
       codemark_attrs[:topic_ids] = combination_of_topic_ids
       existing_codemark.update_attributes(codemark_attrs)
+      existing_codemark.link_record.update_attributes(resource_attrs)
     else
       codemark_attrs[:link_record] = link
       codemark_attrs[:user] = user
