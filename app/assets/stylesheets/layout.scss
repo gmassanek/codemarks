@@ -58,18 +58,10 @@
 #logo {
   float: left;
   margin-top: 10px;
-  a {
-    font-family: 'Coustard', serif;
-    color: $c1;
-    font-size: 28px;
-    font-weight: bold;
-    text-decoration: none;
-    text-shadow: $c6 1px 0px 0;
-    -webkit-transition: all 0.45s ease-in-out;
 
-    &:hover {
-      color: $c5;
-    }
+  img {
+    margin-top: 1px;
+    height: 26px;
   }
 }
 
