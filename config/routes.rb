@@ -18,7 +18,7 @@ Codemarks::Application.routes.draw do
   root :to => 'pages#landing'
 
   resources :topics
-  get 'topics/:id/:user', :to => 'topics#show', :as => 'topic_user'
+  get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
 
   get '/links/topic_checkbox', :to => "links#topic_checkbox"
   resources :links
