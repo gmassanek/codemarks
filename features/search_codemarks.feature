@@ -9,6 +9,3 @@ Feature: Searching Codemarks
   #  When I go to the public page
   #  And I search for that topic
   #  Then I should be on that topic's page
-
-  Scenario: Why isn't the one above working?
-    Given pending
