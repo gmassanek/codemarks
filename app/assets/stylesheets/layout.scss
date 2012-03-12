@@ -41,15 +41,17 @@
     margin-left: -300px;
   }
 
-  .site_search {
-    float: right;
+}
 
-    input {
-      padding: 3px;
-      border: 1px solid $border-color1;
-      border-radius: $border-radius-tight;
-      width: 150px;
-    }
+.site_search {
+  float: right;
+
+  input {
+    margin-top: 5px;
+    padding: 3px;
+    border: 1px solid $border-color1;
+    border-radius: $border-radius-tight;
+    width: 150px;
   }
 }
 
