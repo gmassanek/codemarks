@@ -28,7 +28,6 @@ class ListenerController < ApplicationController
   end
 
   def sendgrid
-    user = Fabricate(:user, :email => "geoff@gmail.com")
     email = JSON.parse(params["envelope"])["from"]
     user = User.find_by_email(email)
 
