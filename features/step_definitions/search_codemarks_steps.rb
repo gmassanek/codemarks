@@ -11,7 +11,3 @@ end
 Then /^I should be on that topic's page$/ do
   page.should have_content(@topic.description)
 end
-
-Given /^pending$/ do
-  pending # express the regexp above with the code you wish you had
-end
