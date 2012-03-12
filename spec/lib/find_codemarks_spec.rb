@@ -29,6 +29,12 @@ describe FindCodemarks do
       all_cms.codemarks.first.save_count.should == "2"
     end
 
+    it "returns the visit count" do
+      user = Fabricate(:user)
+      all_cms = FindCodemarks.new
+      all_cms.codemarks.first.visit_count.should == "0"
+    end
+
     it "returns the save count when scoped by user" do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
@@ -85,9 +91,11 @@ describe FindCodemarks do
       all_cms.codemarks.first.save_count.should == "2"
     end
 
-    context "by popularity" do
-      it "increases with a link click"
-      it "increases with a link save"
+    it "can be orderd by visit_count" do
+      user = Fabricate(:user)
+      2.times { Fabricate(:click, :user => user, :link_record => @cm.link_record) }
+      all_cms = FindCodemarks.new(:by => :visits)
+      all_cms.codemarks.first.visit_count.should == "2"
     end
   end
 
