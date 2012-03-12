@@ -27,3 +27,8 @@ Feature: Saving Codemarks
     When I go to the public page
     And I click "steal"
     Then I should see the data for that codemark in the codemark form
+
+  Scenario: Can't steal if not logged in
+    Given gmassanek is a user with a codemark
+    When I go to the public page
+    Then I should not see "steal"
