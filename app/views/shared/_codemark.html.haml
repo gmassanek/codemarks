@@ -6,6 +6,7 @@
     %span.host #{link.host}
   .clear
   = render '/shared/codemark_topics', link: link, topics: codemark.topics
+  .clear
   .details
     .time #{time_ago_in_words(link.created_at)} ago
     - author = codemark.user
@@ -17,13 +18,13 @@
         by #{link_to name, short_user_path(author)}
         - if other_count > 0
           and #{codemark.save_count.to_i-1 } others
-      - if author == current_user
-        \-
-        = link_to "edit", "", :class => "edit_codemark"
-        \-
-        = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
-      - elsif logged_in?
-        \-
-        = link_to "steal", "", :class => "edit_codemark"
-      = render '/codemarks/share_tweet_link', :codemark => codemark
-    .clear
+
+  .actions
+    - if author == current_user
+      = link_to "edit", "", :class => "edit_codemark"
+      \-
+      = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
+    - elsif logged_in?
+      = link_to "steal", "", :class => "edit_codemark"
+    = render '/codemarks/share_tweet_link', :codemark => codemark
+  .clear

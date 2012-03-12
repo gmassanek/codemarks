@@ -44,11 +44,11 @@
     }
 
     #topics_tags {
-      float: right;
+      float: left;
 
       li {
         float: left;
-        padding: 0 5px;
+        padding: 3px 0;
         border-bottom: none;
 
         &:nth-last-child(1) {
@@ -60,6 +60,7 @@
     }
 
     .details {
+      float: left;
       color: lighten($c2, 40%);
       margin-top: 2px;
 
@@ -71,6 +72,10 @@
         float: left;
         margin-left: 3px;
       }
+    }
+
+    .actions {
+      float: right;
     }
 
   }
