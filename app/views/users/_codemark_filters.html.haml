@@ -4,6 +4,9 @@
       - if logged_in?
         %li{:class => tab_class(short_user_path(current_user))}
           = link_to current_user.nickname, short_user_path(current_user)
+      - else
+        %li
+          = link_to 'sign up', root_path
       %li{:class => tab_class(public_codemarks_path)}
         = link_to "public", public_codemarks_path
       - if @user && @user.id != current_user_id
