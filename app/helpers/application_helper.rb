@@ -28,8 +28,9 @@ module ApplicationHelper
     'active' if (current_sort == sort || (!current_sort && default))
   end
 
-  def tweet_out_link
-    if logged_in?
+  def tweet_out_link(codemark)
+    author = codemark.user
+    if author.id == current_user_id
       short_user_url(current_user)
     else
       public_codemarks_path
