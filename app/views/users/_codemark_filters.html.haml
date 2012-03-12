@@ -15,9 +15,9 @@
   = paginate @codemarks, :window => 5, :param_name => :page
   %ul.pills#sorts
     %li{:class => sort_class('visits')}
-      = link_to "by visits", url_for(:only_path => true, by: :visits)
+      = link_to "by visits", url_for(:only_path => true, :by => :visits)
     %li{:class => sort_class('count')}
-      = link_to "by count", url_for(:only_path => true, by: :count)
+      = link_to "by count", url_for(:only_path => true, :by =>  :count)
     %li{:class => sort_class('date', true)}
-      = link_to "by date", url_for(:only_path => true, by: :date)
+      = link_to "by date", url_for(:only_path => true, :by =>  :date)
   .clear
