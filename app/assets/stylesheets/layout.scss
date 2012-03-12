@@ -22,11 +22,6 @@
   box-shadow: 0 2px 25px rgba(0,0,0,0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background: url('fabric_2.png') 0 0;
-
-  &.guest {
-    box-shadow: none;
-    border-bottom: 0;
-  }
 }
 
 .header_coloring {
@@ -38,9 +33,6 @@
 #header {
   margin-top: -($header-height + $header-extra + $header-box);
   height: $header-height + $header-extra + $header-box;
-  &.guest {
-    font-size: 14px;
-  }
 
   #codemark_form {
     position: absolute;
