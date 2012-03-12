@@ -32,16 +32,24 @@ module ApplicationHelper
     if logged_in?
       short_user_url(current_user)
     else
-      public_path
+      public_codemarks_path
+    end
+  end
+
+  def codemark_topic_title(codemark)
+    if codemark.topics.first
+      "about #{codemark.topics.first.title}"
+    else
+      ""
     end
   end
 
   def tweet_out_text(codemark)
     author = codemark.user
     if author.id == current_user_id
-      "#{codemark.link_record.url} - just added a #codemark about #{codemark.topics.first.title}. See my others #{short_user_url(current_user)}"
+      "#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others #{short_user_url(current_user)}"
     else
-      "#{codemark.link_record.url} - just found a #codemark about #{codemark.topics.first.title}. See some more #{public_codemarks_url}"
+      "#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more #{public_codemarks_url}"
     end
   end
 end
