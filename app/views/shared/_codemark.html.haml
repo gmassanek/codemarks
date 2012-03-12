@@ -25,4 +25,5 @@
       - elsif logged_in?
         \-
         = link_to "steal", "", :class => "edit_codemark"
+      = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear

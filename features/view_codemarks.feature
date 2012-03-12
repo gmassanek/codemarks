@@ -60,3 +60,8 @@ Feature: View Codemarks
     When I go to that topic page
     Then I should see his codemark
     And I should see a tab with my name
+
+  Scenario: Codemarks have twitter links
+    Given there are 1 random codemarks
+    When I go to the public page
+    Then I should see a twitter share link
