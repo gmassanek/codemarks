@@ -10,6 +10,9 @@ class ListenerParamsParser
         URI::extract(body, pr)
       end
       return matches.flatten.compact
+    rescue ArgumentError => ex
+      p ex.inspect
+      Rails.logger.info(ex.inspect)
     end
   end
   #class << self
