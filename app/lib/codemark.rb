@@ -9,7 +9,9 @@ class Codemark
     type = type
 
     resource = resource_class.find(resource_attrs)
-    resource = resource_class.new(resource_attrs) unless resource
+    if resource.nil? || resource.proposed_tags.length == 0
+      resource = resource_class.new(resource_attrs)
+    end
 
     topics = resource.proposed_tags
     cm = self.new(type, resource, topics)
