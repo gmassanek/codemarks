@@ -6,7 +6,7 @@
   });
 
   function removeForm() {
-    $('#codemarklet_container').prev('.ui-dialog-titlebar-close').click()
+    $('.ui-dialog-titlebar-close').click();
     $('#codemark_form').dialog('close');
     $('#codemark_form').fadeOut().remove();
   }
@@ -36,13 +36,12 @@
   });
 
   function ajax_submit() {
-    console.log('submitting');
     var url = "http://www.codemarks.org/listener/bookmarklet?";
     var form_data = $("#codemark_form").serialize();
 
     $.ajax({
       url: url + form_data, 
-      dataType: "json"
+      dataType: "jsonp"
     });
 
     removeForm();
