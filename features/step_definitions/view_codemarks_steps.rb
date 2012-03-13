@@ -1,6 +1,7 @@
 Given /^there are (\d+) random codemarks$/ do |num|
+  @codemarks = []
   num.to_i.times do
-    Fabricate(:codemark_record)
+    @codemarks << Fabricate(:codemark_record)
   end
 end
 
@@ -38,6 +39,10 @@ Given /^([^"]*) is a user with a codemark for that topic$/ do |nickname|
   @user = Fabricate(:user)
   @user.update_attributes(:nickname => nickname)
   @another_codemark = Fabricate(:codemark_record, :user => @user, :topic_ids => [@topic.id])
+end
+
+Given /^the last codemark doesn't have a link$/ do
+  @codemarks.last.update_attribute(:link_record, nil)
 end
 
 When /^I go to the "([^"]*)" topic page$/ do |topic_title|

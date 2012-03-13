@@ -1,30 +1,31 @@
 - link = codemark.link_record
-%li.codemark{:id => "#{dom_id(codemark)}"}
-  = render '/links/click_form', link_id: link.id
-  %h3
-    = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
-    %span.host #{link.host}
-  .clear
-  = render '/shared/codemark_topics', link: link, topics: codemark.topics
-  .clear
-  .details
-    .time #{time_ago_in_words(link.created_at)} ago
-    - author = codemark.user
-    - name ||= author.get(:nickname)
-    - name ||= author.get(:name)
-    - other_count = codemark.save_count.to_i-1
-    - if name.present?
-      .saver
-        by #{link_to name, short_user_path(author)}
-        - if other_count > 0
-          and #{codemark.save_count.to_i-1 } others
+- if link
+  %li.codemark{:id => "#{dom_id(codemark)}"}
+    = render '/links/click_form', link_id: link.id
+    %h3
+      = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
+      %span.host #{link.host}
+    .clear
+    = render '/shared/codemark_topics', link: link, topics: codemark.topics
+    .clear
+    .details
+      .time #{time_ago_in_words(link.created_at)} ago
+      - author = codemark.user
+      - name ||= author.get(:nickname)
+      - name ||= author.get(:name)
+      - other_count = codemark.save_count.to_i-1
+      - if name.present?
+        .saver
+          by #{link_to name, short_user_path(author)}
+          - if other_count > 0
+            and #{codemark.save_count.to_i-1 } others
 
-  .actions
-    - if author == current_user
-      = link_to "edit", "", :class => "edit_codemark"
-      \-
-      = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
-    - elsif logged_in?
-      = link_to "steal", "", :class => "edit_codemark"
-    = render '/codemarks/share_tweet_link', :codemark => codemark
-  .clear
+    .actions
+      - if author == current_user
+        = link_to "edit", "", :class => "edit_codemark"
+        \-
+        = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
+      - elsif logged_in?
+        = link_to "steal", "", :class => "edit_codemark"
+      = render '/codemarks/share_tweet_link', :codemark => codemark
+    .clear
