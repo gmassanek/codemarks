@@ -8,10 +8,13 @@ class Codemark
   def self.prepare(type, resource_attrs)
     type = type
 
-    resource = resource_class.find(resource_attrs)
-    if resource.nil? || resource.proposed_tags.length == 0
+    existing_resource = resource_class.find(resource_attrs)
+    if existing_resource.nil? || existing_resource.proposed_tags.length == 0
       resource = resource_class.new(resource_attrs)
+      resource.id = existing_resource.id if existing_resource
     end
+
+    resource ||= existing_resource
 
     topics = resource.proposed_tags
     cm = self.new(type, resource, topics)

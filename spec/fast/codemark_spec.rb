@@ -34,6 +34,7 @@ describe Codemark do
 
       it "gets returned" do
         Link.should_receive(:find).with(resource_attrs).and_return(link)
+        link.stub_chain(:proposed_tags, :length => 2)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
@@ -41,6 +42,7 @@ describe Codemark do
 
       it "gets topics from existing codemarks for that resource" do
         Link.should_receive(:find).with(resource_attrs).and_return(link)
+        link.stub_chain(:proposed_tags, :length => 2)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
@@ -124,6 +126,8 @@ describe Codemark do
       CodemarkRecord.stub!(:for_user_and_link)
       Codemark.build_and_create(user, :link, :url => valid_url)
     end
+
+    it "doesn't save a second link"
   end
 
   describe "#steal" do
