@@ -25,12 +25,6 @@ function removeForm() {
   });
 };
 
-function somethingWentWrong() {
-  removeForm();
-  var $sorry = window.jQuery("<div class='sorry'>Sorry, something went wrong</div>");
-  window.jQuery('body').prepend($sorry).delay(2000).fadeOut();
-}
-
 function waitForJquery(cnt) {
   if(cnt>20) return;
   if(window.jQuery) {
@@ -64,7 +58,6 @@ function waitForJquery(cnt) {
         context: document.body,
         dataType: "script"
       });
-      window.setTimeout(somethingWentWrong, 3500);
     }
   } else {
     window.setTimeout(function(){waitForJquery(cnt+1)}, 100);
