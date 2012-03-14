@@ -15,7 +15,22 @@ function cml1() {
     console.log(e);
     alert('Please wait until the page has loaded.');
   }
+};
+
+function removeForm() {
+  var $form = window.jQuery('#codemark_form');
+  $form.fadeOut(100, function() {
+    $form.remove();
+    window.jQuery('.codemarklet-overlay').remove();
+  });
+};
+
+function somethingWentWrong() {
+  removeForm();
+  var $sorry = window.jQuery("<div class='sorry'>Sorry, something went wrong</div>");
+  window.jQuery('body').prepend($sorry).delay(2000).fadeOut();
 }
+
 function waitForJquery(cnt) {
   if(cnt>20) return;
   if(window.jQuery) {
@@ -31,6 +46,12 @@ function waitForJquery(cnt) {
       window.jQuery('body').append("<div class='codemarklet-overlay'/>");
     }
 
+    window.jQuery(document).keyup(function(e) {
+      if (e.keyCode == 27) {
+        removeForm();
+      }
+    });
+
     if(window.jQuery('#codemarklet_container').length === 0) {
       var c=document.createElement('div');
       c.setAttribute('id','codemarklet_container');
@@ -43,6 +64,7 @@ function waitForJquery(cnt) {
         context: document.body,
         dataType: "script"
       });
+      window.setTimeout(somethingWentWrong, 3500);
     }
   } else {
     window.setTimeout(function(){waitForJquery(cnt+1)}, 100);
