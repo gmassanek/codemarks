@@ -1,35 +1,38 @@
 :javascript
-  $("#codemark_form").keyup(function(e) {
+  window.jQuery("#codemark_form").keyup(function(e) {
     if (e.keyCode == 13) {
       e.preventDefault();
     }
   });
 
   function removeForm() {
-    $('.ui-dialog-titlebar-close').click();
-    $('#codemark_form').dialog('close');
-    $('#codemark_form').fadeOut().remove();
+    var $form = window.jQuery('#codemark_form');
+    $form.fadeOut(100, function() {
+      $form.remove();
+      window.jQuery('.codemarklet-overlay').remove();
+    });
+
   }
 
-  $(document).keyup(function(e) {
+  window.jQuery(document).keyup(function(e) {
     if (e.keyCode == 27) {
       removeForm();
     }
   });
 
-  var topics_count = $("#topic_tags li").length;
+  var topics_count = window.jQuery("#topic_tags li").length;
   if(topics_count == 0) {
-    $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+    window.jQuery("#codemark_form input[type=submit]").attr('disabled', 'disabled');
   }
 
-  $(function() {
-    $("#topic_tags .delete").click(function(event) {
+  window.jQuery(function() {
+    window.jQuery("#topic_tags .delete").click(function(event) {
       event.preventDefault();
-      $(event.currentTarget).closest("li").fadeOut(100, function() {
-        $(this).remove();
-        var topics_count = $("#topic_tags li").length;
+      window.jQuery(event.currentTarget).closest("li").fadeOut(100, function() {
+        window.jQuery(this).remove();
+        var topics_count = window.jQuery("#topic_tags li").length;
         if(topics_count == 0) {
-          $("#codemark_form input[type=submit]").attr('disabled', 'disabled');
+          window.jQuery("#codemark_form input[type=submit]").attr('disabled', 'disabled');
         }
       });
     });
@@ -37,9 +40,9 @@
 
   function ajax_submit() {
     var url = "http://www.codemarks.org/listener/bookmarklet?";
-    var form_data = $("#codemark_form").serialize();
+    var form_data = window.jQuery("#codemark_form").serialize();
 
-    $.ajax({
+    window.jQuery.ajax({
       url: url + form_data, 
       dataType: "jsonp"
     });
@@ -47,7 +50,7 @@
     removeForm();
   }
 
-  $('#codemark_form .btn').click(function(e) {
+  window.jQuery('#codemark_form .btn').click(function(e) {
     e.preventDefault();
     ajax_submit();
   });
@@ -64,3 +67,4 @@
     = text_field_tag "resource_attrs[title]", @codemark.resource.title, :placeholder => "Title"
     = render '/codemarks/topic_tags_list', :pos_topics => @codemark.topics
     .clear
+

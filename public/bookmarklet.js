@@ -19,20 +19,25 @@ function cml1() {
 function waitForJquery(cnt) {
   if(cnt>20) return;
   if(window.jQuery) {
-    if(window.jQuery('link[href=http://www.codemarks.com/codemarklet.css]').length === 0) {
-      var d=document.createElement('link');
-      d.setAttribute('href','http://www.codemarks.com/codemarklet.css');
-      d.setAttribute('media','screen');
-      d.setAttribute('rel','stylesheet');
-      d.setAttribute('type','text/css');
-      document.head.appendChild(d);
+    if(window.jQuery('link[href="http://www.codemarks.com/codemarklet.css"]').length === 0) {
+      var $link = window.jQuery("<link href='http://www.codemarks.com/codemarklet.css'/>");
+      $link.attr('media','screen');
+      $link.attr('rel','stylesheet');
+      $link.attr('type','text/css');
+      window.jQuery('head').append($link);
+    }
+
+    if(window.jQuery('.codemarklet-overlay').length === 0) {
+      window.jQuery('body').append("<div class='codemarklet-overlay'/>");
     }
 
     if(window.jQuery('#codemarklet_container').length === 0) {
       var c=document.createElement('div');
       c.setAttribute('id','codemarklet_container');
       document.body.appendChild(c);
+    }
 
+    if(window.jQuery('#codemark_form').length === 0) {
       window.jQuery.ajax({
         url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
         context: document.body,
