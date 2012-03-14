@@ -19,6 +19,7 @@ gem 'omniauth-github'
 gem 'therubyracer'
 gem 'newrelic_rpm'
 gem 'pg'
+gem 'browser'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
