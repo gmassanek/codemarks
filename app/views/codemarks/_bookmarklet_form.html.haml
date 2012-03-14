@@ -5,21 +5,6 @@
     }
   });
 
-  function removeForm() {
-    var $form = window.jQuery('#codemark_form');
-    $form.fadeOut(100, function() {
-      $form.remove();
-      window.jQuery('.codemarklet-overlay').remove();
-    });
-
-  }
-
-  window.jQuery(document).keyup(function(e) {
-    if (e.keyCode == 27) {
-      removeForm();
-    }
-  });
-
   var topics_count = window.jQuery("#topic_tags li").length;
   if(topics_count == 0) {
     window.jQuery("#codemark_form input[type=submit]").attr('disabled', 'disabled');
