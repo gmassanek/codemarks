@@ -11,6 +11,7 @@ class ListenerParamsParser
       end
       return matches.flatten.compact
     rescue ArgumentError => ex
+      Rails.logger.info('Sendgrid ERROR')
       p ex.inspect
       Rails.logger.info(ex.inspect)
     end

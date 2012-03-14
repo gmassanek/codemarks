@@ -8,16 +8,7 @@ function cml1() {
       var z=d.createElement('script');
       z.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
       b.appendChild(z);
-    } else {
-      var z=d.createElement('script');
-      z.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
-      b.appendChild(z);
-
-      var z=d.createElement('script');
-      z.setAttribute('src','http://www.codemarks.org/autocomplete-rails.js');
-      b.appendChild(z);
     }
-
     waitForJquery(0);
   }
   catch(e){
@@ -28,27 +19,21 @@ function cml1() {
 function waitForJquery(cnt) {
   if(cnt>20) return;
   if(window.jQuery) {
-    var a=document.createElement('script');
-    a.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
-    document.body.appendChild(a);
+    if(window.jQuery('link[href=http://www.codemarks.com/codemarklet.css]').length === 0) {
+      var d=document.createElement('link');
+      d.setAttribute('href','http://www.codemarks.com/codemarklet.css');
+      d.setAttribute('media','screen');
+      d.setAttribute('rel','stylesheet');
+      d.setAttribute('type','text/css');
+      document.head.appendChild(d);
+    }
 
-    var b=document.createElement('script');
-    b.setAttribute('src','http://www.codemarks.org/autocomplete-rails.js');
-    document.body.appendChild(b);
+    if(window.jQuery('#codemarklet_container').length === 0) {
+      var c=document.createElement('div');
+      c.setAttribute('id','codemarklet_container');
+      document.body.appendChild(c);
 
-    var c=document.createElement('div');
-    c.setAttribute('id','codemarklet_container');
-    document.body.appendChild(c);
-
-    var d=document.createElement('link');
-    d.setAttribute('href','http://www.codemarks.org/codemarklet.css');
-    d.setAttribute('media','screen');
-    d.setAttribute('rel','stylesheet');
-    d.setAttribute('type','text/css');
-    document.head.appendChild(d);
-
-    if($('#codemark_form').length === 0) {
-      $.ajax({
+      window.jQuery.ajax({
         url: "http://www.codemarks.org/listener/prepare_bookmarklet?id=USER_ID&l="+l,
         context: document.body,
         dataType: "script"
