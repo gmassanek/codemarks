@@ -24,10 +24,10 @@ module Taggable
 
   def retag
     tags = tagging_order.inject([]) do |tags, attribute_to_tag|
-      tags << tag(self.send(attribute_to_tag)) if tags.length < 5
+      tags << tag(self.send(attribute_to_tag)) if tags.length < TAG_LIMIT
       tags.flatten.uniq
-    end.flatten
-    tags.first(5)
+    end
+    tags.first(TAG_LIMIT)
   end
 
   def tag(text)
