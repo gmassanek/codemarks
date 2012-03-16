@@ -117,19 +117,23 @@ describe Link do
     end
 
     describe "is taggable" do
-      it "knows that it is taggable" do
-        link = Link.new
-        link.should be_taggable
-      end
-
       it "has a tagging order" do
         link = Link.new
         link.tagging_order.should == [:title, :site_content]
       end
 
-      it "has a proposed_tags method" do
+      it "has a tags method" do
         link = Link.new
-        link.should respond_to(:proposed_tags)
+        link.should respond_to(:tags)
+      end
+    end
+
+    describe "#persisted?" do
+      it "is persisted if if's link_record is persisted" do
+        link_record = mock(:'persisted?' => true)
+        link = Link.new
+        link.link_record = link_record
+        link.should be_persisted
       end
     end
   end
