@@ -61,4 +61,8 @@ class Link
       :title => @title
     }
   end
+
+  def persisted?
+    link_record.persisted?
+  end
 end
