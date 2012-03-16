@@ -16,16 +16,16 @@ describe Codemark do
       let(:resource_attrs) { {} }
 
     it "prepares a new resource if it doesn't already exist" do
-      link = stub(:tag => nil, :proposed_tags => nil)
+      link = stub(:tag => nil, :tags => nil)
       Link.should_receive(:new).with(resource_attrs).and_return(link)
       cm = Codemark.prepare(:link, resource_attrs)
       cm.resource.should == link
     end
 
-    it "asks the new resource for proposed tags" do
+    it "asks the new resource for tags" do
       link = stub(:tag => nil)
       Link.stub(:new => link)
-      link.should_receive(:proposed_tags)
+      link.should_receive(:tags)
       Codemark.prepare(:link, {})
     end
 
@@ -34,7 +34,7 @@ describe Codemark do
 
       it "gets returned" do
         Link.should_receive(:find).with(resource_attrs).and_return(link)
-        link.stub_chain(:proposed_tags, :length => 2)
+        link.stub_chain(:tags, :length => 2)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
@@ -42,19 +42,12 @@ describe Codemark do
 
       it "gets topics from existing codemarks for that resource" do
         Link.should_receive(:find).with(resource_attrs).and_return(link)
-        link.stub_chain(:proposed_tags, :length => 2)
+        link.stub_chain(:tags, :length => 2)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
       end
     end
-  end
-
-  it "is taggable if it's resource is taggable" do
-    cm = Codemark.prepare(:link, {})
-    link = stub(:taggable? => true)
-    cm.stub!(:resource => link)
-    cm.should be_taggable
   end
 
   describe "#create" do
@@ -121,6 +114,9 @@ describe Codemark do
     it "creates a codemark" do
       Topic.stub(:all => [])
       user = stub
+      link = Link.new
+      link.stub(:persisted?) { false }
+      Link.should_receive(:new).and_return(link)
       LinkRecord.should_receive(:create)
       CodemarkRecord.should_receive(:create)
       CodemarkRecord.stub!(:for_user_and_link)

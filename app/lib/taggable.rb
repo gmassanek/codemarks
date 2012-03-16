@@ -2,29 +2,36 @@ require_relative 'tagger'
 
 module Taggable
 
-  def proposed_tags
-    if self.id
-      tags = existing_tags
-      return tags if tags && tags.length > 0
-    end
-    tags = []
-    tagging_order.each do |attr|
-      text_to_tag = self.send(attr)
-      if text_to_tag && tags.length < 5
-        pos_tags = Tagger.tag(text_to_tag)
-        tags = tags | pos_tags unless pos_tags.nil?
-      end
-    end
-    tags.first(Tagger::TAG_LIMIT)
-  end
+  TAG_LIMIT = 5
 
-  def taggable?
-    true
+  def tags
+    @tags = existing_tags
+    return @tags if @tags
+
+    @tags = find_existing_tags
+    return @tags if @tags
+
+    @tags = retag
   end
 
   def existing_tags
-    resource = LinkRecord.find(self.id)
-    FindTopics.existing_topics_for(resource)
+    @tags
+  end
+
+  def find_existing_tags
+    FindTopics.existing_topics_for(self) if self.persisted?
+  end
+
+  def retag
+    tags = tagging_order.inject([]) do |tags, attribute_to_tag|
+      tags << tag(self.send(attribute_to_tag)) if tags.length < 5
+      tags.flatten.uniq
+    end.flatten
+    tags.first(5)
+  end
+
+  def tag(text)
+    Tagger.tag(text)
   end
 
 end

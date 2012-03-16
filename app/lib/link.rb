@@ -63,6 +63,6 @@ class Link
   end
 
   def persisted?
-    link_record.persisted?
+    link_record.persisted? if link_record
   end
 end

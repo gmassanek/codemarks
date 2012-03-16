@@ -17,9 +17,16 @@ describe Tagger do
       Tagger.tag(text).should == [rspec]
     end
 
-    it "only returns 5 tags" do
-      text = titles.join(" ")
-      Tagger.tag(text).count.should == 5
+    it "returns an empty array if the text is blank" do
+      text = ""
+      rspec = topics.first
+      Tagger.tag(text).should == []
+    end
+
+    it "returns an empty array if the text is nil" do
+      text = nil
+      rspec = topics.first
+      Tagger.tag(text).should == []
     end
 
     it "matches regardless of case" do

@@ -1,22 +1,18 @@
 class Codemark
   attr_accessor :resource, :topics, :type
 
-  def taggable?
-    @resource.taggable?
-  end
-
   def self.prepare(type, resource_attrs)
     type = type
 
     existing_resource = resource_class.find(resource_attrs)
-    if existing_resource.nil? || existing_resource.proposed_tags.length == 0
+    if existing_resource.nil? || existing_resource.tags.length == 0
       resource = resource_class.new(resource_attrs)
       resource.id = existing_resource.id if existing_resource
     end
 
     resource ||= existing_resource
 
-    topics = resource.proposed_tags
+    topics = resource.tags
     cm = self.new(type, resource, topics)
   end
 
