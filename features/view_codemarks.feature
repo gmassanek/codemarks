@@ -71,5 +71,4 @@ Feature: View Codemarks
     Given there are 2 random codemarks
     And the last codemark doesn't have a link
     When I go to the public page
-    Then show me the page
     Then I should see 1 codemarks

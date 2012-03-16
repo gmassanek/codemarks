@@ -1,12 +1,9 @@
 class Tagger
-
-  TAG_LIMIT = 5
-
   def self.tag(text)
+    return [] if text.blank?
     matches = Topic.all.select do |t| 
       sanitize(text).include?(sanitize(t.title))
     end
-    matches.first(TAG_LIMIT)
   end
 
   private

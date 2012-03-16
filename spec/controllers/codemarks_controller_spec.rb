@@ -11,8 +11,11 @@ describe CodemarksController do
     end
 
     it "creates a new codemark with the new link" do
-      get :build_linkmark, format: "js", :resource_attrs => resource_attrs
-      assigns(:codemark).resource.url.should == valid_url
+      codemark = stub
+      Codemark.stub(:prepare) { codemark }
+
+      get :build_linkmark, format: "js"
+      assigns(:codemark).should == codemark
     end
 
     it "link has an invalid_url if it is a nonsense url" do

@@ -135,6 +135,12 @@ describe Link do
         link.link_record = link_record
         link.should be_persisted
       end
+
+      it "is not persisted if it has no link_record" do
+        link = Link.new
+        link.stub(:link_record) { nil }
+        link.should_not be_persisted
+      end
     end
   end
 end
