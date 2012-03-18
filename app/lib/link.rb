@@ -18,7 +18,13 @@ class Link
   end
 
   def self.find(link_attrs)
-    link_record = LinkRecord.find_by_url(link_attrs[:url])
+    link_record = LinkRecord.find_by_id(link_attrs[:id])
+    link_record ||= LinkRecord.find_by_url(link_attrs[:url])
+    from_link_record(link_record) if link_record
+  end
+
+  def self.find_by_id(link_id)
+    link_record = LinkRecord.find_by_id(link_id)
     from_link_record(link_record) if link_record
   end
 
@@ -28,6 +34,7 @@ class Link
     link.host = link_record.host
     link.title = link_record.title
     link.id = link_record.id
+    link.link_record = link_record
     link
   end
 
@@ -63,6 +70,18 @@ class Link
   end
 
   def persisted?
-    link_record.persisted? if link_record
+    self.id || (link_record && link_record.persisted?)
+  end
+
+  def persisted_object
+    return unless persisted?
+    return link_record if link_record
+    find_link_record
+  end
+
+  private
+
+  def find_link_record
+    LinkRecord.find
   end
 end

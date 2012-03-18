@@ -1,5 +1,9 @@
 class FindTopics
   def self.existing_topics_for(resource)
-    resource.send(:topics)
+    if resource.persisted?
+      resource.persisted_object.send(:topics)
+    else
+      []
+    end
   end
 end

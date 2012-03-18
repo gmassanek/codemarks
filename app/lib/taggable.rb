@@ -1,4 +1,5 @@
 require_relative 'tagger'
+require 'active_support/core_ext' #to get .blank?
 
 module Taggable
 
@@ -9,17 +10,14 @@ module Taggable
     return @tags if @tags
 
     @tags = find_existing_tags
-    return @tags if @tags
+    return @tags if @tags.present?
 
     @tags = retag
+    @tags
   end
 
   def existing_tags
     @tags
-  end
-
-  def find_existing_tags
-    FindTopics.existing_topics_for(self) if self.persisted?
   end
 
   def retag
@@ -28,6 +26,12 @@ module Taggable
       tags.flatten.uniq
     end
     tags.first(TAG_LIMIT)
+  end
+
+  private
+
+  def find_existing_tags
+    FindTopics.existing_topics_for(self)
   end
 
   def tag(text)

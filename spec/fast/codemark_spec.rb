@@ -12,18 +12,28 @@ class CodemarkRecord; end
 describe Codemark do
   let(:valid_url) { "http://www.example.com" }
 
+  describe "self.resource_object_class => Link)"
+  xit "DO NOT DO THIS ONE - self._class (LinkRecord)"
   describe "#prepare" do
-      let(:resource_attrs) { {} }
+    let(:resource_attrs) { {} }
+
+    context "the codemark already exists"
+    context "the codemark does not exists"
+
+    it "creates a new resource object with the incoming attributes"
+    it "creates a new resource object with the incoming attributes"
 
     it "prepares a new resource if it doesn't already exist" do
-      link = stub(:tag => nil, :tags => nil)
+      tags = [stub]
+      link = mock(:tags => tags)
       Link.should_receive(:new).with(resource_attrs).and_return(link)
       cm = Codemark.prepare(:link, resource_attrs)
       cm.resource.should == link
     end
 
-    it "asks the new resource for tags" do
-      link = stub(:tag => nil)
+    it "asks for tags" do
+      tags = [stub]
+      link = mock(:tags => tags)
       Link.stub(:new => link)
       link.should_receive(:tags)
       Codemark.prepare(:link, {})
@@ -33,16 +43,18 @@ describe Codemark do
       let(:link) { Link.new(resource_attrs) }
 
       it "gets returned" do
+        link.stub(:tags) { [stub] }
+
         Link.should_receive(:find).with(resource_attrs).and_return(link)
-        link.stub_chain(:tags, :length => 2)
         Link.should_not_receive(:new)
+
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
       end
 
       it "gets topics from existing codemarks for that resource" do
+        link.stub(:tags) { [stub] }
         Link.should_receive(:find).with(resource_attrs).and_return(link)
-        link.stub_chain(:tags, :length => 2)
         Link.should_not_receive(:new)
         cm = Codemark.prepare(:link, resource_attrs)
         cm.resource.should == link
@@ -115,7 +127,10 @@ describe Codemark do
       Topic.stub(:all => [])
       user = stub
       link = Link.new
-      link.stub(:persisted?) { false }
+      link.stub({
+        :persisted? =>false,
+        :tags => []
+      })
       Link.should_receive(:new).and_return(link)
       LinkRecord.should_receive(:create)
       CodemarkRecord.should_receive(:create)

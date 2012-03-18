@@ -4,13 +4,11 @@ class Codemark
   def self.prepare(type, resource_attrs)
     type = type
 
-    existing_resource = resource_class.find(resource_attrs)
-    if existing_resource.nil? || existing_resource.tags.length == 0
-      resource = resource_class.new(resource_attrs)
-      resource.id = existing_resource.id if existing_resource
-    end
+    #should not be touching the LinkRecord here, should talk to the Link
+    resource = Link.find(resource_attrs)
+    resource ||= resource_class.new(resource_attrs)
 
-    resource ||= existing_resource
+    resource.retag if resource.tags.empty?
 
     topics = resource.tags
     cm = self.new(type, resource, topics)
