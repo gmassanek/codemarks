@@ -219,7 +219,6 @@ DEPENDENCIES
   browser
   capybara
   coffee-rails (~> 3.1.0)
-  cucumber
   cucumber-rails
   database_cleaner
   decent_exposure
