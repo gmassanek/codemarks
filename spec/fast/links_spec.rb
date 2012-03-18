@@ -129,10 +129,16 @@ describe Link do
     end
 
     describe "#persisted?" do
-      it "is persisted if if's link_record is persisted" do
+      it "is persisted if it's link_record is persisted" do
         link_record = mock(:'persisted?' => true)
         link = Link.new
         link.link_record = link_record
+        link.should be_persisted
+      end
+
+      it "is persisted if it has an id" do
+        link = Link.new
+        link.id = 1234
         link.should be_persisted
       end
 
@@ -140,6 +146,35 @@ describe Link do
         link = Link.new
         link.stub(:link_record) { nil }
         link.should_not be_persisted
+      end
+    end
+
+    describe "#persisted object" do
+      it "is nil if it is not persisted" do
+        link = Link.new
+        link.stub(:'persisted?') { false }
+        link.persisted_object.should be_nil
+      end
+
+      it "returns it's link_record if it has one" do
+        link_record = stub
+        link = Link.new
+        link.stub({
+          :'persisted?' => true,
+          :link_record => link_record
+        })
+        link.persisted_object.should == link_record
+      end
+
+      it "finds it's link_record if it hasn't already" do
+        link_record = stub
+        link = Link.new
+        link.stub({
+          :'persisted?' => true,
+          :link_record => nil
+        })
+        link.should_receive(:find_link_record).and_return(link_record)
+        link.persisted_object.should == link_record
       end
     end
   end
