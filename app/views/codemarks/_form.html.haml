@@ -1,5 +1,6 @@
-= form_tag build_linkmark_path, id: "codemark_form", class: 'first', remote: true, :method => :get do
+= form_tag new_codemark_path, id: "codemark_form", class: 'first', remote: true, :method => :get do
   #first
-    = url_field_tag "resource_attrs[url]", nil, placeholder: "paste full link URL here"
+    = url_field_tag "url", nil, placeholder: "paste full link URL here"
     = hidden_field_tag "resource_attrs[id]", nil
+    = hidden_field_tag "id", nil
     = submit_tag "Add Link", :id => 'fetch', class: 'btn primary small'

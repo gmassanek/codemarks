@@ -1,31 +1,20 @@
 require 'spec_helper'
 
 describe CodemarksController do
-  describe "build_linkmark" do
+  describe "new" do
     let(:valid_url) { "http://www.example.com" }
-    let(:resource_attrs) { { "url" => valid_url } }
 
     it "asks for a prepared codemark" do
-      Codemark.should_receive(:prepare).with(:link, resource_attrs)
-      get :build_linkmark, :format  => :js, :resource_attrs => resource_attrs
+      Codemark.should_receive(:load).with(:url => valid_url)
+      get :new, :format  => :js, :url => valid_url
     end
 
     it "creates a new codemark with the new link" do
       codemark = stub
-      Codemark.stub(:prepare) { codemark }
+      Codemark.stub(:load) { codemark }
 
-      get :build_linkmark, format: "js"
+      get :new, format: "js"
       assigns(:codemark).should == codemark
-    end
-
-    it "link has an invalid_url if it is a nonsense url" do
-      get :build_linkmark, format: "js", :resource_attrs => {url: "http://thisshouldntblowup"}
-      assigns(:codemark).resource.should_not be_valid_url
-    end
-
-    it "link has an invalid_url if no url is provided" do
-      get :build_linkmark, format: "js", :resource_attrs => {}
-      assigns(:codemark).resource.should_not be_valid_url
     end
   end
 

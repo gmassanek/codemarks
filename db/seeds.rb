@@ -25,7 +25,7 @@ CSV.foreach(path_to_file, {:headers => true}) do |row|
   unless LinkRecord.find_by_url(url)
     puts "Saving #{url}"
     begin
-      cm = Codemark.prepare(:link, :url => url)
+      cm = Codemark.new(:link, :url => url)
       Codemark.create({:type => :link}, cm.resource.resource_attrs, cm.topics, Fabricate(:user))
     rescue Exception => ex
       puts "Problem saving #{url}"

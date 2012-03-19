@@ -1,181 +1,199 @@
 require 'fast_helper'
 
-class LinkRecord; end
-
 describe Link do
   let(:valid_url) { "http://www.example.com" }
-  let(:resource_attrs) { { url: valid_url } }
-  let(:link_record) { stub(:link_record, :id => 4, 
-                                  :url => 'http://www.twitter.com',
-                                  :host => 'twitter.com',
-                                  :title => 'Twitter') }
-
-  describe "#create" do
-    it "creates a link record in the database" do
-      LinkRecord.should_receive(:create)
-      Link.create({})
-    end
-  end
-
-  describe "#find" do
-    it "searches LinkRecords by url" do
-      LinkRecord.should_receive(:find_by_url).with(valid_url).and_return(link_record)
-      Link.find(resource_attrs)
-    end
-
-    it "returns a Link not a LinkRecord" do
-      link_record = LinkRecord.new
-      LinkRecord.stub(:find_by_url => link_record)
-      Link.should_receive(:from_link_record).with(link_record)
-      Link.find(resource_attrs)
-    end
-  end
-
-  describe "#from_link_record" do
-    it "turns a LinkRecord into a Link" do
-      link = Link.from_link_record(link_record)
-      link.should be_a(Link)
-      link.url.should == 'http://www.twitter.com'
-      link.id.should == 4
-    end
-  end
-
-  describe "#resource_attrs" do
-    it "includes title" do
-      link = Link.new(resource_attrs)
-      link.resource_attrs.keys.should include(:title)
-    end
-
-    it "includes url" do
-      link = Link.new(resource_attrs)
-      link.resource_attrs.keys.should include(:url)
-    end
-
-    it "includes host" do
-      link = Link.new(resource_attrs)
-      link.resource_attrs.keys.should include(:host)
-    end
-  end
 
   describe "#initialize" do
-    # TODO Make these offline tests - probably perfect for VCR
-    # TODO analyze the stubbing here - might need wrapper class for URI
-    it "sets the link's url" do
-      link = Link.new(resource_attrs)
-      link.url.should == valid_url
+    it "saves an id" do
+      attributes = { :id => 999 }
+      link = Link.new(attributes)
+      link.id.should == 999
     end
 
-    describe "#gathers_site_response" do
-      it "is non-nil for valid urls" do
-        link = Link.new(resource_attrs)
-        link.should be_valid_url
-      end
+    it "saves a url" do
+      attributes = { :url => 'http://www.google.com' }
+      link = Link.new(attributes)
+      link.url.should == 'http://www.google.com'
+    end
+  end
 
-      invalid_urls = ["twitter.com", "twitter", "www.twitter.com"]
-      invalid_urls.each do |url|
-        it "is nil for invalid urls like #{url}" do
-          link = Link.new({ :url => url })
-          link.site_response.should be_nil
-          link.should_not be_valid_url
-        end
+  describe "#self.load" do
+    it "creates a new Link from given attributes and loads it up" do
+      attributes = stub
+      link = stub
+      Link.should_receive(:new).with(attributes).and_return(link)
+      link.should_receive(:load)
+      Link.load(attributes)
+    end
+  end
+
+  describe "#load" do
+    it "loads it's link_record" do
+      link = Link.new
+      link.should_receive(:load_link_record)
+      link.load
+    end
+  end
+
+  describe "#load_link_record" do
+    it "caches in memory (returns from @link_record)" do
+      link = Link.new
+
+      link_record = stub
+      link.link_record = link_record
+
+      link.load_link_record.should == link_record
+    end
+
+    it "caches in the db (returns from find_link_record)" do
+      link = Link.new
+
+      link_record = stub.as_null_object
+      link.should_receive(:find_existing_link_record).and_return(link_record)
+      link.load_link_record.should == link_record
+    end
+
+    it "resorts to the WWW" do
+      link = Link.new
+
+      link_record = stub.as_null_object
+      link.stub(:find_existing_link_record)
+      link.should_receive(:create_link_record_from_internet).and_return(link_record)
+      link.load_link_record.should == link_record
+    end
+
+    it "loads it's other attributes if it wasn't already" do
+      link_record = mock({
+        :id => 32,
+        :url => 'http://www.hotmail.com',
+        :title => 'Hotmail',
+        :host => 'www.hotmail.com',
+        :html_content => 'This stuff over here'
+      })
+
+      link = Link.new
+      link.stub(:find_existing_link_record) { link_record }
+      link.load_link_record
+
+      link.id.should == 32
+      link.url.should == 'http://www.hotmail.com'
+      link.title.should == 'Hotmail'
+      link.host.should == 'www.hotmail.com'
+      link.html_content.should == 'This stuff over here'
+    end
+  end
+
+  describe "#find_existing_link_record" do
+    it "is nil if there is no id or url" do
+      link = Link.new
+      link.find_existing_link_record.should be_nil
+    end
+
+    it "looks for LinkRecord by id first" do
+      link_record = stub
+      link = Link.new(:id => 2234)
+      Link.should_receive(:find_link_record_by_id).with(2234).and_return(link_record)
+      link.find_existing_link_record.should == link_record
+    end
+
+    it "searches LinkRecords by url" do
+      link_record = stub
+      link = Link.new(:id => nil, :url => 'some_url')
+      Link.should_receive(:find_link_record_by_url).with('some_url').and_return(link_record)
+      link.find_existing_link_record.should == link_record
+    end
+  end
+
+  describe "load_from_internet" do
+    it "is nil if there is no url" do
+      link = Link.new
+      link.create_link_record_from_internet.should be_nil
+    end
+
+    xit "fetches a parsed html response" do
+      link = Link.new
+      url = stub
+      link.url = url
+      link.should_receive(:parsed_html_response).with(url)
+      link.create_link_record_from_internet
+    end
+
+    invalid_urls = ["twitter.com", "twitter", "www.twitter.com"]
+    invalid_urls.each do |url|
+      xit "is nil for invalid urls like #{url}" do
+        link = Link.new({ :url => url })
+        link.site_response.should be_nil
+        link.should_not be_valid_url
       end
     end
 
-    describe "#parse_site_response" do
-      let(:link) { Link.new({}) }
+    it "saves the LinkRecord"
+    it "normalizes the url"
+    it "saves it's attributes"
+  end
 
-      it "does nothing if the site data is blank" do
-        link.parse_site_response
-
-        link.title.should be_nil
-        link.site_content.should be_nil
-        link.host.should be_nil
-      end
-
-      it "sets the title" do
-        site_response = stub(title: "Github").as_null_object
-        link.stub!(site_response: site_response)
-
-        link.parse_site_response
-        link.title.should == "Github"
-      end
-
-      it "sets the actual html content" do
-        content = '<tag with="attributes" that=\'have weird stuff\'>and data</tag>'
-        site_response = stub(content: content).as_null_object
-        link.stub!(site_response: site_response)
-
-        link.parse_site_response
-        link.site_content.should == content
-      end
-
-      it "sets the host" do
-        host = 'www.example.com'
-        link = Link.new(resource_attrs)
-        link.host.should == host
-      end
+  describe "is taggable" do
+    it "has a tagging order" do
+      link = Link.new
+      link.tagging_order.should == [:title, :html_content]
     end
 
-    describe "is taggable" do
-      it "has a tagging order" do
-        link = Link.new
-        link.tagging_order.should == [:title, :site_content]
-      end
-
-      it "has a tags method" do
-        link = Link.new
-        link.should respond_to(:tags)
-      end
-    end
-
-    describe "#persisted?" do
-      it "is persisted if it's link_record is persisted" do
-        link_record = mock(:'persisted?' => true)
-        link = Link.new
-        link.link_record = link_record
-        link.should be_persisted
-      end
-
-      it "is persisted if it has an id" do
-        link = Link.new
-        link.id = 1234
-        link.should be_persisted
-      end
-
-      it "is not persisted if it has no link_record" do
-        link = Link.new
-        link.stub(:link_record) { nil }
-        link.should_not be_persisted
-      end
-    end
-
-    describe "#persisted object" do
-      it "is nil if it is not persisted" do
-        link = Link.new
-        link.stub(:'persisted?') { false }
-        link.persisted_object.should be_nil
-      end
-
-      it "returns it's link_record if it has one" do
-        link_record = stub
-        link = Link.new
-        link.stub({
-          :'persisted?' => true,
-          :link_record => link_record
-        })
-        link.persisted_object.should == link_record
-      end
-
-      it "finds it's link_record if it hasn't already" do
-        link_record = stub
-        link = Link.new
-        link.stub({
-          :'persisted?' => true,
-          :link_record => nil
-        })
-        link.should_receive(:find_link_record).and_return(link_record)
-        link.persisted_object.should == link_record
-      end
+    it "has a tags method" do
+      link = Link.new
+      link.should respond_to(:tags)
     end
   end
 end
+
+#  describe "#load_link_record_attributes" do
+#    let(:link_record) { mock(:id => 4, 
+#                         :url => 'http://www.twitter.com',
+#                         :host => 'twitter.com',
+#                         :title => 'Twitter') }
+#    before do
+#      Link.stub(:find_link_record) { stub }
+#      Link.any_instance.stub(:load_link_record_attributes) { nil }
+#
+#      @link = Link.new
+#      @link.stub!(:link_record) { link_record }
+#    end
+#
+#    xit "extracts the url" do
+#      @link = @link.load_link_record_attributes
+#      @link.url.should == 'http://www.twitter.com'
+#    end
+#
+#    xit "extracts the host" do
+#      @link.load_link_record_attributes
+#      @link.host.should == 'twitter.com'
+#    end
+#
+#    xit "extracts the title" do
+#      @link.load_link_record_attributes
+#      @link.title.should == 'Twitter'
+#    end
+#
+#    xit "extracts the id" do
+#      @link.load_link_record_attributes
+#      @link.id.should == 4
+#    end
+#  end
+#
+#  describe "#resource_attrs" do
+#    let(:resource_attrs) { {} }
+#
+#    it "includes title" do
+#      link = Link.new(resource_attrs)
+#      link.resource_attrs.keys.should include(:title)
+#    end
+#
+#    it "includes url" do
+#      link = Link.new(resource_attrs)
+#      link.resource_attrs.keys.should include(:url)
+#    end
+#
+#    it "includes host" do
+#      link = Link.new(resource_attrs)
+#      link.resource_attrs.keys.should include(:host)
+#    end
+#  end

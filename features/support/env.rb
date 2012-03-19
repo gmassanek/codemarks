@@ -81,3 +81,8 @@ Before('@omniauth_test_success') do
     }
   }
 end
+
+AfterStep('@pause') do
+  print "Press Return to continue"
+  STDIN.getc
+end

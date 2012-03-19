@@ -12,24 +12,34 @@ describe Taggable do
   end
 
   describe "#tags" do
-    it "from it's tags instance variable first" do
-      tags = []
+    it "from existing tags first" do
+      tags = [stub]
       taggable_instance.stub(:existing_tags) { (tags) }
-      taggable_instance.should_not_receive(:find_existing_tags)
-      taggable_instance.tags.should == tags
-    end
-
-    it "then from existing tags" do
-      tags = stub
-      taggable_instance.stub(:find_existing_tags) { tags }
+      taggable_instance.should_not_receive(:retag)
       taggable_instance.tags.should == tags
     end
 
     it "or finally from it's attributes none already existed" do
-      tags = stub
-      taggable_instance.stub(:find_existing_tags) { nil }
+      tags = [stub, stub]
+      taggable_instance.stub(:existing_tags) { nil }
       taggable_instance.stub(:retag) { tags }
       taggable_instance.tags.should == tags
+    end
+  end
+
+  describe "#existing_tags" do
+    it "looks to it's instance variable first" do
+      tags = []
+      taggable_instance.stub(:tags_instance_variable) { (tags) }
+      taggable_instance.should_not_receive(:find_tags_from_codemark)
+      taggable_instance.existing_tags.should == tags
+    end
+
+    it "looks to it's instance variable first" do
+      tags = []
+      taggable_instance.stub(:tags) {  }
+      taggable_instance.should_receive(:find_tags_from_codemark).and_return(tags)
+      taggable_instance.existing_tags.should == tags
     end
   end
 
