@@ -1,7 +1,10 @@
 class CodemarksController < ApplicationController
 
-  def build_linkmark
-    @codemark = Codemark.prepare(:link, params[:resource_attrs])
+  def new
+    options = {}
+    options[:url] = params[:url]
+    options[:user_id] = params[:user_id] if params[:user_id]
+    @codemark = Codemark.load(options)
   end
 
   def create

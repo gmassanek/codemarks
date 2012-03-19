@@ -27,8 +27,10 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @user = User.find_by_slug(params[:user_id])
-    @user ||= User.find_by_id(params[:user_id])
+    if params[:user_id].present?
+      @user = User.find_by_slug(params[:user_id])
+      @user ||= User.find_by_id(params[:user_id])
+    end
 
     @topic = Topic.find params[:id]
 
