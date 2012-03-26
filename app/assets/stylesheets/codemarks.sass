@@ -1,0 +1,70 @@
+/*** VARIABLES ***/
+@import "configuration"
+
+#filters
+  float: left
+
+
+#sorts 
+  float: right
+
+
+.pagination 
+  float: left
+  margin: 10px 0 0 10px
+
+
+#codemarks
+  li
+    padding: 10px 0
+    line-height: 16px
+    border-bottom: 1px solid $border-color2
+
+    &:nth-last-child(1)
+      border-bottom: none
+    
+
+    h3
+      float: left
+      font-size: 13px
+
+      a
+        font-size: 16px
+
+        &:hover
+          color: $c5
+
+      .pop
+        font-weight: normal
+
+      .host
+        color: lighten($c2, 40%)
+        font-size: 11px
+        font-weight: normal
+
+    #topics_tags
+      float: left
+
+      li
+        float: left
+        padding: 3px 5px
+        border-bottom: none
+
+        &:nth-last-child(1)
+          padding-right: 0
+          border-right: none
+
+    .details
+      float: left
+      color: lighten($c2, 40%)
+      margin-top: 2px
+
+      .time
+        float: left
+
+      .saver
+        float: left
+        margin-left: 3px
+
+    .actions 
+      float: right

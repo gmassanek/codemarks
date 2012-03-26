@@ -2,7 +2,10 @@
 %html
   %head
     %title Codemarks
+    = stylesheet_link_tag    "bootstrap"
+    = stylesheet_link_tag    "jquery-ui-1.8.16.custom"
     = stylesheet_link_tag    "application"
+
     = javascript_include_tag "application"
     = csrf_meta_tags
     - if ENV['RAILS_ENV']=='production'
