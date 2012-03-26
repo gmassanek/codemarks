@@ -1,0 +1,77 @@
+/*** VARIABLES ***/
+@import "configuration"
+
+
+#container
+  width: 960px
+  margin: 0 auto
+
+#content
+  border-radius: $border-radius
+  //background: $c6
+  padding: 15px 20px 0
+  //background: url('background-white.png') 0 0 no-repeat
+  background-size: 100%
+
+/*** HEADER  ***/
+.header_wrapper
+  height: $header-height + $header-extra
+  padding-bottom: 1px
+  box-shadow: 0 2px 25px rgba(0,0,0,0.2)
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+  background: url('fabric_2.png') 0 0
+
+.header_coloring
+  height: $header-height + $header-extra
+  $top: lighten($c2, 60%)
+
+#header
+  margin-top: -($header-height + $header-extra + $header-box)
+  height: $header-height + $header-extra + $header-box
+
+  #codemark_form
+    position: absolute
+    top: 10px
+    left: 50%
+    margin-left: -300px
+
+.site_search
+  float: right
+
+  input
+    margin-top: 5px
+    padding: 3px
+    border: 1px solid $border-color1
+    border-radius: $border-radius-tight
+    width: 150px
+
+
+#logo
+  float: left
+  margin-top: 10px
+
+  img
+    margin-top: 1px
+    height: 26px
+
+#authentication
+  float: right
+  margin-top: 20px
+  li
+    float: left
+    padding: 0 15px
+
+    &.last
+      padding-right: 0
+
+    &.image
+      margin: -5px -20px 0 0
+      padding: 0
+      padding-right: 10px
+      img
+        border: 1px solid $c6
+        height: 25px
+
+  .site_search input
+    margin-top: -2px
+    padding: 2px

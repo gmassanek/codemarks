@@ -1,0 +1,68 @@
+// Variables
+@import "configuration"
+
+#codemark_form
+  $border-sz: 2px
+  z-index: 100
+  border: $border-sz solid $border-color2
+  border-radius: $border-radius
+  float: left
+  width: 600px
+
+  #first
+    width: 520px
+    margin: 0 auto
+    input
+      &[type=url]
+        padding: 4px
+        width: 400px
+
+  .site_search
+    width: 85%
+    margin: 0 auto
+
+  .site_search input
+    width: 85%
+    margin: 0 auto
+
+  #second
+    width: 95%
+    margin: 0 auto
+    input#codemark_link_title
+      width: 100%
+
+  &.first
+    border: $border-sz solid transparent
+    #second 
+      display: none
+
+  &.second
+    background: white
+
+    #resource_attrs_title
+      width: 85%
+      margin: 0 auto
+
+  ul#topic_tags
+    font-size: 12px
+    width: 100%
+
+    li
+      width: 85%
+      margin: 5px auto
+      //background: lighten($border-color2, 10%)
+      //border: 1px solid $border-color2
+      //border-radius: $border-radius
+      padding: 3px 5px
+
+      .title
+        float: left
+
+      .delete
+        float: right
+        font-size: 10px
+        font-weight: bold
+        margin: 4px 3px 0px 5px
+
+        &.first
+          margin-left: none
