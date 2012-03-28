@@ -39,7 +39,7 @@ describe "topics" do
     end
 
     it "doesn't break on the show page" do
-      visit topic_path(@rspec)
+      visit topic_path(@rspec.to_param)
     end
     
     it "shows all codemarks for a topic on topic show page"
