@@ -33,13 +33,18 @@ module ApplicationHelper
     if author.id == current_user_id
       short_user_url(current_user)
     else
+      #"http://www.codemarks.com/public"
       public_codemarks_url
     end
   end
 
-  def codemark_topic_title(codemark)
-    if codemark.topics.first
-      "about #{codemark.topics.first.title}"
+  def codemark_short_tag_list(codemark)
+    tags = codemark.topics.first(4)
+    if tags
+      tag_texts = tags.collect do |tag|
+        "##{tag.slug}"
+      end
+      tag_texts.join(" ")
     else
       ""
     end
@@ -48,9 +53,11 @@ module ApplicationHelper
   def tweet_out_text(codemark)
     author = codemark.user
     if author.id == current_user_id
-      "#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others"
+      #"#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others"
+      "Saved a #codemark worth checking out - . #{codemark.link_record.url} #{codemark_short_tag_list(codemark)}"
     else
-      "#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more"
+      "Found a #codemark worth checking out - #{codemark.link_record.url} Thanks @#{codemark.user.nickname}, nice find. #{codemark_short_tag_list(codemark)}"
+      #"#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more"
     end
   end
 end
