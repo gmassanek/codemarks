@@ -3,7 +3,6 @@ require 'spec_helper'
 describe "User Profile Page" do
   context "show" do
     before do
-      simulate_signed_in
       @user = Fabricate(:user)
       visit short_user_path(@user)
     end
