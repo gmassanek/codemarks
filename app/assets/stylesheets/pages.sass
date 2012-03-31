@@ -1,0 +1,106 @@
+@import "configuration"
+@import "bourbon"
+
+#banner
+  position: absolute
+  top: ($header-height + $header-extra + $header-box)
+  width: 100%
+  left: 0
+  height: 350px
+  background: url('background-texture2.png') 0 0
+  @include radial_gradient(50% 65%, ellipse cover, lighten($c2, 10%), $c2 45%)
+  z-index: -1
+
+
+#banner_text
+  margin-top: 35px
+  height: 315px
+  color: white
+  text-align: center
+  text-shadow: 1px 1px black
+
+  h2
+    font-family: 'Coustard', serif
+    font-size: 60px
+    text-shadow: 0 3px rgba(0, 0, 0, 0.3)
+
+  .btn-auth
+    margin-top: 35px
+
+  h3
+    font-size: 30px
+    font-weight: normal
+    margin-top: 30px
+    background: inherit
+    border-bottom: none
+
+
+
+#site_explanation
+  width: 900px
+  margin: 20px auto
+
+  li
+    height: 130px
+    border-right-color: darken($border-color2, 10%)
+    font-size: 20px
+    text-align: center
+    float: left
+    padding: 0 20px
+    width: 258px
+    line-height: 120%
+    //color: $border-color1
+
+    a
+      color: $c3
+    
+    h3
+      margin-bottom: 10px
+
+    p
+      font-size: 16px
+      text-shadow: none
+
+    h2
+      color: darken($border-color1, 15%)
+      font-size: 24px
+      background: inherit
+      border-bottom: none
+      margin-bottom: 10px
+
+#about
+  #banner_text
+    height: 330px
+    padding-top: 20px
+    margin-top: -12px
+    h2
+      padding-bottom: 15px
+
+    h3
+      margin-top: 0px
+      color: white
+
+    li
+      margin-top: 0px
+      height: auto
+      border: none
+      color: lighten($border-color1, 25%)
+
+  #site_explanation
+    margin: 20px auto
+    
+      padding-bottom: 15px
+      text-align: center
+      font-size: 30px
+      margin-bottom: 10px
+
+    h3
+      margin-bottom: 10px
+
+    li
+      margin-top: 0px
+      height: auto
+      //border: none
+
+    &.bottom
+      width: 900px
