@@ -3,6 +3,7 @@ class CodemarksController < ApplicationController
   def new
     options = {}
     options[:url] = params[:url]
+    options[:id] = params[:id] if params[:id]
     options[:user_id] = params[:user_id] if params[:user_id]
     @codemark = Codemark.load(options)
   end
