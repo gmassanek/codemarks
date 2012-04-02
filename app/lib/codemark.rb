@@ -8,6 +8,8 @@ class Codemark
     @resource = attributes[:resource]
     @tags = attributes[:tags]
     @user = attributes[:user]
+    @user = Codemark.look_for_user(attributes) if attributes[:user_id]
+
     @codemark_record = attributes[:codemark_record]
 
     @title = attributes[:title]
@@ -21,7 +23,7 @@ class Codemark
   end
 
   def load
-    return if load_requested_codemark
+    return self if load_requested_codemark
 
     @resource = load_link
     load_users_codemark
@@ -29,7 +31,7 @@ class Codemark
   end
 
   def load_requested_codemark
-    @codemark_record = load_codemark_by_id(@id) if @id
+    @codemark_record = load_codemark_by_id(@id) if @id.present?
     pull_up_attributes if @codemark_record
     @codemark_record.present?
   end
@@ -113,13 +115,13 @@ class Codemark
     user_id = @user.id if @user
     if self.codemark_record
       self.codemark_record.update_attributes({
-        :topic_ids => @tag_ids
+        :topic_ids => tags.collect(&:id)
       })
     else
       self.codemark_record = CodemarkRecord.new({
         :user_id => user_id,
         :link_record_id => @resource.id,
-        :topic_ids => @tag_ids
+        :topic_ids => tags.collect(&:id)
       })
     end
     if self.codemark_record.save!
@@ -134,7 +136,7 @@ class Codemark
     CodemarkRecord.find(id)
   end
 
-  def load_codemark_by_id(user, link)
+  def load_codemark_by_link_and_id(user, link)
     CodemarkRecord.find_by_user_and_link(user, link)
   end
 
