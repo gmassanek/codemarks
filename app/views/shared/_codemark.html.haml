@@ -28,6 +28,6 @@
         = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
       - elsif logged_in?
         - img = image_tag('copy.png', height: '20px')
-        = link_to img, "", :class => "edit_codemark"
+        = link_to img, "", :class => "copy_codemark"
       = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear

@@ -16,6 +16,11 @@ When /^I click "([^"]*)"$/ do |arg1|
   page.click_link_or_button(arg1)
 end
 
+When /^I copy that codemark/ do
+  p find('.copy_codemark')
+  find('.copy_codemark').click
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

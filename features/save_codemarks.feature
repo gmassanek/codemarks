@@ -33,7 +33,7 @@ Feature: Saving Codemarks
     Given I am a logged in user
     And gmassanek is a user with a codemark
     When I go to the public page
-    And I click "steal"
+    And I copy that codemark
     Then I should see the data for that codemark in the codemark form
 
   Scenario: Can't steal if not logged in
