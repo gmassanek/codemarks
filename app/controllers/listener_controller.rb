@@ -1,6 +1,6 @@
 class ListenerController < ApplicationController
   def prepare_bookmarklet
-    @codemark = Codemark.prepare(:link, {:url => params[:l]})
+    @codemark = Codemark.new(:link, {:url => params[:l]})
     @user_id = params[:id]
 
     respond_to do |format|
@@ -52,7 +52,7 @@ class ListenerController < ApplicationController
       message = commit["message"]
       if message.include?("#cm")
         url = commit["url"]
-        codemarks << Codemark.prepare(:link, {:url => url})
+        codemarks << Codemark.new(:link, {:url => url})
       end
     end
 

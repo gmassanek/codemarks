@@ -4,84 +4,77 @@ require 'open-uri'
 
 class Link
   include Taggable
-  attr_accessor :id, :url, :site_content, :host, :title, :link_record, :site_response, :valid_url
+  attr_accessor :id, :url, :html_content, :host, :title, :link_record, :site_response, :valid_url
 
-  def initialize(link_attributes = {})
-    @url = link_attributes[:url]
-    @site_response = gathers_site_data
-    parse_site_response
+  def initialize(attributes = {})
+    return if attributes.blank?
+    self.id = attributes[:id]
+    self.url = attributes[:url]
   end
 
-  def self.create(link_attrs)
-    @link_record = LinkRecord.create(link_attrs)
-    @link_record
+  def load
+    self.link_record = load_link_record
+    self
   end
 
-  def self.find(link_attrs)
-    link_record = LinkRecord.find_by_id(link_attrs[:id])
-    link_record ||= LinkRecord.find_by_url(link_attrs[:url])
-    from_link_record(link_record) if link_record
+  def self.load(attributes = {})
+    link = Link.new(attributes)
+    link.load
   end
 
-  def self.find_by_id(link_id)
-    link_record = LinkRecord.find_by_id(link_id)
-    from_link_record(link_record) if link_record
+  def load_link_record
+    return link_record if link_record
+    self.link_record ||= find_existing_link_record
+    self.link_record ||= create_link_record_from_internet
+
+    self.id = link_record.id
+    self.url = link_record.url
+    self.title = link_record.title
+    self.host = link_record.host
+    self.html_content = link_record.html_content
+
+    link_record
   end
 
-  def self.from_link_record(link_record)
-    link = Link.new
-    link.url = link_record.url
-    link.host = link_record.host
-    link.title = link_record.title
-    link.id = link_record.id
-    link.link_record = link_record
-    link
+  def find_existing_link_record
+    link_record = Link.find_link_record_by_id(self.id) if self.id
+    link_record ||= Link.find_link_record_by_url(self.url) if self.url
+    link_record
   end
 
-  def gathers_site_data
-    @valid_url = true
-    return Nokogiri::HTML(open(url))
+  # need to refactor
+  def create_link_record_from_internet
+    link_record = LinkRecord.new
+    html_response = parsed_html_response(url)
+
+    link_record.url = self.url
+    link_record.title = html_response.title
+    link_record.host = URI.parse(url).host
+
+    link_record.html_content = html_response.content
+    link_record.save!
+    link_record
   rescue Exception => e
-    @valid_url = false
+    p e
     return nil
   end
 
-  def parse_site_response
-    return unless site_response
-    @title = site_response.title
-    @site_content = site_response.content
-    @host = URI.parse(url).host if url
-  end
-
-  def valid_url?
-    self.valid_url
-  end
-
+  #should pass this off to Tagger via Tagger.tag_these([:title, :html_content])
   def tagging_order
-    [:title, :site_content]
-  end
-
-  def resource_attrs
-    {
-      :url => @url,
-      :host => @host,
-      :title => @title
-    }
-  end
-
-  def persisted?
-    self.id || (link_record && link_record.persisted?)
-  end
-
-  def persisted_object
-    return unless persisted?
-    return link_record if link_record
-    find_link_record
+    [:title, :html_content]
   end
 
   private
 
-  def find_link_record
-    LinkRecord.find
+  def self.find_link_record_by_id(id)
+    LinkRecord.find_by_id(id)
+  end
+
+  def self.find_link_record_by_url(url)
+    LinkRecord.find_by_url(url)
+  end
+
+  def parsed_html_response(url)
+    Nokogiri::HTML(open(url))
   end
 end

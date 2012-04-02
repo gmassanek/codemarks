@@ -13,7 +13,7 @@ describe "New Codemark Form" do
 
     it "is on any page if you're logged in" do
       visit root_path
-      page.should have_css("input#resource_attrs_url", :visible => true)
+      page.should have_css("input#url", :visible => true)
     end
     
     it "shows the second form when I submit a URL to save", js: true do

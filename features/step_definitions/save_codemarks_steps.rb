@@ -1,6 +1,6 @@
 When /^I fill out the codemark form with Twitter$/ do
   Fabricate(:topic, :title => "twitter")
-  page.fill_in("resource_attrs_url", :with => "http://www.twitter.com")
+  page.fill_in("url", :with => "http://www.twitter.com")
   page.click_button("fetch")
   wait_until { find('#resource_attrs_title').visible? }
   page.click_button("fetch")
@@ -19,7 +19,7 @@ Given /^there is (a|1) codemark$/ do |arg1|
 end
 
 When /^I fill out the codemark form with the existing one$/ do
-  page.fill_in("resource_attrs_url", :with => @codemark.url)
+  page.fill_in("url", :with => @codemark.url)
   page.click_button("fetch")
   wait_until { find('#resource_attrs_title').visible? }
   page.click_button("fetch")

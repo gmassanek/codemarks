@@ -3,8 +3,7 @@ Codemarks::Application.routes.draw do
   get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
 
-  resources :codemarks, :only => [:create, :destroy]
-  get '/codemarks/build_linkmark', to: "codemarks#build_linkmark", as: :build_linkmark
+  resources :codemarks, :only => [:new, :create, :destroy]
   get '/public', to: "codemarks#public", :as => :public_codemarks
 
   post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"
