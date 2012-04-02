@@ -25,9 +25,9 @@ Feature: View Codemarks
     Then I should see a link, "Some Title"
 
   Scenario: Viewing public codemarks
-    Given there are 6 random codemarks
+    Given there are 2 random codemarks
     When I go to the public page
-    Then I should see 6 codemarks
+    Then I should see 2 codemarks
 
   Scenario: Viewing someone else's codemarks
     Given gmassanek is a user with a codemark
@@ -61,8 +61,7 @@ Feature: View Codemarks
     Then I should see his codemark
     And I should see a tab with my name
 
-  @javascript
-  Scenario: Codemarks have twitter links
+  Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
     When I go to the public page
     #Then I should see a twitter share link

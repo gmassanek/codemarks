@@ -10,11 +10,9 @@ describe FindTopics do
 
     it "finds all codemarks for the given resource" do
       topics = [stub, stub]
-      persisted_object = mock(:topics => topics)
-
       resource = mock({
         :'persisted?' => true,
-        :persisted_object => persisted_object
+        :topics => topics
       })
 
       FindTopics.existing_topics_for(resource).should == topics
