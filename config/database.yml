@@ -15,6 +15,8 @@ test: &TEST
 staging: &TEST
   adapter:   postgresql
   encoding:  unicode
+  username:  codemarks_staging
+  password:  staging
   database:  codemarks_staging
   pool: 5
   min_messages: warning
