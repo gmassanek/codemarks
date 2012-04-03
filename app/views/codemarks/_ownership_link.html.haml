@@ -1,0 +1,4 @@
+- if codemark.user == current_user
+  = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?', :class => 'ownership delete'
+- else
+  = link_to "not mine", '', :class => 'ownership copy'

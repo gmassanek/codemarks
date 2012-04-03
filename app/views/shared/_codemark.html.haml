@@ -22,12 +22,9 @@
             and #{codemark.save_count.to_i-1 } others
 
     .actions
-      - if author == current_user
+      - if codemark.user == current_user
         = link_to "edit", "", :class => "edit_codemark"
-        \-
-        = link_to "delete", codemark_path(codemark), :method => :delete, :remote => true, :confirm => 'for real?'
-      - elsif logged_in?
-        - img = image_tag('copy.png', height: '20px')
-        = link_to img, "", :class => "copy_codemark"
+      - if logged_in?
+        = render '/codemarks/ownership_link', :codemark => codemark
       = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear

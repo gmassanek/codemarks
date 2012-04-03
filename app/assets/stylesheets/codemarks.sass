@@ -1,48 +1,54 @@
 /*** VARIABLES ***/
 @import "configuration"
+@import "bourbon"
 
 #filters
   float: left
 
-
 #sorts 
   float: right
-
 
 .pagination 
   float: left
   margin: 10px 0 0 10px
 
+.codemark
+  padding: 10px 0
+  line-height: 16px
+  border-bottom: 1px solid $border-color2
 
-#codemarks
-  li
-    padding: 10px 0
-    line-height: 16px
-    border-bottom: 1px solid $border-color2
+  &:nth-last-child(1)
+    border-bottom: none
 
-    &:nth-last-child(1)
-      border-bottom: none
-    
+  h3
+    float: left
+    font-size: 13px
+    a
+      font-size: 16px
+      &:hover
+        color: $c5
+    .pop
+      font-weight: normal
+    .host
+      color: lighten($c2, 40%)
+      font-size: 11px
+      font-weight: normal
 
-    h3
+  #topics_tags
+    float: left
+    li
       float: left
-      font-size: 13px
+      padding: 3px 5px
+      border-bottom: none
+      &:nth-last-child(1)
+        padding-right: 0
+        border-right: none
 
-      a
-        font-size: 16px
-
-        &:hover
-          color: $c5
-
-      .pop
-        font-weight: normal
-
-      .host
-        color: lighten($c2, 40%)
-        font-size: 11px
-        font-weight: normal
-
-    #topics_tags
+  .details
+    float: left
+    color: lighten($c2, 40%)
+    margin-top: 2px
+    .time
       float: left
 
       li
@@ -58,17 +64,31 @@
           padding-right: 0
           border-right: none
 
-    .details
+    .saver
       float: left
-      color: lighten($c2, 40%)
-      margin-top: 2px
+      margin-left: 3px
 
-      .time
-        float: left
+  .actions 
+    float: right
 
-      .saver
-        float: left
-        margin-left: 3px
+    iframe
+      position: relative
+      top: 8px
 
-    .actions 
-      float: right
+  .ownership
+    width: 50px
+    height: 20px
+    margin: 0 0 0px 10px
+    display: inline-block
+    text-align: right
+    border: 1px solid #DDD
+
+    padding: 0px 5px
+    background: #EEE
+    @include border-radius(3px)
+
+    &.copy.hover
+      text-align: center
+      background: #DDD
+      border-color: #CCC
+      
