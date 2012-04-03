@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
       nickname = authentications.first.nickname
       self.nickname = nickname
       self.slug = nickname
+      self.save
     end
   end
 

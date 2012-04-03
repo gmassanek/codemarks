@@ -1,7 +1,4 @@
-require 'authenticator'
 class SessionsController < ApplicationController
-  include OOPs
-
   def create
     if current_user
       @user = current_user
