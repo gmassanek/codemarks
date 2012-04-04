@@ -41,3 +41,9 @@ $ ->
     e.preventDefault()
     $cm = $(e.target).closest('.codemark')
     copy_codemark($cm)
+
+  $(".ownership.copy").qtip
+    content: 'Add to your codemarks'
+
+  $(".ownership.delete").qtip
+    content: 'Remove from your codemarks'
