@@ -26,7 +26,7 @@ Codemarks::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
 end
 
 OmniAuth.config.test_mode = true
