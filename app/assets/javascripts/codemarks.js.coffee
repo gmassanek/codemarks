@@ -47,3 +47,6 @@ $ ->
 
   $(".ownership.delete").qtip
     content: 'Remove from your codemarks'
+
+  $(".edit_codemark").qtip
+    content: 'Edit your codemark'
