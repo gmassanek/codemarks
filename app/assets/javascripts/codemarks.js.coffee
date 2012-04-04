@@ -15,28 +15,27 @@ swapClasses = ($ownership_link, class_to_remove, class_to_add) ->
 
 $ ->
   $(".ownership.copy").click (e) ->
-    e.preventDefault()
     $cm = $(e.target).closest('.codemark')
     copy_codemark($cm)
-    swapClasses($(e.target), "copy", "delete")
 
-  $('.ownership.copy').mouseover (e) ->
+  $(".ownership.delete").click (e) ->
+    $cm = $(e.target).closest('.codemark')
+    cm_id = $cm.find("#codemark_id").val()
+    if(confirm("Are you sure you want to delete your codemark?"))
+      $.post "codemarks/#{cm_id}", {
+        _method: 'delete'
+        success: ->
+          $cm.fadeOut(500, ->
+            @remove())
+      }
+
+  $('.ownership').mouseover (e) ->
     $target = $(e.target)
     $target.addClass('hover')
-    $target.html('Steal!')
 
-  $('.ownership.copy').mouseout (e) ->
+  $('.ownership').mouseout (e) ->
     $target = $(e.target)
     $target.removeClass('hover')
-    $target.html('Not mine')
-
-
-
-
-
-
-
-
 
   $(".edit_codemark").click (e) ->
     e.preventDefault()

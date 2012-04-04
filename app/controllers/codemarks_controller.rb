@@ -5,7 +5,7 @@ class CodemarksController < ApplicationController
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
     options[:user_id] = params[:user_id] if params[:user_id]
-    @codemark = Codemark.load(options)
+   @codemark = Codemark.load(options)
   end
 
   def create
@@ -36,9 +36,7 @@ class CodemarksController < ApplicationController
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.destroy
 
-    respond_to do |format|
-      format.js
-    end
+    render :json => { :head => 200 }
   end
 
 end
