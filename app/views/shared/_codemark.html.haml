@@ -23,7 +23,7 @@
 
     .actions
       - if codemark.user == current_user
-        = link_to "edit", "", :class => "edit_codemark"
+        .edit_codemark
       - if logged_in?
         = render '/codemarks/ownership_link', :codemark => codemark
       = render '/codemarks/share_tweet_link', :codemark => codemark
