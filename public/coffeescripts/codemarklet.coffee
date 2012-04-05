@@ -1,5 +1,5 @@
 window.Codemarklet =
-  codemarks_url: 'http://www.staging.codemarks.com/'
+  codemarks_url: 'http://staging.codemarks.com/'
   waitForJquery: (cnt) ->
     return if(cnt>20)
 

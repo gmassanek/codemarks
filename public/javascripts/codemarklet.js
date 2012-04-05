@@ -1,7 +1,7 @@
 (function() {
 
   window.Codemarklet = {
-    codemarks_url: 'http://www.staging.codemarks.com/',
+    codemarks_url: 'http://staging.codemarks.com/',
     waitForJquery: function(cnt) {
       if (cnt > 20) return;
       if (window.jQuery) {
