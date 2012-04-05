@@ -2,6 +2,7 @@ Codemarks::Application.routes.draw do
 
   get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
+  get '/codemarklet_test', to: "pages#codemarklet_test"
 
   resources :codemarks, :only => [:new, :create, :destroy]
   get '/public', to: "codemarks#public", :as => :public_codemarks
