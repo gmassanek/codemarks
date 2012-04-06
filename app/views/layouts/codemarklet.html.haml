@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    %title Codemarks
+    = csrf_meta_tags
+  %body{style: 'width: 550px; height: 450;'}
+    = yield
