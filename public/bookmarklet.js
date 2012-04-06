@@ -9,4 +9,4 @@ var F=document;
 var E;
 
 if(C>A){G=Math.round((C/2)-(A/2))}
-window.codemarklet.shareWin=window.open('http://staging.codemarks.com/','','left='+H+',top='+G+',width='+D+',height='+A+',personalbar=0,toolbar=0,scrollbars=1,resizable=1');
+window.codemarklet.shareWin=window.open('http://staging.codemarks.com/codemarklet/new?url=' + document.location,'','left='+H+',top='+G+',width='+D+',height='+A+',personalbar=0,toolbar=0,scrollbars=1,resizable=1');

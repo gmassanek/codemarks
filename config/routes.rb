@@ -4,6 +4,7 @@ Codemarks::Application.routes.draw do
   get '/about', to: "pages#about", as: :about
   get '/codemarklet_test', to: "pages#codemarklet_test"
 
+  resources :codemarklet, :only => [:new, :create]
   resources :codemarks, :only => [:new, :create, :destroy]
   get '/public', to: "codemarks#public", :as => :public_codemarks
 
