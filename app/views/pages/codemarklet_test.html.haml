@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    :javascript
+      function start() {
+        jqueryScriptTag = document.createElement('script');
+        jqueryScriptTag.setAttribute('src','http://localhost:3000/javascripts/codemarklet.js');
+        document.body.appendChild(jqueryScriptTag);
+      }
+
+      function clickedThat(e) {
+        console.log('hello');
+        e.preventDefault();
+        start();
+      }
+  %body
+    Hello World!
+    %a#start{href: '', onclick: 'clickedThat(event)'}
+      Woo

@@ -17,8 +17,17 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 When /^I copy that codemark/ do
-  p find('.copy_codemark')
-  find('.copy_codemark').click
+  find('.copy').click()
+end
+
+When /^I click the edit icon/ do
+  find('.edit_codemark').click()
+end
+
+When /^I wait until all Ajax requests are complete$/ do
+  wait_until do
+    page.evaluate_script('$.active') == 0
+  end
 end
 
 Then /^show me the page$/ do

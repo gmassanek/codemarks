@@ -14,10 +14,6 @@
 *       <input type="text" data-autocomplete="/url/to/autocomplete" data-id-element="#id_field">
 */
 
-$(document).ready(function(){
-  $('input[data-autocomplete]').railsAutocomplete();
-});
-
 (function(jQuery)
 {
   var self = null;
