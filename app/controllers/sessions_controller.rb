@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  def failure
+    Rails.logger.error "======================== Failed auth =========================="
+    Rails.logger.error params.inspect
+  end
+
   def create
     if current_user
       @user = current_user
@@ -12,11 +17,15 @@ class SessionsController < ApplicationController
     session[:filter] = "mine"
     session[:sort] = "by_save_date"
 
+    if session[:callback]
+      redirect_to session[:callback]
+      return
+    end
     if FindCodemarks.new(:user => @user).codemarks.count == 0
       @link = Link.new
       redirect_to welcome_path
     else
-      redirect_to dashboard_path
+      redirect_to @user
     end
 
   rescue Exception => ex
@@ -39,6 +48,13 @@ class SessionsController < ApplicationController
 
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  def codemarklet_sign_in
+    callback_url = params[:callback]
+    session[:callback] = callback_url if callback_url
+
+    redirect_to "/auth/#{params[:provider]}"
   end
 
 end

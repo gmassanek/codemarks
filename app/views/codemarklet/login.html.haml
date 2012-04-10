@@ -5,5 +5,5 @@
     %h3 bookmarks for social coders
 
     .clear
-    = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
-    = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
+    = link_to "sign in with twitter", codemarklet_sign_in_path(:provider => :twitter, :callback => @callback_url), :class => "btn-auth btn-twitter"
+    = link_to "sign in with github", codemarklet_sign_in_path(:provider => :github, :callback => @callback_url), :class => "btn-auth btn-github"
