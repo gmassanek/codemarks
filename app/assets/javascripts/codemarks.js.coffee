@@ -22,7 +22,7 @@ $ ->
     $cm = $(e.target).closest('.codemark')
     cm_id = $cm.find("#codemark_id").val()
     if(confirm("Are you sure you want to delete your codemark?"))
-      $.post "codemarks/#{cm_id}", {
+      $.post "/codemarks/#{cm_id}", {
         _method: 'delete'
         success: ->
           $cm.fadeOut(500, ->
