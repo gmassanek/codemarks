@@ -1,7 +1,7 @@
 $ ->
   callback = -> window.close()
 
-  $('#fetch').click (e)->
+  $('#codemarklet #fetch').click (e)->
     e.preventDefault()
     $form = $('#codemark_form')
     url = $form.attr('action')
