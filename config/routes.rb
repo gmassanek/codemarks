@@ -2,7 +2,11 @@ Codemarks::Application.routes.draw do
 
   get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
+  get '/codemarklet_test', to: "pages#codemarklet_test"
 
+  resources :codemarklet, :only => [:new, :create] do
+    collection { get :login }
+  end
   resources :codemarks, :only => [:new, :create, :destroy]
   get '/public', to: "codemarks#public", :as => :public_codemarks
 
@@ -12,6 +16,7 @@ Codemarks::Application.routes.draw do
   post '/listener/github'
 
   match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: 'sessions#failure'
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
 
   root :to => 'pages#landing'
@@ -23,7 +28,7 @@ Codemarks::Application.routes.draw do
   resources :links
   post 'links/click', :as => :click_link
 
-  get "sessions/new", :as => :sign_in
+  get "sessions/codemarklet_sign_in", :as => :codemarklet_sign_in
   post "sessions/create", :as => :create_session
   post "sessions/filter", :as => :filter_session
   delete "sessions/destroy", :as => :sign_out

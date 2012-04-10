@@ -10,7 +10,7 @@ Feature: Edit Codemarks
     Given I am a logged in user
     And I have 1 codemarks
     When I go to my dashboard
-    And I click "edit"
+    And I click the edit image
     Then I should see the data for my codemark in the codemark form
     
   @javascript
@@ -18,6 +18,7 @@ Feature: Edit Codemarks
     Given I am a logged in user
     And I have 1 codemarks
     When I go to my dashboard
-    And I click "delete"
+    And I click the delete image
     And I accept the prompt
+    And I go to my dashboard
     Then I not see my codemark
