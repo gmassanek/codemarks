@@ -23,12 +23,9 @@
       - url = bookmarklet_url
       %p 
         - if url
-          - if browser.chrome?
-            Drag this new 
-            %a{href: url, id: "bookmarklet"} Codemarklet
-            to your bookmark bar
-          - else
-            Sorry, the Codemarklet is only supported in Chrome
+          Drag this new
+          %a{href: url, id: "bookmarklet"} Codemarklet
+          to your bookmark bar
         - else
           Sign in to get the new Codemarklet
     %li.last
