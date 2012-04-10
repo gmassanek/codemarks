@@ -25,7 +25,7 @@ Feature: Saving Codemarks
     Given I am a logged in user
     And I have 1 codemarks
     When I go to the public page
-    And I click "edit"
+    And I click the edit icon
     Then I should see the data for that codemark in the codemark form
 
   @javascript @omniauth_test_success
