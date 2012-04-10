@@ -1,5 +1,5 @@
 var loc = document.location;
-var server = 'http://staging.codemarks.com/';
+var server = 'http://codemarks.com/';
 window.codemarklet=window.codemarklet||{};
 var H=450;
 var W=604;
