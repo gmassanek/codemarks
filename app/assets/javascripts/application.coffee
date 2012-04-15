@@ -3,7 +3,6 @@
 //= require jquery-ui-1.8.16.custom.min.js
 //= require jquery.qtip-1.0.0-rc3.min
 //= require autocomplete-rails
-//= require_tree .
 
 TOPICS_PATH = '/topics/'
 
@@ -37,7 +36,6 @@ prepareCodemarks = ->
     $(event.target).closest("li").find("form").submit()
 
 $ ->
-    
   $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
     redirect = $("#_topic_slug").val()
     window.location = TOPICS_PATH + redirect

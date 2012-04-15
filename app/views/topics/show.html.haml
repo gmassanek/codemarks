@@ -30,7 +30,5 @@
       = link_to "by date", url_for(:only_path => true, :by =>  :date)
   .clear
 
-%ul#codemarks
-  - @codemarks.each do |c|
-    = render 'shared/codemark', :codemark => c
+= render 'shared/codemark_list', :codemarks => @codemarks
 = paginate @codemarks, :window => 5, :param_name => :page

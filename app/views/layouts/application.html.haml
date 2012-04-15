@@ -2,9 +2,11 @@
 %html
   %head
     %title Codemarks
-    = stylesheet_link_tag    "application"
+    = stylesheet_link_tag    'application'
 
-    = javascript_include_tag "application"
+    = javascript_include_tag 'application'
+    = yield :header
+
     = csrf_meta_tags
     - if ENV['RAILS_ENV']=='production'
       :javascript
