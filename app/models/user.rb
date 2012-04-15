@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
     if self.nickname.nil?
       nickname = authentications.first.nickname
       self.nickname = nickname
-      self.slug = nickname
       self.save
     end
   end

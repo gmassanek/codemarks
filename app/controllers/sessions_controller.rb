@@ -14,8 +14,6 @@ class SessionsController < ApplicationController
       cookies.permanent.signed[:remember_token] = @user.id
       flash[:notice] = "Signed in"
     end
-    session[:filter] = "mine"
-    session[:sort] = "by_save_date"
 
     if session[:callback]
       redirect_to session[:callback]
