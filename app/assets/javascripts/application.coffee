@@ -6,18 +6,6 @@
 
 TOPICS_PATH = '/topics/'
 
-prepareTagDeletes = ->
-  $("#topic_tags .delete").click (event) ->
-    event.preventDefault()
-    $(event.currentTarget).closest("li").fadeOut 100, ->
-      $(this).remove()
-      topics_count = $("#topic_tags li").length
-      if(topics_count == 0)
-        $("#codemark_form input[type=submit]").attr('disabled', 'disabled')
-
-style_lists = ->
-  $('#list_box li:nth-child(even)').addClass('alternate')
-
 prepareAutocompletes = ->
   $ ->
     $('input[data-autocomplete]').railsAutocomplete()
@@ -49,6 +37,4 @@ $ ->
   )
     
   prepareCodemarks()
-  style_lists()
   prepareAutocompletes()
-  prepareTagDeletes()
