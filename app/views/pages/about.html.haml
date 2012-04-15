@@ -19,15 +19,11 @@
       %p 
         Create codemarks online, or by emailing any link to #{ link_to 'save@codemarks.com', 'mailto: save@codemarks.com'}. Codemarks from twitter will be coming soon
     %li
-      %h3 Bookmarklet
-      - url = bookmarklet_url
+      %h3 Codemarklet
       %p 
-        - if url
-          Drag this new
-          %a{href: url, id: "bookmarklet"} Codemarklet
-          to your bookmark bar
-        - else
-          Sign in to get the new Codemarklet
+        Drag the
+        = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
+        to your bookmark bar and save your Codemarks from anywhere
     %li.last
       %h3 Share
       %p The more content, the more we all learn from each other.  Suggest it at your next meetup, and let us know what we can make better
