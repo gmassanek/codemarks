@@ -1,3 +1,14 @@
+:javascript
+  $(document).ready(function() {
+    CodemarkForm.bootstrap();
+
+    $(document).keyup(function(event) {
+      if (event.keyCode == 27) {
+        window.close();
+      }
+    });
+  });
+
 #codemarklet
   .cm_notice
     Thanks, I think that worked!

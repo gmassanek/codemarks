@@ -1,5 +1,3 @@
 = render '/users/codemark_filters', :tabs => true
 
-%ul#codemarks
-  - @codemarks.each do |c|
-    = render 'shared/codemark', :codemark => c
+= render 'shared/codemark_list', :codemarks => @codemarks
