@@ -6,22 +6,22 @@
 
 TOPICS_PATH = '/topics/'
 
-prepareAutocompletes = ->
-  $ ->
+window.Codemarks =
+  prepareAutocompletes: ->
     $('input[data-autocomplete]').railsAutocomplete()
 
-  $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
-    topic_id = $("#link_form_topic_slug").val()
-    $.ajax
-      url: "/links/topic_checkbox",
-      data: { topic_id: topic_id},
-      beforeSend: (request) ->
-        request.setRequestHeader("Accept", "text/javascript")
-  )
+    $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
+      topic_id = $("#link_form_topic_slug").val()
+      $.ajax
+        url: "/links/topic_checkbox",
+        data: { topic_id: topic_id},
+        beforeSend: (request) ->
+          request.setRequestHeader("Accept", "text/javascript")
+    )
 
-prepareCodemarks = ->
-  $(".codemark_link").click (event) ->
-    $(event.target).closest("li").find("form").submit()
+  prepareCodemarks: ->
+    $(".codemark_link").click (event) ->
+      $(event.target).closest("li").find("form").submit()
 
 $ ->
   $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
@@ -36,5 +36,5 @@ $ ->
     event.preventDefault()
   )
     
-  prepareCodemarks()
-  prepareAutocompletes()
+  Codemarks.prepareCodemarks()
+  Codemarks.prepareAutocompletes()
