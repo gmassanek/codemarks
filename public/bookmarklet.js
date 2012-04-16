@@ -1,5 +1,5 @@
-var loc = 'http://www.google.com/';
-var server = 'http://localhost:3000/';
+var loc = document.location;
+var server = 'http://codemarks.com/';
 window.codemarklet=window.codemarklet||{};
 var H=450;
 var W=604;
