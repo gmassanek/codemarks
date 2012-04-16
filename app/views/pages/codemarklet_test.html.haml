@@ -15,5 +15,7 @@
       }
   %body
     Hello World!
+      = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
+
     %a#start{href: '', onclick: 'clickedThat(event)'}
       Woo

@@ -1,0 +1,6 @@
+- content_for :header do
+  = javascript_include_tag 'codemarks'
+  
+%ul#codemarks
+  - codemarks.each do |c|
+    = render 'shared/codemark', :codemark => c
