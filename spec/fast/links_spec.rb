@@ -62,6 +62,8 @@ describe Link do
       link.load_link_record.should == link_record
     end
 
+    it 'still completes even on an error from WWW, like http://obtvse.herokuapp.com/admin'
+
     it "loads it's other attributes if it wasn't already" do
       link_record = mock({
         :id => 32,
@@ -144,56 +146,3 @@ describe Link do
     end
   end
 end
-
-#  describe "#load_link_record_attributes" do
-#    let(:link_record) { mock(:id => 4, 
-#                         :url => 'http://www.twitter.com',
-#                         :host => 'twitter.com',
-#                         :title => 'Twitter') }
-#    before do
-#      Link.stub(:find_link_record) { stub }
-#      Link.any_instance.stub(:load_link_record_attributes) { nil }
-#
-#      @link = Link.new
-#      @link.stub!(:link_record) { link_record }
-#    end
-#
-#    xit "extracts the url" do
-#      @link = @link.load_link_record_attributes
-#      @link.url.should == 'http://www.twitter.com'
-#    end
-#
-#    xit "extracts the host" do
-#      @link.load_link_record_attributes
-#      @link.host.should == 'twitter.com'
-#    end
-#
-#    xit "extracts the title" do
-#      @link.load_link_record_attributes
-#      @link.title.should == 'Twitter'
-#    end
-#
-#    xit "extracts the id" do
-#      @link.load_link_record_attributes
-#      @link.id.should == 4
-#    end
-#  end
-#
-#  describe "#resource_attrs" do
-#    let(:resource_attrs) { {} }
-#
-#    it "includes title" do
-#      link = Link.new(resource_attrs)
-#      link.resource_attrs.keys.should include(:title)
-#    end
-#
-#    it "includes url" do
-#      link = Link.new(resource_attrs)
-#      link.resource_attrs.keys.should include(:url)
-#    end
-#
-#    it "includes host" do
-#      link = Link.new(resource_attrs)
-#      link.resource_attrs.keys.should include(:host)
-#    end
-#  end
