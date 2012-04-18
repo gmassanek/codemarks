@@ -1,13 +1,10 @@
 When /^I fill out the codemark form with Twitter$/ do
-  Fabricate(:topic, :title => "twitter")
-  page.fill_in("url", :with => "http://www.twitter.com")
-  page.click_button("fetch")
+  Fabricate(:topic, :title => 'twitter')
+  page.fill_in('url', :with => 'http://www.twitter.com')
+  page.click_button('fetch')
   wait_until { find('#resource_attrs_title').visible? }
-  page.click_button("fetch")
-end
-
-Then /^I should see "([^"]*)"$/ do |arg1|
-  page.should have_content(arg1)
+  page.fill_in('codemark_attrs_note', :with => 'I should use this for codemarks')
+  page.click_button('fetch')
 end
 
 Given /^I have (a|1) codemark$/ do |arg1|
@@ -44,4 +41,12 @@ Then /^I should see the data for that codemark in the codemark form$/ do
     #page.should have_selector('#resource_attrs_title', :content => @codemark.title)
     #page.should have_content(@codemark.topics.first.title)
   end
+end
+
+Then /^I should see "([^"]*)"$/ do |arg1|
+  page.should have_content(arg1)
+end
+
+Then /^that codemark should have a note$/ do
+  FindCodemarks.new(:user => @current_user).codemarks.first.note.should_not be_nil
 end
