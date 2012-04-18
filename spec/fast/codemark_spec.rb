@@ -157,12 +157,14 @@ describe Codemark do
       @tags = [stub, stub]
       @user = stub
       @title = "Some Title"
+      @note = "Some Note"
 
       codemark_record = mock({
         link_record: @resource,
         topics: @tags,
         user: @user,
         title: @title,
+        note: @note,
         id: 3
       })
 
