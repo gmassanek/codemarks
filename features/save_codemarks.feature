@@ -9,6 +9,7 @@ Feature: Saving Codemarks
     When I go to my dashboard
     And I fill out the codemark form with Twitter
     Then I should see "Twitter"
+    And that codemark should have a note
 
   @javascript @omniauth_test_success
   Scenario: Different users saving codemarks with the same resource
