@@ -45,6 +45,14 @@ Given /^the last codemark doesn't have a link$/ do
   @codemarks.last.update_attribute(:link_record, nil)
 end
 
+Given /^there is a codemark with a note$/ do
+  @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
+end
+
+When /^I click on the notepad$/ do
+  page.find('.show_note').click()
+end
+
 When /^I go to the "([^"]*)" topic page$/ do |topic_title|
   visit topic_path(@topic)
 end
@@ -64,6 +72,10 @@ end
 
 When /^I go to that topic page$/ do
   visit topic_path(@topic)
+end
+
+Then /^I should see the codemark's note$/ do
+  page.should have_content(@codemark.note)
 end
 
 Then /^I should see my codemark$/ do
