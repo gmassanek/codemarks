@@ -11,6 +11,12 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
+  Scenario: Viewing codemark notes
+    Given there is a codemark with a note
+    When I go to the public page
+    And I click on the notepad
+    Then I should see the codemark's note
+
   Scenario: I only see my Codemarks on my page
     Given I am a logged in user
     And I have 3 codemarks
