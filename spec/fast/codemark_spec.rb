@@ -47,6 +47,12 @@ describe Codemark do
       codemark.title.should == "Some Title"
     end
 
+    it "saves a note" do
+      attributes = { :note => "Some Note" }
+      codemark = Codemark.new(attributes)
+      codemark.note.should == "Some Note"
+    end
+
     describe "saves resource attributes like" do
       it "url" do
         attributes = { :url => "some_url" }
@@ -151,12 +157,14 @@ describe Codemark do
       @tags = [stub, stub]
       @user = stub
       @title = "Some Title"
+      @note = "Some Note"
 
       codemark_record = mock({
         link_record: @resource,
         topics: @tags,
         user: @user,
         title: @title,
+        note: @note,
         id: 3
       })
 

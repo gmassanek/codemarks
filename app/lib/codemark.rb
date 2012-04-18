@@ -1,7 +1,7 @@
 class Codemark
 
   attr_writer :tags, :title
-  attr_accessor :id, :resource, :user, :codemark_record, :tag_ids, :url
+  attr_accessor :id, :resource, :user, :codemark_record, :tag_ids, :url, :note
 
   def initialize(attributes = {})
     @id = attributes[:id]
@@ -13,6 +13,7 @@ class Codemark
     @codemark_record = attributes[:codemark_record]
 
     @title = attributes[:title]
+    @note = attributes[:note]
 
     @url = attributes[:url]
   end
@@ -46,6 +47,7 @@ class Codemark
     @tags = @codemark_record.topics
     @user = @codemark_record.user
     @title = @codemark_record.title
+    @note = @codemark_record.note
     @id = @codemark_record.id
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306131353) do
+ActiveRecord::Schema.define(:version => 20120418011246) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120306131353) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",       :default => false
+    t.text     "note"
   end
 
   create_table "codemark_topics", :force => true do |t|
