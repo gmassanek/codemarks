@@ -55,7 +55,6 @@ module Codemarks
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-
     config.generators do |g|
       g.test_framework :rspec
       g.template_engine :haml
