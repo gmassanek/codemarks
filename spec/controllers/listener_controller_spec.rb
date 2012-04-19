@@ -1,33 +1,6 @@
 require 'spec_helper'
 
 describe ListenerController do
-  describe "#prepare_bookmarklet" do
-    let(:valid_url) { "http://www.example.com" }
-
-    it "by passing the incoming URL to Codemark.new" do
-      Codemark.should_receive(:new).with(:link, {:url => valid_url})
-      get :prepare_bookmarklet, format: :js, l: valid_url
-    end
-
-    it "assigns @user_id from the :l parameter" do
-      Codemark.stub(:new)
-      get :prepare_bookmarklet, format: :js, l: valid_url, id: 234
-      assigns[:user_id].should == "234"
-    end
-
-    it "assigns @codemark" do
-      cm = stub
-      Codemark.stub(:new) { cm }
-      get :prepare_bookmarklet, format: :js, l: valid_url
-      assigns[:codemark].should == cm
-    end
-
-    it "passes off parsing params to a listener params parser"
-    it "requires a user"
-    it "what happens if codemark response isn't successful"
-
-  end
-
   describe "#github" do
     it "prepares and saves a codemark" do
       cm = stub({

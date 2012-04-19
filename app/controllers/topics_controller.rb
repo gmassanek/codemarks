@@ -45,11 +45,6 @@ class TopicsController < ApplicationController
 
   def index
     @topics = Topic.all
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def destroy
