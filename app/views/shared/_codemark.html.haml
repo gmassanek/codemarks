@@ -21,7 +21,7 @@
           - if other_count > 0
             and #{codemark.save_count.to_i-1 } others
     .actions
-      - if codemark.note
+      - if codemark.note.present?
         .show_note
       - if codemark.user == current_user
         .edit_codemark
