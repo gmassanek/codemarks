@@ -58,13 +58,6 @@ class Codemark
   def title
     @title || @resource.title
   end
-
-  def self.save(attributes, tag_ids, options = {})
-    codemark = Codemark.load(attributes)
-    codemark.tag_ids = tag_ids | handle_new_topics(options[:new_topics])
-    codemark.user = Codemark.look_for_user(options)
-    codemark.save_to_database
-  end
   
   def resource_class
     @resource_type.to_s.capitalize.constantize
@@ -76,6 +69,13 @@ class Codemark
   end
 
   class << self
+    def save(attributes, tag_ids, options = {})
+      codemark = Codemark.load(attributes)
+      codemark.tag_ids = tag_ids | handle_new_topics(options[:new_topics])
+      codemark.user = Codemark.look_for_user(options)
+      codemark.save_to_database
+    end
+
     def create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
       link = LinkRecord.find_by_id(resource_attrs[:id])
       link ||= LinkRecord.create(resource_attrs)

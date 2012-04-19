@@ -220,8 +220,6 @@ describe Codemark do
     end
   end
 
-  it "# tag_ids "
-
   describe "#self.save" do
     it "loads a codemark from attributes" do
       attributes = stub
@@ -232,84 +230,6 @@ describe Codemark do
       Codemark.stub(:look_for_user)
       codemark.stub(:save_to_database)
       Codemark.save(attributes, tag_ids)
-    end
-  end
-
-  describe "#self.handle_new_topics(new_topics)" do
-    it "returns an array of topic_ids"
-    it "is [] if nothing exists"
-  end
-
-  describe "#look for user(:user_id, :email_address)" do
-    it "can be nil"
-    it "looks for a user id if there is one"
-    it "looks for an email address if there is one"
-  end
-
-  describe "#save" do
-    it "saves it's resource_id"
-    it "saves it's resource_type"
-    it "saves it's topic_ids"
-    it "saves it's user_id"
-    it "saves it's title"
-  end
-
-
-#Codemark
-#  # save(attributes, tag_ids, :new_topics, :user_id, :email)
-#    // attributes should have :link_id, 
-#    codemark = Codemark.load(attributes)
-#    tag_ids << handle_new_topics
-#                 normalize
-#                 match with existing?
-#                 create
-#    user
-#    codemark.tag_ids = tag_ids
-#    save_codemark_record
-
-
-  describe "#build_and_create" do
-    xit "creates a codemark" do
-      Topic.stub(:all => [])
-      user = stub
-      link = Link.new
-      link.stub({
-        :tags => []
-      })
-      Link.should_receive(:new).and_return(link)
-      LinkRecord.should_receive(:create)
-      CodemarkRecord.should_receive(:create)
-      CodemarkRecord.stub!(:for_user_and_link)
-      Codemark.build_and_create(user, :link, :url => valid_url)
-    end
-
-    it "doesn't save a second link"
-  end
-
-  describe "#steal" do
-    xit "copies someone else's codemark for me" do
-      user = stub
-      codemark_record = stub(:topic_ids => [1,2,3], :link_record_id => 1)
-      CodemarkRecord.should_receive(:create).with(:user => user, :link_record_id => 1, :topic_ids => [1,2,3])
-      Codemark.steal(codemark_record, user)
-    end
-  end
-
-  describe "#resource_class" do
-    xit "knows it's resource object class from it's resource_type" do
-      resource_attrs = {}
-      Codemark.any_instance.stub(:load_resource) { link }
-      codemark = Codemark.new(:link, resource_attrs)
-      codemark.resource_class.should == Link
-    end
-  end
-
-  describe "#resource" do
-    xit "knows it's resource object class from it's resource_type" do
-      resource_attrs = {}
-      Codemark.any_instance.stub(:load_resource) { link }
-      codemark = Codemark.new(:link, resource_attrs)
-      codemark.resource_class.should == Link
     end
   end
 end

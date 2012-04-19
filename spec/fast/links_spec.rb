@@ -62,8 +62,6 @@ describe Link do
       link.load_link_record.should == link_record
     end
 
-    it 'still completes even on an error from WWW, like http://obtvse.herokuapp.com/admin'
-
     it "loads it's other attributes if it wasn't already" do
       link_record = mock({
         :id => 32,
@@ -106,32 +104,8 @@ describe Link do
     end
   end
 
-  describe "load_from_internet" do
-    it "is nil if there is no url" do
-      link = Link.new
-      link.create_link_record_from_internet.should be_nil
-    end
-
-    xit "fetches a parsed html response" do
-      link = Link.new
-      url = stub
-      link.url = url
-      link.should_receive(:parsed_html_response).with(url)
-      link.create_link_record_from_internet
-    end
-
-    invalid_urls = ["twitter.com", "twitter", "www.twitter.com"]
-    invalid_urls.each do |url|
-      xit "is nil for invalid urls like #{url}" do
-        link = Link.new({ :url => url })
-        link.site_response.should be_nil
-        link.should_not be_valid_url
-      end
-    end
-
-    it "saves the LinkRecord"
-    it "normalizes the url"
-    it "saves it's attributes"
+  describe "create_link_record_from_internet" do
+    it "reaches out to the internet and doesn't break - refacor pleace"
   end
 
   describe "is taggable" do
