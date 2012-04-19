@@ -1,14 +1,6 @@
 require 'fast_helper'
 
 describe ListenerParamsParser do
-  context "bookmarklet" do
-    it "pulls the url out of l" do
-      params = { :l => 'http://www.example.com' }
-      cm_parms = ListenerParamsParser.prepare_bookmarklet(params)
-      cm_parms.should == { :url => 'http://www.example.com' }
-    end
-  end
-
   context "email" do
     it "extracts a url from an email body" do
       ListenerParamsParser.extract_urls_from_body("hey there http://www.example.com").should == ["http://www.example.com"]
