@@ -20,7 +20,10 @@ class CodemarksController < ApplicationController
                                 current_user, 
                                 :new_topic_titles => new_topic_titles)
 
-    redirect_to :back, :notice => 'Thanks!'
+    respond_to do |format|
+      format.html { redirect_to :back, :notice => 'Thanks!' }
+      format.js { render :text => '', :status => :ok }
+    end
   end
 
   def public
