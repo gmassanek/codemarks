@@ -4,7 +4,6 @@ gem 'rails', '3.2'
 gem 'jquery-rails'
 gem 'haml'
 gem 'decent_exposure'
-gem 'draper'
 gem 'friendly_id', "~> 4.0.0.beta14"
 gem 'bcrypt-ruby'
 gem 'heroku'
