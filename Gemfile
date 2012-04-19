@@ -26,7 +26,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara'
-  gem 'jasminerice'
 end
 
 group :test do
