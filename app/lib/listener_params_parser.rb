@@ -1,9 +1,5 @@
 class ListenerParamsParser
   class << self
-    def prepare_bookmarklet(params)
-      { :url => params[:l] }
-    end
-
     def extract_urls_from_body(body)
       protocols = %w[http]
       matches = protocols.map do |pr| 
