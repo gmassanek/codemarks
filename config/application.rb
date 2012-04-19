@@ -49,9 +49,11 @@ module Codemarks
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Add paths to asset pipeline path
+    config.assets.paths << "#{Rails.root}/app/assets/coffeescripts"
+
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.autoload_paths += Dir["#{config.root}/app/oops/*"]
 
 
     config.generators do |g|
