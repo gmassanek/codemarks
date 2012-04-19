@@ -1,7 +1,4 @@
 class LinksController < ApplicationController
-  require 'codemarker'
-  include OOPs
-
   def new
     @link = Link.new
     if params[:url]
