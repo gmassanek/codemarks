@@ -17,9 +17,6 @@ class ListenerParamsParser
     end
   end
   #class << self
-  #  def save_bookmarklet user, url
-  #    save_codemark(user, url) if user
-  #  end
 
   #  def parse params
   #    email = extract_email(params[:from])
@@ -44,17 +41,4 @@ class ListenerParamsParser
   #      "#{uri[0]}://#{uri[3]}#{uri[6]}"
   #    end
   #  end
-
-  #  def save_codemark(user, url)
-  #    link = Link.new(url: url)
-  #    link = OOPs::SmartLink.new(link).better_link
-  #    topics = OOPs::Tagger.get_tags_for_link link
-  #    codemark = Codemark.new
-  #    codemark.user = user
-  #    codemark.link = link
-  #    codemark.topics = topics
-
-  #    OOPs::Codemarker.mark!(codemark)
-  #  end
-  #end
 end
