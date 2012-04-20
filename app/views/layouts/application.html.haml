@@ -14,9 +14,9 @@
 
   %body
     = render '/layouts/header'
-    #container
+    .site_content
       = (render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...') if logged_in?
-      #content
+      .content
         = render '/layouts/flash', :flash => flash
         = yield
       = render 'layouts/footer' if logged_in?
