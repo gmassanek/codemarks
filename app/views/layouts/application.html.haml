@@ -2,10 +2,9 @@
 %html
   %head
     %title Codemarks
-    = stylesheet_link_tag    'application'
-
-    = javascript_include_tag 'application'
-    = javascript_include_tag 'codemark_form'
+    = stylesheet_link_tag    'application', :debug => true
+    = javascript_include_tag 'application', :debug => true
+    = javascript_include_tag 'codemark_form', :debug => true
 
     = yield :header
 
@@ -14,10 +13,8 @@
       = javascript_include_tag 'google_analytics'
 
   %body
-    .header_wrapper
-      .header_coloring
+    = render '/layouts/header'
     #container
-      = render '/layouts/header'
       = (render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...') if logged_in?
       #content
         = render '/layouts/flash', :flash => flash
