@@ -2,20 +2,20 @@
 %html
   %head
     %title Codemarks
+    = csrf_meta_tags
     = stylesheet_link_tag    'application', :debug => true
     = javascript_include_tag 'application', :debug => true
     = javascript_include_tag 'codemark_form', :debug => true
 
     = yield :header
 
-    = csrf_meta_tags
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
 
   %body
     = render '/layouts/header'
     .site_content
-      = (render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...') if logged_in?
+      = render '/layouts/sidebar'
       .content
         = render '/layouts/flash', :flash => flash
         = yield
