@@ -8,5 +8,9 @@
             = link_to image, short_user_path(current_user)
         .name
           = current_user.nickname
+      %li{:class => active_page_class(short_user_path(current_user))}
+        .text= link_to 'yours', short_user_path(current_user)
+    %li{:class => active_page_class(public_codemarks_path)}
+      .text= link_to 'everyone\'s', public_codemarks_path
     %li.search
       = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
