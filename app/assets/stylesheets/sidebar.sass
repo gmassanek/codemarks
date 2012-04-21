@@ -1,15 +1,14 @@
 @import "configuration"
 @import "bourbon"
 
+@mixin text-only
+  padding-top: 13px
+
 .sidebar
   margin-right: 15px
   padding: 5px
   float: left
-  background: green
   width: 200px
-
-  ul > li
-    height: 50px
 
   @include border-radius(4px)
   background-color: #fefefe
@@ -17,16 +16,34 @@
   box-shadow: 1px 2px 0px #EEE
   min-height: 400px
 
-  li.user_info
-    img
-      float: left
-      width: 45px
-      height: 45px
+  .text
+    @include text-only
 
-    .name
-      float: left
-      margin-top: 12px
-      margin-left: 12px
-      font-size: 24px
+  ul > li
+    font-size: 24px
+    height: 45px
 
-  li.search
+    border-top: 1px solid #dddddd
+    padding-top: 5px
+    &:first-child
+      border-top: none
+      padding-top: 0
+
+    &.active
+      background: #eee
+
+    &.main > a
+      @include text-only
+
+    &.user_info
+      img
+        float: left
+        width: 45px
+        height: 45px
+
+      .name
+        float: left
+        margin-left: 12px
+        @include text-only
+
+    .search
