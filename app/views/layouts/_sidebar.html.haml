@@ -1,11 +1,12 @@
 .sidebar
-  - if logged_in?
-    .user_info
-      .image
-        - if current_user.get(:image).present?
-          - image = image_tag current_user.get(:image)
-          = link_to image, short_user_path(current_user)
-      .name
-        = current_user.nickname
-  .search
-    = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
+  %ul
+    - if logged_in?
+      %li.user_info
+        .image
+          - if current_user.get(:image).present?
+            - image = image_tag current_user.get(:image)
+            = link_to image, short_user_path(current_user)
+        .name
+          = current_user.nickname
+    %li.search
+      = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
