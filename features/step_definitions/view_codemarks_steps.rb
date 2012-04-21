@@ -86,8 +86,8 @@ Then /^I should see his codemark$/ do
   page.should have_content(@codemark.title)
 end
 
-Then /^I should see a tab with my name$/ do
-  within('#filters_and_sorts .tabs') do
+Then /^I should see a nav with my name$/ do
+  within('#sidebar') do
     page.should have_content(@current_user.nickname)
   end
 end
