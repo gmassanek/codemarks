@@ -65,7 +65,6 @@ class Codemark
 
   def save
     load_users_codemark
-    @resource.update_author(@user.id)
     save_to_database
   end
 

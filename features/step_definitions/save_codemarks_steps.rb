@@ -7,6 +7,11 @@ When /^I fill out the codemark form with Twitter$/ do
   page.click_button('fetch')
 end
 
+When /^I submit the codemark form$/ do
+  wait_until { find('#resource_attrs_title').visible? }
+  page.click_button('fetch')
+end
+
 Given /^I have (a|1) codemark$/ do |arg1|
   @codemark = Fabricate(:codemark_record, :user => @current_user)
 end
@@ -20,6 +25,16 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button("fetch")
   wait_until { find('#resource_attrs_title').visible? }
   page.click_button("fetch")
+end
+
+Given /^tom_brady has codemarked Twitter$/ do
+  @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
+  twitter = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.twitter.com')
+  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :link_record => twitter)
+end
+
+Then /^tom_brady should be Twitter's author$/ do
+  @twitter.resource_author.should == @tom_brady
 end
 
 Then /^I should be Twitter's author$/ do
