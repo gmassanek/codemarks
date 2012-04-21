@@ -10,6 +10,7 @@ Feature: Saving Codemarks
     And I fill out the codemark form with Twitter
     Then I should see "Twitter"
     And that codemark should have a note
+    And I should be Twitter's author
 
   @javascript @omniauth_test_success
   Scenario: Different users saving codemarks with the same resource

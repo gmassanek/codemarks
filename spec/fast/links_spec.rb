@@ -15,6 +15,12 @@ describe Link do
       link = Link.new(attributes)
       link.url.should == 'http://www.google.com'
     end
+
+    it "saves an author_id" do
+      attributes = { :author_id => 3 }
+      link = Link.new(attributes)
+      link.author_id.should == 3
+    end
   end
 
   describe "#self.load" do
@@ -68,6 +74,7 @@ describe Link do
         :url => 'http://www.hotmail.com',
         :title => 'Hotmail',
         :host => 'www.hotmail.com',
+        :author_id => 3,
         :html_content => 'This stuff over here'
       })
 
@@ -79,6 +86,7 @@ describe Link do
       link.url.should == 'http://www.hotmail.com'
       link.title.should == 'Hotmail'
       link.host.should == 'www.hotmail.com'
+      link.author_id.should == 3
       link.html_content.should == 'This stuff over here'
     end
   end
@@ -117,6 +125,43 @@ describe Link do
     it "has a tags method" do
       link = Link.new
       link.should respond_to(:tags)
+    end
+  end
+
+  describe '#orphan?' do
+    it 'is true if it has no author' do
+      link = Link.new
+      link.should be_orphan
+    end
+
+    it 'is false if it has an author' do
+      link = Link.new
+      link.author_id = 34
+      link.should_not be_orphan
+    end
+  end
+
+  describe '#update_author' do
+    it 'updates the link_record author if it is an orphan' do
+      link = Link.new
+      link.stub(:'orphan?') { true }
+      link.should_receive(:persist_author)
+      link.update_author(8)
+      link.author_id.should == 8
+    end
+
+    it 'updates the link_record author if it is an orphan' do
+      link = Link.new(:author_id => 8)
+      link.stub(:'orphan?') { true }
+      link.should_receive(:persist_author)
+      link.update_author
+    end
+
+    it 'does not update the link_record author if it is not an orphan' do
+      link = Link.new
+      link.stub(:'orphan?') { false }
+      link.should_not_receive(:persist_author)
+      link.update_author(8)
     end
   end
 end

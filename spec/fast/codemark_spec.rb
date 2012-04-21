@@ -1,11 +1,6 @@
 require 'fast_helper'
 
-# Resource (Link)
-# Tags/Topics
-# Persistance layer (CodemarkRecord)
-
 describe Codemark do
-
   describe "#initialize" do
     it "saves an id" do
       attributes = { :id => 999 }
@@ -208,7 +203,7 @@ describe Codemark do
   describe "#title" do
     let(:title) { "Some Title" }
 
-    it "comes from it's instance variable first" do
+    it"comes from it's instance variable first" do
       codemark = Codemark.new(title: title)
       codemark.title.should == title
     end
@@ -217,6 +212,22 @@ describe Codemark do
       resource = mock(title: title)
       codemark = Codemark.new(resource: resource)
       codemark.title.should == title
+    end
+  end
+
+  describe '#save' do
+    it 'sets resource author to mine if no other codemarks for it exist yet' do
+      resource = mock(:author => nil)
+      user = mock(:id => 13)
+
+      codemark = Codemark.new
+      codemark.user = user
+      codemark.resource = resource
+
+      codemark.should_receive(:save_to_database)
+      codemark.should_receive(:load_users_codemark)
+      resource.should_receive(:update_author).with(13)
+      codemark.save
     end
   end
 
