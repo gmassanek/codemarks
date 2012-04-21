@@ -65,7 +65,7 @@ Feature: View Codemarks
     And superman is a user with a codemark
     When I go to that topic page
     Then I should see his codemark
-    And I should see a tab with my name
+    And I should see a nav with my name
 
   Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
