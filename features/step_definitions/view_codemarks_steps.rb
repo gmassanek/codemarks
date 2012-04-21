@@ -87,13 +87,13 @@ Then /^I should see his codemark$/ do
 end
 
 Then /^I should see a nav with my name$/ do
-  within('#sidebar') do
+  within('.sidebar') do
     page.should have_content(@current_user.nickname)
   end
 end
 
-Then /^I should see a tab with his name$/ do
-  within('#filters_and_sorts .tabs') do
+Then /^I should see a nav with his name$/ do
+  within('.sidebar') do
     page.should have_content(@user.nickname)
   end
 end
