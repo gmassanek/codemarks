@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       @link = Link.new
       redirect_to welcome_path
     else
-      redirect_to @user
+      redirect_to short_user_path(@user)
     end
 
   rescue Exception => ex
