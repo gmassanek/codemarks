@@ -226,7 +226,6 @@ describe Codemark do
 
       codemark.should_receive(:save_to_database)
       codemark.should_receive(:load_users_codemark)
-      resource.should_receive(:update_author).with(13)
       codemark.save
     end
   end
