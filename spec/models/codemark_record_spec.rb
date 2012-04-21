@@ -9,6 +9,16 @@ describe CodemarkRecord do
       end
     end
   end
+
+  describe '#resource_author' do
+    it 'is the author of its resource' do
+      codemark = Fabricate.build(:codemark_record)
+      resource = codemark.link_record
+      user = Fabricate(:user)
+      resource.author = user
+      codemark.resource_author.should == user
+    end
+  end
   
   it "is unarchived by default" do
     Fabricate.build(:codemark_record).should_not be_archived
