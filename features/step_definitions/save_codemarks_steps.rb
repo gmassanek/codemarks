@@ -33,8 +33,8 @@ Given /^tom_brady has codemarked Twitter$/ do
   @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :link_record => twitter)
 end
 
-Then /^tom_brady should be Twitter's author$/ do
-  @twitter.resource_author.should == @tom_brady
+Then /^tom_brady should still be Twitter's author$/ do
+  @twitter.reload.resource_author.should == @tom_brady
 end
 
 Then /^I should be Twitter's author$/ do

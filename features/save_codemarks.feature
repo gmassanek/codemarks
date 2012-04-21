@@ -19,7 +19,7 @@ Feature: Saving Codemarks
     When I go to the public page
     And I copy that codemark
     And I submit the codemark form
-    Then tom_brady should be Twitter's author
+    Then tom_brady should still be Twitter's author
 
   @javascript @omniauth_test_success
   Scenario: Different users saving codemarks with the same resource
