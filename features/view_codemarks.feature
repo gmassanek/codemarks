@@ -39,7 +39,7 @@ Feature: View Codemarks
     Given gmassanek is a user with a codemark
     When I go to his page
     Then I should see his codemark
-    And I should see a tab with his name
+    And I should see a nav with his name
 
   Scenario: Codemarks are paged
     Given there are 20 random codemarks
