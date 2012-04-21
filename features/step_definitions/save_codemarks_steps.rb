@@ -22,6 +22,11 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button("fetch")
 end
 
+Then /^I should be Twitter's author$/ do
+  twitter = LinkRecord.find_by_url('http://www.twitter.com')
+  twitter.author.should == @current_user
+end
+
 Then /^I should have (\d+) codemark$/ do |num_codemarks|
   @current_user.codemark_records.count.should == num_codemarks.to_i
 end

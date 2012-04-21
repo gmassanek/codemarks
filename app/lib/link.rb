@@ -4,12 +4,13 @@ require 'open-uri'
 
 class Link
   include Taggable
-  attr_accessor :id, :url, :html_content, :host, :title, :link_record, :site_response, :valid_url
+  attr_accessor :id, :url, :html_content, :host, :title, :link_record, :site_response, :valid_url, :author_id
 
   def initialize(attributes = {})
     return if attributes.blank?
     self.id = attributes[:id]
     self.url = attributes[:url]
+    self.author_id = attributes[:author_id]
   end
 
   def load
@@ -31,6 +32,7 @@ class Link
     self.url = link_record.url
     self.title = link_record.title
     self.host = link_record.host
+    self.author_id = link_record.author_id
     self.html_content = link_record.html_content
 
     link_record
@@ -64,6 +66,16 @@ class Link
     [:title, :html_content]
   end
 
+  def orphan?
+    author_id.blank?
+  end
+
+  def update_author(author_id = nil)
+    p 'woooo'
+    @author_id = author_id if author_id
+    persist_author if orphan?
+  end
+
   private
 
   def self.find_link_record_by_id(id)
@@ -76,5 +88,9 @@ class Link
 
   def parsed_html_response(url)
     Nokogiri::HTML(open(url))
+  end
+
+  def persist_author
+    LinkRecord.update_attributes(:author_id => author_id)
   end
 end
