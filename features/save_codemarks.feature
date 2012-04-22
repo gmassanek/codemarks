@@ -10,6 +10,16 @@ Feature: Saving Codemarks
     And I fill out the codemark form with Twitter
     Then I should see "Twitter"
     And that codemark should have a note
+    And I should be Twitter's author
+
+  @javascript @omniauth_test_success
+  Scenario: Stealing somebody's codemark leaves them as the author
+    Given tom_brady has codemarked Twitter
+    And I am a logged in user
+    When I go to the public page
+    And I copy that codemark
+    And I submit the codemark form
+    Then tom_brady should still be Twitter's author
 
   @javascript @omniauth_test_success
   Scenario: Different users saving codemarks with the same resource
