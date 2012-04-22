@@ -1,6 +1,7 @@
 /*** VARIABLES ***/
 @import "configuration"
 @import "bourbon"
+@import "style"
 
 #filters
   float: left
@@ -13,9 +14,9 @@
   margin: 10px 0 0 10px
 
 .codemark
-  padding: 10px 0
-  line-height: 16px
-  border-bottom: 1px solid $border-color2
+  @include white-pop
+  margin-bottom: 7px
+  padding: 5px
 
   &:nth-last-child(1)
     border-bottom: none
