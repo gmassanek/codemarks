@@ -11,7 +11,7 @@
     .clear
     .details
       .time #{time_ago_in_words(link.created_at)} ago
-      - author = codemark.resource_author || codemark.user
+      - author = codemark.resource_author
       - name ||= author.get(:nickname)
       - name ||= author.get(:name)
       - other_count = codemark.save_count.to_i-1
