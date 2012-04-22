@@ -5,7 +5,7 @@ class Topic; end
 describe Tagger do
   describe "#tag" do
     let(:titles) { ["rspec", "github", "google", "cucumber", "jquery", "another item"] }
-    let(:topics) { titles.inject([]) { |topics, title| topics << stub(:title => title) } }
+    let(:topics) { titles.map { |title| stub(:title => title) } }
 
     before do
       Topic.stub!(:all => topics)
