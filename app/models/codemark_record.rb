@@ -18,4 +18,8 @@ class CodemarkRecord < ActiveRecord::Base
   def self.for_user_and_link(user, link_record)
     where(:user_id => user.id).where(:link_record_id => link_record.id).first
   end
+
+  def resource_author
+    link_record.author
+  end
 end
