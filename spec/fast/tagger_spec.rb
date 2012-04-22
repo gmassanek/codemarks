@@ -4,7 +4,7 @@ class Topic; end
 
 describe Tagger do
   describe '#tag' do
-    let(:titles) { ['rspec', 'github', 'google', 'cucumber', 'jquery', 'another item'] }
+    let(:titles) { ['rspec', 'git', 'github', 'google', 'cucumber', 'jquery', 'another item'] }
     let(:topics) { titles.map { |title| stub(:title => title) } }
 
     before do
@@ -33,6 +33,10 @@ describe Tagger do
       rspec = topics.first
       text = rspec.title.upcase
       Tagger.tag(text).should == [rspec]
+    end
+
+    it 'does not match sub words' do
+      Tagger.tag('Github').count.should == 1
     end
   end
 end
