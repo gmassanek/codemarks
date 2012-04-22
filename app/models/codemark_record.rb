@@ -20,6 +20,6 @@ class CodemarkRecord < ActiveRecord::Base
   end
 
   def resource_author
-    link_record.author
+    link_record.author if link_record
   end
 end
