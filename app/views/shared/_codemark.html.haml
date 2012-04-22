@@ -1,7 +1,7 @@
 - link = codemark.link_record
 - author = codemark.resource_author || codemark.user
 - if link
-  %li.codemark{:id => "#{dom_id(codemark)}"}
+  %li.codemark{:id => dom_id(codemark) }
     = hidden_field_tag 'codemark_id', codemark.id
     = render '/links/click_form', link_id: link.id
     %h3
