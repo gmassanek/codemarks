@@ -2,7 +2,9 @@ class Tagger
   def self.tag(text)
     return [] if text.blank?
     matches = Topic.all.select do |t| 
-      sanitize(text).include?(sanitize(t.title))
+      text = sanitize(text)
+      term = sanitize(t.title)
+      text[/\b#{term}\b/]
     end
   end
 
