@@ -3,7 +3,7 @@
 - if link
   %li.codemark{:id => dom_id(codemark) }
     = hidden_field_tag 'codemark_id', codemark.id
-    = render '/links/click_form', link_id: link.id
+    = hidden_field_tag 'click_url', click_link_path(link.id)
     %h3
       = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
       %span.host #{link.host}
