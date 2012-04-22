@@ -71,7 +71,6 @@ class Link
   end
 
   def update_author(author_id = nil)
-    p 'woooo'
     @author_id = author_id if author_id
     persist_author if orphan?
   end
