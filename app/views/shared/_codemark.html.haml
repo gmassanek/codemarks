@@ -1,4 +1,5 @@
 - link = codemark.link_record
+- author = codemark.resource_author || codemark.user
 - if link
   %li.codemark{:id => "#{dom_id(codemark)}"}
     = hidden_field_tag 'codemark_id', codemark.id
@@ -11,13 +12,15 @@
     .clear
     .details
       .time #{time_ago_in_words(link.created_at)} ago
-      - author = codemark.resource_author || codemark.user
       - name ||= author.get(:nickname)
       - name ||= author.get(:name)
       - other_count = codemark.save_count.to_i-1
       - if name.present?
         .saver
-          by #{link_to name, short_user_path(author)}
+          by 
+          - if author.get(:image).present?
+            = image_tag author.get(:image)
+          = link_to name, short_user_path(author)
           - if other_count > 0
             and #{codemark.save_count.to_i-1 } others
     .actions
