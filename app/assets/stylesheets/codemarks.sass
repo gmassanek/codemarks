@@ -13,6 +13,9 @@
   float: right
   margin: 10px 0 0 10px
 
+.tweet_button
+  float: right
+
 .codemark
   @include white-pop
   margin-bottom: 7px
@@ -41,14 +44,14 @@
     display: inline
 
   #topics_tags
-    float: left
+    margin-top: 10px
+    display: inline-block
     li
-      float: left
-      padding: 3px 5px
-      border-bottom: none
-      &:nth-last-child(1)
-        padding-right: 0
-        border-right: none
+      display: inline-block
+      &:after
+        content: " | "
+      &:last-child:after
+        content: ""
 
   .details
     float: left
