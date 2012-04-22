@@ -8,7 +8,6 @@
 .sidebar
   @include white-pop
   margin-right: 15px
-  padding: 5px
   float: left
   width: 200px
   min-height: 400px
@@ -16,23 +15,23 @@
   .text
     @include text-only
 
+  h3
+    margin: 5px 0 0 5px
+
   ul > li
     font-size: 24px
     height: 45px
-
     border-top: 1px solid #dddddd
-    padding-top: 5px
+    padding: 5px
+
     &:first-child
       border-top: none
       padding-top: 0
 
-    &.active
-      background: #eee
-
     &.main > a
       @include text-only
-
     &.user_info
+      padding-top: 5px
       img
         float: left
         width: 45px
@@ -43,4 +42,11 @@
         margin-left: 12px
         @include text-only
 
-    .search
+    &.sort
+      font-size: 15px
+      height: 20px
+
+      &.active
+
+  ul > li.active
+    background: #fda702

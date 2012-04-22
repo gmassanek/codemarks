@@ -8,12 +8,21 @@
             = link_to image, short_user_path(current_user)
         .name
           = current_user.nickname
-      %li{:class => active_page_class(short_user_path(current_user))}
+      %li.nav{:class => active_page_class(short_user_path(current_user))}
         .text= link_to 'yours', short_user_path(current_user)
     - if @user && @user != current_user
-      %li{:class => active_page_class(short_user_path(@user))}
+      %li.nav{:class => active_page_class(short_user_path(@user))}
         .text= link_to @user.nickname, short_user_path(@user)
-    %li{:class => active_page_class(public_codemarks_path)}
+    %li.nav{:class => active_page_class(public_codemarks_path)}
       .text= link_to 'everyone\'s', public_codemarks_path
-    %li.search
-      = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
+
+    %h3 Sort by
+    %li.sort{:class => sort_class('date', true)}
+      = link_to "date", url_for(:only_path => true, :by =>  :date)
+    %li.sort{:class => sort_class('count')}
+      = link_to "count", url_for(:only_path => true, :by =>  :count)
+    %li.sort{:class => sort_class('visits')}
+      = link_to "visits", url_for(:only_path => true, :by => :visits)
+  = paginate @codemarks, :window => 5, :param_name => :page
+
+  = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
