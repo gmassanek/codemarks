@@ -8,8 +8,6 @@
       = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
       %span.host #{link.host}
     .clear
-    = render '/shared/codemark_topics', link: link, topics: codemark.topics
-    .clear
     .details
       .time #{time_ago_in_words(link.created_at)} ago
       - name ||= author.get(:nickname)
@@ -23,6 +21,8 @@
           = link_to name, short_user_path(author)
           - if other_count > 0
             and #{codemark.save_count.to_i-1 } others
+    .clear
+    = render '/shared/codemark_topics', link: link, topics: codemark.topics
     .actions
       - if codemark.note.present?
         .show_note
