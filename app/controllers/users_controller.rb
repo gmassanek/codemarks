@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   def welcome
+    render :layout => 'pages'
   end
 
   def show
