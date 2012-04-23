@@ -10,19 +10,19 @@
           = current_user.nickname
     %h3 Filter by
     - if logged_in?
-      %li.nav{:class => active_page_class(short_user_path(current_user))}
+      %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
         .nav_info
         .text= link_to 'yours', short_user_path(current_user)
 
     - if @user && @user != current_user
-      %li.nav{:class => active_page_class(short_user_path(@user))}
+      %li.nav{:class => active_page_class([short_user_path(@user), user_path(current_user)])}
         .nav_info
         .text= link_to @user.nickname, short_user_path(@user)
     - if @topic
-      %li.nav{:class => active_page_class(topic_path(@topic))}
+      %li.nav{:class => active_page_class([topic_path(@topic)])}
         .nav_info
         .text= link_to @topic.title, @topic
-    %li.nav{:class => active_page_class(public_codemarks_path)}
+    %li.nav{:class => active_page_class([public_codemarks_path])}
       .nav_info
       .text= link_to 'everyone\'s', public_codemarks_path
 
