@@ -36,7 +36,10 @@
     %li.sort{:class => sort_class('visits')}
       .nav_info
       = link_to "visits", url_for(:only_path => true, :by => :visits)
-  - if @codemarks
-    = paginate @codemarks, :window => 5, :param_name => :page
+    - if @codemarks
+      - pagination = paginate(@codemarks, :window => 5, :param_name => :page)
+      - if pagination.present?
+        %h3 Pagination
+        %li= paginate @codemarks, :window => 5, :param_name => :page
 
   = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
