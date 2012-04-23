@@ -23,6 +23,7 @@
       = link_to "count", url_for(:only_path => true, :by =>  :count)
     %li.sort{:class => sort_class('visits')}
       = link_to "visits", url_for(:only_path => true, :by => :visits)
-  = paginate @codemarks, :window => 5, :param_name => :page
+  - if @codemarks
+    = paginate @codemarks, :window => 5, :param_name => :page
 
   = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
