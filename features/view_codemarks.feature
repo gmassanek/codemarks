@@ -52,7 +52,7 @@ Feature: View Codemarks
     And I have 3 codemarks
     And one of my codemarks has been save 3 other times
     When I go to my dashboard
-    And I click "by count"
+    And I click "count"
     Then I should see that codemark first
 
   Scenario: Can view codemarks on topics
