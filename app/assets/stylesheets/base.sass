@@ -1,0 +1,46 @@
+@import "configuration"
+@import "header"
+@import "sidebar"
+
+html
+  background: url('furley_bg.png')
+
+.content
+  overflow: hidden
+
+.site_search
+  input
+    padding: 3px
+    border: 1px solid $border-color1
+    border-radius: $border-radius-tight
+    width: 150px
+
+#logo
+  float: left
+  margin-top: 10px
+
+  img
+    margin-top: 1px
+    height: 26px
+
+#authentication
+  float: right
+  margin-top: 20px
+  li
+    float: left
+    padding: 0 15px
+
+    &.last
+      padding-right: 0
+
+    &.image
+      margin: -5px -20px 0 0
+      padding: 0
+      padding-right: 10px
+      img
+        border: 1px solid $c6
+        height: 25px
+
+  .site_search input
+    margin-top: -2px
+    padding: 2px

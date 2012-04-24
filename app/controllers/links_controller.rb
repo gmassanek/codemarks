@@ -43,11 +43,9 @@ class LinksController < ApplicationController
   end
 
   def click
-    @link = LinkRecord.find(params[:link][:id])
+    @link = LinkRecord.find(params[:id])
     Click.create(:link_record => @link, :user => current_user)
-    respond_to do |format|
-      format.js
-    end
+    render :nothing => true, :status => :ok
   end
 
   def topic_checkbox
