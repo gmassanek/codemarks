@@ -13,22 +13,22 @@ namespace :users  do
 
   task :merge_two_user_accounts, [:user_id1, :user_id2] => :environment do |t, args|
     deleting = {
-      auth: true,
-      codemarks: true
+      auth: false,
+      codemarks: false
     }
     moving = {
-      auth: true,
-      codemarks: true,
-      clicks: true,
-      nuggets: true,
-      topics: true
+      auth: false,
+      codemarks: false,
+      clicks: false,
+      nuggets: false,
+      topics: false
     }
 
     user1 = User.find(args[:user_id1])
     user2 = User.find(args[:user_id2])
 
     secondary, primary = [user1, user2].sort_by { |user| user.codemark_records.count }
-    p "Moving items from from user #{secondary} to user #{primary}"
+    p "Moving items from from user #{secondary.id} to user #{primary.id}"
     
     p ""
     p ""
@@ -102,27 +102,27 @@ namespace :users  do
     p "Primary: #{primary.nuggets.count}"
     p "Secondary: #{secondary.nuggets.count}"
     secondary.nuggets.each do |nugget|
-      p "Moving nugget for link #{nugget.link_record_id}"
-      nugget.update_attributes(:user_id => primary.id) if moving[:nuggets]
+      p "Moving nugget for link #{nugget.id}"
+      nugget.update_attributes(:author_id => primary.id) if moving[:nuggets]
     end
     p "Primary: #{primary.nuggets.count}"
     p "Secondary: #{secondary.nuggets.count}"
 
-    p ""
-    p ""
-    p ""
-    p 'Topics Count'
-    p "Primary: #{primary.topics.count}"
-    p "Secondary: #{secondary.topics.count}"
-    secondary.topics.each do |topic|
-      p "Moving topic #{topic.id}"
-      if moving[:topics]
-        topic.user_id = primary.id
-        topic.save!
-      end
-    end
-    p "Primary: #{primary.topics.count}"
-    p "Secondary: #{secondary.topics.count}"
+    #p ""
+    #p ""
+    #p ""
+    #p 'Topics Count'
+    #p "Primary: #{primary.topics.count}"
+    #p "Secondary: #{secondary.topics.count}"
+    #secondary.topics.each do |topic|
+      #p "Moving topic #{topic.id}"
+      #if moving[:topics]
+        #topic.user_id = primary.id
+        #topic.save!
+      #end
+    #end
+    #p "Primary: #{primary.topics.count}"
+    #p "Secondary: #{secondary.topics.count}"
 
   end
 end
