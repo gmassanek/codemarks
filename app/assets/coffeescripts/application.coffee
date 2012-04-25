@@ -21,7 +21,10 @@ window.Codemarks =
 
   prepareCodemarks: ->
     $(".codemark_link").click (event) ->
-      $(event.target).closest("li").find("form").submit()
+      codemark = $(event.target).closest("li")
+      url = codemark.find('#click_url').val()
+      $.post(url)
+      $(event.target).unbind('click')
 
 $ ->
   $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->

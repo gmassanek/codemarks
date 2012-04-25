@@ -1,0 +1,83 @@
+@import "configuration"
+@import "bourbon"
+@import "style"
+@import "mixins/circle"
+
+@mixin text-only
+  padding-top: 13px
+
+.sidebar
+  @include white-pop
+  margin-right: 15px
+  float: left
+  width: 200px
+  min-height: 400px
+
+  .text
+    display: inline
+    @include text-only
+
+  h3
+    margin: 10px 0 0 5px
+
+
+  ul > li
+    font-size: 24px
+    height: 45px
+    border-top: 1px solid #dddddd
+    padding: 5px
+
+    &:first-child
+      border-top: none
+      padding-top: 0
+
+    &.main > a
+      @include text-only
+    &.user_info
+      padding-top: 5px
+      img
+        float: left
+        width: 45px
+        height: 45px
+
+      .name
+        float: left
+        margin-left: 12px
+        @include text-only
+
+    .nav_info
+      float: left
+      @include radial-gradient(33% 33%, circle cover, #fefefe, #bbbbbb)
+    &.active .nav_info
+      @include radial-gradient(33% 33%, circle cover, lighten(#fda702, 30%), darken(#ff7e03, 5%))
+
+    &.nav
+      height: 25px
+      padding-top: 10px
+      .nav_info
+        float: left
+        margin: 2px 0 0 2px
+        @include circle(15px)
+      .text
+        margin-left: 10px
+
+    &.sort
+      font-size: 15px
+      height: 20px
+      .nav_info
+        float: left
+        margin: 2px 0 0 2px
+        @include circle(12px)
+      a
+        margin-left: 10px
+
+    .pagination 
+      font-size: 14px
+      .page
+        padding: 3px
+        &.current
+          color: #fda702
+
+  .site_search
+    margin-top: 5px
+    margin-left: 10px

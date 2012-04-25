@@ -25,8 +25,9 @@ Codemarks::Application.routes.draw do
   get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
 
   get '/links/topic_checkbox', :to => "links#topic_checkbox"
-  resources :links
-  post 'links/click', :as => :click_link
+  resources :links do
+    member { post :click }
+  end
 
   get "sessions/codemarklet_sign_in", :as => :codemarklet_sign_in
   post "sessions/create", :as => :create_session

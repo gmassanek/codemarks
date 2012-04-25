@@ -1,28 +1,12 @@
 - link = codemark.link_record
 - author = codemark.resource_author || codemark.user
+- name = author.get(:nickname) || author.get(:name)
+- other_count = codemark.save_count.to_i-1
+
 - if link
-  %li.codemark{:id => "#{dom_id(codemark)}"}
+  %li.codemark{:id => dom_id(codemark) }
     = hidden_field_tag 'codemark_id', codemark.id
-    = render '/links/click_form', link_id: link.id
-    %h3
-      = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
-      %span.host #{link.host}
-    .clear
-    = render '/shared/codemark_topics', link: link, topics: codemark.topics
-    .clear
-    .details
-      .time #{time_ago_in_words(link.created_at)} ago
-      - name ||= author.get(:nickname)
-      - name ||= author.get(:name)
-      - other_count = codemark.save_count.to_i-1
-      - if name.present?
-        .saver
-          by 
-          - if author.get(:image).present?
-            = image_tag author.get(:image)
-          = link_to name, short_user_path(author)
-          - if other_count > 0
-            and #{codemark.save_count.to_i-1 } others
+    = hidden_field_tag 'click_url', click_link_path(link.id)
     .actions
       - if codemark.note.present?
         .show_note
@@ -30,6 +14,23 @@
         .edit_codemark
       - if logged_in?
         = render '/codemarks/ownership_link', :codemark => codemark
+    %h3
+      = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
+    .clear
+    .details
+      %span.host #{link.host} -
+      = time_ago_in_words(link.created_at)
+      ago
+      - if name.present?
+        by 
+        - if author.get(:image).present?
+          = image_tag author.get(:image)
+        = link_to name, short_user_path(author)
+        - if other_count > 0
+          and #{codemark.save_count.to_i-1 } others
+    .clear
+    = render '/shared/codemark_topics', link: link, topics: codemark.topics
+    .tweet_button
       = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear
 

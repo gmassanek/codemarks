@@ -10,25 +10,17 @@
 #filters_and_sorts
   %ul.tabs#filters
     - if logged_in?
-      %li{:class => tab_class(topic_user_path(@topic, current_user))}
+      %li{:class => active_page_class([topic_user_path(@topic, current_user)])}
         = link_to current_user.nickname, topic_user_path(@topic, current_user)
     - else
       %li
         = link_to 'sign up', root_path
-    %li{:class => tab_class(topic_path(@topic))}
+    %li{:class => active_page_class([topic_path(@topic)])}
       = link_to "public", topic_path(@topic)
     - if @user && @user.id != current_user_id
-      %li{:class => tab_class(topic_user_path(@topic, @user))}
+      %li{:class => active_page_class([topic_user_path(@topic, @user)])}
         = link_to @user.nickname, topic_user_path(@topic, @user)
-  = paginate @codemarks, :window => 5, :param_name => :page
-  %ul.pills#sorts
-    %li{:class => sort_class('visits')}
-      = link_to "by visits", url_for(:only_path => true, :by => :visits)
-    %li{:class => sort_class('count')}
-      = link_to "by count", url_for(:only_path => true, :by =>  :count)
-    %li{:class => sort_class('date', true)}
-      = link_to "by date", url_for(:only_path => true, :by =>  :date)
-  .clear
 
+.clear
 = render 'shared/codemark_list', :codemarks => @codemarks
 = paginate @codemarks, :window => 5, :param_name => :page
