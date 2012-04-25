@@ -15,8 +15,10 @@ module ApplicationHelper
     URI.escape(text, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   end
 
-  def tab_class(path)
-    'active' if current_page?(path)
+  def active_page_class(paths)
+    paths.each do |path|
+      return 'active' if current_page?(path)
+    end
   end
 
   def sort_class(sort, default = false)

@@ -39,7 +39,7 @@ Feature: View Codemarks
     Given gmassanek is a user with a codemark
     When I go to his page
     Then I should see his codemark
-    And I should see a tab with his name
+    And I should see a nav with his name
 
   Scenario: Codemarks are paged
     Given there are 20 random codemarks
@@ -52,7 +52,7 @@ Feature: View Codemarks
     And I have 3 codemarks
     And one of my codemarks has been save 3 other times
     When I go to my dashboard
-    And I click "by count"
+    And I click "count"
     Then I should see that codemark first
 
   Scenario: Can view codemarks on topics
@@ -65,7 +65,7 @@ Feature: View Codemarks
     And superman is a user with a codemark
     When I go to that topic page
     Then I should see his codemark
-    And I should see a tab with my name
+    And I should see a nav with my name
 
   Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
