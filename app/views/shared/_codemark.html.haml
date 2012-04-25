@@ -27,7 +27,8 @@
           = image_tag author.get(:image)
         = link_to name, short_user_path(author)
         - if other_count > 0
-          and #{codemark.save_count.to_i-1 } others
+          - others_count = codemark.save_count.to_i-1
+          and #{pluralize others_count, 'other'}
     .clear
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
     .tweet_button
