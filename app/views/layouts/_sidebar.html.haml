@@ -12,19 +12,30 @@
     - if logged_in?
       %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
         .nav_info
-        .text= link_to 'yours', short_user_path(current_user)
-
+        .text
+          = link_to 'yours', short_user_path(current_user)
+          - if @codemarks
+            .count (#{@codemarks.total_count})
     - if @user && @user != current_user
-      %li.nav{:class => active_page_class([short_user_path(@user), user_path(current_user)])}
+      %li.nav{:class => active_page_class([short_user_path(@user), user_path(@user)])}
         .nav_info
-        .text= link_to @user.nickname, short_user_path(@user)
+        .text 
+          = link_to @user.nickname, short_user_path(@user)
+          - if @codemarks
+            .count (#{@codemarks.total_count})
     - if @topic
       %li.nav{:class => active_page_class([topic_path(@topic)])}
         .nav_info
-        .text= link_to @topic.title, @topic
+        .text
+          = link_to @topic.title, @topic
+          - if @codemarks
+            .count (#{@codemarks.total_count})
     %li.nav{:class => active_page_class([public_codemarks_path])}
       .nav_info
-      .text= link_to 'everyone\'s', public_codemarks_path
+      .text
+        = link_to 'everyone\'s', public_codemarks_path
+        - if @codemarks
+          .count (#{@codemarks.total_count})
 
     %h3 Sort by
     %li.sort{:class => sort_class('date', true)}
@@ -32,14 +43,14 @@
       = link_to "date", url_for(:only_path => false, :by =>  :date)
     %li.sort{:class => sort_class('count')}
       .nav_info
-      = link_to "count", url_for(:only_path => false, :by =>  :count)
+      = link_to "save count", url_for(:only_path => false, :by =>  :count)
     %li.sort{:class => sort_class('visits')}
       .nav_info
       = link_to "visits", url_for(:only_path => true, :by => :visits)
     - if @codemarks
       - pagination = paginate(@codemarks, :window => 5, :param_name => :page)
       - if pagination.present?
-        %h3 Pagination
+        %h3 Pages
         %li= paginate @codemarks, :window => 5, :param_name => :page
 
   = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
