@@ -12,19 +12,26 @@
     - if logged_in?
       %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
         .nav_info
-        .text= link_to 'yours', short_user_path(current_user)
-
+        .text
+          = link_to 'yours', short_user_path(current_user)
+          .count (#{@codemarks.total_count})
     - if @user && @user != current_user
       %li.nav{:class => active_page_class([short_user_path(@user), user_path(current_user)])}
         .nav_info
-        .text= link_to @user.nickname, short_user_path(@user)
+        .text 
+          = link_to @user.nickname, short_user_path(@user)
+          .count (#{@codemarks.total_count})
     - if @topic
       %li.nav{:class => active_page_class([topic_path(@topic)])}
         .nav_info
-        .text= link_to @topic.title, @topic
+        .text
+          = link_to @topic.title, @topic
+          .count (#{@codemarks.total_count})
     %li.nav{:class => active_page_class([public_codemarks_path])}
       .nav_info
-      .text= link_to 'everyone\'s', public_codemarks_path
+      .text
+        = link_to 'everyone\'s', public_codemarks_path
+        .count (#{@codemarks.total_count})
 
     %h3 Sort by
     %li.sort{:class => sort_class('date', true)}
