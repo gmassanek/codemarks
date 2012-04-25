@@ -16,8 +16,8 @@ window.Codemarklet =
     console.log response
     $('.cm_notice').show()
     delay = (ms, func) -> setTimeout func, ms
-    delay 1000, -> window.close()
 
+    delay 1500, -> window.close()
 
   bootstrap: ->
     $ ->
