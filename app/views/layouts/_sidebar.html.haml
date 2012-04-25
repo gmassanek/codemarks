@@ -17,7 +17,7 @@
           - if @codemarks
             .count (#{@codemarks.total_count})
     - if @user && @user != current_user
-      %li.nav{:class => active_page_class([short_user_path(@user), user_path(current_user)])}
+      %li.nav{:class => active_page_class([short_user_path(@user), user_path(@user)])}
         .nav_info
         .text 
           = link_to @user.nickname, short_user_path(@user)
