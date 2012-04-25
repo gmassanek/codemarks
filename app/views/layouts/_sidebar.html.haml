@@ -39,7 +39,7 @@
     - if @codemarks
       - pagination = paginate(@codemarks, :window => 5, :param_name => :page)
       - if pagination.present?
-        %h3 Pagination
+        %h3 Pages
         %li= paginate @codemarks, :window => 5, :param_name => :page
 
   = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
