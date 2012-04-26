@@ -4,6 +4,7 @@ class CodemarkRecord < ActiveRecord::Base
 
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
+  has_many :comments
 
   validates_presence_of :link_record
   validates_presence_of :user

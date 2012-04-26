@@ -17,6 +17,12 @@ Feature: View Codemarks
     And I click on the notepad
     Then I should see the codemark's note
 
+  Scenario: Viewing codemark comments
+    Given there is a codemark with 2 comments
+    When I go to the public page
+    And I click on the comment icon
+    Then I should see the codemark's comments
+
   Scenario: I only see my Codemarks on my page
     Given I am a logged in user
     And I have 3 codemarks

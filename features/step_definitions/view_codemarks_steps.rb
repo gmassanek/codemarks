@@ -49,6 +49,22 @@ Given /^there is a codemark with a note$/ do
   @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
 end
 
+Given /^there is a codemark with 2 comments$/ do
+  @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
+  codemark_author = @codemark.user
+  commentor = Fabricate(:user)
+  @codemark.comments.create(:author => commentor, :text => 'Sick bro!')
+  @codemark.comments.create(:author => codemark_author, :text => 'Thanks man')
+end
+
+When /^I click on the comment icon$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see the codemark's comments$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
 When /^I click on the notepad$/ do
   page.find('.show_note').click()
 end
