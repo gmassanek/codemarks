@@ -87,8 +87,6 @@ describe CodemarkRecord do
     }.should change(Topic, :count).by(1)
   end
 
-  it "finds all codemarks for a link"
-
   it "finds codemarks for a user and a link combination" do
     user = Fabricate(:user)
     codemark_record = Fabricate(:codemark_record, :user => user)
