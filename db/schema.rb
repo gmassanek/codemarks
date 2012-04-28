@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421212041) do
+ActiveRecord::Schema.define(:version => 20120428190110) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20120421212041) do
     t.datetime "updated_at"
     t.boolean  "archived",       :default => false
     t.text     "note"
+    t.text     "title"
   end
 
   create_table "codemark_topics", :force => true do |t|
@@ -49,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20120421212041) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "codemark_id"
+    t.integer  "author_id"
+    t.text     "text"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
 
   create_table "link_records", :force => true do |t|
     t.string   "url"

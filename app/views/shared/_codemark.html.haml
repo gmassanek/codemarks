@@ -15,7 +15,7 @@
       - if logged_in?
         = render '/codemarks/ownership_link', :codemark => codemark
     %h3
-      = link_to link.title, link.url, :target => :blank, :class => 'codemark_link'
+      = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
     .clear
     .details
       %span.host #{link.host} -
