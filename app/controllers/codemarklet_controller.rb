@@ -8,6 +8,7 @@ class CodemarkletController < ApplicationController
 
     options = {}
     options[:url] = params[:url]
+    options[:user] = current_user
     @codemark = Codemark.load(options)
   end
 
