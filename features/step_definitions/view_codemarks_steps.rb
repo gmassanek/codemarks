@@ -49,6 +49,52 @@ Given /^there is a codemark with a note$/ do
   @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
 end
 
+Given /^there is a codemark with 2 comments$/ do
+  @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
+  codemark_author = @codemark.user
+  commentor = Fabricate(:user)
+  @comment1 = Comment.create(:codemark_id => @codemark.id, :author => commentor, :text => 'Sick bro!')
+  @comment2 = Comment.create(:codemark_id => @codemark.id, :author => commentor, :text => 'Thanks man')
+end
+
+Given /^I have commented on that codemark$/ do
+  @my_comment = Comment.create(:codemark_id => @codemark.id, :author => @current_user, :text => 'Hootie Who')
+end
+
+When /^I click delete codemark$/ do
+  within('.comments') do
+    page.click_link('X')
+  end
+end
+
+Then /^I should not see my new comment$/ do
+  page.should have_selector('.comments li', :count => 2)
+end
+
+When /^I click on 'new comment'$/ do
+  page.find('.new_comment').click()
+end
+
+When /^I fill write a comment$/ do
+  page.fill_in('comment_text', :with => 'Oh hello')
+  page.click_button 'save'
+end
+
+Then /^I should see my new comment$/ do
+  within('.comments') do
+    page.should have_content('Oh hello')
+  end
+end
+
+When /^I click on the comment icon$/ do
+  page.find('.show_comments').click()
+end
+
+Then /^I should see the codemark's comments$/ do
+  page.should have_content(@comment1.text)
+  page.should have_content(@comment2.text)
+end
+
 When /^I click on the notepad$/ do
   page.find('.show_note').click()
 end

@@ -29,6 +29,7 @@ class FindCodemarks
     query = query.includes(:link_record)
     query = query.includes(:link_record => :author)
     query = query.includes(:topics)
+    query = query.includes(:comments)
     query = query.includes(:user => :authentications)
 
     query = order(query)

@@ -46,6 +46,10 @@ $ ->
     $cm = $(event.target).closest('.codemark')
     $cm.find('.note').toggle()
 
+  $(".show_comments").click (event) ->
+    $cm = $(event.target).closest('.codemark')
+    $cm.find('.comments').toggle()
+
   $(".ownership.copy").qtip
     content: 'Add to your codemarks'
 
@@ -54,3 +58,30 @@ $ ->
 
   $(".edit_codemark").qtip
     content: 'Edit your codemark'
+
+  $('.comment_form').submit (event) ->
+    event.preventDefault()
+    $cm = $(event.target).closest('.codemark')
+    data = $(event.target).serialize()
+    url = $(event.target).attr('action')
+    $.ajax
+      type: 'POST'
+      url: url
+      data: data
+      datType: 'script'
+
+  $('.delete_comment').click (event) ->
+    event.preventDefault()
+    $comment = $(event.target).closest('.comments li')
+    url = $(event.currentTarget).attr('href')
+    console.log url
+
+    $.ajax
+      type: 'POST'
+      url: url
+      data:
+        _method: 'DELETE'
+      datType: 'script'
+      success: ->
+        $comment.fadeOut 400, ->
+          $comment.remove()
