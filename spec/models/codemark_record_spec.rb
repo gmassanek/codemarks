@@ -30,10 +30,9 @@ describe CodemarkRecord do
     CodemarkRecord.unarchived.should == [new_ls]
   end
 
-  it "delegates title and url to it's link" do
+  it "delegates url to it's link" do
     codemark = Fabricate.build(:codemark_record)
     link = codemark.link_record
-    codemark.title.should == link.title
     codemark.url.should == link.url
   end
 
