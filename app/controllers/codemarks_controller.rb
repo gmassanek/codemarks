@@ -4,7 +4,7 @@ class CodemarksController < ApplicationController
     options = {}
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
-    options[:user_id] = params[:user_id] if params[:user_id]
+    options[:user_id] = current_user.id if current_user
     @codemark = Codemark.load(options)
   end
 
