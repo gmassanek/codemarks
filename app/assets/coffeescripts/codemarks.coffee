@@ -59,6 +59,12 @@ $ ->
   $(".edit_codemark").qtip
     content: 'Edit your codemark'
 
+  $(".show_note").qtip
+    content: 'View your codemark\'s note'
+
+  $(".show_comments").qtip
+    content: 'View and add comments'
+
   $('.comment_form').submit (event) ->
     event.preventDefault()
     $cm = $(event.target).closest('.codemark')
