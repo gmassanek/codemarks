@@ -40,8 +40,8 @@
     .note
       = codemark.note
 
-    %ul.comments
-      - codemark.comments.each do |comment|
-        %li
-          .text= comment.text
-          .author= comment.author.nickname
+    .comments
+      %ul
+        - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
+          = render '/comments/comment', :comment => comment
+      = render 'shared/comment_form', :codemark => codemark

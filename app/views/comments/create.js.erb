@@ -1,0 +1,3 @@
+$cm = $("#<%= @codemark_li_id %>");
+$cm.find('.comments > ul').append("<%= escape_javascript(render '/comments/comment', :comment => @comment) %>");
+$cm.find('#comment_text').val('');
