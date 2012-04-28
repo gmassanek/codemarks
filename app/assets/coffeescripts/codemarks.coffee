@@ -69,3 +69,19 @@ $ ->
       url: url
       data: data
       datType: 'script'
+
+  $('.delete_comment').click (event) ->
+    event.preventDefault()
+    $comment = $(event.target).closest('.comments li')
+    url = $(event.currentTarget).attr('href')
+    console.log url
+
+    $.ajax
+      type: 'POST'
+      url: url
+      data:
+        _method: 'DELETE'
+      datType: 'script'
+      success: ->
+        $comment.fadeOut 400, ->
+          $comment.remove()

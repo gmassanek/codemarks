@@ -57,6 +57,20 @@ Given /^there is a codemark with 2 comments$/ do
   @comment2 = Comment.create(:codemark_id => @codemark.id, :author => commentor, :text => 'Thanks man')
 end
 
+Given /^I have commented on that codemark$/ do
+  @my_comment = Comment.create(:codemark_id => @codemark.id, :author => @current_user, :text => 'Hootie Who')
+end
+
+When /^I click delete codemark$/ do
+  within('.comments') do
+    page.click_link('X')
+  end
+end
+
+Then /^I should not see my new comment$/ do
+  page.should have_selector('.comments li', :count => 2)
+end
+
 When /^I click on 'new comment'$/ do
   page.find('.new_comment').click()
 end
