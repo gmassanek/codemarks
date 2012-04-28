@@ -23,6 +23,16 @@ Feature: View Codemarks
     And I click on the comment icon
     Then I should see the codemark's comments
 
+  @javascript
+  Scenario: Commenting on a codemark
+    Given I am a logged in user
+    And there is a codemark with 2 comments
+    When I go to the public page
+    And I click on the comment icon
+    And I fill write a comment
+    Then I should see the codemark's comments
+    And I should see my new comment
+
   Scenario: I only see my Codemarks on my page
     Given I am a logged in user
     And I have 3 codemarks
