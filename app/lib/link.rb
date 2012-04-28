@@ -4,7 +4,7 @@ require 'open-uri'
 
 class Link
   include Taggable
-  attr_accessor :id, :url, :html_content, :host, :title, :link_record, :site_response, :valid_url, :author_id
+  attr_accessor :id, :url, :site_data, :host, :title, :link_record, :site_response, :valid_url, :author_id
 
   def initialize(attributes = {})
     return if attributes.blank?
@@ -33,7 +33,7 @@ class Link
     self.title = link_record.title
     self.host = link_record.host
     self.author_id = link_record.author_id
-    self.html_content = link_record.html_content
+    self.site_data = link_record.site_data
 
     link_record
   end
@@ -52,8 +52,7 @@ class Link
     link_record.url = self.url
     link_record.title = html_response.title
     link_record.host = URI.parse(url).host
-
-    link_record.html_content = html_response.content
+    link_record.site_data = html_response.content
     link_record.save!
     link_record
   rescue Exception => e
@@ -63,7 +62,7 @@ class Link
 
   #should pass this off to Tagger via Tagger.tag_these([:title, :html_content])
   def tagging_order
-    [:title, :html_content]
+    [:title, :site_data]
   end
 
   def orphan?
