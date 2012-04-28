@@ -162,7 +162,7 @@ class Codemark
 
   def load_codemark_for_user
     if @user && @resource
-      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :link_record_id => resource.id})
+      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :link_record_id => @resource.id})
       cm
     end
   end
