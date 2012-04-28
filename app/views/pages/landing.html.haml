@@ -1,18 +1,18 @@
 #banner
 #banner_text
-  %h2 codemarks
-  %h3 bookmarks for social coders
 
   .clear
+  %br Get started, sign up today! 
   = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
   = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
-%ul#site_explanation.piped
-  %li.first
-    %h3 save it
-    %p Save your favorite online coding resources. Add them online or through email.
-  %li
-    %h3 own it
-    %p Own what you know. Be active and you'll be heard.
-  %li.last
-    %h3 share it
-    %p Share with your community, with people just as passionate as you about honing your craft.
+  %ul#site_explanation
+    %li
+      %p Get organized: Codemarks help you easily save your favorite online coding resources.
+    %li
+      %p Discover new coding articles, tips and news. Learn from the best developers.
+    %li
+      %p Share with your community, with people as passionate as you about your craft.
+#home_codemarks
+  #recent Recent Codemarks
+  #scroll scroll down to see more
+  = render 'shared/codemark_list', :codemarks => @codemarks

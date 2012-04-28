@@ -20,6 +20,7 @@ gem 'newrelic_rpm'
 gem 'pg'
 gem 'browser'
 gem 'bourbon'
+gem 'thin'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
