@@ -2,25 +2,26 @@
   %ul
     - if logged_in?
       %li.user_info
+        - user = @user || current_user
         .image
-          - if current_user.get(:image).present?
-            - image = image_tag current_user.get(:image)
-            = link_to image, short_user_path(current_user)
+          - if user.get(:image).present?
+            - image = image_tag user.get(:image)
+            = link_to image, short_user_path(user)
         .name
-          = current_user.nickname
+          = user.nickname
     %h3 Filter by
-    - if logged_in?
-      %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
-        .nav_info
-        .text
-          = link_to 'yours', short_user_path(current_user)
-          - if @codemarks
-            .count (#{@codemarks.total_count})
     - if @user && @user != current_user
       %li.nav{:class => active_page_class([short_user_path(@user), user_path(@user)])}
         .nav_info
         .text 
           = link_to @user.nickname, short_user_path(@user)
+          - if @codemarks
+            .count (#{@codemarks.total_count})
+    - if logged_in?
+      %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
+        .nav_info
+        .text
+          = link_to 'yours', short_user_path(current_user)
           - if @codemarks
             .count (#{@codemarks.total_count})
     - if @topic
