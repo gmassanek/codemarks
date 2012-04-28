@@ -9,34 +9,17 @@
             = link_to image, short_user_path(user)
         .name
           = user.nickname
-    %h3 Filter by
-    - if @user && @user != current_user
-      %li.nav{:class => active_page_class([short_user_path(@user), user_path(@user)])}
-        .nav_info
-        .text 
-          = link_to @user.nickname, short_user_path(@user)
-          - if @codemarks
-            .count (#{@codemarks.total_count})
-    - if logged_in?
-      %li.nav{:class => active_page_class([short_user_path(current_user), user_path(current_user)])}
-        .nav_info
-        .text
-          = link_to 'yours', short_user_path(current_user)
-          - if @codemarks
-            .count (#{@codemarks.total_count})
     - if @topic
-      %li.nav{:class => active_page_class([topic_path(@topic)])}
-        .nav_info
-        .text
-          = link_to @topic.title, @topic
-          - if @codemarks
-            .count (#{@codemarks.total_count})
-    %li.nav{:class => active_page_class([public_codemarks_path])}
-      .nav_info
-      .text
-        = link_to 'everyone\'s', public_codemarks_path
-        - if @codemarks
-          .count (#{@codemarks.total_count})
+      %h3 By topic
+      = render '/layouts/nav_link', :paths => [topic_path(@topic)], :text => @topic.title, :target => topic_path(@topic)
+      - if logged_in?
+        = render '/layouts/nav_link', :paths => [topic_user_path(@topic, current_user)], :text => "your #{@topic.title}", :target => topic_user_path(@topic, current_user)
+    %h3 By user
+    - if @user && @user != current_user
+      = render '/layouts/nav_link', :paths => [short_user_path(@user), user_path(@user)], :text => @user.nickname, :target => short_user_path(@user)
+    - if logged_in?
+      = render '/layouts/nav_link', :paths => [short_user_path(current_user), user_path(current_user)], :text => 'yours', :target => short_user_path(current_user)
+    = render '/layouts/nav_link', :paths => [public_codemarks_path], :text => 'everyone\'s', :target => public_codemarks_path
 
     %h3 Sort by
     %li.sort{:class => sort_class('date', true)}
