@@ -46,6 +46,10 @@ $ ->
     $cm = $(event.target).closest('.codemark')
     $cm.find('.note').toggle()
 
+  $(".show_comments").click (event) ->
+    $cm = $(event.target).closest('.codemark')
+    $cm.find('.comments').toggle()
+
   $(".ownership.copy").qtip
     content: 'Add to your codemarks'
 
