@@ -8,6 +8,7 @@
     = hidden_field_tag 'codemark_id', codemark.id
     = hidden_field_tag 'click_url', click_link_path(link.id)
     .actions
+      .show_comments
       - if codemark.note.present?
         .show_note
       - if codemark.user == current_user
@@ -37,3 +38,10 @@
 
     .note
       = codemark.note
+
+    .comments
+      %ul
+        - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
+          = render '/comments/comment', :comment => comment
+      - if logged_in?
+        = render 'shared/comment_form', :codemark => codemark
