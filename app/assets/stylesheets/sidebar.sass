@@ -22,8 +22,9 @@
 
 
   ul > li
-    font-size: 24px
-    height: 45px
+    font-size: 18px
+    line-height: 18px
+    min-height: 40px
     border-top: 1px solid #dddddd
     padding: 5px
 
@@ -46,24 +47,27 @@
         @include text-only
 
     .nav_info
+      width: 15px
       float: left
       @include radial-gradient(33% 33%, circle cover, #fefefe, #bbbbbb)
     &.active .nav_info
       @include radial-gradient(33% 33%, circle cover, lighten(#fda702, 30%), darken(#ff7e03, 5%))
 
     &.nav
-      height: 25px
+      min-height: 25px
       padding-top: 10px
       .nav_info
-        float: left
         margin: 2px 0 0 2px
         @include circle(15px)
       .text
+        padding-top: 0
         margin-left: 10px
+        display: inline-block
+        width: 160px
 
     &.sort
       font-size: 15px
-      height: 20px
+      min-height: 20px
       .nav_info
         float: left
         margin: 2px 0 0 2px
