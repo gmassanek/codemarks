@@ -1,0 +1,6 @@
+%li.nav{:class => active_page_class(paths)}
+  .nav_info
+  .text
+    = link_to text, target
+    - if @codemarks
+      .count (#{@codemarks.total_count})
