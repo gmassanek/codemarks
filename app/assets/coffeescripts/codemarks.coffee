@@ -76,7 +76,7 @@ $ ->
       data: data
       datType: 'script'
 
-  $('.delete_comment').click (event) ->
+  $('.delete_comment').live 'click', (event) ->
     event.preventDefault()
     $comment = $(event.target).closest('.comments li')
     url = $(event.currentTarget).attr('href')
