@@ -75,7 +75,7 @@ describe Link do
         :title => 'Hotmail',
         :host => 'www.hotmail.com',
         :author_id => 3,
-        :html_content => 'This stuff over here'
+        :site_data => 'This stuff over here'
       })
 
       link = Link.new
@@ -87,7 +87,7 @@ describe Link do
       link.title.should == 'Hotmail'
       link.host.should == 'www.hotmail.com'
       link.author_id.should == 3
-      link.html_content.should == 'This stuff over here'
+      link.site_data.should == 'This stuff over here'
     end
   end
 
@@ -113,13 +113,13 @@ describe Link do
   end
 
   describe "create_link_record_from_internet" do
-    it "reaches out to the internet and doesn't break - refacor pleace"
+    it "reaches out to the internet and doesn't break - refactor please"
   end
 
   describe "is taggable" do
     it "has a tagging order" do
       link = Link.new
-      link.tagging_order.should == [:title, :html_content]
+      link.tagging_order.should == [:title, :site_data]
     end
 
     it "has a tags method" do

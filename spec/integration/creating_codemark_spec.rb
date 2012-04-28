@@ -5,7 +5,7 @@ describe "Can build codemarks" do
   it "hits the internet to save a link for a new link" do
     codemark = Codemark.load(:url => 'http://www.google.com')
     codemark.resource.url.should == 'http://www.google.com'
-    codemark.resource.html_content.should_not be_nil
+    codemark.resource.site_data.should_not be_nil
   end
 
   it "has tags" do
