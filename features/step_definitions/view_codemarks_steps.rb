@@ -53,16 +53,17 @@ Given /^there is a codemark with 2 comments$/ do
   @codemark = Fabricate(:codemark_record, :note => 'I should use this on codemarks')
   codemark_author = @codemark.user
   commentor = Fabricate(:user)
-  @codemark.comments.create(:author => commentor, :text => 'Sick bro!')
-  @codemark.comments.create(:author => codemark_author, :text => 'Thanks man')
+  @comment1 = Comment.create(:codemark_id => @codemark.id, :author => commentor, :text => 'Sick bro!')
+  @comment2 = Comment.create(:codemark_id => @codemark.id, :author => commentor, :text => 'Thanks man')
 end
 
 When /^I click on the comment icon$/ do
-  pending # express the regexp above with the code you wish you had
+  page.find('.show_comments').click()
 end
 
 Then /^I should see the codemark's comments$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content(@comment1.text)
+  page.should have_content(@comment2.text)
 end
 
 When /^I click on the notepad$/ do

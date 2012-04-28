@@ -84,6 +84,16 @@
       background: url('note.png') no-repeat
       background-size: 100%
 
+    .show_comments
+      display: inline-block
+      height: 16px
+      width: 16px
+      margin: 0 10px 0 0
+      cursor: pointer
+      background: url('note.png') no-repeat
+      background-color: blue
+      background-size: 100%
+
   .edit_codemark
     width: 16px
     height: 16px
@@ -115,3 +125,6 @@
     &.copy.hover
       @include radial-gradient(33% 33%, circle cover, lighten(green, 25%), darken(green, 15%))
       @include circle(15px)
+
+  ul.comments
+    display: none
