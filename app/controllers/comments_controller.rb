@@ -5,4 +5,9 @@ class CommentsController < ApplicationController
     @comment = Comment.create(comment_params)
     @codemark_li_id = "codemark_record_#{@comment.codemark_id}"
   end
+
+  def destroy
+    Comment.find(params[:id]).destroy
+    render :nothing => true, :status => :ok
+  end
 end

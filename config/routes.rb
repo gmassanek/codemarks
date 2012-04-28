@@ -21,7 +21,7 @@ Codemarks::Application.routes.draw do
 
   root :to => 'pages#landing'
 
-  resources :comments, :only => [:create]
+  resources :comments, :only => [:create, :destroy]
   resources :topics
   get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
 
