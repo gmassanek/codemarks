@@ -1,12 +1,11 @@
-var loc = document.location;
-var server = 'http://codemarks.com/';
-window.codemarklet=window.codemarklet||{};
-var H=450;
-var W=604;
-var SW=screen.width;
-var SH=screen.height;
-var LFT=Math.round((SW/2)-(W/2));
-var G=0;
-var url = server + 'codemarklet/new?url=' + loc;
-if(SH>H){G=Math.round((SH/W)-(H/2))}
-window.codemarklet.shareWin=window.open(url,'','left='+LFT+',top='+G+',width='+W+',height='+H+',personalbar=0,toolbar=0,scrollbars=1,resizable=1');
+(function(){cm_loc=document.location;
+cm_server='http://codemarks.com/';
+cm_H=450;
+cm_W=604;
+cm_SW=screen.width;
+cm_SH=screen.height;
+cm_LFT=Math.round((cm_SW/2)-(cm_W/2));
+cm_G=0;
+cm_url=cm_server+'codemarklet/new?url='+cm_loc;
+if(cm_SH>cm_H){cm_G=Math.round((cm_SH/cm_W)-(cm_H/2))}
+window.open(cm_url,'','left='+cm_LFT+',top='+cm_G+',width='+cm_W+',height='+cm_H+',personalbar=0,toolbar=0,scrollbars=1,resizable=1');})()
