@@ -6,13 +6,14 @@ $background: rgb(244, 243, 243)
 $background-hover: rgb(249, 249, 249)
 $dark_border: rgb(200, 198, 198)
 $light_faded: rgb(152, 177, 174)
+$dark_faded: rgb(140, 138, 138)
 
 @mixin light_text
   color: $light_faded
   font-weight: normal
 
 @mixin proud_text
-  color: #7b7474
+  color: $dark_faded
 
 #codemarks
   background: $background
@@ -23,6 +24,7 @@ $light_faded: rgb(152, 177, 174)
     padding: 10px 10px
     border-bottom: 1px solid $dark_border
     border-top: 1px solid rgb(252, 252, 252)
+    @include transition
     a
       @include transition
 
@@ -57,9 +59,14 @@ $light_faded: rgb(152, 177, 174)
     .actions
       float: right
       a
+        float: right
         font-size: 12px
         @include light_text
-        margin-left: 5px
+        margin-left: 10px
+      .tweet_button
+        float: right
+        display: none
+        margin-top: -3px
 
     &:hover
       background: $background-hover
@@ -68,6 +75,8 @@ $light_faded: rgb(152, 177, 174)
           @include proud_text
           &:hover
             color: $orange
+      .tweet_button
+        display: block
 
     img
       margin-bottom: -5px
@@ -86,8 +95,6 @@ $light_faded: rgb(152, 177, 174)
         &:last-child:after
           content: ""
 
-    .tweet_button
-      float: right
 
     .details
       float: left

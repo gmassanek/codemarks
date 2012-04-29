@@ -11,13 +11,14 @@
     - if mine
       .corner.delete
     .actions
-      = link_to 'Comments', '', :class => 'show_comments'
       - if mine && codemark.note.present?
         = link_to 'Note', '', :class => 'show_note'
       - if mine
         = link_to 'Edit', '', :class => 'edit_codemark'
       - else
         = link_to 'Save', '', :class => 'copy_codemark'
+      = link_to 'Comments', '', :class => 'show_comments'
+      = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3= link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
     .details
       %span.host #{link.host} -
@@ -33,8 +34,6 @@
           and #{pluralize others_count, 'other'}
     .clear
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
-    .tweet_button
-      = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear
 
     .note
