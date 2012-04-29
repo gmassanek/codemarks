@@ -19,7 +19,17 @@
     border-bottom: none
 
   &:hover
-    background: rgb(252, 252, 252)
+    background: rgb(249, 249, 249)
+
+  .corner
+    float: right
+    border-top: 25px solid #FD8D00
+    border-left: 25px solid #F6F6F6
+    margin-top: -31px
+    margin-right: -10px
+    &:hover
+      border-top: 25px solid red
+      border-left: 25px solid #F6F6F6
 
   h3
     font-size: 12px
@@ -124,14 +134,6 @@
     display: inline-block
     text-align: center
     cursor: pointer
-
-    &.delete
-      @include radial-gradient(33% 33%, circle cover, lighten(#fda702, 30%), darken(#ff7e03, 5%))
-      @include circle(15px)
-
-    &.delete.hover
-      @include radial-gradient(33% 33%, circle cover, lighten(red, 25%), darken(red, 15%))
-      @include circle(15px)
 
     &.copy
       @include radial-gradient(33% 33%, circle cover, #fefefe, #bbbbbb)
