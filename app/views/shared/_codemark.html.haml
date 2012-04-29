@@ -11,16 +11,14 @@
     - if mine
       .corner.delete
     .actions
-      = link_to 'comments', '', :class => 'show_comments'
+      = link_to 'Comments', '', :class => 'show_comments'
       - if mine && codemark.note.present?
-        = link_to 'note', '', :class => 'show_note'
+        = link_to 'Note', '', :class => 'show_note'
       - if mine
-        = link_to 'edit', '', :class => 'edit_codemark'
+        = link_to 'Edit', '', :class => 'edit_codemark'
       - else
-        = link_to 'copy', '', :class => 'copy_codemark'
-    %h3
-      = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
-    .clear
+        = link_to 'Save', '', :class => 'copy_codemark'
+    %h3= link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
     .details
       %span.host #{link.host} -
       = time_ago_in_words(link.created_at)

@@ -46,29 +46,28 @@ $ ->
     $cm.find('.comments').toggle()
 
   $('.codemark').mouseover (event) ->
-    event.preventDefault()
-    $cm = $(event.target).closest('.codemark')
-    $cm.find('.actions').show()
 
   $('.codemark').mouseout (event) ->
-    event.preventDefault()
-    $cm = $(event.target).closest('.codemark')
-    $cm.find('.actions').hide()
 
-  $(".copy").qtip
-    content: 'Add to your codemarks'
+  $(".copy_codemark").qtip
+    content: 'Save as your codemark'
+    show: { delay: 1000 }
 
   $(".corner.delete").qtip
     content: 'Remove from your codemarks'
+    show: { delay: 1000 }
 
   $(".edit_codemark").qtip
     content: 'Edit your codemark'
+    show: { delay: 1000 }
 
   $(".show_note").qtip
     content: 'View your codemark\'s note'
+    show: { delay: 1000 }
 
   $(".show_comments").qtip
     content: 'View and add comments'
+    show: { delay: 1000 }
 
   $('.comment_form').submit (event) ->
     event.preventDefault()
