@@ -1,12 +1,25 @@
 @import 'mixins/circle'
 
-.codemark
-  @include white-pop
-  margin-bottom: 7px
-  padding: 5px
+#codemarks
+  background: rgb(244, 243, 243)
+  border: 1px solid rgba(224, 223, 223, 1)
+  @include border-radius(5px)
 
-  &:nth-last-child(1)
+.codemark
+  padding: 10px 10px
+  border-bottom: 1px solid rgb(224, 223, 223)
+  border-top: 1px solid rgb(249, 249, 249)
+  &:first-child
+    @include border-top-left-radius(5px)
+    @include border-top-right-radius(5px)
+
+  &:last-child
+    @include border-bottom-left-radius(5px)
+    @include border-bottom-right-radius(5px)
     border-bottom: none
+
+  &:hover
+    background: rgb(252, 252, 252)
 
   h3
     font-size: 12px
