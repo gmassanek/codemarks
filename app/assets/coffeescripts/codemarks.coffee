@@ -18,7 +18,7 @@ $ ->
     $cm = $(e.target).closest('.codemark')
     copy_codemark($cm)
 
-  $(".ownership.delete").click (e) ->
+  $(".corner.delete").click (e) ->
     $cm = $(e.target).closest('.codemark')
     cm_id = $cm.find("#codemark_id").val()
     if(confirm("Are you sure you want to delete your codemark?"))
@@ -26,7 +26,7 @@ $ ->
         _method: 'delete'
         success: ->
           $cm.fadeOut(500, ->
-            @remove())
+            $cm.remove())
       }
 
   $('.ownership').mouseover (e) ->
@@ -53,7 +53,7 @@ $ ->
   $(".ownership.copy").qtip
     content: 'Add to your codemarks'
 
-  $(".ownership.delete").qtip
+  $(".corner.delete").qtip
     content: 'Remove from your codemarks'
 
   $(".edit_codemark").qtip
