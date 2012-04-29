@@ -41,6 +41,16 @@
       = render '/codemarks/form'
       .clear
 
+    = stylesheet_link_tag 'http://cdn-images.mailchimp.com/embedcode/slim-081711.css'
+    :css
+      #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+
+    #mc_embed_signup
+    = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
+      = label_tag 'Subscribe to our mailing list'
+      = email_field_tag 'EMAIL'
+      .clear
+      = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
 
   %ul#site_explanation.piped
     %li.first
