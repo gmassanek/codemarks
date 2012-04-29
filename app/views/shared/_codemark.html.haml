@@ -2,19 +2,22 @@
 - author = codemark.resource_author || codemark.user
 - name = author.get(:nickname) || author.get(:name)
 - other_count = codemark.save_count.to_i-1
+- mine = logged_in? && codemark.user == current_user
 
 - if link
   %li.codemark{:id => dom_id(codemark) }
     = hidden_field_tag 'codemark_id', codemark.id
     = hidden_field_tag 'click_url', click_link_path(link.id)
+    - if mine
+      .corner.delete
     .actions
-      .show_comments
-      - if codemark.note.present?
-        .show_note
-      - if codemark.user == current_user
-        .edit_codemark
-      - if logged_in?
-        = render '/codemarks/ownership_link', :codemark => codemark
+      = link_to 'comments', '', :class => 'show_comments'
+      - if mine && codemark.note.present?
+        = link_to 'note', '', :class => 'show_note'
+      - if mine
+        = link_to 'edit', '', :class => 'edit_codemark'
+      - else
+        = link_to 'copy', '', :class => 'copy_codemark'
     %h3
       = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
     .clear

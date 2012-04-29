@@ -23,12 +23,12 @@
 
   .corner
     float: right
-    border-top: 25px solid #FD8D00
+    border-top: 25px solid rgba(253, 141, 0, 0.2)
     border-left: 25px solid #F6F6F6
-    margin-top: -31px
+    margin-top: -11px
     margin-right: -10px
     &:hover
-      border-top: 25px solid red
+      border-top: 25px solid rgba(254, 60, 60, 0.7)
       border-left: 25px solid #F6F6F6
 
   h3
@@ -95,53 +95,17 @@
     padding: 5px 0
 
   .actions 
+    display: none
     float: right
-
-    iframe
-      position: relative
-      top: 0px
+    a
+      margin-right: 5px
+      &:last-child
+        marign-right: 0
 
     .show_note
-      display: inline-block
-      height: 16px
-      width: 16px
-      margin: 0 10px 0 0
-      cursor: pointer
-      background: url('note.png') no-repeat
-      background-size: 100%
-
     .show_comments
-      display: inline-block
-      height: 16px
-      width: 16px
-      margin: 0 10px 0 0
-      cursor: pointer
-      background: url('chat.png') no-repeat
-      background-size: 100%
-
-  .edit_codemark
-    width: 16px
-    height: 16px
-    display: inline-block
-    cursor: pointer
-    background: url('edit.png') no-repeat
-    background-size: 100%
-
-  .ownership
-    width: 20px
-    height: 20px
-    margin: 0 0 0px 8px
-    display: inline-block
-    text-align: center
-    cursor: pointer
-
-    &.copy
-      @include radial-gradient(33% 33%, circle cover, #fefefe, #bbbbbb)
-      @include circle(15px)
-
-    &.copy.hover
-      @include radial-gradient(33% 33%, circle cover, lighten(green, 25%), darken(green, 15%))
-      @include circle(15px)
+    .edit_codemark
+    .copy_codemark
 
   .comments
     display: none

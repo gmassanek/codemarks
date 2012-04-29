@@ -14,10 +14,6 @@ swapClasses = ($ownership_link, class_to_remove, class_to_add) ->
 
 
 $ ->
-  $(".ownership.copy").click (e) ->
-    $cm = $(e.target).closest('.codemark')
-    copy_codemark($cm)
-
   $(".corner.delete").click (e) ->
     $cm = $(e.target).closest('.codemark')
     cm_id = $cm.find("#codemark_id").val()
@@ -29,13 +25,10 @@ $ ->
             $cm.remove())
       }
 
-  $('.ownership').mouseover (e) ->
-    $target = $(e.target)
-    $target.addClass('hover')
-
-  $('.ownership').mouseout (e) ->
-    $target = $(e.target)
-    $target.removeClass('hover')
+  $(".copy_codemark").click (e) ->
+    e.preventDefault()
+    $cm = $(e.target).closest('.codemark')
+    copy_codemark($cm)
 
   $(".edit_codemark").click (e) ->
     e.preventDefault()
@@ -43,14 +36,26 @@ $ ->
     copy_codemark($cm)
 
   $(".show_note").click (event) =>
+    event.preventDefault()
     $cm = $(event.target).closest('.codemark')
     $cm.find('.note').toggle()
 
   $(".show_comments").click (event) ->
+    event.preventDefault()
     $cm = $(event.target).closest('.codemark')
     $cm.find('.comments').toggle()
 
-  $(".ownership.copy").qtip
+  $('.codemark').mouseover (event) ->
+    event.preventDefault()
+    $cm = $(event.target).closest('.codemark')
+    $cm.find('.actions').show()
+
+  $('.codemark').mouseout (event) ->
+    event.preventDefault()
+    $cm = $(event.target).closest('.codemark')
+    $cm.find('.actions').hide()
+
+  $(".copy").qtip
     content: 'Add to your codemarks'
 
   $(".corner.delete").qtip
