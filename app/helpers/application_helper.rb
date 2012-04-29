@@ -60,7 +60,7 @@ module ApplicationHelper
       title = title[0, title_length] + '...'
     end
 
-    text = %!#{message}#{codemark.url} - "#{title}" #{tags}#{sign_off}!
+    text = %!#{message}#{codemark.url} - "#{title}" #{tags}!
 
     #if author.id == current_user_id
       #text = "Saved a #codemark worth checking out - . #{codemark.link_record.url} #{codemark_short_tag_list(codemark)}"
