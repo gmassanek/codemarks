@@ -1,126 +1,138 @@
 @import 'mixins/circle'
+@import 'bourbon/css3/transition'
+
+$orange: rgb(253, 141, 0)
+$background: rgb(244, 243, 243)
+$background-hover: rgb(249, 249, 249)
+$dark_border: rgb(200, 198, 198)
+$light_faded: rgb(152, 177, 174)
+
+@mixin light_text
+  color: $light_faded
+  font-weight: normal
+
+@mixin proud_text
+  color: #7b7474
 
 #codemarks
-  background: rgb(244, 243, 243)
-  border: 1px solid rgba(224, 223, 223, 1)
+  background: $background
+  border: 1px solid $dark_border
   @include border-radius(5px)
 
-.codemark
-  padding: 10px 10px
-  border-bottom: 1px solid rgb(224, 223, 223)
-  border-top: 1px solid rgb(249, 249, 249)
-  &:first-child
-    @include border-top-left-radius(5px)
-    @include border-top-right-radius(5px)
-
-  &:last-child
-    @include border-bottom-left-radius(5px)
-    @include border-bottom-right-radius(5px)
-    border-bottom: none
-
-  &:hover
-    background: rgb(249, 249, 249)
-
-  .corner
-    float: right
-    border-top: 25px solid rgba(253, 141, 0, 0.2)
-    border-left: 25px solid #F6F6F6
-    margin-top: -11px
-    margin-right: -10px
-    &:hover
-      border-top: 25px solid rgba(254, 60, 60, 0.7)
-      border-left: 25px solid #F6F6F6
-
-  h3
-    font-size: 12px
+  .codemark
+    padding: 10px 10px
+    border-bottom: 1px solid $dark_border
+    border-top: 1px solid rgb(252, 252, 252)
     a
-      font-size: 16px
-      &:hover
-        color: $c5
-    .pop
-      font-weight: normal
-    .host
-      color: lighten($c2, 40%)
-      font-size: 11px
-      font-weight: normal
+      @include transition
 
-  img
-    margin-bottom: -5px
-    height: 16px
-    display: inline
-    padding: 1px
-    border: 1px solid #eee
+    &:first-child
+      @include border-top-left-radius(5px)
+      @include border-top-right-radius(5px)
+      border-top: none
 
-  #topics_tags
-    margin-top: 10px
-    display: inline-block
-    li
-      display: inline-block
-      &:after
-        content: " | "
-      &:last-child:after
-        content: ""
+    &:last-child
+      @include border-bottom-left-radius(5px)
+      @include border-bottom-right-radius(5px)
+      border-bottom: none
 
-  .tweet_button
-    float: right
-
-  .details
-    float: left
-    color: lighten($c2, 40%)
-    margin-top: 2px
-    .time
-      display: inline-block
-
-      li
-        float: left
-        padding: 3px 5px
-        border-bottom: none
-
-        &:first-child
-          padding-left: 0
-          border-right: none
-
-        &:last-child
-          padding-right: 0
-          border-right: none
-
-    .saver
-      display: inline-block
-      margin-left: 3px
-
-  .note
-    display: none
-    margin-top: 5px
-    border-top: 1px solid #ddd
-    padding: 5px 0
-
-  .actions 
-    display: none
-    float: right
-    a
-      margin-right: 5px
-      &:last-child
-        marign-right: 0
-
-    .show_note
-    .show_comments
-    .edit_codemark
-    .copy_codemark
-
-  .comments
-    display: none
-    margin-top: 5px
-    border-top: 1px solid #ddd
-    padding: 5px 0
-    .author
-      color: lighten($c2, 40%)
-    .delete
+    .corner
       float: right
-    li
-      width: 85%
+      border-top: 25px solid rgba($orange, 0.2)
+      border-left: 25px solid transparent
+      margin-top: -11px
+      margin-right: -10px
+      &:first-child
+        @include border-top-left-radius(5px)
+        @include border-top-right-radius(5px)
+      &:hover
+        border-top: 25px solid rgba(254, 60, 60, 0.7)
+
+    h3
+      a
+        font-size: 16px
+        &:hover
+          color: $c5
+
+    .actions
+      float: right
+      a
+        font-size: 12px
+        @include light_text
+        margin-left: 5px
+
+    &:hover
+      background: $background-hover
+      .actions
+        a
+          @include proud_text
+          &:hover
+            color: $orange
+
+    img
+      margin-bottom: -5px
+      height: 16px
+      display: inline
+      padding: 1px
+      border: 1px solid #eee
+
+    #topics_tags
+      margin-top: 10px
+      display: inline-block
+      li
+        display: inline-block
+        &:after
+          content: " | "
+        &:last-child:after
+          content: ""
+
+    .tweet_button
+      float: right
+
+    .details
+      float: left
+      color: lighten($c2, 40%)
+      margin-top: 2px
+      .time
+        display: inline-block
+
+        li
+          float: left
+          padding: 3px 5px
+          border-bottom: none
+
+          &:first-child
+            padding-left: 0
+            border-right: none
+
+          &:last-child
+            padding-right: 0
+            border-right: none
+
+      .saver
+        display: inline-block
+        margin-left: 3px
+
+    .note
+      display: none
+      margin-top: 5px
+      border-top: 1px solid #ddd
       padding: 5px 0
 
-  .comment_form
-    textarea
-      width: 80%
-      height: 35px
+    .comments
+      display: none
+      margin-top: 5px
+      border-top: 1px solid #ddd
+      padding: 5px 0
+      .author
+        color: lighten($c2, 40%)
+      .delete
+        float: right
+      li
+        width: 85%
+        padding: 5px 0
+
+    .comment_form
+      textarea
+        width: 80%
+        height: 35px
