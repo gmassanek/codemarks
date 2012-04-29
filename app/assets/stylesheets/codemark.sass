@@ -3,7 +3,7 @@
 
 $orange: rgb(253, 141, 0)
 $background: rgb(244, 243, 243)
-$background-hover: rgb(249, 249, 249)
+$background-hover: rgb(253, 253, 253)
 $dark_border: rgb(200, 198, 198)
 $light_faded: rgb(152, 177, 174)
 $dark_faded: rgb(140, 138, 138)
@@ -85,21 +85,10 @@ $dark_faded: rgb(140, 138, 138)
       padding: 1px
       border: 1px solid #eee
 
-    #topics_tags
-      margin-top: 10px
-      display: inline-block
-      li
-        display: inline-block
-        &:after
-          content: " | "
-        &:last-child:after
-          content: ""
-
-
     .details
       float: left
-      color: lighten($c2, 40%)
-      margin-top: 2px
+      color: $light_faded
+      margin-top: 10px
       .time
         display: inline-block
 
@@ -120,11 +109,26 @@ $dark_faded: rgb(140, 138, 138)
         display: inline-block
         margin-left: 3px
 
+    .host
+      display: inline
+      font-size: 11px
+      font-weight: normal
+      margin-right: 10px
+      color: $light_faded
+
+    #topics_tags
+      margin-top: 10px
+      float: right
+      li
+        display: inline-block
+        &:after
+          content: " | "
+        &:last-child:after
+          content: ""
+
     .note
-      display: none
       margin-top: 5px
-      border-top: 1px solid #ddd
-      padding: 5px 0
+      display: inline-block
 
     .comments
       display: none

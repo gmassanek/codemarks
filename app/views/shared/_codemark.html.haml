@@ -11,17 +11,22 @@
     - if mine
       .corner.delete
     .actions
-      - if mine && codemark.note.present?
-        = link_to 'Note', '', :class => 'show_note'
       - if mine
         = link_to 'Edit', '', :class => 'edit_codemark'
       - else
         = link_to 'Save', '', :class => 'copy_codemark'
       = link_to 'Comments', '', :class => 'show_comments'
       = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
-    %h3= link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
+    %h3
+      = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
+      .host= link.host
+
+    - if mine
+      .note
+        = codemark.note
+
+    .clear
     .details
-      %span.host #{link.host} -
       = time_ago_in_words(link.created_at)
       ago
       - if name.present?
@@ -32,14 +37,9 @@
         - if other_count > 0
           - others_count = codemark.save_count.to_i-1
           and #{pluralize others_count, 'other'}
-    .clear
+
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
     .clear
-
-    .note
-      Note
-      = codemark.note
-
     .comments
       %ul
         - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
