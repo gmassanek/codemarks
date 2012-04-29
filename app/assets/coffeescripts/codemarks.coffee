@@ -105,5 +105,8 @@ $ ->
     url    = $link.attr('href')
     opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
     tweet_text = $link.attr('data-tweet-text')
-    url = url + '?text=' + tweet_text
+    referer = 'url=""'
+    via = '&via=codemarks'
+    text = '&text=' + tweet_text
+    url = url + '?' + referer + via + text
     window.open(url, 'twitter', opts)
