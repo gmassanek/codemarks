@@ -21,7 +21,7 @@
       = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
       .host= link.host
 
-    - if mine
+    - if mine && codemark.note.present?
       .note
         = codemark.note
 
