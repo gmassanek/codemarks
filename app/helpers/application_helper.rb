@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def codemark_short_tag_list(codemark)
-    tags = codemark.topics.first(4)
+    tags = codemark.topics.first(3)
     if tags
       tag_texts = tags.collect do |tag|
         "##{tag.slug}"
@@ -48,14 +48,25 @@ module ApplicationHelper
     end
   end
 
-  def tweet_out_text(codemark)
+  def tweet_text(codemark)
     author = codemark.user
-    if author.id == current_user_id
-      #"#{codemark.link_record.url} - just added a #codemark #{codemark_topic_title(codemark)}. See my others"
-      "Saved a #codemark worth checking out - . #{codemark.link_record.url} #{codemark_short_tag_list(codemark)}"
-    else
-      "Found a #codemark worth checking out - #{codemark.link_record.url} Thanks @#{codemark.user.nickname}, nice find. #{codemark_short_tag_list(codemark)}"
-      #"#{codemark.link_record.url} - just found a #codemark #{codemark_topic_title(codemark)}. See some more"
+    tags = codemark_short_tag_list(codemark)
+    message = 'Have you seen this? '
+    sign_off = ' via @codemarks'
+    message_length = message.size + 20 + tags.size + sign_off.size + 10
+    title_length = 140 - message_length
+    title = codemark.title || codemark.link_record.title
+    if title.length > title_length
+      title = title[0, title_length] + '...'
     end
+
+    text = %!#{message}#{codemark.url} - "#{title}" #{tags}#{sign_off}!
+
+    #if author.id == current_user_id
+      #text = "Saved a #codemark worth checking out - . #{codemark.link_record.url} #{codemark_short_tag_list(codemark)}"
+    #else
+      #text = "Found a #codemark worth checking out - #{codemark.link_record.url} Thanks @#{codemark.user.nickname}, nice find. #{codemark_short_tag_list(codemark)}"
+    #end
+    url_encode_text(text)
   end
 end

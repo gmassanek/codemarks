@@ -95,3 +95,16 @@ $ ->
       success: ->
         $comment.fadeOut 400, ->
           $comment.remove()
+
+  $('.twitter_popup').click (event) ->
+    event.preventDefault()
+    $link  = $(this)
+    width  = 575
+    height = 400
+    left   = ($(window).width()  - width)  / 2
+    top    = ($(window).height() - height) / 2
+    url    = $link.attr('href')
+    opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
+    tweet_text = $link.attr('data-tweet-text')
+    url = url + '?text=' + tweet_text
+    window.open(url, 'twitter', opts)
