@@ -46,7 +46,6 @@ $ ->
     $cm.find('.comments').toggle()
 
   $('.codemark').mouseover (event) ->
-
   $('.codemark').mouseout (event) ->
 
   $(".copy_codemark").qtip

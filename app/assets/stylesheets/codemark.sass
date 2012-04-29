@@ -58,6 +58,7 @@ $dark_faded: rgb(140, 138, 138)
 
     .actions
       float: right
+      display: none
       a
         float: right
         font-size: 12px
@@ -71,6 +72,7 @@ $dark_faded: rgb(140, 138, 138)
     &:hover
       background: $background-hover
       .actions
+        display: block
         a
           @include proud_text
           &:hover
@@ -96,11 +98,9 @@ $dark_faded: rgb(140, 138, 138)
           float: left
           padding: 3px 5px
           border-bottom: none
-
           &:first-child
             padding-left: 0
             border-right: none
-
           &:last-child
             padding-right: 0
             border-right: none
