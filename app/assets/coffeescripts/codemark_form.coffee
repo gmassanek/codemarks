@@ -31,8 +31,8 @@ window.CodemarkForm =
       $(event.currentTarget).closest("li").fadeOut 100, ->
         $(this).remove()
         CodemarkForm.topics_count = $("#topic_tags li").length
-        if(CodemarkForm.topics_count == 0)
-          $("#codemark_form input[type=submit]").attr('disabled', 'disabled')
+        #if(CodemarkForm.topics_count == 0)
+          #$("#codemark_form input[type=submit]").attr('disabled', 'disabled')
     )
 
   bindEnter: ->
@@ -48,6 +48,3 @@ window.CodemarkForm =
 
     Codemarks.prepareAutocompletes()
     CodemarkForm.handleNewTopics()
-
-    if(CodemarkForm.topics_count == 0)
-      $("#codemark_form input[type=submit]").attr('disabled', 'disabled')

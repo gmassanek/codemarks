@@ -2,24 +2,31 @@
 - author = codemark.resource_author || codemark.user
 - name = author.get(:nickname) || author.get(:name)
 - other_count = codemark.save_count.to_i-1
+- mine = logged_in? && codemark.user == current_user
 
 - if link
   %li.codemark{:id => dom_id(codemark) }
     = hidden_field_tag 'codemark_id', codemark.id
     = hidden_field_tag 'click_url', click_link_path(link.id)
+    - if mine
+      .corner.delete
     .actions
-      .show_comments
-      - if codemark.note.present?
-        .show_note
-      - if codemark.user == current_user
-        .edit_codemark
-      - if logged_in?
-        = render '/codemarks/ownership_link', :codemark => codemark
+      - if mine
+        = link_to 'Edit', '', :class => 'edit_codemark'
+      - else
+        = link_to 'Save', '', :class => 'copy_codemark'
+      = link_to 'Comments', '', :class => 'show_comments'
+      = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3
       = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
+      .host= link.host
+
+    - if mine && codemark.note.present?
+      .note
+        = codemark.note
+
     .clear
     .details
-      %span.host #{link.host} -
       = time_ago_in_words(link.created_at)
       ago
       - if name.present?
@@ -30,16 +37,9 @@
         - if other_count > 0
           - others_count = codemark.save_count.to_i-1
           and #{pluralize others_count, 'other'}
-    .clear
+
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
-    .tweet_button
-      = render '/codemarks/share_tweet_link', :codemark => codemark
     .clear
-
-    .note
-      Note
-      = codemark.note
-
     .comments
       %ul
         - codemark.comments.select { |comment| comment.author.present? }.each do |comment|

@@ -11,12 +11,18 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
-  Scenario: Viewing codemark notes
+  Scenario: I can see my own note
+    Given I am a logged in user
+    And I have a codemark with a note
+    When I go to the public page
+    Then I should see my codemark's note
+
+  Scenario: I cannot see other people's notes
     Given there is a codemark with a note
     When I go to the public page
-    And I click on the notepad
-    Then I should see the codemark's note
+    Then I should not see the codemark's note
 
+  @javascript
   Scenario: Viewing codemark comments
     Given there is a codemark with 2 comments
     When I go to the public page
