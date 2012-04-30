@@ -14,11 +14,7 @@ swapClasses = ($ownership_link, class_to_remove, class_to_add) ->
 
 
 $ ->
-  $(".ownership.copy").click (e) ->
-    $cm = $(e.target).closest('.codemark')
-    copy_codemark($cm)
-
-  $(".ownership.delete").click (e) ->
+  $(".corner.delete").click (e) ->
     $cm = $(e.target).closest('.codemark')
     cm_id = $cm.find("#codemark_id").val()
     if(confirm("Are you sure you want to delete your codemark?"))
@@ -26,16 +22,13 @@ $ ->
         _method: 'delete'
         success: ->
           $cm.fadeOut(500, ->
-            @remove())
+            $cm.remove())
       }
 
-  $('.ownership').mouseover (e) ->
-    $target = $(e.target)
-    $target.addClass('hover')
-
-  $('.ownership').mouseout (e) ->
-    $target = $(e.target)
-    $target.removeClass('hover')
+  $(".copy_codemark").click (e) ->
+    e.preventDefault()
+    $cm = $(e.target).closest('.codemark')
+    copy_codemark($cm)
 
   $(".edit_codemark").click (e) ->
     e.preventDefault()
@@ -43,27 +36,37 @@ $ ->
     copy_codemark($cm)
 
   $(".show_note").click (event) =>
+    event.preventDefault()
     $cm = $(event.target).closest('.codemark')
     $cm.find('.note').toggle()
 
   $(".show_comments").click (event) ->
+    event.preventDefault()
     $cm = $(event.target).closest('.codemark')
     $cm.find('.comments').toggle()
 
-  $(".ownership.copy").qtip
-    content: 'Add to your codemarks'
+  $('.codemark').mouseover (event) ->
+  $('.codemark').mouseout (event) ->
 
-  $(".ownership.delete").qtip
+  $(".copy_codemark").qtip
+    content: 'Save as your codemark'
+    show: { delay: 1000 }
+
+  $(".corner.delete").qtip
     content: 'Remove from your codemarks'
+    show: { delay: 1000 }
 
   $(".edit_codemark").qtip
     content: 'Edit your codemark'
+    show: { delay: 1000 }
 
   $(".show_note").qtip
     content: 'View your codemark\'s note'
+    show: { delay: 1000 }
 
   $(".show_comments").qtip
     content: 'View and add comments'
+    show: { delay: 1000 }
 
   $('.comment_form').submit (event) ->
     event.preventDefault()
@@ -91,3 +94,19 @@ $ ->
       success: ->
         $comment.fadeOut 400, ->
           $comment.remove()
+
+  $('.twitter_popup').click (event) ->
+    event.preventDefault()
+    $link  = $(this)
+    width  = 575
+    height = 400
+    left   = ($(window).width()  - width)  / 2
+    top    = ($(window).height() - height) / 2
+    url    = $link.attr('href')
+    opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
+    tweet_text = $link.attr('data-tweet-text')
+    referer = 'url=""'
+    via = '&via=codemarks'
+    text = '&text=' + tweet_text
+    url = url + '?' + referer + via + text
+    window.open(url, 'twitter', opts)
