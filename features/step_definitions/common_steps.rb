@@ -17,7 +17,7 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 When /^I copy that codemark/ do
-  find('.copy').click()
+  find('.copy_codemark').click()
 end
 
 When /^I click the edit icon/ do
