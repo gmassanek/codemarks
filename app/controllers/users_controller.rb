@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to account_path(current_user), :notice => "Account saved" }
-      format.js
+      format.js { render :nothing => true, :status => :ok }
     end
   end
 
