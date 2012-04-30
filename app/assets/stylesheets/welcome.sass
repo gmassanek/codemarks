@@ -8,23 +8,57 @@
   #banner_text
     height: 252px
 
-  form.edit_user
-    width: 150px
+  h3
+    font: 24px
+    line-height: 24px
+
+  #welcome_form
+    width: 400px
     margin: 0 auto
-    input[type=email]
-      margin-left: -10px
+    p
+      padding: 5px
+    label
+      font-size: 18px
 
-  .email
-    display: none
-
-  #welcome_link_form_container
-    width: 604px
-    margin: 0 auto
-    display: none
-
-  a
+  #no_thanks
     color: white
-    text-shadow: none
-
     &:hover
-      color: $c4
+      color: orange
+
+  #mc_embed_signup
+    display: none
+
+  .has_email
+    display: none
+    #site_explanation
+      width: 900px
+      margin: 20px auto
+
+      li
+        height: 130px
+        border-right-color: darken($border-color2, 10%)
+        font-size: 20px
+        text-align: center
+        float: left
+        padding: 0 20px
+        width: 258px
+        line-height: 120%
+
+        a
+          color: $c3
+        
+        p
+          margin-top: 10px
+          font-size: 16px
+          text-shadow: none
+
+    #get_going
+      margin-top: 20px
+      font-size: 20px
+      line-height: 20px
+      color: white
+      a
+        color: $c3
+        &:hover
+          color: orange
+
