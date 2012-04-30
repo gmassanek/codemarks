@@ -7,13 +7,13 @@ window.CodemarkForm =
 
           newTopic = $("#link_form_topic_autocomplete").val()
           existingCheckbox = $("#topic_chb_#{newTopic}")
+          existingCheckbox = $(".title:contains('#{newTopic}')") if (existingCheckbox.length == 0)
           if (existingCheckbox.length == 0)
             newListItem = CodemarkForm.buildTopicListItem(newTopic)
             $("#topic_tags").append(newListItem)
           else
             existingCheckbox.closest("li").effect("highlight", {}, 2000)
 
-          $("#fetch").removeAttr("disabled")
           $("#link_form_topic_autocomplete").val("")
           $("#link_form_topic_slug").val("")
 
@@ -30,9 +30,6 @@ window.CodemarkForm =
 
       $(event.currentTarget).closest("li").fadeOut 100, ->
         $(this).remove()
-        CodemarkForm.topics_count = $("#topic_tags li").length
-        #if(CodemarkForm.topics_count == 0)
-          #$("#codemark_form input[type=submit]").attr('disabled', 'disabled')
     )
 
   bindEnter: ->
@@ -44,7 +41,6 @@ window.CodemarkForm =
   bootstrap: ->
     CodemarkForm.prepareDeletes()
     CodemarkForm.bindEnter()
-    CodemarkForm.topics_count = $("#topic_tags li").length
 
     Codemarks.prepareAutocompletes()
     CodemarkForm.handleNewTopics()
