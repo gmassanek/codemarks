@@ -6,6 +6,7 @@ Codemarks::Application.routes.draw do
 
   resources :codemarklet, :only => [:new, :create] do
     collection { get :login }
+    collection { get :chrome_extension }
   end
   resources :codemarks, :only => [:new, :create, :destroy]
   get '/public', to: "codemarks#public", :as => :public_codemarks
