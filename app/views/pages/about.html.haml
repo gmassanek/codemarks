@@ -1,29 +1,32 @@
 #about 
   #banner
   #banner_text
-    %h2 What are codemarks?
+    %h2 What is Codemarks?
+    %p.explanation Codemarks is the best way to save, organize, and discover code-related resources online
+    .clear
     %ul#site_explanation.piped
       %li.first
-        %h3 links
-        %p As coders, our days are filled with taking in content from sites like Twitter, Stack Overflow, Github, Blogs, etc. Codemarks are links to that content that are automatically parsed, tagged, and organized for you
-      %li
-        %h3 knowledge
-        %p The long term goal of codemarks is bring an open source mentality to knowledge.  We should strive to <em>own</em> what we know.  It will make each of us better and push the community forward
+        %h4 Codemarklet
+        %p 
+          Drag this
+          %br
+          = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
+          %br
+          to your bookmark bar to save Codemarks from anywhere
+      %li 
+        %h4 Chrome Extension
+        %p
+          Download the official
+          %br
+          = link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search/codemarks', :target => '_blank'
+          %br
+          to save Codemarks from Google Chrome
+
       %li.last
-        %h3 shared
-        %p The greatest asset to the tech world is sharing our knowlege with others. Codemarks encourage social knowledge sharing and collaboration. Follow the resources of those you look up to the most
-  %ul#site_explanation.piped.bottom
-    %h2 How can I be a great codemarker?
-    %li.first
-      %h3 Add Content
-      %p 
-        Create codemarks online, or by emailing any link to #{ link_to 'save@codemarks.com', 'mailto: save@codemarks.com'}. Codemarks from twitter will be coming soon
-    %li
-      %h3 Codemarklet
-      %p 
-        Drag the
-        = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
-        to your bookmark bar and save your Codemarks from anywhere
-    %li.last
-      %h3 Share
-      %p The more content, the more we all learn from each other.  Suggest it at your next meetup, and let us know what we can make better
+        %h4 @codemarks
+        %p
+          Follow
+          %br
+          = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank'
+          %br
+          for the latest features, updates, and more
