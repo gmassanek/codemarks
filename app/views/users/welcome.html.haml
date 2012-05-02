@@ -1,7 +1,6 @@
 :javascript
   $(function() {
     $("#welcome_form").submit(function(event) {
-      console.log('Woooo');
       var email = $("#user_email").val();
       var newsletter = $('#newsletter').attr('checked');
       if(newsletter == 'checked') {
@@ -15,17 +14,9 @@
       $("#welcome_link_form_container").show();
     }
 
-    $("a#no_thanks").click(function(event) {
-      event.preventDefault();
-      $('.no_email').fadeOut(300, function() {
-        $('.has_email').fadeIn(300);
-      });
-    });
-
     email = $('#user_email').val();
     if(email != '') {
-      $('.no_email').hide();
-      $('.has_email').show();
+      window.location = '/about'
     }
 
 
@@ -45,7 +36,7 @@
           = check_box_tag :newsletter
           = label_tag 'Subscribe to our newsletter'
         = form.submit 'save'
-      = link_to 'no thanks', '', id: "no_thanks"
+      = link_to 'no thanks', about_path, id: "no_thanks"
 
       #mc_embed_signup
         = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
@@ -53,36 +44,3 @@
           = email_field_tag 'EMAIL'
           .clear
           = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
-    .has_email
-      %ul#site_explanation.piped
-        %li.first
-          %h4 Codemarklet
-          %p 
-            Drag this
-            %br
-            = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
-            %br
-            to your bookmark bar to save Codemarks from anywhere
-        %li 
-          %h4 Chrome Extension
-          %p
-            Download the official
-            %br
-            = link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search/codemarks', :target => '_blank'
-            %br
-            to save Codemarks from Google Chrome
-
-        %li.last
-          %h4 @codemarks
-          %p
-            Follow
-            %br
-            = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank'
-            %br
-            for the latest features, updates, and more
-
-      .clear
-      #get_going
-        View some
-        = link_to 'codemarks', public_codemarks_path
-
