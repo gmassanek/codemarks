@@ -31,7 +31,7 @@ end
 
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:twitter, {
-  :uid => '422353',
+  :uid => '422333',
   :info => {
     :nickname => 'jbieber',
     :image => 'https://si0.twimg.com/profile_images/1927291188/newjbpic_reasonably_small.jpg'
