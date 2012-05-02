@@ -45,10 +45,12 @@ class Codemark
   def pull_up_attributes
     @resource = @codemark_record.link_record
     @tags = @codemark_record.topics
-    @user = @codemark_record.user
     @title = @codemark_record.title
-    @note = @codemark_record.note
-    @id = @codemark_record.id
+    if @user == @codemark_record.user.inspect
+      @id = @codemark_record.id
+      @user = @codemark_record.user
+      @note = @codemark_record.note
+    end
   end
 
   def tags

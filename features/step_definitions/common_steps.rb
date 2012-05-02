@@ -17,10 +17,12 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 When /^I copy that codemark/ do
+  page.driver.browser.execute_script("$('.actions').css('display', 'inline')")
   find('.copy_codemark').click()
 end
 
 When /^I click the edit icon/ do
+  page.driver.browser.execute_script("$('.actions').css('display', 'inline')")
   find('.edit_codemark').click()
 end
 

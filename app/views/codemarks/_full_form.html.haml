@@ -6,8 +6,14 @@
     = text_field_tag "codemark_attrs[archived]", 'false', :type => :hidden
     = text_field_tag "resource_attrs[id]", @codemark.resource.id, :type => :hidden
     = text_field_tag "resource_attrs[host]", @codemark.resource.host, :type => :hidden
-    = text_field_tag "codemark_attrs[title]", @codemark.title || @codemark.resource.title, :placeholder => "Title"
-    = text_area_tag "codemark_attrs[note]", @codemark.note, :placeholder => "Note"
+    %p
+      = label_tag 'Title'
+      = text_field_tag "codemark_attrs[title]", @codemark.title || @codemark.resource.title, :placeholder => "Title"
+      .clear
+    %p
+      = label_tag 'Private Note'
+      = text_area_tag "codemark_attrs[note]", @codemark.note, :placeholder => "Note"
+      .clear
+    .clear
     = render '/codemarks/topic_tags_list', :pos_topics => @codemark.tags
     = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."
-    .clear
