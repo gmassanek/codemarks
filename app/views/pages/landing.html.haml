@@ -1,17 +1,19 @@
 #banner
 #banner_text
-
+  %h2 Get started, sign up today! 
   .clear
-  %br Get started, sign up today! 
   = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
   = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
   %ul#site_explanation
     %li
-      %p Get organized: Codemarks help you easily save your favorite online coding resources.
+      %h4 Organize
+      Codemarks help you easily save your favorite online coding resources.
     %li
-      %p Discover new coding articles, tips and news. Learn from the best developers.
+      %h4 Discover
+      New coding articles, tips and news. Learn from the best developers.
     %li
-      %p Share with your community, with people as passionate as you about your craft.
+      %h4 Share
+      with your community, with people as passionate as you about your craft.
 #home_codemarks
   #recent Recent Codemarks
   #scroll scroll down to see more
