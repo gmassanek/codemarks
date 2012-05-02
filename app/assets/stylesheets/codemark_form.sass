@@ -9,6 +9,10 @@
   float: left
   width: 600px
 
+  input:not([type=submit]), textarea
+    width: 85%
+    margin: 5px 0
+
   #first
     width: 520px
     margin: 0 auto
@@ -17,19 +21,22 @@
         padding: 4px
         width: 400px
 
-  .site_search
-    width: 85%
-    margin: 0 auto
-
-  .site_search input
-    width: 85%
-    margin: 0 auto
-
   #second
-    width: 95%
-    margin: 0 auto
-    input#codemark_link_title
-      width: 100%
+    margin: 10px auto 0
+    padding: 10px
+    border-top: $border-sz solid $border-color2
+
+    label
+      float: left
+
+    input:not([type=submit]), textarea
+      float: right
+
+    textarea
+      height: 50px
+
+    #link_form_topic_autocomplete
+      margin: 0 40px
 
   &.first
     border: $border-sz solid transparent
@@ -41,11 +48,6 @@
 
     #resource_attrs_title
       width: 85%
-
-    textarea
-      margin-top: 5px
-      width: 85%
-      height: 50px
 
   ul#topic_tags
     font-size: 12px

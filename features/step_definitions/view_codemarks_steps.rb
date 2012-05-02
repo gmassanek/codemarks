@@ -75,10 +75,6 @@ Then /^I should not see my new comment$/ do
   page.should have_selector('.comments li', :count => 2)
 end
 
-When /^I click on 'new comment'$/ do
-  page.find('.new_comment').click()
-end
-
 When /^I fill write a comment$/ do
   page.fill_in('comment_text', :with => 'Oh hello')
   page.click_button 'save'
@@ -91,6 +87,7 @@ Then /^I should see my new comment$/ do
 end
 
 When /^I click on the comment icon$/ do
+  page.driver.browser.execute_script("$('.actions').css('display', 'inline')")
   page.find('.show_comments').click()
 end
 
@@ -100,6 +97,7 @@ Then /^I should see the codemark's comments$/ do
 end
 
 When /^I click on the notepad$/ do
+  page.driver.browser.execute_script("$('.actions').css('display', 'inline')")
   page.find('.show_note').click()
 end
 
