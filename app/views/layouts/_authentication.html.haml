@@ -6,5 +6,8 @@
         %li.first.last.image= link_to image, account_path(current_user)
       %li.first
         = link_to current_user.nickname, account_path(current_user)
-      %li.last= link_to 'Log Out', sign_out_path, :method => :delete
+      %li.last= link_to 'log out', sign_out_path, :method => :delete
 - else
+  #authentication
+    %ul.piped
+      %li.first.last= link_to 'public codemarks', public_codemarks_path
