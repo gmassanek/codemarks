@@ -3,8 +3,6 @@
     #logo
       - logo = image_tag 'cm-logo-1-small.png'
       = link_to logo, root_path
-  .tagline
-    = #{bookmarks for social coders} unless logged_in?
 
     = render '/codemarks/form' if logged_in?
     = render '/layouts/authentication'

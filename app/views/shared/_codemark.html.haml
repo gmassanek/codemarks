@@ -11,10 +11,11 @@
     - if mine
       .corner.delete
     .actions
-      - if mine
-        = link_to 'Edit', '', :class => 'edit_codemark'
-      - else
-        = link_to 'Save', '', :class => 'copy_codemark'
+      - if logged_in?
+        - if mine
+          = link_to 'Edit', '', :class => 'edit_codemark'
+        - else
+          = link_to 'Save', '', :class => 'copy_codemark'
       = link_to 'Comments', '', :class => 'show_comments'
       = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3
