@@ -24,23 +24,24 @@
 #welcome
   #banner
   #banner_text
+    .clear
     = hidden_field_tag 'user_email', current_user.email
     .no_email
-      %h3 Just a few more account items before you're ready to go
+      %br
+      %br
+      %br
+      %h3 Save your email
       %br
       = form_for current_user, :remote => true, :html => {:id => 'welcome_form'} do |form|
         %p
-          = label_tag 'Save your email'
           = form.email_field :email, :placeholder => 'john.doe@gmail.com'
-        %p
           = check_box_tag :newsletter
-          = label_tag 'Subscribe to our newsletter'
-        = form.submit 'save'
-      = link_to 'no thanks', about_path, id: "no_thanks"
+          = label_tag 'add me to the newsletter'
+        %p
+          = form.submit 'save'
+        = link_to 'no thanks', about_path, id: "no_thanks"
 
       #mc_embed_signup
         = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
           = label_tag 'Subscribe to our mailing list'
           = email_field_tag 'EMAIL'
-          .clear
-          = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
