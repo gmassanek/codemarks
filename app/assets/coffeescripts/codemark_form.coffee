@@ -2,9 +2,8 @@ window.CodemarkForm =
   handleNewTopics: ->
     $("#link_form_topic_autocomplete").keydown (event) ->
       if (event.keyCode == 13)
+        event.preventDefault()
         if($("#link_form_topic_count").val() == '0')
-          event.preventDefault()
-
           newTopic = $("#link_form_topic_autocomplete").val()
           existingCheckbox = $("#topic_chb_#{newTopic}")
           existingCheckbox = $(".title:contains('#{newTopic}')") if (existingCheckbox.length == 0)
