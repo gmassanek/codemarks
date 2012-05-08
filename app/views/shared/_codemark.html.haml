@@ -42,8 +42,11 @@
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
     .clear
     .comments
-      %ul
-        - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
-          = render '/comments/comment', :comment => comment
+      - if codemark.comments.present?
+        %ul
+          - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
+            = render '/comments/comment', :comment => comment
+      - else
+        No comments yet
       - if logged_in?
         = render 'shared/comment_form', :codemark => codemark
