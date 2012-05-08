@@ -16,7 +16,7 @@
           = link_to 'Edit', '', :class => 'edit_codemark'
         - else
           = link_to 'Save', '', :class => 'copy_codemark'
-      = link_to 'Comments', '', :class => 'show_comments'
+      = link_to "Comments (#{codemark.comments.count})", '', :class => 'show_comments'
       = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3
       = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
@@ -42,11 +42,11 @@
     = render '/shared/codemark_topics', link: link, topics: codemark.topics
     .clear
     .comments
-      - if codemark.comments.present?
-        %ul
+      %ul
+        - if codemark.comments.present?
           - codemark.comments.select { |comment| comment.author.present? }.each do |comment|
             = render '/comments/comment', :comment => comment
-      - else
-        No comments yet
+        - else
+          %li.none No comments yet
       - if logged_in?
         = render 'shared/comment_form', :codemark => codemark
