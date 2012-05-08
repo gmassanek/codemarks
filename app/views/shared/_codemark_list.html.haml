@@ -4,3 +4,9 @@
 %ul#codemarks
   - codemarks.each do |c|
     = render 'shared/codemark', :codemark => c
+
+- if @codemarks
+  #pagination
+    - pagination = paginate(@codemarks, :window => 5, :param_name => :page)
+    - if pagination.present?
+      = paginate @codemarks, :window => 5, :param_name => :page
