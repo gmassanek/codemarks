@@ -15,12 +15,12 @@ $dark_faded: rgb(140, 138, 138)
 @mixin proud_text
   color: $dark_faded
 
-#codemarks
+#codemarks, .pagination
   background: $background
   border: 1px solid $dark_border
   @include border-radius(5px)
 
-  .codemark
+  .codemark, .page, .first, .last
     padding: 10px 10px
     border-bottom: 1px solid $dark_border
     border-top: 1px solid rgb(252, 252, 252)
@@ -148,3 +148,31 @@ $dark_faded: rgb(140, 138, 138)
       textarea
         width: 80%
         height: 35px
+
+#pagination
+  margin: 0 auto
+  clear: both
+  text-align: center
+
+.pagination
+  display: inline-block
+  margin-top: 10px
+  padding-top: 5px
+  padding-bottom: 5px
+  text-align: left
+  @include border-radius(3px)
+  .page, .first, .last
+    @include border-radius(3px)
+    padding-top: 5px
+    padding-bottom: 5px
+    border-bottom: none
+    min-width: 30px
+    &:first-child
+      @include border-bottom-right-radius(0)
+      @include border-top-right-radius(0)
+    &:last-child
+      @include border-bottom-left-radius(0)
+      @include border-top-left-radius(0)
+      
+  .current
+    background: $background-hover
