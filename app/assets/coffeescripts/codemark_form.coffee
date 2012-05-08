@@ -1,20 +1,20 @@
 window.CodemarkForm =
   handleNewTopics: ->
-    $("#link_form_topic_autocomplete").keydown (event) ->
+    $('#link_form_topic_autocomplete').keydown (event) ->
       if (event.keyCode == 13)
         event.preventDefault()
-        if($("#link_form_topic_count").val() == '0')
-          newTopic = $("#link_form_topic_autocomplete").val()
+        if($('#link_form_topic_count').val() == '0')
+          newTopic = $('#link_form_topic_autocomplete').val()
           existingCheckbox = $("#topic_chb_#{newTopic}")
-          existingCheckbox = $(".title:contains('#{newTopic}')") if (existingCheckbox.length == 0)
-          if (existingCheckbox.length == 0)
+          existingCheckbox = $(".title:contains('#{newTopic}')") if existingCheckbox.length == 0
+          if(existingCheckbox.length == 0)
             newListItem = CodemarkForm.buildTopicListItem(newTopic)
             $("#topic_tags").append(newListItem)
           else
-            existingCheckbox.closest("li").effect("highlight", {}, 2000)
+            existingCheckbox.closest('li').effect('highlight', {}, 2000)
 
-          $("#link_form_topic_autocomplete").val("")
-          $("#link_form_topic_slug").val("")
+          $('#link_form_topic_autocomplete').val('')
+          $('#link_form_topic_slug').val('')
 
   buildTopicListItem: (newTopic) ->
     listItem = $("<li class='alert-message warning'></li>")
@@ -24,22 +24,12 @@ window.CodemarkForm =
     listItem.append("<div class='clear'></div>")
 
   prepareDeletes: ->
-    $('#topic_tags').delegate('.delete', 'click', (event) ->
+    $('#topic_tags').delegate '.delete', 'click', (event) ->
       event.preventDefault()
-
       $(event.currentTarget).closest("li").fadeOut 100, ->
         $(this).remove()
-    )
-
-  bindEnter: ->
-    $("#codemark_form").keyup (event) ->
-      if (event.keyCode == 13)
-        event.stopPropagation()
-        event.preventDefault()
 
   bootstrap: ->
     CodemarkForm.prepareDeletes()
-    CodemarkForm.bindEnter()
-
     Codemarks.prepareAutocompletes()
     CodemarkForm.handleNewTopics()
