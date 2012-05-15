@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428190110) do
+ActiveRecord::Schema.define(:version => 20120515133659) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -42,7 +42,10 @@ ActiveRecord::Schema.define(:version => 20120428190110) do
     t.boolean  "archived",       :default => false
     t.text     "note"
     t.text     "title"
+    t.tsvector "search"
   end
+
+  add_index "codemark_records", ["search"], :name => "codemarks_search_index"
 
   create_table "codemark_topics", :force => true do |t|
     t.integer  "codemark_record_id"
