@@ -7,6 +7,13 @@ class FindCodemarks
     @user_id = options[:user].id if options[:user]
   end
 
+  def self.search(query)
+    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", query])
+    p sql
+    CodemarkRecord.where("search @@ #{sql}")
+      .order("ts_rank_cd(search, #{sql}) DESC")
+  end
+
   def codemarks
     @topic = Topic.find(@topic) if @topic
 
