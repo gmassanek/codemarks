@@ -32,7 +32,10 @@
       .nav_info
       = link_to "visits", url_for(:only_path => true, :by => :visits)
 
-  = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
-  = form_tag search_codemarks_path, :method => :get do
-    = text_field_tag 'search', '', :placeholder => 'Search the site', :id => 'site_search'
-    = submit_tag 'Search'
+    %h3 Search
+    %li
+      = render '/layouts/search', :prefix => '', :placeholder => 'Autocomplete topics...'
+      .centered or
+      = form_tag search_codemarks_path, :method => :get, :class => 'full site_search' do
+        = text_field_tag 'search', '', :placeholder => 'Search codemarks...', :id => 'site_search'
+        = submit_tag 'Search', :class => 'btn primary small'
