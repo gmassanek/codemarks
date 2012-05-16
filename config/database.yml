@@ -30,5 +30,10 @@ production:
   pool: 5
   min_messages: warning
 
+postgres:
+  adapter: postgresql
+  database: codemarks_test
+  username: postgres
+
 cucumber:
   <<: *TEST
