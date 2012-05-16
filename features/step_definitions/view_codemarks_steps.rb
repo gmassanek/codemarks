@@ -130,10 +130,6 @@ Then /^I should not see the codemark's note$/ do
   page.should_not have_content(@codemark.note)
 end
 
-Then /^I should see my codemark$/ do
-  page.should have_content(@codemark.title)
-end
-
 Then /^I should see his codemark$/ do
   page.should have_content(@codemark.title)
 end
