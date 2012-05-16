@@ -8,7 +8,11 @@ Codemarks::Application.routes.draw do
     collection { get :login }
     collection { get :chrome_extension }
   end
-  resources :codemarks, :only => [:new, :create, :destroy]
+  resources :codemarks, :only => [:new, :create, :destroy] do
+    collection do
+      get 'search'
+    end
+  end
   get '/public', to: "codemarks#public", :as => :public_codemarks
 
   post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"

@@ -1,5 +1,5 @@
 class AddSearchFieldToCodemarks < ActiveRecord::Migration
-  def change
+  def up
     add_column :codemark_records, :search, 'tsvector'
 
     execute <<-SQL
@@ -15,6 +15,12 @@ class AddSearchFieldToCodemarks < ActiveRecord::Migration
                               note);
     SQL
 
-    execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note)"
+    execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note);"
+  end
+
+  def down
+    remove_column :codemark_records, :search
+    execute 'DROP INDEX codemarks_search_index;'
+    execute 'DROP TRIGGER codemarks_search_update ON codemark_records;'
   end
 end

@@ -7,6 +7,12 @@ When /^I search for that topic$/ do
   page.find('.ui-menu-item a').click()
 end
 
+When /^I search for a word from that codemark's title$/ do
+  search_term = @codemark.title.split.first
+  page.fill_in('site_search', :with => search_term)
+  page.click_button('Search')
+end
+
 Then /^I should be on that topic's page$/ do
   current_path.should == topic_path(@topic)
 end
