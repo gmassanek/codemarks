@@ -122,4 +122,11 @@ describe FindCodemarks do
       all_cms.codemarks.all.count.should == 15
     end
   end
+
+  context 'with query' do
+    it 'searches a codemarks title' do
+      cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
+      FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
+    end
+  end
 end
