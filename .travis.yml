@@ -3,7 +3,7 @@ rvm:
   - 1.9.3
 before_script:
   - psql -c 'create database codemarks_test;' -U postgres
-  - bundle exec rake db:drop db:create db:migrate db:test:prepare
+  - bundle exec rake db:migrate db:test:prepare
 script:
   - bundle exec rspec spec/fast
   - bundle exec rspec spec/lib 
