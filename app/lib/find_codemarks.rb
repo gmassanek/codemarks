@@ -7,11 +7,9 @@ class FindCodemarks
     @user_id = options[:user].id if options[:user]
   end
 
-  def self.search(query)
-    sql = ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", query])
-    p sql
-    CodemarkRecord.where("search @@ #{sql}")
-      .order("ts_rank_cd(search, #{sql}) DESC")
+  def full_text_searchify(query)
+    @search_term_sql = ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", @search_term])
+    query = query.where("search @@ #{@search_term_sql}")
   end
 
   def codemarks
@@ -23,10 +21,11 @@ class FindCodemarks
     query = CodemarkRecord.scoped
     query = query.select('"codemark_records".*, save_count, visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
-    query = query.where("summary.rk = 1")
-
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.link_record_id = counts.link_record_id")
     query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.link_record_id = visits.link_record_id")
+
+    query = query.where("summary.rk = 1")
+    query = full_text_searchify(query) if @search_term
 
     if @topic
       query = query.joins("INNER JOIN codemark_topics cm_topics on codemark_records.id = cm_topics.codemark_record_id")
@@ -82,6 +81,7 @@ class FindCodemarks
   end
 
   def order_by_text
+    return order_texts['search_relavance'] if @search_term
     order_by_text = order_texts[@by.to_s]
     order_by_text ||= order_texts["default"]
   end
@@ -90,7 +90,8 @@ class FindCodemarks
     {
       "default" => '"codemark_records".created_at DESC',
       "count" => 'save_count DESC',
-      "visits" => 'visit_count DESC'
+      "visits" => 'visit_count DESC',
+      'search_relavance' => "ts_rank_cd(search, #{@search_term_sql}) DESC"
     }
   end
 end

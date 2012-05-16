@@ -35,6 +35,11 @@ class CodemarksController < ApplicationController
     render 'users/dashboard'
   end
 
+  def search
+    @codemarks = FindCodemarks.new(:search_term => params[:search]).codemarks
+    render 'users/dashboard'
+  end
+
   def destroy
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.destroy

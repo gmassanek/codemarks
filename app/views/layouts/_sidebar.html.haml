@@ -33,3 +33,6 @@
       = link_to "visits", url_for(:only_path => true, :by => :visits)
 
   = render '/layouts/search', :prefix => '', :placeholder => 'Search for a topic...'
+  = form_tag search_codemarks_path, :method => :get do
+    = text_field_tag 'search', '', :placeholder => 'Search the site', :id => 'site_search'
+    = submit_tag 'Search'
