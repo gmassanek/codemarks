@@ -3,11 +3,10 @@ Given /^"([^"]*)" is a topic$/ do |topic_title|
 end
 
 When /^I search for that topic$/ do
-  save_and_open_page
-  page.fill_in('#_topic_autocomplete', :with => @topic.title)
-  page.find_field('#_topic_autocomplete').native.send_key(:enter)
+  page.fill_in('_topic_autocomplete', :with => @topic.title)
+  page.find('.ui-menu-item a').click()
 end
 
 Then /^I should be on that topic's page$/ do
-  page.should have_content(@topic.description)
+  current_path.should == topic_path(@topic)
 end
