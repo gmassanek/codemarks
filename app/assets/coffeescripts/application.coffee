@@ -13,7 +13,7 @@ window.Codemarks =
     $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
       topic_id = $("#link_form_topic_slug").val()
       $.ajax
-        url: "/links/topic_checkbox",
+        url: "/codemarks/topic_checkbox",
         data: { topic_id: topic_id},
         beforeSend: (request) ->
           request.setRequestHeader("Accept", "text/javascript")
