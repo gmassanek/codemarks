@@ -27,6 +27,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_slug(params[:id])
     @user ||= User.find_by_id(params[:id])
+    unless @user
+      redirect_to public_codemarks_path
+      return
+    end
 
     search_attributes = {}
     search_attributes[:user] = @user if @user
