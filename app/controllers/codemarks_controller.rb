@@ -47,4 +47,32 @@ class CodemarksController < ApplicationController
     render :json => { :head => 200 }
   end
 
+  def topic_checkbox
+    @topic = Topic.find_by_slug params[:topic_id]
+    @topic_title = params[:topic_title]
+    respond_to do |format|
+      if @topic_title.present?
+        format.js { render :new_topic_checkbox }
+      else
+        format.js { render :topic_checkbox }
+      end
+    end
+  end
+
+  def github
+    payload = params[:payload]
+    payload = JSON.parse(payload)
+    user_name = payload["pusher"]["name"]
+    user = User.find_by_authentication("github", user_name)
+
+    codemarks = []
+    payload["commits"].each do |commit|
+      message = commit["message"]
+      if message.include?("#cm")
+        url = commit["url"]
+        codemarks << Codemark.new(:link, {:url => url})
+      end
+    end
+  end
+
 end
