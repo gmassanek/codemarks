@@ -6,12 +6,12 @@
     = stylesheet_link_tag    'application'
     = javascript_include_tag 'application'
     = javascript_include_tag 'codemark_form'
-    = javascript_include_tag 'uservoice'
 
     = yield :header
 
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
+      = javascript_include_tag 'uservoice'
 
   %body
     = render '/layouts/header'

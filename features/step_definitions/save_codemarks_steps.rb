@@ -2,9 +2,11 @@ When /^I fill out the codemark form with Twitter$/ do
   Fabricate(:topic, :title => 'twitter')
   page.fill_in('url', :with => 'http://www.twitter.com')
   page.click_button('fetch')
+  Capybara.default_wait_time = 10
   wait_until { find('#codemark_attrs_title').visible? }
   page.fill_in('codemark_attrs_note', :with => 'I should use this for codemarks')
   page.click_button('fetch')
+  Capybara.default_wait_time = 2
 end
 
 When /^I submit the codemark form$/ do
