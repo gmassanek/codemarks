@@ -47,17 +47,4 @@ class LinksController < ApplicationController
     Click.create(:link_record => @link, :user => current_user)
     render :nothing => true, :status => :ok
   end
-
-  def topic_checkbox
-    @topic = Topic.find_by_slug params[:topic_id]
-    @topic_title = params[:topic_title]
-    puts @topic_title.inspect
-    respond_to do |format|
-      if @topic_title.present?
-        format.js { render :new_topic_checkbox }
-      else
-        format.js { render :topic_checkbox }
-      end
-    end
-  end
 end

@@ -3,6 +3,8 @@ Codemarks::Application.routes.draw do
   get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
   get '/codemarklet_test', to: "pages#codemarklet_test"
+  get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
+  get '/pages/test_bookmarklet?:l&:url', :controller => :pages, :action => :test_bookmarklet, :as => :test_bookarklet
 
   resources :codemarklet, :only => [:new, :create] do
     collection { get :login }
@@ -17,15 +19,12 @@ Codemarks::Application.routes.draw do
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: 'sessions#failure'
-  get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
-
-  root :to => 'pages#landing'
 
   resources :comments, :only => [:create, :destroy]
   resources :topics
   get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
 
-  get '/links/topic_checkbox', :to => "links#topic_checkbox"
+  get '/codemarks/topic_checkbox'
   resources :links do
     member { post :click }
   end
@@ -35,11 +34,10 @@ Codemarks::Application.routes.draw do
   post "sessions/filter", :as => :filter_session
   delete "sessions/destroy", :as => :sign_out
 
-  get '/pages/test_bookmarklet?:l&:url', :controller => :pages, :action => :test_bookmarklet, :as => :test_bookarklet
-
   resources :users, :only => [:show, :update]
   get '/:id', :to => 'users#show', :as => "short_user"
   get '/:id/account', to: "users#account", as: :account
   get '/:id/account/edit', to: "users#edit", as: :edit_account
 
+  root :to => 'pages#landing'
 end
