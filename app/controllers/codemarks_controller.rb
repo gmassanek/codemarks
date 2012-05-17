@@ -47,4 +47,20 @@ class CodemarksController < ApplicationController
     render :json => { :head => 200 }
   end
 
+  def github
+    payload = params[:payload]
+    payload = JSON.parse(payload)
+    user_name = payload["pusher"]["name"]
+    user = User.find_by_authentication("github", user_name)
+
+    codemarks = []
+    payload["commits"].each do |commit|
+      message = commit["message"]
+      if message.include?("#cm")
+        url = commit["url"]
+        codemarks << Codemark.new(:link, {:url => url})
+      end
+    end
+  end
+
 end
