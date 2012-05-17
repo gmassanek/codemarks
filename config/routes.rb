@@ -15,11 +15,6 @@ Codemarks::Application.routes.draw do
   end
   get '/public', to: "codemarks#public", :as => :public_codemarks
 
-  post 'listener/sendgrid', :to => "listener#sendgrid", as: "sendgrid_listener"
-  get 'listener/prepare_bookmarklet', :to => "listener#prepare_bookmarklet", as: "prepare_bookmarklet"
-  get 'listener/bookmarklet', :to => "listener#bookmarklet", as: "bookmarklet"
-  post '/listener/github'
-
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: 'sessions#failure'
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
