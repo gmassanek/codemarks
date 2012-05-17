@@ -1,8 +1,0 @@
-- if logged_in?
-  .resource_links
-    = link_to "Add Link", new_link_path, :id => 'add_link_link', :class => 'rounded_button'
-  .filter
-    - if filter_by_mine?
-      = link_to "All", filter_session_path(:filter => :all), :method => :post
-    - else
-      = link_to "Mine", filter_session_path(:filter => :mine), :method => :post

@@ -39,16 +39,11 @@ class SessionsController < ApplicationController
     redirect_to root_path, :notice => "Logged out successfully"
   end
 
-  def filter
-    session[:filter] = params[:filter]
-    redirect_to :back
-  end
-
   def auth_hash
     request.env['omniauth.auth']
   end
 
-  def codemarklet_sign_in
+  def codemarklet
     callback_url = params[:callback]
     session[:callback] = callback_url if callback_url
 
