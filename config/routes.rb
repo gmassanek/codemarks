@@ -4,7 +4,7 @@ Codemarks::Application.routes.draw do
   get '/about', to: "pages#about", as: :about
   get '/codemarklet_test', to: "pages#codemarklet_test"
   get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
-  get '/pages/test_bookmarklet?:l&:url', :controller => :pages, :action => :test_bookmarklet, :as => :test_bookarklet
+  get '/pages/test_bookmarklet?:l&:url', :to => 'pages#test_bookmarklet', :as => :test_bookarklet
 
   resources :codemarklet, :only => [:new, :create] do
     collection do
@@ -15,8 +15,8 @@ Codemarks::Application.routes.draw do
 
   resources :codemarks, :only => [:new, :create, :destroy] do
     collection do
-      get 'search'
-      get 'topic_checkbox'
+      get :search
+      get :topic_checkbox
     end
   end
   get '/public', to: "codemarks#public", :as => :public_codemarks
