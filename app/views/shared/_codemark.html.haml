@@ -11,12 +11,12 @@
     - if mine
       .corner.delete
     .actions
+      = link_to "Comments (#{codemark.comments.count})", '', :class => "show_comments#{codemark.comments.present? ? ' present' : ''}"
       - if logged_in?
         - if mine
           = link_to 'Edit', '', :class => 'edit_codemark'
         - else
           = link_to 'Save', '', :class => 'copy_codemark'
-      = link_to "Comments (#{codemark.comments.count})", '', :class => 'show_comments'
       = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3
       = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
