@@ -1,6 +1,7 @@
 - if @codemarks.present?
   = render 'shared/codemark_list', :codemarks => @codemarks
 - else
-  Sorry, there are no codemarks for #{@topic.title} yet.
+  Sorry, no codemarks matched that search.
   Check out all the
   = link_to 'public codemarks', public_codemarks_path
+  or search again
