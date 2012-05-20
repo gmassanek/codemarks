@@ -6,4 +6,6 @@ $ ->
 
   $('#site_search_submit').click (event) ->
     event.preventDefault()
-    window.location = "/codemarks/search/#{$('#site_search').val()}"
+    query = $('#site_search').val()
+    if query
+      window.location = "/codemarks/search/#{query}"
