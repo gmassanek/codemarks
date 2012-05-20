@@ -1,3 +1,5 @@
+= javascript_include_tag 'sidebar'
+
 .sidebar
   %ul
     - if logged_in?
@@ -36,6 +38,6 @@
     %li
       = render '/layouts/search', :prefix => '', :placeholder => 'Autocomplete topics...'
       .centered or
-      = form_tag search_codemarks_path, :method => :get, :class => 'full site_search' do
+      .full.site_search
         = text_field_tag 'search', '', :placeholder => 'Search codemarks...', :id => 'site_search'
-        = submit_tag 'Search', :class => 'btn primary small'
+        = submit_tag 'Search', :class => 'btn primary small', :id => 'site_search_submit'
