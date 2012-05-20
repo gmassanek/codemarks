@@ -15,7 +15,7 @@ Codemarks::Application.routes.draw do
 
   resources :codemarks, :only => [:new, :create, :destroy] do
     collection do
-      get :search
+      get 'search/:query', :action => :search
       get :topic_checkbox
     end
   end
