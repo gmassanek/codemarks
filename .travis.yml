@@ -6,6 +6,6 @@ before_script:
   - bundle exec rake db:migrate db:test:prepare
 script:
   - bundle exec rspec spec/fast
-  - bundle exec rspec spec/lib 
+  - bundle exec rspec spec/lib --tag ~travis_skip
   - bundle exec rspec spec/controllers spec/integration spec/models
-  - "bundle exec cucumber --tags ~@javascript"
+  - "bundle exec cucumber --tags ~@javascript --tags ~@travis_skip"
