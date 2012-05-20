@@ -1,4 +1,5 @@
-$('#codemark_form').replaceWith("<%= escape_javascript(render 'full_form') %>")
+form_html = "<%= escape_javascript(render '/codemarks/full_form') %>"
+$('#codemark_form').replaceWith(form_html)
 
 CodemarkForm.bootstrap();
 
