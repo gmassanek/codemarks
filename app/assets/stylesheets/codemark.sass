@@ -59,8 +59,8 @@ $dark_faded: rgb(140, 138, 138)
 
     .actions
       float: right
-      display: none
       a
+        display: none
         float: right
         font-size: 12px
         @include light_text
@@ -69,12 +69,14 @@ $dark_faded: rgb(140, 138, 138)
         float: right
         display: none
         margin-top: -3px
+      .show_comments.present
+        display: block
 
     &:hover
       background: $background-hover
       .actions
-        display: block
         a
+          display: block
           @include proud_text
           &:hover
             color: $orange
