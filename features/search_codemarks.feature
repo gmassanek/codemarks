@@ -11,7 +11,7 @@ Feature: Searching Codemarks
     And I search for that topic
     Then I should be on that topic's page
 
-  @travis_skip
+  @javascript @travis_skip
   Scenario: Site search
     Given there is a codemark with a note
     When I go to the public page
