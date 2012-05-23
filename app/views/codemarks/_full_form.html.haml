@@ -1,18 +1,16 @@
 = form_tag codemarks_url, id: "codemark_form", class: 'second' do
   #first
-    = url_field_tag "resource_attrs[url]", @codemark.resource.url
+    = hidden_field_tag "codemark[resource[id]]", @codemark.resource.id
+    = url_field_tag "codemark[resource[url]]", @codemark.resource.url
     = submit_tag "Add Link", :id => 'fetch', :class => "btn primary"
   #second
-    = text_field_tag "codemark_attrs[archived]", 'false', :type => :hidden
-    = text_field_tag "resource_attrs[id]", @codemark.resource.id, :type => :hidden
-    = text_field_tag "resource_attrs[host]", @codemark.resource.host, :type => :hidden
     %p
       = label_tag 'Title'
-      = text_field_tag "codemark_attrs[title]", @codemark.title || @codemark.resource.title, :placeholder => "Title"
+      = text_field_tag "codemark[title]", @codemark.title || @codemark.resource.title, :placeholder => "Title"
       .clear
     %p
       = label_tag 'Private Note'
-      = text_area_tag "codemark_attrs[note]", @codemark.note, :placeholder => "Note"
+      = text_area_tag "codemark[note]", @codemark.note, :placeholder => "Note"
       .clear
     .clear
     = render '/codemarks/topic_tags_list', :pos_topics => @codemark.tags

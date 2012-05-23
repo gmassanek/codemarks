@@ -70,48 +70,47 @@ class Codemark
     save_to_database
   end
 
-  class << self
-    def save(attributes, tag_ids, options = {})
-      codemark = Codemark.load(attributes)
-      codemark.tag_ids = tag_ids | handle_new_topics(options[:new_topics])
-      codemark.user = Codemark.look_for_user(options)
-      codemark.save_to_database
+  def self.save(attributes, tag_ids, options = {})
+    codemark = Codemark.load(attributes)
+    codemark.tag_ids = tag_ids | handle_new_topics(options[:new_topics])
+    codemark.user = Codemark.look_for_user(options)
+    codemark.save_to_database
+  end
+
+  def self.create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
+    link = LinkRecord.find_by_id(resource_attrs[:id])
+    link ||= LinkRecord.create(resource_attrs)
+
+    existing_codemark = CodemarkRecord.for_user_and_link(user, link)
+    topic_ids = build_topics(topics_ids, options[:new_topic_titles])
+    codemark_attrs.delete(:resource)
+    if existing_codemark
+      combination_of_topic_ids = topics_ids
+      codemark_attrs[:topic_ids] = combination_of_topic_ids
+      existing_codemark.update_attributes(codemark_attrs)
+      existing_codemark.link_record.update_attributes(resource_attrs)
+    else
+      codemark_attrs[:link_record] = link
+      codemark_attrs[:user] = user
+      codemark_attrs[:topic_ids] = topic_ids
+      codemark_record = CodemarkRecord.create(codemark_attrs)
     end
+    link.update_attributes(:author_id => user.id) if link.orphan?
+  end
 
-    def create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
-      link = LinkRecord.find_by_id(resource_attrs[:id])
-      link ||= LinkRecord.create(resource_attrs)
+  def self.build_and_create(user, resource_type, resource_attrs)
+    prepared_codemark = prepare(resource_type, resource_attrs)
 
-      existing_codemark = CodemarkRecord.for_user_and_link(user, link)
-      topic_ids = build_topics(topics_ids, options[:new_topic_titles])
-      if existing_codemark
-        combination_of_topic_ids = topics_ids
-        codemark_attrs[:topic_ids] = combination_of_topic_ids
-        existing_codemark.update_attributes(codemark_attrs)
-        existing_codemark.link_record.update_attributes(resource_attrs)
-      else
-        codemark_attrs[:link_record] = link
-        codemark_attrs[:user] = user
-        codemark_attrs[:topic_ids] = topic_ids
-        codemark_record = CodemarkRecord.create(codemark_attrs)
-      end
-      link.update_attributes(:author_id => user.id) if link.orphan?
-    end
+    Codemark.create({},
+                    prepared_codemark.resource.resource_attrs,
+                    prepared_codemark.topics.collect(&:id),
+                    user)
+  end
 
-    def build_and_create(user, resource_type, resource_attrs)
-      prepared_codemark = prepare(resource_type, resource_attrs)
-
-      Codemark.create({},
-                      prepared_codemark.resource.resource_attrs,
-                      prepared_codemark.topics.collect(&:id),
-                      user)
-    end
-
-    def steal(codemark_record, user)
-      CodemarkRecord.create(:user => user, 
-                            :link_record_id => codemark_record.link_record_id, 
-                            :topic_ids => codemark_record.topic_ids)
-    end
+  def self.steal(codemark_record, user)
+    CodemarkRecord.create(:user => user, 
+                          :link_record_id => codemark_record.link_record_id, 
+                          :topic_ids => codemark_record.topic_ids)
   end
 
   def save_to_database

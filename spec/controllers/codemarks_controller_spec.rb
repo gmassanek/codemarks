@@ -20,15 +20,16 @@ describe CodemarksController do
 
   describe "#create" do
     it "creates a codemark" do
-      codemark_attrs = {}
-      resource_attrs = {}
+      codemark = {
+        'resource' =>  {}
+      }
       tags = {}
       user = stub
       controller.stub!(:current_user => user)
 
-      Codemark.should_receive(:create).with(codemark_attrs, resource_attrs, [], user, :new_topic_titles => nil)
+      Codemark.should_receive(:create).with(codemark, codemark['resource'], [], user, :new_topic_titles => nil)
       @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
-      post :create, :format => :js, :codemark_attrs => codemark_attrs, :resource_attrs => resource_attrs, :tags => tags
+      post :create, :format => :js, :codemark => codemark, :tags => tags
     end
   end
 
