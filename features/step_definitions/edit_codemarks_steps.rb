@@ -4,9 +4,9 @@ end
 
 Then /^I should see the data for my codemark in the codemark form$/ do
   codemark = @codemarks.first
-  wait_until { find('#codemark_attrs_title').visible? }
+  wait_until { find('#codemark_title').visible? }
   within("#codemark_form") do
-    page.should have_selector('#codemark_attrs_title', :content => codemark.title)
+    page.should have_selector('#codemark_title', :content => codemark.title)
     page.should have_content(codemark.topics.first.title)
   end
 end

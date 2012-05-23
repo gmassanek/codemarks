@@ -14,8 +14,8 @@ class CodemarksController < ApplicationController
 
     new_topic_titles = params[:topic_ids].keys if params[:topic_ids] 
 
-    @codemark = Codemark.create(params[:codemark_attrs], 
-                                params[:resource_attrs], 
+    @codemark = Codemark.create(params[:codemark],
+                                params[:codemark][:resource],
                                 topic_ids, 
                                 current_user, 
                                 :new_topic_titles => new_topic_titles)
