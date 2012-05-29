@@ -29,13 +29,20 @@ class CodemarksController < ApplicationController
   end
 
   def public
-    search_attributes = {}
-    search_attributes[:page] = params[:page] if params[:page]
-    search_attributes[:by] = params[:by] if params[:by]
-    search_attributes[:current_user] = current_user
-    @codemarks = FindCodemarks.new(search_attributes).codemarks
+    respond_to do |format|
+      format.html do
+        render 'users/dashboard'
+      end
 
-    render 'users/dashboard'
+      format.json do
+        search_attributes = {}
+        search_attributes[:page] = params[:page] if params[:page]
+        search_attributes[:by] = params[:by] if params[:by]
+        search_attributes[:current_user] = current_user
+        @codemarks = FindCodemarks.new(search_attributes).codemarks
+        render :json => @codemarks
+      end
+    end
   end
 
   def search
