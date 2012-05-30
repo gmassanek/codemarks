@@ -1,15 +1,15 @@
 define ['CodemarksView', 'CodemarkView'], (CodemarksView, CodemarkView) ->
   CodemrksView = Backbone.View.extend
+    className: 'codemarks'
+
     initialize: ->
 
     render: ->
-      @$el.append(@toHTML())
+      @toHTML()
 
     toHTML: ->
-      $fil = $('<div class="codemarks"></div>')
       for codemark in @collection.models
         codemarkView = new CodemarkView
           model: codemark
         codemarkView.render()
-        $fil.append(codemarkView.$el)
-      $fil
+        @$el.append(codemarkView.$el)
