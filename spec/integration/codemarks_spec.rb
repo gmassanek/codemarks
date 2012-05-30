@@ -13,7 +13,7 @@ describe 'Codemark lists' do
         get public_codemarks_path
       end
 
-      it 'finds the codemarks that exist' do
+      xit 'finds the codemarks that exist' do
         # create some codemarks
         # assert that they're there
       end
@@ -30,7 +30,7 @@ describe 'Codemark lists' do
         get public_codemarks_path, :format => :json
       end
 
-      it 'finds the codemarks that exist' do
+      xit 'finds the codemarks that exist' do
         # create some codemarks
         # assert that they're there
       end
