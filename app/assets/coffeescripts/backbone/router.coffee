@@ -1,7 +1,8 @@
-define [], () ->
+define ['CodemarkCollection', 'Codemark'], (CodemarkCollection, Codemark) ->
   MainRouter = Backbone.Router.extend
     routes:
-      'public': 'public'
+      'codemarks': 'index'
 
-    public: ->
-      console.log('public')
+    index: ->
+      codemarks = new CodemarkCollection
+      console.log codemarks
