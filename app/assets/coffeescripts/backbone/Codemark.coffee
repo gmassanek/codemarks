@@ -5,3 +5,4 @@ define ['Codemark'], (Codemark) ->
     defaults: ''
 
     initialize: ->
+      #console.log @
