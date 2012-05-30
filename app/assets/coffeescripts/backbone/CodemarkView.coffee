@@ -9,5 +9,5 @@ define [], () ->
 
     toHTML: ->
       # TODO: Ideally, this would always just return a string and render would append it to the
-      # dom
+      # DOM
       @$el.append("<h2>#{@model.get('title')}</h2>")
