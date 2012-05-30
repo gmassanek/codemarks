@@ -31,7 +31,7 @@ class CodemarksController < ApplicationController
   def public
     respond_to do |format|
       format.html do
-        render 'codemarks/index'
+        render 'codemarks/index', :layout => 'backbone'
       end
 
       format.json do

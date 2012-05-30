@@ -1,9 +1,3 @@
-- content_for :header do
-  = javascript_include_tag 'codemarks_bb'
-
-:javascript
-  window.CodemarksBB.bootstrap();
-
 - if @codemarks.present?
   = render 'shared/codemark_list', :codemarks => @codemarks
 - else
