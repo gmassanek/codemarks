@@ -1,5 +1,4 @@
 define ['libs/jquery'], ($) ->
-  console.log $
 
   start = ->
     $(document).ready ->
