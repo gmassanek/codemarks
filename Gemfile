@@ -27,6 +27,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara'
+  gem 'jasmine', '~> 1.2.0'
+  gem 'watchr'
 end
 
 group :test do
