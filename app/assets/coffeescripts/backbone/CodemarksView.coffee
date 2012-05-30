@@ -2,8 +2,6 @@ define ['CodemarksView', 'CodemarkView'], (CodemarksView, CodemarkView) ->
   CodemrksView = Backbone.View.extend
     className: 'codemarks'
 
-    initialize: ->
-
     render: ->
       @toHTML()
 
