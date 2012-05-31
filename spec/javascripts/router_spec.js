@@ -1,8 +1,12 @@
 (function() {
 
-  describe('it works', function() {
-    return it('well', function() {
-      return expect(5).toBe(5);
+  require(['router'], function(MainRouter) {
+    return describe('Router', function() {
+      var router;
+      router = new MainRouter;
+      return it('routes home to index', function() {
+        return expect(router.routes['codemarks']).toEqual('index');
+      });
     });
   });
 

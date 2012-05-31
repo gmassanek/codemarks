@@ -11,7 +11,11 @@
 #   - dist/**/*.js
 #
 src_files:
-  - assets/application.js
+  - assets/require.js
+  - assets/jquery.js
+  - assets/underscore.js
+  - assets/backbone.js
+  - assets/backbone/main.js
 
 # stylesheets
 #
