@@ -11,12 +11,14 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
+  @javascript
   Scenario: I can see my own note
     Given I am a logged in user
     And I have a codemark with a note
     When I go to the public page
     Then I should see my codemark's note
 
+  @javascript
   Scenario: I cannot see other people's notes
     Given there is a codemark with a note
     When I go to the public page
@@ -63,17 +65,20 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see a link, "Some Title"
 
+  @javascript
   Scenario: Viewing public codemarks
     Given there are 2 random codemarks
     When I go to the public page
     Then I should see 2 codemarks
 
+  @javascript
   Scenario: Viewing someone else's codemarks
     Given gmassanek is a user with a codemark
     When I go to his page
     Then I should see his codemark
     And I should see a nav with his name
 
+  @javascript
   Scenario: Codemarks are paged
     Given there are 20 random codemarks
     When I go to the public page
@@ -100,13 +105,8 @@ Feature: View Codemarks
     Then I should see his codemark
     And I should see a nav with my name
 
+  @javascript
   Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
     When I go to the public page
     #Then I should see a twitter share link
-
-  Scenario: Doesn't break if (for some reason) a codemark doesn't have a link
-    Given there are 2 random codemarks
-    And the last codemark doesn't have a link
-    When I go to the public page
-    Then I should see 1 codemarks
