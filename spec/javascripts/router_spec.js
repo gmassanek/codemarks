@@ -1,11 +1,14 @@
 (function() {
 
-  require(['router'], function(MainRouter) {
+  require(['router', 'CodemarkCollection'], function(MainRouter, CodemarkCollection) {
     return describe('Router', function() {
       var router;
       router = new MainRouter;
-      return it('routes home to index', function() {
+      it('routes home to index', function() {
         return expect(router.routes['codemarks']).toEqual('index');
+      });
+      return it('routes public to index', function() {
+        return expect(router.routes['public']).toEqual('public');
       });
     });
   });

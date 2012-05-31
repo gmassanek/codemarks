@@ -2,11 +2,18 @@ define ['CodemarkCollection', 'CodemarksView'], (CodemarkCollection, CodemarksVi
   MainRouter = Backbone.Router.extend
     routes:
       'codemarks': 'index'
+      'public': 'public'
 
     index: ->
-      codemarks = new CodemarkCollection
-      codemarks.fetch
-        success: => @successfulFetch(codemarks)
+      codemarksCollection = new CodemarkCollection
+      codemarksCollection.fetch
+        success: => @successfulFetch(codemarksCollection)
+
+    public: ->
+      codemarksCollection = new CodemarkCollection
+        url: '/public'
+      codemarksCollection.fetch
+        success: => @successfulFetch(codemarksCollection)
 
     successfulFetch: (codemarksCollection) ->
       codemarksView = new CodemarksView

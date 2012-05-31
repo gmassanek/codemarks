@@ -19,7 +19,7 @@ Codemarks::Application.routes.draw do
       get :topic_checkbox
     end
   end
-  get '/public', to: "codemarks#public", :as => :public_codemarks
+  get '/public', to: "codemarks#index", :as => :public_codemarks
 
   resources :comments, :only => [:create, :destroy]
   resources :topics
