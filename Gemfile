@@ -29,6 +29,7 @@ group :development, :test do
   gem 'capybara'
   gem 'jasmine', '~> 1.2.0'
   gem 'watchr'
+  gem 'foreman'
 end
 
 group :test do
