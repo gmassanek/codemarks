@@ -31,12 +31,10 @@ class CodemarksController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        p 'Inside the CodemarkController#index HTML'
         render 'codemarks/index', :layout => 'backbone'
       end
 
       format.json do
-        p 'Inside the CodemarkController#index JSON'
         search_attributes = {}
         search_attributes[:page] = params[:page] if params[:page]
         search_attributes[:by] = params[:by] if params[:by]
