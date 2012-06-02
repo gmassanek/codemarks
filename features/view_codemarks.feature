@@ -1,4 +1,4 @@
-@omniauth_test_success
+@omniauth_test_success @javascript
 
 Feature: View Codemarks
   In order to use the site
@@ -11,27 +11,23 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see 3 codemarks
 
-  @javascript
   Scenario: I can see my own note
     Given I am a logged in user
     And I have a codemark with a note
     When I go to the public page
     Then I should see my codemark's note
 
-  @javascript
   Scenario: I cannot see other people's notes
     Given there is a codemark with a note
     When I go to the public page
     Then I should not see the codemark's note
 
-  @javascript
   Scenario: Viewing codemark comments
     Given there is a codemark with 2 comments
     When I go to the public page
     And I click on the comment icon
     Then I should see the codemark's comments
 
-  @javascript
   Scenario: Commenting on a codemark
     Given I am a logged in user
     And there is a codemark with 2 comments
@@ -41,7 +37,6 @@ Feature: View Codemarks
     Then I should see the codemark's comments
     And I should see my new comment
 
-  @javascript
   Scenario: Deleting a codemark
     Given I am a logged in user
     And there is a codemark with 2 comments
@@ -65,20 +60,17 @@ Feature: View Codemarks
     When I go to my dashboard
     Then I should see a link, "Some Title"
 
-  @javascript
   Scenario: Viewing public codemarks
     Given there are 2 random codemarks
     When I go to the public page
     Then I should see 2 codemarks
 
-  @javascript
   Scenario: Viewing someone else's codemarks
     Given gmassanek is a user with a codemark
     When I go to his page
     Then I should see his codemark
     And I should see a nav with his name
 
-  @javascript
   Scenario: Codemarks are paged
     Given there are 20 random codemarks
     When I go to the public page
@@ -105,7 +97,6 @@ Feature: View Codemarks
     Then I should see his codemark
     And I should see a nav with my name
 
-  @javascript
   Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
     When I go to the public page
