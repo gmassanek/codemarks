@@ -6,6 +6,8 @@
 //= require backbone
 //= require autocomplete-rails
 
+//= require_tree ../templates
+
 TOPICS_PATH = '/topics/'
 
 window.Codemarks =
