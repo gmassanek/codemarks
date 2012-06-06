@@ -1,8 +1,9 @@
-define [], () ->
+define ['text!../../templates/codemark.html'], (template) ->
   CodemarkView = Backbone.View.extend
     className: 'codemark'
 
     initialize: ->
+      console.log template
 
     render: ->
       @toHTML()
@@ -10,4 +11,4 @@ define [], () ->
     toHTML: ->
       # TODO: Ideally, this would always just return a string and render would append it to the
       # DOM
-      @$el.append("<h2>#{@model.get('title')}</h2>")
+      @$el.append(template)
