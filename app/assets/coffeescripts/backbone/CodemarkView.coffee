@@ -3,7 +3,8 @@ define ['text!../../templates/codemark.html'], (template) ->
     className: 'codemark'
 
     initialize: ->
-      console.log template
+      console.log @model
+      #console.log template
 
     render: ->
       @toHTML()

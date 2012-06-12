@@ -27,6 +27,7 @@ describe 'Codemark lists' do
 
       it 'loads up some codemarks' do
         FindCodemarks.should_receive(:new)
+        PresentCodemarks.should_receive(:for)
         get codemarks_path, :format => :json
       end
 
