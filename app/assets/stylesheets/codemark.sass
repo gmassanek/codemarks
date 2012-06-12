@@ -15,7 +15,7 @@ $dark_faded: rgb(140, 138, 138)
 @mixin proud_text
   color: $dark_faded
 
-#codemarks, .pagination
+.codemarks, .pagination
   background: $background
   border: 1px solid $dark_border
   @include border-radius(5px)
@@ -119,10 +119,10 @@ $dark_faded: rgb(140, 138, 138)
       margin-right: 10px
       color: $light_faded
 
-    #topics_tags
+    .topics
       margin-top: 10px
       float: right
-      li
+      section
         display: inline-block
         &:after
           content: " | "

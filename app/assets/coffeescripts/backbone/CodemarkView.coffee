@@ -1,6 +1,7 @@
 define ['text!../../templates/codemark.html'], (template) ->
   CodemarkView = Backbone.View.extend
     className: 'codemark'
+    tagName: 'section'
 
     initialize: ->
       console.log @model
@@ -10,4 +11,5 @@ define ['text!../../templates/codemark.html'], (template) ->
       @$el.append(@toHTML())
 
     toHTML: ->
-      template
+      console.log @model.attributes.topics.title
+      facile(template, @model.attributes)
