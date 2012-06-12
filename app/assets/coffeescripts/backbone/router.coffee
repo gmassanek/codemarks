@@ -13,14 +13,11 @@ define ['CodemarkCollection', 'CodemarksView'], (CodemarkCollection, CodemarksVi
       codemarksCollection = new CodemarkCollection
         url: '/public'
       codemarksCollection.fetch
-        success: => @successfulFetch(codemarksCollection)
+        success: => @renderPublic(codemarksCollection)
 
-    successfulFetch: (codemarksCollection) ->
+    renderPublic: (codemarks) ->
       codemarksView = new CodemarksView
-        collection: codemarksCollection
-
+        collection: codemarks
       codemarksView.render()
-
-      #this should go in an App View I think
       $('#main_content').replaceWith(codemarksView.$el)
 

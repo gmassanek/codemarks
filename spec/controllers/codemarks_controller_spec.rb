@@ -18,6 +18,13 @@ describe CodemarksController do
       get :index, :format => :json
       assigns[:codemarks].should == codemarks
     end
+
+    it "it presents codemarks" do
+      codemarks = []
+      PresentCodemarks.stub!(:for => codemarks)
+      get :index, :format => :json
+      assigns[:codemarks].should == codemarks
+    end
   end
   ##=======     Receiver    =======###
 
