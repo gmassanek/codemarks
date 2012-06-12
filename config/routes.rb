@@ -19,6 +19,8 @@ Codemarks::Application.routes.draw do
       get :topic_checkbox
     end
   end
+
+  # API endpoint
   get '/public', to: "codemarks#index", :as => :public_codemarks
 
   resources :comments, :only => [:create, :destroy]
