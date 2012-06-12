@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe CodemarksController do
+
+  ##=======     Receiver    =======###
+  describe "#index" do
+    it "calls FindCodemarks" do
+      codemarks = []
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.should_receive(:new).and_return(finder)
+      get :index, :format => :json
+    end
+
+    it "it assigns codemarks" do
+      codemarks = []
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.stub!(:new => finder)
+      get :index, :format => :json
+      assigns[:codemarks].should == codemarks
+    end
+  end
+  ##=======     Receiver    =======###
+
+
   describe "new" do
     let(:valid_url) { "http://www.example.com" }
 
@@ -30,23 +51,6 @@ describe CodemarksController do
       Codemark.should_receive(:create).with(codemark, codemark['resource'], [], user, :new_topic_titles => nil)
       @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
       post :create, :format => :js, :codemark => codemark, :tags => tags
-    end
-  end
-
-  describe "#public" do
-    it "calls FindCodemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.should_receive(:new).and_return(finder)
-      get :public
-    end
-
-    it "it assigns codemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.stub!(:new => finder)
-      get :public
-      assigns[:codemarks].should == codemarks
     end
   end
 end

@@ -1,6 +1,5 @@
 class CodemarksController < ApplicationController
-
-  def new
+def new
     options = {}
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
@@ -39,8 +38,8 @@ class CodemarksController < ApplicationController
         search_attributes[:page] = params[:page] if params[:page]
         search_attributes[:by] = params[:by] if params[:by]
         search_attributes[:current_user] = current_user
-        @codemarks = FindCodemarks.new(search_attributes).codemarks
-        render :json => @codemarks
+        @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
+        render :json => PresentCodemarks.for(@codemarks)
       end
     end
   end
