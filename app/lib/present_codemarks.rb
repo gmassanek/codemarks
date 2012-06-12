@@ -6,8 +6,15 @@ class PresentCodemarks
   def self.present(codemark)
     {
       :id => codemark.id,
-      :title => codemark.title,
+      :title => {
+        content: codemark.title,
+        href: topic_path(codemark.id)
+      },
       :topics => codemark.topics
     }
+  end
+
+  def self.topic_path(id)
+    Rails.application.routes.url_helpers.topic_path(id)
   end
 end
