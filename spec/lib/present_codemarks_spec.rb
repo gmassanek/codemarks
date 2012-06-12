@@ -15,6 +15,10 @@ describe PresentCodemarks do
       #last_save: save
     )}
 
+    before do
+      PresentCodemarks.stub(:topic_path) { '/topics/1' }
+    end
+
     it 'has a list of codemarks' do
       codemarks = [codemark, codemark]
       PresentCodemarks.should_receive(:present).with(codemark).twice
@@ -27,7 +31,10 @@ describe PresentCodemarks do
 
         cm = PresentCodemarks.present(codemark)
         cm[:id].should == 1
-        cm[:title].should == 'The Best Resource Ever'
+        cm[:title].should == {
+          content: 'The Best Resource Ever',
+          href: '/topics/1'
+        }
         cm[:topics].should == topics
         #cm[:first_save].should == save
         #cm[:last_save].should == save
