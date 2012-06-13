@@ -18,6 +18,10 @@ class Codemark
     @url = attributes[:url]
   end
 
+  def resource
+    @resource || link_record
+  end
+
   def self.load(attributes = {})
     codemark = Codemark.new(attributes)
     codemark.load
