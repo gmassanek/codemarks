@@ -4,12 +4,11 @@ define ['text!../../templates/codemark.html'], (template) ->
     tagName: 'section'
 
     initialize: ->
-      console.log @model
+      #console.log @model
       #console.log template
 
     render: ->
       @$el.append(@toHTML())
 
     toHTML: ->
-      console.log @model.attributes.topics.title
       facile(template, @model.attributes)

@@ -7,10 +7,14 @@ describe PresentCodemarks do
       author: 'gmassanek',
       save_date: Date.new
     )}
+    let(:resource) { mock(
+      host: 'www.github.com'
+    )}
     let(:codemark) { mock(
       id: 1,
       title: 'The Best Resource Ever',
       topics: topics,
+      resource: resource
       #first_save: save,
       #last_save: save
     )}
@@ -28,7 +32,7 @@ describe PresentCodemarks do
 
     describe '#present(codemark)' do
       it 'the codemark presents its attributes' do
-
+        PresentCodemarks.stub(:present_resource) { resource }
         cm = PresentCodemarks.present(codemark)
         cm[:id].should == 1
         cm[:title].should == {
@@ -36,8 +40,16 @@ describe PresentCodemarks do
           href: '/topics/1'
         }
         cm[:topics].should == topics
+        cm[:resource].should == resource
         #cm[:first_save].should == save
         #cm[:last_save].should == save
+      end
+    end
+
+    describe '#present_resource' do
+      it 'works' do
+        data = PresentCodemarks.present_resource(resource)
+        data[:host].should == resource.host
       end
     end
 
