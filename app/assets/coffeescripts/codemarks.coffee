@@ -14,17 +14,6 @@ swapClasses = ($ownership_link, class_to_remove, class_to_add) ->
 
 
 $ ->
-  $(".corner.delete").click (e) ->
-    $cm = $(e.target).closest('.codemark')
-    cm_id = $cm.find("#codemark_id").val()
-    if(confirm("Are you sure you want to delete your codemark?"))
-      $.post "/codemarks/#{cm_id}", {
-        _method: 'delete'
-        success: ->
-          $cm.fadeOut(500, ->
-            $cm.remove())
-      }
-
   $(".copy_codemark").click (e) ->
     e.preventDefault()
     $cm = $(e.target).closest('.codemark')
@@ -44,9 +33,6 @@ $ ->
     event.preventDefault()
     $cm = $(event.target).closest('.codemark')
     $cm.find('.comments').toggle()
-
-  $('.codemark').mouseover (event) ->
-  $('.codemark').mouseout (event) ->
 
   $(".copy_codemark").qtip
     content: 'Save as your codemark'
