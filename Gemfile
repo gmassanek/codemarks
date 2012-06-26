@@ -14,7 +14,7 @@ gem 'kaminari'
 gem 'rails3-jquery-autocomplete', :git => 'git://github.com/gmassanek/rails3-jquery-autocomplete.git'
 gem 'gravatar_image_tag'
 gem 'omniauth-twitter'
-gem 'omniauth-github'
+gem 'omniauth-github', "~> 1.0.1"
 gem 'therubyracer'
 gem 'newrelic_rpm'
 gem 'pg'
