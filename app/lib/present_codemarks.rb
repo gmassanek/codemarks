@@ -20,7 +20,8 @@ class PresentCodemarks
         :'data-tweet-text' => tweet_link(codemark),
         :content => 'Tweet'
       },
-
+      :corner => codemark.user == current_user(codemark) ? {:class => 'delete', :content => ''} : nil,
+      :mine => codemark.user == current_user(codemark),
       :comments => present_comments(codemark.comments),
       :topics => present_topics(codemark.topics),
       :resource => present_resource(codemark.resource)

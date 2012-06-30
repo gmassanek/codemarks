@@ -1,7 +1,7 @@
-define ['libs/jquery'], ($) ->
-
-  start = ->
-    $(document).ready ->
-      $("body").html("Hello world!")
-
-  return {"start":start}
+window.App =
+  Views: {}
+  Collections: {}
+  Models: {}
+  init: ->
+    window.appRouter = new App.MainRouter
+    Backbone.history.start({pushState: true})
