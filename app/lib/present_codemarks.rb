@@ -1,11 +1,11 @@
 class PresentCodemarks
   extend ActionView::Helpers::DateHelper
 
-  def self.for(codemarks)
-    codemarks.map {|codemark| present(codemark) }
+  def self.for(codemarks, current_user = nil)
+    codemarks.map {|codemark| present(codemark, current_user) }
   end
 
-  def self.present(codemark)
+  def self.present(codemark, current_user = nil)
     {
       :id => codemark.id,
       :title => {
@@ -20,8 +20,9 @@ class PresentCodemarks
         :'data-tweet-text' => tweet_link(codemark),
         :content => 'Tweet'
       },
-      :corner => codemark.user == current_user(codemark) ? {:class => 'delete', :content => ''} : nil,
-      :mine => codemark.user == current_user(codemark),
+      :mine => mine?(codemark, current_user),
+      :corner => mine?(codemark, current_user) ? {:class => 'delete', :content => ''} : nil,
+      :actions => actions(mine?(codemark, current_user)),
       :comments => present_comments(codemark.comments),
       :topics => present_topics(codemark.topics),
       :resource => present_resource(codemark.resource)
@@ -31,7 +32,9 @@ class PresentCodemarks
   def self.present_resource(resource)
     return unless resource # should never happen!
     {
-      :host => resource.host
+      :id => resource.id,
+      :host => resource.host,
+      :url => resource.url
     }
   end
 
@@ -114,5 +117,17 @@ class PresentCodemarks
     text = %!#{title} - #{codemark.url} #{tags} #{sign_off}!
     #url_encode_text(text)
     text
+  end
+
+  def self.mine?(codemark, current_user)
+    codemark.user == current_user
+  end
+
+  def self.actions(mine)
+    if mine
+      { :copy => nil }
+    else
+      { :edit => nil }
+    end
   end
 end

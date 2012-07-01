@@ -23,7 +23,9 @@ describe PresentCodemarks do
     save_date: Date.new
   )}
   let(:resource) { mock(
-    host: 'www.github.com'
+    id: 200,
+    host: 'www.github.com',
+    url: 'www.github.com/gmassanek'
   )}
   let(:comment) { mock(
     author: author
@@ -48,8 +50,8 @@ describe PresentCodemarks do
   describe '## for' do
     it 'has a list of codemarks' do
       codemarks = [codemark, codemark]
-      PresentCodemarks.should_receive(:present).with(codemark).twice
-      data = PresentCodemarks.for(codemarks)
+      PresentCodemarks.should_receive(:present).with(codemark, author).twice
+      data = PresentCodemarks.for(codemarks, author)
       data.length.should == 2
     end
   end
@@ -60,8 +62,8 @@ describe PresentCodemarks do
       PresentCodemarks.stub(:present_topics) { topics }
       PresentCodemarks.stub(:present_author) { author }
       PresentCodemarks.stub(:tweet_link) { 'some crazy link' }
-      PresentCodemarks.stub(:current_user) { author }
-      cm = PresentCodemarks.present(codemark)
+
+      cm = PresentCodemarks.present(codemark, author)
       cm[:id].should == 1
       cm[:title].should == {
         content: 'The Best Resource Ever',
@@ -75,6 +77,7 @@ describe PresentCodemarks do
         :class => 'delete',
         :content => ''
       }
+      cm[:actions].should == { :copy => nil }
       cm[:author].should == author
       cm[:topics].should == topics
       cm[:resource].should == resource
@@ -84,7 +87,9 @@ describe PresentCodemarks do
   describe '#present_resource' do
     it 'presents everything' do
       data = PresentCodemarks.present_resource(resource)
+      data[:id].should == resource.id
       data[:host].should == resource.host
+      data[:url].should == resource.url
     end
   end
 
@@ -116,5 +121,29 @@ describe PresentCodemarks do
 
   describe 'responds with errors' do
     it 'to empty input'
+  end
+
+  describe '#mine' do
+    it 'is true if the codemark user is the current user' do
+      PresentCodemarks.mine?(codemark, author).should be_true
+    end
+
+    it 'is false if the codemark user is not the current user' do
+      PresentCodemarks.mine?(codemark, stub).should be_false
+    end
+  end
+
+  describe '#mine' do
+    it 'nulls out copy for an existing resource' do
+      PresentCodemarks.actions(true).should == {
+        :copy => nil
+      }
+    end
+
+    it 'nulls out edit for a new resource' do
+      PresentCodemarks.actions(false).should == {
+        :edit => nil
+      }
+    end
   end
 end
