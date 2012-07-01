@@ -34,10 +34,14 @@ def new
       end
 
       format.json do
+        user = User.find_by_slug(params[:username])
+        user ||= User.find_by_id(params[:user])
+
         search_attributes = {}
         search_attributes[:page] = params[:page] if params[:page]
         search_attributes[:by] = params[:by] if params[:by]
         search_attributes[:current_user] = current_user
+        search_attributes[:user] = user if user
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
         render :json => PresentCodemarks.for(@codemarks, current_user)
       end

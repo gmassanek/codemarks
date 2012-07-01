@@ -1,11 +1,20 @@
 App.MainRouter = Backbone.Router.extend
   routes:
     'public': 'public'
+    ':query': 'user'
 
   public: ->
     codemarksCollection = new App.Collections.Codemarks
-      url: '/public'
     codemarksCollection.fetch
+      url: '/codemarks'
+      success: => @showCodemarkList(codemarksCollection)
+
+  user: (username) ->
+    codemarksCollection = new App.Collections.Codemarks
+    codemarksCollection.fetch
+      url: '/codemarks'
+      data:
+        username: username
       success: => @showCodemarkList(codemarksCollection)
 
   showCodemarkList: (codemarks) ->

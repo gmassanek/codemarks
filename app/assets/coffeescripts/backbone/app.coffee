@@ -3,5 +3,5 @@ window.App =
   Collections: {}
   Models: {}
   init: ->
-    window.appRouter = new App.MainRouter
+    App.router = new App.MainRouter
     Backbone.history.start({pushState: true})
