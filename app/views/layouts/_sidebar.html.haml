@@ -25,15 +25,12 @@
     = render '/layouts/nav_link', :paths => [public_codemarks_path], :text => 'everyone\'s', :target => public_codemarks_path
 
     %h3 Sort by
-    %li.sort{:class => sort_class('date', true)}
-      .nav_info
-      = link_to "date", url_for(:only_path => false, :by =>  :date)
-    %li.sort{:class => sort_class('count')}
-      .nav_info
-      = link_to "save count", url_for(:only_path => false, :by =>  :count)
-    %li.sort{:class => sort_class('visits')}
-      .nav_info
-      = link_to "visits", url_for(:only_path => true, :by => :visits)
+    %li.sort
+      = link_to 'date', '#', :class => 'date'
+    %li.sort
+      = link_to 'count', '#', :class => 'count'
+    %li.sort
+      = link_to 'visits', '#', :class => 'visits'
 
     %h3 Search
     %li

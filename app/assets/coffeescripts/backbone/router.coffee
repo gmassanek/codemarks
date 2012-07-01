@@ -4,21 +4,17 @@ App.MainRouter = Backbone.Router.extend
     ':query': 'user'
 
   public: ->
-    codemarksCollection = new App.Collections.Codemarks
-    codemarksCollection.fetch
-      url: '/codemarks'
-      success: => @showCodemarkList(codemarksCollection)
+    App.codemarks = new App.Collections.Codemarks
+    App.codemarks.flush(@showCodemarkList)
 
   user: (username) ->
-    codemarksCollection = new App.Collections.Codemarks
-    codemarksCollection.fetch
-      url: '/codemarks'
-      data:
-        username: username
-      success: => @showCodemarkList(codemarksCollection)
+    # should memoize here
+    App.codemarks = new App.Collections.Codemarks
+      username: username
+    App.codemarks.flush(@showCodemarkList)
 
-  showCodemarkList: (codemarks) ->
+  showCodemarkList: ->
     codemarkList = new App.Views.CodemarkList
-      collection: codemarks
+      collection: App.codemarks
     codemarkList.render()
-    $('#main_content').replaceWith(codemarkList.$el)
+    $('#main_content').html(codemarkList.$el)

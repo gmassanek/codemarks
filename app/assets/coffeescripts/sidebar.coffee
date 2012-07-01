@@ -12,4 +12,11 @@ $ ->
 
   $('.mine').click (e) ->
     e.preventDefault()
-    App.router.navigate('gmassanek', {trigger: true})
+    App.router.user = 'gmassanek'
+    App.router.navigate('massanek', {trigger: true})
+
+  $('li.sort a').click (e) ->
+    e.preventDefault()
+    App.codemarks = new App.Collections.Codemarks
+      by: $(e.currentTarget).attr('class')
+    App.codemarks.flush(@showCodemarkList)
