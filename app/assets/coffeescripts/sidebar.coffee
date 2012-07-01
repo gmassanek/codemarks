@@ -9,3 +9,7 @@ $ ->
     query = $('#site_search').val()
     if query
       window.location = "/codemarks/search/#{query}"
+
+  $('.mine').click (e) ->
+    e.preventDefault()
+    App.router.navigate('gmassanek', {trigger: true})
