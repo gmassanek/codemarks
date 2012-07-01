@@ -39,7 +39,7 @@ def new
         search_attributes[:by] = params[:by] if params[:by]
         search_attributes[:current_user] = current_user
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks)
+        render :json => PresentCodemarks.for(@codemarks, current_user)
       end
     end
   end

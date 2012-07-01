@@ -1,4 +1,4 @@
-App.Views.Codemarks = Backbone.View.extend
+App.Views.CodemarkList = Backbone.View.extend
   className: 'codemarks'
 
   render: ->

@@ -7,11 +7,11 @@ App.Views.Codemark = Backbone.View.extend
   events:
     'click .corner.delete': 'deleteCodemark'
     'click .twitter_share': 'twitterShare'
+    'click .edit': 'copyToForm'
+    'click .copy': 'copyToForm'
 
   render: ->
     @$el.append(@toHTML())
-    if @model.get('mine')
-      @$('.copy_codemark').remove()
 
   toHTML: ->
     template = angelo('codemark.html')
@@ -26,6 +26,9 @@ App.Views.Codemark = Backbone.View.extend
           @$el.fadeOut 500, =>
             @$el.remove()
 
+
+  # copying stuff over
+  #
   twitterShare: (e) ->
     e.preventDefault()
     $link  = $(e.currentTarget)
@@ -41,3 +44,10 @@ App.Views.Codemark = Backbone.View.extend
     text = '&text=' + tweet_text
     url = url + '?' + referer + via + text
     window.open(url, 'twitter', opts)
+
+  copyToForm: ->
+    $('#url').val(@model.get('resource').url)
+    $('#resource_attrs_id').val(@model.get('resource').id)
+    $('#id').val(@model.get('id'))
+    $('#codemark_form').submit()
+    $(window).scrollTop(0)

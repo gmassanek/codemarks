@@ -6,7 +6,7 @@
 # EXAMPLE:
 #
 src_files:
-  - templates/*.html
+    - templates/*.html
 #   - lib/source2.js
 #   - dist/**/*.js
 #
