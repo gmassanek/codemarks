@@ -6,7 +6,7 @@ App.Collections.Codemarks = Backbone.Collection.extend
     @filters = _.extend(@defaults, filters)
 
   defaults:
-    by: 'saves'
+    by: 'date'
 
   flush: (success) ->
     success ||= App.router.showCodemarkList
