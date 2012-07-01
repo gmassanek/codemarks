@@ -18,5 +18,6 @@ $ ->
   $('li.sort a').click (e) ->
     e.preventDefault()
     App.codemarks = new App.Collections.Codemarks
-      by: $(e.currentTarget).attr('class')
+      by: $(e.currentTarget).attr('data-by')
     App.codemarks.flush(@showCodemarkList)
+    #App.setActiveSort $(e.currentTarget)
