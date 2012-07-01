@@ -1,21 +1,15 @@
 App.MainRouter = Backbone.Router.extend
   routes:
-    'codemarks': 'index'
     'public': 'public'
-
-  index: ->
-    codemarksCollection = new App.Collections.Codemarks
-    codemarksCollection.fetch
-      success: => @successfulFetch(codemarksCollection)
 
   public: ->
     codemarksCollection = new App.Collections.Codemarks
       url: '/public'
     codemarksCollection.fetch
-      success: => @renderPublic(codemarksCollection)
+      success: => @showCodemarkList(codemarksCollection)
 
-  renderPublic: (codemarks) ->
-    codemarksView = new App.Views.Codemarks
+  showCodemarkList: (codemarks) ->
+    codemarkList = new App.Views.CodemarkList
       collection: codemarks
-    codemarksView.render()
-    $('#main_content').replaceWith(codemarksView.$el)
+    codemarkList.render()
+    $('#main_content').replaceWith(codemarkList.$el)
