@@ -10,10 +10,14 @@ $ ->
     if query
       window.location = "/codemarks/search/#{query}"
 
-  $('.mine').click (e) ->
+  $('.yours').click (e) ->
     e.preventDefault()
-    App.router.user = 'gmassanek'
-    App.router.navigate('massanek', {trigger: true})
+    username = $(e.currentTarget).attr('data-user')
+    App.router.navigate(username, {trigger: true})
+
+  $('.public').click (e) ->
+    e.preventDefault()
+    App.router.navigate('public', {trigger: true})
 
   $('li.sort a').click (e) ->
     e.preventDefault()

@@ -4,13 +4,13 @@ App.MainRouter = Backbone.Router.extend
     ':query': 'user'
 
   public: ->
-    App.codemarks = new App.Collections.Codemarks
+    App.codemarks ||= new App.Collections.Codemarks
+    delete App.codemarks.filters.username
     App.codemarks.flush(@showCodemarkList)
 
   user: (username) ->
-    # should memoize here
-    App.codemarks = new App.Collections.Codemarks
-      username: username
+    App.codemarks ||= new App.Collections.Codemarks
+    App.codemarks.filters.username = username
     App.codemarks.flush(@showCodemarkList)
 
   showCodemarkList: ->
