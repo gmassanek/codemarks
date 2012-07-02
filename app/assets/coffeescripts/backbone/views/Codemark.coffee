@@ -9,6 +9,7 @@ App.Views.Codemark = Backbone.View.extend
     'click .twitter_share': 'twitterShare'
     'click .edit': 'copyToForm'
     'click .copy': 'copyToForm'
+    'click .author': 'navigateToAuthor'
 
   render: ->
     @$el.append(@toHTML())
@@ -16,6 +17,10 @@ App.Views.Codemark = Backbone.View.extend
   toHTML: ->
     template = angelo('codemark.html')
     facile(template, @model.attributes)
+
+  navigateToAuthor: (e) ->
+    e.preventDefault()
+    App.router.navigate(@model.get('author').name, {trigger: true})
 
   deleteCodemark: (e) ->
     e.preventDefault()

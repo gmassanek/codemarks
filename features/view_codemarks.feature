@@ -37,13 +37,13 @@ Feature: View Codemarks
     Then I should see the codemark's comments
     And I should see my new comment
 
-  Scenario: Deleting a codemark
+  Scenario: Deleting a comment
     Given I am a logged in user
     And there is a codemark with 2 comments
     And I have commented on that codemark
     When I go to the public page
     And I click on the comment icon
-    And I click delete codemark
+    And I click delete comment
     Then I should see the codemark's comments
     And I should not see my new comment
 

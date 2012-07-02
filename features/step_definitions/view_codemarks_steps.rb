@@ -65,7 +65,7 @@ Given /^I have commented on that codemark$/ do
   @my_comment = Comment.create(:codemark_id => @codemark.id, :author => @current_user, :text => 'Hootie Who')
 end
 
-When /^I click delete codemark$/ do
+When /^I click delete comment$/ do
   within('.comments') do
     page.click_link('X')
   end
