@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       redirect_to session[:callback]
       return
     end
-    if FindCodemarks.new(:user => @user).codemarks.count == 0
+    if FindCodemarks.new(:user => @user, :current_user => current_user).codemarks.count == 0
       @link = Link.new
       redirect_to welcome_path
     else

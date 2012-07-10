@@ -5,6 +5,7 @@ class FindCodemarks
     end
 
     @user_id = options[:user].id if options[:user]
+    @current_user_id = options[:current_user].id if options[:current_user]
   end
 
   def full_text_searchify(query)
@@ -25,6 +26,7 @@ class FindCodemarks
     query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.link_record_id = visits.link_record_id")
 
     query = query.where("summary.rk = 1")
+    query = query.where(['private = ? OR (private = ? AND user_id = ?)', false, true, @current_user_id])
     query = full_text_searchify(query) if @search_term
 
     if @topic
