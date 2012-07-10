@@ -24,19 +24,22 @@ class CodemarksController < ApplicationController
       format.html { redirect_to :back, :notice => 'Thanks!' }
       format.js { render :text => '', :status => :ok }
     end
+  rescue Exception => e
+    p e
   end
 
   def public
     search_attributes = {}
     search_attributes[:page] = params[:page] if params[:page]
     search_attributes[:by] = params[:by] if params[:by]
+    search_attributes[:current_user] = current_user
     @codemarks = FindCodemarks.new(search_attributes).codemarks
 
     render 'users/dashboard'
   end
 
   def search
-    @codemarks = FindCodemarks.new(:search_term => params[:query]).codemarks
+    @codemarks = FindCodemarks.new(:search_term => params[:query], :current_user => current_user).codemarks
   end
 
   def destroy
