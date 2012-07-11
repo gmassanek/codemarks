@@ -19,17 +19,22 @@ describe CodemarksController do
   end
 
   describe "#create" do
-    it "creates a codemark" do
-      codemark = {
-        'resource' =>  {}
+    it 'does not break with perfect input' do
+      @resource = Fabricate(:link_record)
+      @attributes = {
+        :resource_id => @resource.id
       }
-      tags = {}
+      @params = {
+        :codemark => @attributes
+      }
+      topics = [Fabricate(:topic), Fabricate(:topic)]
+      @topic_info = { }
+      topics.each { |t| @topic_info[t.id] = [t.id] }
       user = stub
       controller.stub!(:current_user => user)
 
-      Codemark.should_receive(:create).with(codemark, codemark['resource'], [], user, :new_topic_titles => nil)
-      @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
-      post :create, :format => :js, :codemark => codemark, :tags => tags
+      @topic_ids = { 'woo' => 'woo'}
+      post :create, :format => :js, :codemark => @attributes, :topic_info => @topic_info, :topic_ids => @topic_ids
     end
   end
 

@@ -92,13 +92,16 @@ class Codemark
       codemark_attrs[:topic_ids] = combination_of_topic_ids
       existing_codemark.update_attributes(codemark_attrs)
       existing_codemark.link_record.update_attributes(resource_attrs)
+  # assume a resource_id is always coming in
+  def self.create(attributes, topic_info, options = {})
+    codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
+    attributes[:topic_ids] = build_topics(topic_info)
+    if codemark_record
+      codemark_record.update_attributes(attributes)
     else
-      codemark_attrs[:link_record] = link
-      codemark_attrs[:user] = user
-      codemark_attrs[:topic_ids] = topic_ids
-      codemark_record = CodemarkRecord.create(codemark_attrs)
+      codemark_record = CodemarkRecord.create(attributes)
     end
-    link.update_author(user.id)
+    codemark_record.resource.update_author(user.id)
   end
 
   def self.build_and_create(user, resource_type, resource_attrs)
@@ -137,14 +140,28 @@ class Codemark
     self
   end
 
+  def self.existing_codemark(user_id, resource_id)
+    CodemarkRecord.for_user_and_resource(user_id, resource_id)
+  end
+
+  def self.build_topics(topic_info)
+    topic_ids = topic_info[:ids] || []
+    new_titles = topic_info[:new_topic_titles]
+    return topic_ids if new_titles.nil?
+    new_titles.each do |title|
+      topic_ids << create_topic(title)
+    end
+    topic_ids
+  end
+
   private
+
+  def self.create_topic(title)
+    Topic.create!(:title => title).id
+  end
 
   def load_codemark_by_id(id)
     CodemarkRecord.find(id)
-  end
-
-  def load_codemark_by_link_and_id(user, link)
-    CodemarkRecord.find_by_user_and_link(user, link)
   end
 
   # NEED TO TEST THESE CONNECTIONS??
@@ -177,14 +194,6 @@ class Codemark
 
   def save_codemark_record(resource_attributes)
     resource.update_attributes(resource_attributes)
-  end
-
-  def self.build_topics(topic_ids, new_topic_titles)
-    return topic_ids if new_topic_titles.nil?
-    new_topic_titles.each do |title|
-      topic_ids << Topic.create!(:title => title).id
-    end
-    topic_ids
   end
 
   def self.private_topic
