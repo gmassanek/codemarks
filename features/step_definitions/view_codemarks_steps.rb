@@ -12,13 +12,13 @@ end
 Given /^one of my codemarks has been save (\d+) other times$/ do |num|
   @codemark = @codemarks.first
   num.to_i.times do
-    Fabricate(:codemark_record, :link_record => @codemark.link_record)
+    Fabricate(:codemark_record, :resource => @codemark.resource)
   end
 end
 
 Given /^I have a codemarks called "([^"]*)"$/ do |title|
   link_record = Fabricate(:link_record)
-  @codemark = Fabricate(:codemark_record, :title => title, :link_record => link_record, :user => @current_user)
+  @codemark = Fabricate(:codemark_record, :title => title, :resource => link_record, :user => @current_user)
 end
 
 Given /^there are (\d+) codemarks for "([^"]*)"$/ do |num_codemarks, topic_title|
@@ -42,7 +42,7 @@ Given /^([^"]*) is a user with a codemark for that topic$/ do |nickname|
 end
 
 Given /^the last codemark doesn't have a link$/ do
-  @codemarks.last.update_attribute(:link_record, nil)
+  @codemarks.last.update_attribute(:resource, nil)
 end
 
 Given /^I have a codemark with a note$/ do

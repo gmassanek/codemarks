@@ -155,7 +155,7 @@ describe Codemark do
       @note = "Some Note"
 
       codemark_record = mock({
-        link_record: @resource,
+        resource: @resource,
         topics: @tags,
         user: @user,
         title: @title,

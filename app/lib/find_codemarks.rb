@@ -22,8 +22,8 @@ class FindCodemarks
     query = CodemarkRecord.scoped
     query = query.select('"codemark_records".*, save_count, visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
-    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.link_record_id = counts.link_record_id")
-    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.link_record_id = visits.link_record_id")
+    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.resource_id = counts.resource_id")
+    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.resource_id = visits.resource_id")
 
     query = query.where("summary.rk = 1")
     query = query.where(['private = ? OR (private = ? AND user_id = ?)', false, true, @current_user_id])
@@ -34,8 +34,8 @@ class FindCodemarks
       query = query.where(['cm_topics.topic_id = ?', @topic.id])
     end
 
-    query = query.includes(:link_record)
-    query = query.includes(:link_record => :author)
+    query = query.includes(:resource)
+    query = query.includes(:resource => :author)
     query = query.includes(:topics)
     query = query.includes(:comments)
     query = query.includes(:user => :authentications)
@@ -47,18 +47,18 @@ class FindCodemarks
 
   private
   def partition_string
-    'PARTITION BY "codemark_records".link_record_id ORDER BY "codemark_records".created_at DESC'
+    'PARTITION BY "codemark_records".resource_id ORDER BY "codemark_records".created_at DESC'
   end
 
   def count_query
-    count_query = CodemarkRecord.scoped.select('"codemark_records".link_record_id, count(*) as save_count')
-    count_query = count_query.group('codemark_records.link_record_id')
+    count_query = CodemarkRecord.scoped.select('"codemark_records".resource_id, count(*) as save_count')
+    count_query = count_query.group('codemark_records.resource_id')
     count_query
   end
 
   def visits_query
-    visits_query = CodemarkRecord.scoped.select('"link_records".id as link_record_id, COALESCE(count(clicks.*), 0) as visit_count')
-    visits_query = visits_query.joins(:link_record)
+    visits_query = CodemarkRecord.scoped.select('"link_records".id as resource_id, COALESCE(count(clicks.*), 0) as visit_count')
+    visits_query = visits_query.joins(:resource)
     visits_query = visits_query.joins('LEFT JOIN clicks on link_records.id = clicks.link_record_id')
     visits_query = visits_query.group('link_records.id')
     visits_query
