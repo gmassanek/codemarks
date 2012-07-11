@@ -114,8 +114,7 @@ When /^I go to the public page$/ do
 end
 
 When /^I go to his page$/ do
-  visit '/public'
-  page.click_link @user.nickname
+  visit "/#{@user.nickname}"
 end
 
 When /^I go to that topic page$/ do

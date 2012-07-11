@@ -83,6 +83,9 @@ class Codemark
 
     existing_codemark = CodemarkRecord.for_user_and_link(user, link)
     topic_ids = build_topics(topics_ids, options[:new_topic_titles])
+
+    codemark_attrs[:private] = true if topic_ids.include? private_topic.id
+
     codemark_attrs.delete(:resource)
     if existing_codemark
       combination_of_topic_ids = topics_ids
@@ -95,7 +98,7 @@ class Codemark
       codemark_attrs[:topic_ids] = topic_ids
       codemark_record = CodemarkRecord.create(codemark_attrs)
     end
-    link.update_attributes(:author_id => user.id) if link.orphan?
+    link.update_author(user.id)
   end
 
   def self.build_and_create(user, resource_type, resource_attrs)
@@ -182,5 +185,9 @@ class Codemark
       topic_ids << Topic.create!(:title => title).id
     end
     topic_ids
+  end
+
+  def self.private_topic
+    Topic.find_by_title('private')
   end
 end

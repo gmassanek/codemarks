@@ -47,3 +47,7 @@ end
 Then /^I should see (my|that) codemark$/ do |_|
   page.should have_content(@codemark.title)
 end
+
+Then /^I should not see that codemark$/ do
+  page.should_not have_content(@codemark.title)
+end

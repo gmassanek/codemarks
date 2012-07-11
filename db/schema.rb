@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515133659) do
+ActiveRecord::Schema.define(:version => 20120710001558) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20120515133659) do
     t.text     "note"
     t.text     "title"
     t.tsvector "search"
+    t.boolean  "private",        :default => false
   end
 
   add_index "codemark_records", ["search"], :name => "codemarks_search_index"
@@ -86,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20120515133659) do
     t.datetime "updated_at"
     t.text     "description"
     t.string   "slug"
-    t.boolean  "global",      :default => true
+    t.boolean  "private",     :default => false
     t.integer  "user_id"
   end
 
