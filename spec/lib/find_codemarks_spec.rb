@@ -62,6 +62,19 @@ describe FindCodemarks do
     it "returns an ActiveRecord::Relation" do
       find_by_user.codemarks.should be_a ActiveRecord::Relation
     end
+
+    it 'does include my private codemarks' do
+      private_codemark = Fabricate(:codemark_record, :private => true, :user => @user)
+      all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
+      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id, private_codemark.id]
+    end
+
+    it 'does not include other people\'s private codemarks' do
+      user = Fabricate(:user)
+      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
+      all_cms = FindCodemarks.new(:user => @user, :current_user => user)
+      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+    end
   end
 
   context "for a topic" do
@@ -80,6 +93,13 @@ describe FindCodemarks do
       @cm3 = Fabricate(:codemark_record, :user => user)
       all_cms = FindCodemarks.new
       all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
+    end
+
+    it 'does not include other users private codemarks' do
+      user = Fabricate(:user)
+      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
+      all_cms = FindCodemarks.new(:current_user => @user)
+      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end
   end
 

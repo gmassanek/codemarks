@@ -23,4 +23,9 @@ class CodemarkRecord < ActiveRecord::Base
   def resource_author
     link_record.author if link_record
   end
+
+  #def private?
+    #private_topic = Topic.find_by_title('private')
+    #topics.include? private_topic
+  #end
 end

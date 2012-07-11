@@ -38,6 +38,7 @@ class TopicsController < ApplicationController
     search_attributes[:topic] = @topic
     search_attributes[:page] = params[:page] if params[:page]
     search_attributes[:user] = @user if @user
+    search_attributes[:current_user] = current_user
     search_attributes[:by] = params[:by] if params[:by]
 
     @codemarks = FindCodemarks.new(search_attributes).codemarks
