@@ -6,7 +6,6 @@ When /^I fill out the codemark form with Twitter$/ do
   wait_until { find('#codemark_title').visible? }
   page.fill_in('codemark_note', :with => 'I should use this for codemarks')
   page.click_button('fetch')
-  Capybara.default_wait_time = 2
 end
 
 When /^I submit the codemark form$/ do

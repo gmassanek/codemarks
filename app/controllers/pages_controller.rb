@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def landing
     redirect_to short_user_path(current_user) if logged_in?
-    @codemarks = FindCodemarks.new().codemarks
+    @codemarks = FindCodemarks.new(:current_user => current_user).codemarks
   end
 
   def codemarklet_test
