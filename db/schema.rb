@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20120710001558) do
-=======
 ActiveRecord::Schema.define(:version => 20120711062940) do
->>>>>>> Change LinkRecord to Resource - still using LinkRecord class
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -47,11 +43,7 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
     t.text     "note"
     t.text     "title"
     t.tsvector "search"
-<<<<<<< HEAD
-    t.boolean  "private",        :default => false
-=======
     t.boolean  "private",     :default => false
->>>>>>> Change LinkRecord to Resource - still using LinkRecord class
   end
 
   add_index "codemark_records", ["search"], :name => "codemarks_search_index"
