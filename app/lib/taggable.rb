@@ -1,5 +1,4 @@
 require_relative 'tagger'
-require 'active_support/core_ext' #to get .blank?
 
 module Taggable
 
