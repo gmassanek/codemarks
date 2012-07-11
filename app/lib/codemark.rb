@@ -98,7 +98,7 @@ class Codemark
       codemark_attrs[:topic_ids] = topic_ids
       codemark_record = CodemarkRecord.create(codemark_attrs)
     end
-    link.update_attributes(:author_id => user.id) if link.orphan?
+    link.update_author(user.id)
   end
 
   def self.build_and_create(user, resource_type, resource_attrs)
