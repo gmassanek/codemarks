@@ -43,7 +43,7 @@ class Codemark
   end
 
   def pull_up_attributes
-    @resource = @codemark_record.link_record
+    @resource = @codemark_record.resource
     @tags = @codemark_record.topics
     @title = @codemark_record.title
     if @user == @codemark_record.user.inspect
@@ -112,7 +112,7 @@ class Codemark
 
   def self.steal(codemark_record, user)
     CodemarkRecord.create(:user => user, 
-                          :link_record_id => codemark_record.link_record_id, 
+                          :resource_id => codemark_record.resource_id,
                           :topic_ids => codemark_record.topic_ids)
   end
 
@@ -127,7 +127,7 @@ class Codemark
     else
       self.codemark_record = CodemarkRecord.new({
         :user_id => user_id,
-        :link_record_id => @resource.id,
+        :resource_id => @resource.id,
         :topic_ids => tags.collect(&:id)
       })
     end
@@ -166,7 +166,7 @@ class Codemark
 
   def load_codemark_for_user
     if @user && @resource
-      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :link_record_id => @resource.id})
+      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :resource_id => @resource.id})
       cm
     end
   end

@@ -10,37 +10,37 @@ describe FindCodemarks do
   context "general result rules" do
     it "doesn't return multiple cms for the same link" do
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new
       all_cms.codemarks.all.count.should == 2
     end
 
     it "returns my cm even if other people saved the same link" do
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new(:user => @user)
       all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end
 
     it "returns the save count" do
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new
       all_cms.codemarks.first.save_count.should == "2"
     end
 
     it "returns the save count when scoped by user" do
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new(:user => user)
       all_cms.codemarks.first.save_count.should == "2"
     end
 
     it "returns the resource author" do
-      @cm.link_record.update_attributes(:author => @user)
+      @cm.resource.update_attributes(:author => @user)
 
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       codemarks  = FindCodemarks.new.codemarks
       codemarks.first.resource_author.should == @user
     end
@@ -114,7 +114,7 @@ describe FindCodemarks do
 
     it "can be orderd by save_count" do
       user = Fabricate(:user)
-      @cm3 = Fabricate(:codemark_record, :user => user, :link_record => @cm.link_record)
+      @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
       @cm4= Fabricate(:codemark_record, :user => @user)
       all_cms = FindCodemarks.new(:by => :count)
       all_cms.codemarks.first.save_count.should == "2"
@@ -122,7 +122,7 @@ describe FindCodemarks do
 
     it "can be orderd by visit_count" do
       user = Fabricate(:user)
-      2.times { Fabricate(:click, :user => user, :link_record => @cm.link_record) }
+      2.times { Fabricate(:click, :user => user, :link_record => @cm.resource) }
       all_cms = FindCodemarks.new(:by => :visits)
       all_cms.codemarks.first.visit_count.should == "2"
     end
