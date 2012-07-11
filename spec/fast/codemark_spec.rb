@@ -18,6 +18,7 @@ describe Codemark do
       }
 
       @resource = stub
+      @resource.stub(:update_author)
       @codemark = stub :resource => @resource
     end
 
@@ -25,6 +26,7 @@ describe Codemark do
       it 'searches for an existing codemark' do
         Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
+        Codemark.stub(:'private?')
         CodemarkRecord.stub(:create).and_return(@codemark)
         Codemark.should_receive(:existing_codemark).with(@user_id, 10)
         Codemark.create(@attributes, @topic_info)
@@ -33,6 +35,7 @@ describe Codemark do
       it 'builds topics' do
         Codemark.stub(:existing_codemark)
         Codemark.stub(:set_resource_author)
+        Codemark.stub(:'private?')
         CodemarkRecord.stub(:create).and_return(@codemark)
         Codemark.should_receive(:build_topics).with(@topic_info)
         Codemark.create(@attributes, @topic_info)
@@ -41,6 +44,7 @@ describe Codemark do
       it 'updates an existing codemark' do
         Codemark.stub(:existing_codemark).and_return(@codemark)
         Codemark.stub(:build_topics)
+        Codemark.stub(:'private?')
         Codemark.stub(:set_resource_author)
         @codemark.should_receive(:update_attributes)
         Codemark.create(@attributes, @topic_info)
@@ -50,6 +54,7 @@ describe Codemark do
         Codemark.stub(:existing_codemark)
         Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
+        Codemark.stub(:'private?')
         CodemarkRecord.should_receive(:create).with(@attributes).and_return(@codemark)
         Codemark.create(@attributes, @topic_info)
       end
@@ -57,8 +62,9 @@ describe Codemark do
       it 'sets the resource author' do
         Codemark.stub(:existing_codemark)
         Codemark.stub(:build_topics)
+        Codemark.stub(:'private?')
         CodemarkRecord.stub(:create).and_return(@codemark)
-        Codemark.should_receive(:set_resource_author).with(@resource, @user_id)
+        @resource.should_receive(:update_author).with(@user_id)
         Codemark.create(@attributes, @topic_info)
       end
     end

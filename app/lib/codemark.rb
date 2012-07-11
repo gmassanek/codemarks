@@ -77,31 +77,21 @@ class Codemark
     codemark.save_to_database
   end
 
-  def self.create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
-    link = LinkRecord.find_by_id(resource_attrs[:id])
-    link ||= LinkRecord.create(resource_attrs)
-
-    existing_codemark = CodemarkRecord.for_user_and_link(user, link)
-    topic_ids = build_topics(topics_ids, options[:new_topic_titles])
-
-    codemark_attrs[:private] = true if topic_ids.include? private_topic.id
-
-    codemark_attrs.delete(:resource)
-    if existing_codemark
-      combination_of_topic_ids = topics_ids
-      codemark_attrs[:topic_ids] = combination_of_topic_ids
-      existing_codemark.update_attributes(codemark_attrs)
-      existing_codemark.link_record.update_attributes(resource_attrs)
   # assume a resource_id is always coming in
   def self.create(attributes, topic_info, options = {})
     codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
     attributes[:topic_ids] = build_topics(topic_info)
+    attributes[:private] = private?(attributes[:topic_ids])
     if codemark_record
       codemark_record.update_attributes(attributes)
     else
       codemark_record = CodemarkRecord.create(attributes)
     end
-    codemark_record.resource.update_author(user.id)
+    codemark_record.resource.update_author(attributes[:user_id])
+  end
+
+  def self.private?(topic_ids)
+    topic_ids.include? private_topic.try(:id).to_s
   end
 
   def self.build_and_create(user, resource_type, resource_attrs)
