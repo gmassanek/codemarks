@@ -65,7 +65,6 @@ describe FindCodemarks do
       end
     end
 
-<<<<<<< HEAD
     it "returns an ActiveRecord::Relation" do
       find_by_user.codemarks.should be_a ActiveRecord::Relation
     end
@@ -82,12 +81,17 @@ describe FindCodemarks do
       all_cms = FindCodemarks.new(:user => @user, :current_user => user)
       all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end
-  end
-=======
+
+    it 'does not include other users private codemarks' do
+      user = Fabricate(:user)
+      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
+      all_cms = FindCodemarks.new(:current_user => @user)
+      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+    end
+
     context "for a topic" do
       let(:topic) { @cm.topics.first }
       let(:find_by_topic) { FindCodemarks.new(:topic => topic) }
->>>>>>> Respond with codemarks for JSON, rails template for HTML
 
       it "gets all the Codemarks" do
         cm3 = Fabricate(:codemark_record, :topic_ids => [topic.id])
@@ -103,18 +107,6 @@ describe FindCodemarks do
         all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
       end
     end
-<<<<<<< HEAD
-
-    it 'does not include other users private codemarks' do
-      user = Fabricate(:user)
-      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
-      all_cms = FindCodemarks.new(:current_user => @user)
-      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
-    end
-  end
-=======
->>>>>>> Respond with codemarks for JSON, rails template for HTML
-
     context "ordering" do
       it "defaults to ordering by most recently created" do
         @cm.update_attribute(:created_at, 9.days.ago)
@@ -165,8 +157,6 @@ describe FindCodemarks do
 
   context 'there are no codemarks' do
     it 'should not be nil' do
-      p CodemarkRecord.count
-      p FindCodemarks.new({})
       FindCodemarks.new.should_not be_nil
     end
   end
