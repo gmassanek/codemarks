@@ -14,6 +14,10 @@ module Taggable
     @tags
   end
 
+  def tag_ids
+    tags.collect(&:id)
+  end
+
   # Codemark
   def existing_tags
     return tags_instance_variable if tags_instance_variable 
