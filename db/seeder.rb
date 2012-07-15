@@ -5,7 +5,12 @@ class Seeder
     end
 
     def create_user(nickname)
-      auth = Authentication.new(:uid => '422333', :nickname => nickname, :provider => 'twitter')
+      auth = Authentication.new(:uid => rand(99999).to_s, :nickname => nickname, :provider => 'twitter')
+      User.create!(:authentications => [auth])
+    end
+
+    def create_me
+      auth = Authentication.new(:uid => '422333', :nickname => 'gmassanek', :provider => 'twitter')
       User.create!(:authentications => [auth])
     end
 
