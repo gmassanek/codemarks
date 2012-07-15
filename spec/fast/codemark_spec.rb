@@ -27,7 +27,7 @@ describe Codemark do
         Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
         Codemark.stub(:'private?')
-        CodemarkRecord.stub(:create).and_return(@codemark)
+        CodemarkRecord.stub(:'create!').and_return(@codemark)
         Codemark.should_receive(:existing_codemark).with(@user_id, 10)
         Codemark.create(@attributes, @topic_info)
       end
@@ -36,7 +36,7 @@ describe Codemark do
         Codemark.stub(:existing_codemark)
         Codemark.stub(:set_resource_author)
         Codemark.stub(:'private?')
-        CodemarkRecord.stub(:create).and_return(@codemark)
+        CodemarkRecord.stub(:'create!').and_return(@codemark)
         Codemark.should_receive(:build_topics).with(@topic_info)
         Codemark.create(@attributes, @topic_info)
       end
@@ -55,7 +55,7 @@ describe Codemark do
         Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
         Codemark.stub(:'private?')
-        CodemarkRecord.should_receive(:create).with(@attributes).and_return(@codemark)
+        CodemarkRecord.stub(:'create!').with(@attributes).and_return(@codemark)
         Codemark.create(@attributes, @topic_info)
       end
 
@@ -63,7 +63,7 @@ describe Codemark do
         Codemark.stub(:existing_codemark)
         Codemark.stub(:build_topics)
         Codemark.stub(:'private?')
-        CodemarkRecord.stub(:create).and_return(@codemark)
+        CodemarkRecord.stub(:'create!').and_return(@codemark)
         @resource.should_receive(:update_author).with(@user_id)
         Codemark.create(@attributes, @topic_info)
       end

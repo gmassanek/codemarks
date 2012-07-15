@@ -7,7 +7,7 @@ class CodemarkRecord < ActiveRecord::Base
   has_many :comments, :foreign_key => 'codemark_id'
 
   validates_presence_of :resource
-  validates_presence_of :user
+  validates_presence_of :user_id
 
   scope :unarchived, where(['archived = ?', false])
   scope :by_save_date, order('created_at DESC')

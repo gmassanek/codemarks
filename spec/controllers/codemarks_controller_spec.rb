@@ -30,8 +30,8 @@ describe CodemarksController do
       topics = [Fabricate(:topic), Fabricate(:topic)]
       @topic_info = { }
       topics.each { |t| @topic_info[t.id] = [t.id] }
-      user = stub
-      controller.stub!(:current_user => user)
+      user = stub(:id => 11)
+      controller.stub!(:current_user_id => user.id)
 
       @topic_ids = { 'woo' => 'woo'}
       post :create, :format => :js, :codemark => @attributes, :topic_info => @topic_info, :topic_ids => @topic_ids
