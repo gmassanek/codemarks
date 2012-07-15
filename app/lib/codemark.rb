@@ -85,9 +85,10 @@ class Codemark
     if codemark_record
       codemark_record.update_attributes(attributes)
     else
-      codemark_record = CodemarkRecord.create(attributes)
+      codemark_record = CodemarkRecord.create!(attributes)
     end
     codemark_record.resource.update_author(attributes[:user_id])
+    codemark_record
   end
 
   def self.private?(topic_ids)
