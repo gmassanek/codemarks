@@ -24,7 +24,7 @@ class CodemarkRecord < ActiveRecord::Base
     resource.author if resource
   end
 
-  def resource
-    link_record
+  def title
+    @title || resource.title
   end
 end

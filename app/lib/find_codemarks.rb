@@ -14,7 +14,7 @@ class FindCodemarks
   end
 
   def codemarks
-    @topic = Topic.find(@topic) if @topic
+    @topic = Topic.find(@topic_id) if @topic_id
 
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id

@@ -4,7 +4,7 @@
 //= require angelo
 
 //= require backbone/app
-//= require backbone/Router
+//= require backbone/router
 //= require_tree ./backbone/models
 //= require_tree ./backbone/collections
 //= require_tree ./backbone/views

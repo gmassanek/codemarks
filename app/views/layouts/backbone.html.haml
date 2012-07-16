@@ -14,6 +14,11 @@
       = javascript_include_tag 'google_analytics'
       = javascript_include_tag 'uservoice'
 
+    - if logged_in?
+      %script
+        :plain
+          window.CURRENT_USER = #{current_user_id}
+
   %body
     = render '/layouts/header'
     .site_content

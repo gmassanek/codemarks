@@ -108,4 +108,15 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
+  execute <<-SQL
+  CREATE TRIGGER codemarks_search_update
+  BEFORE INSERT OR UPDATE ON codemark_records
+  FOR EACH ROW EXECUTE PROCEDURE
+    tsvector_update_trigger(search,
+                            'pg_catalog.english',
+                            title,
+                            note);
+  SQL
+
+  execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note);"
 end

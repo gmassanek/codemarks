@@ -17,7 +17,7 @@ Given /^one of my codemarks has been save (\d+) other times$/ do |num|
 end
 
 Given /^I have a codemarks called "([^"]*)"$/ do |title|
-  link_record = Fabricate(:link_record)
+  link_record = Fabricate(:link_record, :title => title)
   @codemark = Fabricate(:codemark_record, :title => title, :resource => link_record, :user => @current_user)
 end
 

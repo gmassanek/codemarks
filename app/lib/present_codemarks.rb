@@ -109,7 +109,7 @@ class PresentCodemarks
     sign_off = "via @#{author} @codemarks"
     message_length = tags.size + sign_off.size + 40
     title_length = 140 - message_length
-    title = codemark.title || codemark.link_record.title
+    title = codemark.title
     if title.length > title_length
       title = title[0, title_length] + '...'
     end

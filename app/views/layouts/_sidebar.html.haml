@@ -13,17 +13,15 @@
           = user.nickname
     - if @topic
       %h3 By topic
-      = render '/layouts/nav_link', :paths => [topic_path(@topic)], :text => @topic.title, :target => topic_path(@topic)
+      = render '/layouts/nav_link', :text => @topic.title, :klass => 'topic', :data_type => 'topic-id', :data => @topic.id, :user => @user
       - if logged_in?
-        = render '/layouts/nav_link', :paths => [topic_user_path(@topic, current_user)], :text => "your #{@topic.title}", :target => topic_user_path(@topic, current_user)
+        = render '/layouts/nav_link', :text => "your #{@topic.title}", :klass => 'your_topic', :data_type => 'topic-id', :data => @topic.id, :user => @user
     %h3 By user
     - if @user && @user != current_user
-      = render '/layouts/nav_link', :paths => [short_user_path(@user), user_path(@user)], :text => @user.nickname, :target => short_user_path(@user)
+      = render '/layouts/nav_link', :text => @user.nickname, :klass => 'theirs', :data_type => nil, :data => nil, :user => @user
     - if logged_in?
-      = link_to 'yours', '#', :class => 'yours', :'data-user' => current_user.nickname
-      = link_to 'everyone\'s', '#', :class => 'public'
-      = render '/layouts/nav_link', :paths => [short_user_path(current_user), user_path(current_user)], :text => 'yours', :target => short_user_path(current_user)
-    = render '/layouts/nav_link', :paths => [public_codemarks_path], :text => 'everyone\'s', :target => public_codemarks_path
+      = render '/layouts/nav_link', :text => 'yours', :klass => 'yours', :data_type => nil, :data => nil, :user => current_user
+      = render '/layouts/nav_link', :text => 'everyone\'s', :klass => 'public', :data_type => nil, :data => nil, :user => nil
 
     %h3 Sort by
     %li.sort
