@@ -15,6 +15,17 @@ $ ->
     username = $(e.currentTarget).attr('data-user')
     App.router.navigate(username, {trigger: true})
 
+  $('.topic').click (e) ->
+    e.preventDefault()
+    topic_id = $(e.currentTarget).attr('data-topic-id')
+    App.router.navigate("/topics/#{topic_id}", {trigger: true})
+
+  $('.your_topic').click (e) ->
+    e.preventDefault()
+    username = $(e.currentTarget).attr('data-user')
+    topic_id = $(e.currentTarget).attr('data-topic-id')
+    App.router.navigate("#{username}?topic_id=#{topic_id}", {trigger: true})
+
   $('.public').click (e) ->
     e.preventDefault()
     App.router.navigate('public', {trigger: true})

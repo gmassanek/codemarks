@@ -4,7 +4,7 @@ window.angelo = (path) ->
   return template if template
 
   $.ajax
-    url: "templates/#{path}",
+    url: "/templates/#{path}",
     method: 'GET',
     async: false,
     success: (data) ->

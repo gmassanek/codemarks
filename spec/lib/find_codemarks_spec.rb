@@ -81,7 +81,7 @@ describe FindCodemarks do
 
     context "for a topic" do
       let(:topic) { @cm.topics.first }
-      let(:find_by_topic) { FindCodemarks.new(:topic => topic) }
+      let(:find_by_topic) { FindCodemarks.new(:topic_id => topic.id) }
 
       it "gets all the Codemarks" do
         cm3 = Fabricate(:codemark_record, :topic_ids => [topic.id])

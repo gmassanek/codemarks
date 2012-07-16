@@ -27,20 +27,22 @@ def new
   end
 
   def index
+    @user = User.find_by_slug(params[:username])
+    @user ||= User.find_by_id(params[:user])
+
+    @topic = Topic.find(params[:topic_id]) if params[:topic_id]
     respond_to do |format|
       format.html do
         render 'codemarks/index', :layout => 'backbone'
       end
 
       format.json do
-        user = User.find_by_slug(params[:username])
-        user ||= User.find_by_id(params[:user])
-
         search_attributes = {}
         search_attributes[:page] = params[:page] if params[:page]
         search_attributes[:by] = params[:by] if params[:by]
         search_attributes[:current_user] = current_user
-        search_attributes[:user] = user if user
+        search_attributes[:user] = @user if @user
+        search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
         render :json => PresentCodemarks.for(@codemarks, current_user)
       end
