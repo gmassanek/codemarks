@@ -47,7 +47,7 @@ class Codemark
   end
 
   def pull_up_attributes
-    @resource = @codemark_record.link_record
+    @resource = @codemark_record.resource
     @tags = @codemark_record.topics
     @title = @codemark_record.title
     if @user == @codemark_record.user.inspect
@@ -81,28 +81,22 @@ class Codemark
     codemark.save_to_database
   end
 
-  def self.create(codemark_attrs, resource_attrs, topics_ids, user, options = {})
-    link = LinkRecord.find_by_id(resource_attrs[:id])
-    link ||= LinkRecord.create(resource_attrs)
-
-    existing_codemark = CodemarkRecord.for_user_and_link(user, link)
-    topic_ids = build_topics(topics_ids, options[:new_topic_titles])
-
-    codemark_attrs[:private] = true if topic_ids.include? private_topic.id
-
-    codemark_attrs.delete(:resource)
-    if existing_codemark
-      combination_of_topic_ids = topics_ids
-      codemark_attrs[:topic_ids] = combination_of_topic_ids
-      existing_codemark.update_attributes(codemark_attrs)
-      existing_codemark.link_record.update_attributes(resource_attrs)
+  # assume a resource_id is always coming in
+  def self.create(attributes, topic_info, options = {})
+    codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
+    attributes[:topic_ids] = build_topics(topic_info)
+    attributes[:private] = private?(attributes[:topic_ids])
+    if codemark_record
+      codemark_record.update_attributes(attributes)
     else
-      codemark_attrs[:link_record] = link
-      codemark_attrs[:user] = user
-      codemark_attrs[:topic_ids] = topic_ids
-      codemark_record = CodemarkRecord.create(codemark_attrs)
+      codemark_record = CodemarkRecord.create!(attributes)
     end
-    link.update_author(user.id)
+    codemark_record.resource.update_author(attributes[:user_id])
+    codemark_record
+  end
+
+  def self.private?(topic_ids)
+    topic_ids.include? private_topic.try(:id).to_s
   end
 
   def self.build_and_create(user, resource_type, resource_attrs)
@@ -116,7 +110,7 @@ class Codemark
 
   def self.steal(codemark_record, user)
     CodemarkRecord.create(:user => user, 
-                          :link_record_id => codemark_record.link_record_id, 
+                          :resource_id => codemark_record.resource_id,
                           :topic_ids => codemark_record.topic_ids)
   end
 
@@ -131,7 +125,7 @@ class Codemark
     else
       self.codemark_record = CodemarkRecord.new({
         :user_id => user_id,
-        :link_record_id => @resource.id,
+        :resource_id => @resource.id,
         :topic_ids => tags.collect(&:id)
       })
     end
@@ -141,14 +135,28 @@ class Codemark
     self
   end
 
+  def self.existing_codemark(user_id, resource_id)
+    CodemarkRecord.for_user_and_resource(user_id, resource_id)
+  end
+
+  def self.build_topics(topic_info)
+    topic_ids = topic_info[:ids] || []
+    new_titles = topic_info[:new_topic_titles]
+    return topic_ids if new_titles.nil?
+    new_titles.each do |title|
+      topic_ids << create_topic(title)
+    end
+    topic_ids
+  end
+
   private
+
+  def self.create_topic(title)
+    Topic.create!(:title => title).id
+  end
 
   def load_codemark_by_id(id)
     CodemarkRecord.find(id)
-  end
-
-  def load_codemark_by_link_and_id(user, link)
-    CodemarkRecord.find_by_user_and_link(user, link)
   end
 
   # NEED TO TEST THESE CONNECTIONS??
@@ -170,7 +178,7 @@ class Codemark
 
   def load_codemark_for_user
     if @user && @resource
-      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :link_record_id => @resource.id})
+      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :resource_id => @resource.id})
       cm
     end
   end
@@ -181,14 +189,6 @@ class Codemark
 
   def save_codemark_record(resource_attributes)
     resource.update_attributes(resource_attributes)
-  end
-
-  def self.build_topics(topic_ids, new_topic_titles)
-    return topic_ids if new_topic_titles.nil?
-    new_topic_titles.each do |title|
-      topic_ids << Topic.create!(:title => title).id
-    end
-    topic_ids
   end
 
   def self.private_topic

@@ -8,16 +8,15 @@ def new
   end
 
   def create
-    topic_ids = params[:tags].keys.collect(&:to_i) if params[:tags]
-    topic_ids ||= []
+    attributes = params[:codemark]
+    attributes[:user_id] = current_user_id
 
-    new_topic_titles = params[:topic_ids].keys if params[:topic_ids] 
+    topic_info = {
+      :ids => params[:topic_info].try(:keys),
+      :new_titles => params[:topic_ids].try(:keys)
+    }
 
-    @codemark = Codemark.create(params[:codemark],
-                                params[:codemark][:resource],
-                                topic_ids, 
-                                current_user, 
-                                :new_topic_titles => new_topic_titles)
+    @codemark = Codemark.create(attributes, topic_info)
 
     respond_to do |format|
       format.html { redirect_to :back, :notice => 'Thanks!' }

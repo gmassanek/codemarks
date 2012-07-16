@@ -1,5 +1,4 @@
 require_relative 'tagger'
-require 'active_support/core_ext' #to get .blank?
 
 module Taggable
 
@@ -13,6 +12,10 @@ module Taggable
     # Link
     @tags = retag
     @tags
+  end
+
+  def tag_ids
+    tags.collect(&:id)
   end
 
   # Codemark
