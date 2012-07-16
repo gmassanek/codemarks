@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CodemarkRecord do
   context "requires" do
-    [:link_record, :user].each do |field|
+    [:resource, :user].each do |field|
       it "a #{field}" do
         codemark = Fabricate.build(:codemark_record, field => nil)
         codemark.should_not be_valid
@@ -13,7 +13,7 @@ describe CodemarkRecord do
   describe '#resource_author' do
     it 'is the author of its resource' do
       codemark = Fabricate.build(:codemark_record)
-      resource = codemark.link_record
+      resource = codemark.resource
       user = Fabricate(:user)
       resource.author = user
       codemark.resource_author.should == user
@@ -32,7 +32,7 @@ describe CodemarkRecord do
 
   it "delegates url to it's link" do
     codemark = Fabricate.build(:codemark_record)
-    link = codemark.link_record
+    link = codemark.resource
     codemark.url.should == link.url
   end
 
@@ -90,6 +90,6 @@ describe CodemarkRecord do
   it "finds codemarks for a user and a link combination" do
     user = Fabricate(:user)
     codemark_record = Fabricate(:codemark_record, :user => user)
-    CodemarkRecord.for_user_and_link(user, codemark_record.link_record).should == codemark_record
+    CodemarkRecord.for_user_and_resource(user.id, codemark_record.resource.id).should == codemark_record
   end
 end

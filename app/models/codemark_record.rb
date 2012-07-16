@@ -1,13 +1,13 @@
 class CodemarkRecord < ActiveRecord::Base
-  belongs_to :link_record
+  belongs_to :resource, :class_name => 'LinkRecord'
   belongs_to :user
 
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
   has_many :comments, :foreign_key => 'codemark_id'
 
-  validates_presence_of :link_record
-  validates_presence_of :user
+  validates_presence_of :resource
+  validates_presence_of :user_id
 
   scope :unarchived, where(['archived = ?', false])
   scope :by_save_date, order('created_at DESC')
@@ -16,12 +16,12 @@ class CodemarkRecord < ActiveRecord::Base
 
   delegate :url, :to => :resource
 
-  def self.for_user_and_link(user, link_record)
-    where(:user_id => user.id).where(:link_record_id => link_record.id).first
+  def self.for_user_and_resource(user_id, resource_id)
+    where(:user_id => user_id).where(:resource_id => resource_id).first
   end
 
   def resource_author
-    link_record.author if link_record
+    resource.author if resource
   end
 
   def resource
