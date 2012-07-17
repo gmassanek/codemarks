@@ -2,7 +2,7 @@ class PresentCodemarks
   extend ActionView::Helpers::DateHelper
 
   def self.for(codemarks, current_user = nil)
-    codemarks.map {|codemark| present(codemark, current_user) }
+    codemarks.select {|cm| cm.resource }.map {|codemark| present(codemark, current_user) }
   end
 
   def self.present(codemark, current_user = nil)
@@ -10,7 +10,7 @@ class PresentCodemarks
       :id => codemark.id,
       :title => {
         content: codemark.title,
-        href: codemark_path(codemark.id)
+        href: codemark.resource.url
       },
       :save_date => "about #{time_ago(codemark.created_at)} ago",
       :author => present_author(codemark.user),
