@@ -1,10 +1,9 @@
-@omniauth_test_success
+@omniauth_test_success @javascript
 Feature: Private Codemarks
   In order to hide codemarks from other users
   As a user
   I want to save private codemarks
 
-  @javascript
   Scenario: Saving a private codemark
     Given I am a logged in user
     When I go to the public page

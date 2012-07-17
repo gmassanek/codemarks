@@ -1,17 +1,16 @@
-@omniauth_test_success
+@omniauth_test_success @javascript
 Feature: Searching Codemarks
   In order to find codemarks
   As anybody
   I want to search for them
 
-  @javascript
   Scenario: Topic autocomplete
     Given "github" is a topic
     When I go to the public page
     And I search for that topic
     Then I should be on that topic's page
 
-  @javascript @travis_skip
+  @travis_skip
   Scenario: Site search
     Given there is a codemark with a note
     When I go to the public page

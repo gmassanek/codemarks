@@ -28,7 +28,7 @@ App.MainRouter = Backbone.Router.extend
       App.codemarks.filters[params[0]] = params[1]
       selected = 'your_topic'
     else
-      if CURRENT_USER?
+      if CURRENT_USER? && CURRENT_USER == username
         selected = 'yours'
       else
         selected = 'theirs'
