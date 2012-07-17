@@ -1,4 +1,4 @@
-@omniauth_test_success @javascript
+@travis_skip @omniauth_test_success @javascript
 
 Feature: Codemark Comments
   In order to interact with other user
