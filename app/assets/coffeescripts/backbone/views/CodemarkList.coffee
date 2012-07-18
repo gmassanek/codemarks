@@ -3,6 +3,7 @@ App.Views.CodemarkList = Backbone.View.extend
 
   render: ->
     @toHTML()
+    @$el.append(@paginationHTML())
 
   toHTML: ->
     for codemark in @collection.models
@@ -10,3 +11,8 @@ App.Views.CodemarkList = Backbone.View.extend
         model: codemark
       codemarkView.render()
       @$el.append(codemarkView.$el)
+
+  paginationHTML: ->
+    codemarkView = new App.Views.Pagination
+      collection: App.codemarks
+    codemarkView.render()

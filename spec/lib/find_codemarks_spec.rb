@@ -125,16 +125,21 @@ describe FindCodemarks do
 
     context "with paging" do
       it "can take the result from a query and page it" do
-        find_by_user_paged = FindCodemarks.new(:user => @user, :page => 1, :per_page => 1)
-        find_by_user_paged.codemarks.all.count.should == 1
+        codemarks = FindCodemarks.new(:user => @user, :page => 1, :per_page => 1)
+        codemarks.codemarks.all.count.should == 1
       end
 
       it "defaults to 15 per page" do
         15.times do
           Fabricate(:codemark_record)
         end
-        all_cms = FindCodemarks.new
-        all_cms.codemarks.all.count.should == 15
+        response = FindCodemarks.new
+        response.codemarks.all.count.should == 15
+      end
+
+      it 'returns total pages' do
+        response = FindCodemarks.new(:user => @user, :per_page => 9999)
+        response.codemarks.num_pages.should == 1
       end
     end
 

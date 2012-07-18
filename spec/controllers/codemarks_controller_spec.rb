@@ -6,6 +6,7 @@ describe CodemarksController do
   describe "#index" do
     it "calls FindCodemarks" do
       codemarks = []
+      codemarks.stub(:num_pages)
       finder = stub(:codemarks => codemarks)
       FindCodemarks.should_receive(:new).and_return(finder)
       get :index, :format => :json
