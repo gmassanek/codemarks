@@ -157,30 +157,21 @@ $dark_faded: rgb(140, 138, 138)
         width: 80%
         height: 35px
 
-#pagination
-  margin: 0 auto
-  clear: both
-  text-align: center
-
 .pagination
-  display: inline-block
-  margin-top: 10px
-  padding-top: 5px
-  padding-bottom: 5px
-  text-align: left
   @include border-radius(3px)
-  .page, .first, .last
-    @include border-radius(3px)
-    padding-top: 5px
-    padding-bottom: 5px
-    border-bottom: none
-    min-width: 30px
-    &:first-child
-      @include border-bottom-right-radius(0)
-      @include border-top-right-radius(0)
-    &:last-child
-      @include border-bottom-left-radius(0)
-      @include border-top-left-radius(0)
-      
-  .current
-    background: $background-hover
+  text-align: center
+  ol.pages
+    li
+      display: inline
+      a.page
+        @include border-radius(3px)
+        &:first-child
+          @include border-bottom-right-radius(0)
+          @include border-top-right-radius(0)
+        &:last-child
+          @include border-bottom-left-radius(0)
+          @include border-top-left-radius(0)
+
+
+        .current
+          background: $background-hover

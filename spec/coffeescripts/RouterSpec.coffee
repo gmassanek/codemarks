@@ -1,9 +1,12 @@
 describe 'Router', ->
-  router = new App.MainRouter
+  beforeEach ->
+    @router = new App.MainRouter
 
   describe 'routes pages like', ->
     it 'public to Codemarks#public', ->
-      expect(router.routes['public']).toEqual('public')
+      console.log @router.routes['public']
+      expect(@router.routes['public']).toEqual('public')
+
     it 'passes showCodemarkList to succes? - Should you test what function you pass?', ->
 
   describe '#showCodemarkList', ->

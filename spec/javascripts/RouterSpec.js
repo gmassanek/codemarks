@@ -1,11 +1,13 @@
 (function() {
 
   describe('Router', function() {
-    var router;
-    router = new App.MainRouter;
+    beforeEach(function() {
+      return this.router = new App.MainRouter;
+    });
     describe('routes pages like', function() {
       it('public to Codemarks#public', function() {
-        return expect(router.routes['public']).toEqual('public');
+        console.log(this.router.routes['public']);
+        return expect(this.router.routes['public']).toEqual('public');
       });
       return it('passes showCodemarkList to succes? - Should you test what function you pass?', function() {});
     });
