@@ -1,4 +1,4 @@
-require_relative '../../app/lib/taggable'
+require 'fast_helper'
 
 class TaggableObject
   include Taggable

@@ -47,6 +47,7 @@ Feature: Saving Codemarks
     And I copy that codemark
     Then I should see the data for that codemark in the codemark form
 
+  @javascript
   Scenario: Can't steal if not logged in
     Given gmassanek is a user with a codemark
     When I go to the public page

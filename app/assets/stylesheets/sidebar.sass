@@ -68,18 +68,19 @@
     &.sort
       font-size: 15px
       min-height: 20px
-      .nav_info
-        float: left
-        margin: 2px 0 0 2px
-        @include circle(12px)
+      position: relative
       a
         margin-left: 10px
+        &.active:before
+          content: '\2713'
+          position: absolute
+          margin-left: -12px
 
     .count
       display: inline-block
       font-size: 15px
     &:not(.active) .count
-      display: none
+      //display: none
 
     .pagination 
       font-size: 14px
