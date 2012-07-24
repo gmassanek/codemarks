@@ -50,6 +50,7 @@ describe PresentCodemarks do
   describe '## for' do
     it 'has a list of codemarks' do
       codemarks = [codemark, codemark]
+      codemarks.stub(:num_pages => 1)
       PresentCodemarks.should_receive(:present).with(codemark, author).twice
       data = PresentCodemarks.for(codemarks, author)
       data.length.should == 2
