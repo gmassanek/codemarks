@@ -67,7 +67,7 @@ describe PresentCodemarks do
       cm[:id].should == 1
       cm[:title].should == {
         content: 'The Best Resource Ever',
-        href: '/codemark/1'
+        href: resource.url
       }
       cm[:twitter_share].should_not be_nil
       cm[:show_comments].should == 'Comments (1)'

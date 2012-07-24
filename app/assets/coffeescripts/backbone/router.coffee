@@ -1,14 +1,20 @@
 App.MainRouter = Backbone.Router.extend
   routes:
     'public': 'public'
+    'public?:params': 'public'
     'topics/:id': 'topic'
     ':query?:params': 'user'
     ':query': 'user'
 
-  public: ->
+  public: (params) ->
     App.codemarks ||= new App.Collections.Codemarks
+    @clearFilters()
     delete App.codemarks.filters.username
-    delete App.codemarks.filters.topic_id
+
+    if params
+      params = params.split('=')
+      App.codemarks.filters[params[0]] = params[1]
+
     App.codemarks.flush(@showCodemarkList)
     @setActiveNav('public')
 
@@ -22,7 +28,7 @@ App.MainRouter = Backbone.Router.extend
   user: (username, params) ->
     App.codemarks ||= new App.Collections.Codemarks
     App.codemarks.filters.username = username
-    delete App.codemarks.filters.topic_id
+    @clearFilters()
     if params
       params = params.split('=')
       App.codemarks.filters[params[0]] = params[1]
@@ -35,6 +41,10 @@ App.MainRouter = Backbone.Router.extend
 
     App.codemarks.flush(@showCodemarkList)
     @setActiveNav(selected)
+
+  clearFilters: ->
+    delete App.codemarks.filters.topic_id
+    delete App.codemarks.filters.page
 
   showCodemarkList: ->
     codemarkList = new App.Views.CodemarkList

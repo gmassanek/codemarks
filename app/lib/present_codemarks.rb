@@ -2,7 +2,17 @@ class PresentCodemarks
   extend ActionView::Helpers::DateHelper
 
   def self.for(codemarks, current_user = nil)
-    codemarks.select {|cm| cm.resource }.map {|codemark| present(codemark, current_user) }
+    response = {
+      codemarks: codemarks.select {|cm| cm.resource }.map {|codemark| present(codemark, current_user) }
+    }
+    response[:pagination] = present_pagination(codemarks)
+    response
+  end
+
+  def self.present_pagination(codemarks)
+    {
+      :total_pages => codemarks.num_pages
+    }
   end
 
   def self.present(codemark, current_user = nil)
