@@ -9,7 +9,17 @@ App.Collections.Codemarks = Backbone.Collection.extend
     by: 'date'
 
   flush: (success) ->
-    success ||= App.router.showCodemarkList
-    @fetch
+    response = $.ajax
+      url: @url
       data: @filters
-      success: => success()
+      dataType: 'json'
+      success: (response) =>
+        @setAttributes(response, success)
+
+  setAttributes: (response, success) ->
+    success ||= App.router.showCodemarkList
+    @pagination = response.pagination
+    @models = []
+    _.each response.codemarks, (codemark) =>
+      @models.push(new Backbone.Model(codemark))
+    success?()
