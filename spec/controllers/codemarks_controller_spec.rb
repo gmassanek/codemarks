@@ -13,11 +13,9 @@ describe CodemarksController do
     end
 
     it "it assigns codemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.stub!(:new => finder)
+      Fabricate(:codemark_record)
       get :index, :format => :json
-      assigns[:codemarks].should == codemarks
+      assigns[:codemarks].should_not be_nil
     end
 
     it "it presents codemarks" do

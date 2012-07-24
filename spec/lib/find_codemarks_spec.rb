@@ -129,12 +129,12 @@ describe FindCodemarks do
         codemarks.codemarks.all.count.should == 1
       end
 
-      it "defaults to 15 per page" do
-        15.times do
+      it "defaults to 25 per page" do
+        25.times do
           Fabricate(:codemark_record)
         end
         response = FindCodemarks.new
-        response.codemarks.all.count.should == 15
+        response.codemarks.all.count.should == FindCodemarks::PAGE_SIZE
       end
 
       it 'returns total pages' do

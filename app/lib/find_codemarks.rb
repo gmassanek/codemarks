@@ -1,4 +1,6 @@
 class FindCodemarks
+  PAGE_SIZE = 25
+
   def initialize(options = {})
     options.each do |key, val|
       self.instance_variable_set("@#{key.to_s}", val.to_param)
@@ -76,7 +78,7 @@ class FindCodemarks
   end
 
   def per_page
-    @per_page ||= 25
+    @per_page ||= PAGE_SIZE
   end
 
   def order(scope)
