@@ -1,9 +1,4 @@
-module ActionView
-  module Helpers
-    module DateHelper; end
-  end
-end
-
+require 'action_view'
 require 'present_codemarks'
 
 describe PresentCodemarks do
