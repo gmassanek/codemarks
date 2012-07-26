@@ -23,10 +23,10 @@ class FindCodemarks
     subq = filter_codemarks_project_out(subq)
 
     query = CodemarkRecord.scoped
-    query = query.select('"codemark_records".*, save_count, visit_count')
+    query = query.select('"codemark_records".*, save_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.resource_id = counts.resource_id")
-    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.resource_id = visits.resource_id")
+    #query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.resource_id = visits.resource_id")
 
     query = query.where("summary.rk = 1")
     query = query.where(['private = ? OR (private = ? AND user_id = ?)', false, true, @current_user_id])

@@ -33,9 +33,9 @@ When /^I click to add text codemark$/ do
 end
 
 When /^I fill out the text codemarks form$/ do
-  page.fill_in('title', :with => 'Blog post idea')
+  page.fill_in('codemark[title]', :with => 'Blog post idea')
   @text_codemark_text = 'I think I should write one about this topic'
-  page.fill_in('text', :with => 'I think I should write one about this topic')
+  page.fill_in('resource[text]', :with => 'I think I should write one about this topic')
 end
 
 When /^I submit it$/ do

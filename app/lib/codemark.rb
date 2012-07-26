@@ -81,7 +81,6 @@ class Codemark
     codemark.save_to_database
   end
 
-  # assume a resource_id is always coming in
   def self.create(attributes, topic_info, options = {})
     codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
     attributes[:topic_ids] = build_topics(topic_info)
@@ -91,6 +90,7 @@ class Codemark
     else
       codemark_record = CodemarkRecord.create!(attributes)
     end
+
     codemark_record.resource.update_author(attributes[:user_id])
     codemark_record
   end

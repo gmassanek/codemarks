@@ -6,18 +6,12 @@
     = javascript_include_tag 'application'
 
     = javascript_include_tag 'codemark_form'
-    = javascript_include_tag 'codemarklet'
+
     %title Codemarks
     = csrf_meta_tags
 
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
+
   %body
     = yield
-
-
-
-
-  :javascript
-    window.Codemarklet.bootstrap();
-
