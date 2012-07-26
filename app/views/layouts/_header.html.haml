@@ -5,4 +5,5 @@
       = link_to logo, root_path
 
     = render '/codemarks/form' if logged_in?
+    = link_to 'Add Text codemark', '#', :class => 'add_text_codemark'
     = render '/layouts/authentication'
