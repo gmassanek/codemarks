@@ -20,6 +20,12 @@ Codemarks::Application.routes.draw do
     end
   end
 
+  resources :codemark_forms, :only => [] do
+    collection do
+      get :text
+    end
+  end
+
   # API endpoint
   get '/public', to: 'codemarks#index', :as => :public_codemarks
   get '/:username', :to => 'codemarks#index', :as => "short_user"
