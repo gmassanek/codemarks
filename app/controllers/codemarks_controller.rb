@@ -16,14 +16,18 @@ def new
       :new_titles => params[:topic_ids].try(:keys)
     }
 
+    if params[:type] == 'text'
+      attributes[:resource_id] = Resource::Text.create!(params[:resource], params[:saver_id]).id
+      p attributee
+    end
+
     @codemark = Codemark.create(attributes, topic_info)
+    p @codemark
 
     respond_to do |format|
       format.html { redirect_to :back, :notice => 'Thanks!' }
       format.js { render :text => '', :status => :ok }
     end
-  rescue Exception => e
-    p e
   end
 
   def index
