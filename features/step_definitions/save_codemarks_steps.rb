@@ -29,7 +29,7 @@ When /^I fill out the codemark form with the existing one$/ do
 end
 
 When /^I click to add text codemark$/ do
-  page.find('.add_text_codemark').click()
+  page.find('#add_text_codemark').click()
 end
 
 When /^I fill out the text codemarks form$/ do
