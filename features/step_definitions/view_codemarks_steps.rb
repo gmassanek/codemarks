@@ -107,6 +107,7 @@ end
 
 When /^I go to my dashboard$/ do
   visit '/'
+  @current_user = User.last
 end
 
 When /^I go to the public page$/ do
