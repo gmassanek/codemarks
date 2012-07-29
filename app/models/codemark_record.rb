@@ -1,5 +1,5 @@
 class CodemarkRecord < ActiveRecord::Base
-  belongs_to :resource, :class_name => 'LinkRecord'
+  belongs_to :resource, :polymorphic => true
   belongs_to :user
 
   has_many :codemark_topics, :dependent => :destroy
@@ -14,8 +14,6 @@ class CodemarkRecord < ActiveRecord::Base
   scope :by_popularity, joins(:link).order('clicks_count DESC')
   scope :for, lambda { |links| includes(:link).where(['link_id in (?)', links]) }
 
-  delegate :url, :to => :resource
-
   def self.for_user_and_resource(user_id, resource_id)
     where(:user_id => user_id).where(:resource_id => resource_id).first
   end
@@ -25,6 +23,10 @@ class CodemarkRecord < ActiveRecord::Base
   end
 
   def title
-    @title || resource.try(:title)
+    super || resource.title
+  end
+
+  def url
+    resource.url if resource_type == 'LinkRecord'
   end
 end

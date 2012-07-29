@@ -5,22 +5,17 @@ describe CodemarksController do
     before do
       @params = {
         :type => 'text',
-        :resource => {
-          'text' => 'I think I should write one about this topic',
-        },
-        :codemark => {
-          'title' => 'Blog post idea',
-        },
-        :saver_id => 1
+        :saver_id => 1,
+        :resource => { 'text' => 'I think I should write one about this topic', },
+        :codemark => { 'title' => 'Blog post idea' }
       }
     end
 
     it 'creates a resource' do
-      #Resource.should_receive(:create!).and_return(mock(:id => 5))
       post 'codemarks', {:format => :js}.merge(@params)
     end
 
-
+    it 'passes back save failures'
 
     xit 'does not break with perfect input' do
       @resource = Fabricate(:link_record)

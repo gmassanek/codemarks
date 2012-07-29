@@ -10,6 +10,21 @@ describe CodemarkRecord do
     end
   end
 
+  describe 'resource' do
+    xit 'can be a TextRecord' do
+      text_record = TextRecord.new(:text => 'hello')
+      codemark = Fabricate.attributes_for(:codemark_record, :resource => text_record)
+      codemark.resource.should == text_record
+    end
+
+    xit 'can be a LinkRecord' do
+      link_record = LinkRecord.new
+      link_record.stub(:id => 88)
+      codemark = Fabricate.attributes_for(:codemark_record, :resource => link_record)
+      codemark.resource.should == link_record
+    end
+  end
+
   describe '#resource_author' do
     it 'is the author of its resource' do
       codemark = Fabricate.build(:codemark_record)
@@ -92,4 +107,5 @@ describe CodemarkRecord do
     codemark_record = Fabricate(:codemark_record, :user => user)
     CodemarkRecord.for_user_and_resource(user.id, codemark_record.resource.id).should == codemark_record
   end
+
 end

@@ -18,10 +18,6 @@ class PresentCodemarks
   def self.present(codemark, current_user = nil)
     {
       :id => codemark.id,
-      :title => {
-        content: codemark.title,
-        href: codemark.resource.url
-      },
       :save_date => "about #{time_ago(codemark.created_at)} ago",
       :author => present_author(codemark.user),
       :show_comments => "Comments (#{codemark.comments.size})",
@@ -35,16 +31,37 @@ class PresentCodemarks
       :actions => actions(mine?(codemark, current_user)),
       :comments => present_comments(codemark.comments),
       :topics => present_topics(codemark.topics),
-      :resource => present_resource(codemark.resource)
+      :resource => present_resource(codemark)
     }
   end
 
-  def self.present_resource(resource)
+  def self.present_resource(codemark)
+    resource = codemark.resource
     return unless resource # should never happen!
+    case resource.resource_type 
+    when 'text'
+      resource_data = present_text_record(codemark, resource)
+    when 'link'
+      resource_data = present_link_record(codemark, resource)
+    end
     {
       :id => resource.id,
+      :type => resource.resource_type,
+    }.merge!(resource_data)
+  end
+
+  def self.present_link_record(codemark, resource)
+    {
       :host => resource.host,
-      :url => resource.url
+      :url => resource.url,
+      :title => {:content=>codemark.title, :href=>resource.url}
+    }
+  end
+
+  def self.present_text_record(codemark, resource)
+    {
+      :text => resource.text,
+      :title => codemark.title
     }
   end
 
@@ -120,11 +137,12 @@ class PresentCodemarks
     message_length = tags.size + sign_off.size + 40
     title_length = 140 - message_length
     title = codemark.title
-    if title.length > title_length
+    if title && title.length > title_length
       title = title[0, title_length] + '...'
     end
 
-    text = %!#{title} - #{codemark.url} #{tags} #{sign_off}!
+    url = codemark.url if codemark.resource_type == 'LinkRecord'
+    text = %!#{title} - #{url} #{tags} #{sign_off}!
     #url_encode_text(text)
     text
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120729040931) do
+ActiveRecord::Schema.define(:version => 20120729202502) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -39,11 +39,12 @@ ActiveRecord::Schema.define(:version => 20120729040931) do
     t.integer  "resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "archived",    :default => false
+    t.boolean  "archived",      :default => false
     t.text     "note"
     t.text     "title"
     t.tsvector "search"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",       :default => false
+    t.string   "resource_type"
   end
 
   add_index "codemark_records", ["search"], :name => "codemarks_search_index"
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120729040931) do
     t.string   "host"
     t.text     "site_data"
     t.integer  "author_id"
+    t.string   "resource_type",   :default => "link"
   end
 
   add_index "link_records", ["url"], :name => "index_link_records_on_url"
@@ -86,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20120729040931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id"
+    t.string   "resource_type", :default => "text"
   end
 
   create_table "topics", :force => true do |t|

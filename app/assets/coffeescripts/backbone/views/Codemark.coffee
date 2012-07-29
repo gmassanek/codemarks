@@ -15,7 +15,8 @@ App.Views.Codemark = Backbone.View.extend
     @$el.append(@toHTML())
 
   toHTML: ->
-    template = angelo('codemark.html')
+    console.log @model.attributes
+    template = angelo("#{@model.get('resource').type}_codemark.html")
     facile(template, @model.attributes)
 
   navigateToAuthor: (e) ->

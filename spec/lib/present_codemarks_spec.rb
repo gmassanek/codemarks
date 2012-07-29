@@ -5,7 +5,8 @@ describe PresentCodemarks do
   let(:avatar_url) { 'http://localhost:3000/images/avatar.png' }
   let(:topic) { mock(
     id: 11,
-    title: 'Rspec'
+    title: 'Rspec',
+    slug: 'rspec'
   )}
   let(:topics) { [topic, topic] }
   let(:author) { mock(
@@ -17,10 +18,16 @@ describe PresentCodemarks do
     author: author,
     save_date: Date.new
   )}
-  let(:resource) { mock(
+  let(:link) { mock(
     id: 200,
     host: 'www.github.com',
-    url: 'www.github.com/gmassanek'
+    url: 'www.github.com/gmassanek',
+    resource_type: 'link'
+  )}
+  let(:text_record) { mock(
+    id: 201,
+    text: 'A brilliant idea',
+    resource_type: 'text'
   )}
   let(:comment) { mock(
     author: author
@@ -30,7 +37,7 @@ describe PresentCodemarks do
     id: 1,
     title: 'The Best Resource Ever',
     topics: topics,
-    resource: resource,
+    resource: link,
     created_at: Time.now,
     user: author,
     comments: comments
@@ -54,16 +61,13 @@ describe PresentCodemarks do
 
   describe '#present(codemark)' do
     it 'the codemark presents its attributes' do
-      PresentCodemarks.stub(:present_resource) { resource }
-      PresentCodemarks.stub(:present_topics) { topics }
-      PresentCodemarks.stub(:present_author) { author }
       PresentCodemarks.stub(:tweet_link) { 'some crazy link' }
 
       cm = PresentCodemarks.present(codemark, author)
       cm[:id].should == 1
-      cm[:title].should == {
+      cm[:resource][:title].should == {
         content: 'The Best Resource Ever',
-        href: resource.url
+        href: link.url
       }
       cm[:twitter_share].should_not be_nil
       cm[:show_comments].should == 'Comments (1)'
@@ -74,18 +78,45 @@ describe PresentCodemarks do
         :content => ''
       }
       cm[:actions].should == { :copy => nil }
-      cm[:author].should == author
-      cm[:topics].should == topics
-      cm[:resource].should == resource
+      cm[:author].should == {:name=>"tim-timothy", :avatar=>{:content=>"", :src=>"http://localhost:3000/images/avatar.png"}}
+      cm[:topics].should == [{:id=>11, :topic_title=>{:content=>"Rspec", :href=>"/topics/1"}}, {:id=>11, :topic_title=>{:content=>"Rspec", :href=>"/topics/1"}}]
+      cm[:resource].should == {:id=>200, :type=>"link", :host=>"www.github.com", :url=>"www.github.com/gmassanek", :title=>{:content=>"The Best Resource Ever", :href=>"www.github.com/gmassanek"}}
     end
   end
 
   describe '#present_resource' do
-    it 'presents everything' do
-      data = PresentCodemarks.present_resource(resource)
-      data[:id].should == resource.id
-      data[:host].should == resource.host
-      data[:url].should == resource.url
+    it 'presents a text_record' do
+      codemark.stub(:resource => text_record)
+      PresentCodemarks.should_receive(:present_text_record).with(codemark, text_record).and_return({})
+      data = PresentCodemarks.present_resource(codemark)
+    end
+
+    it 'presents a link_record' do
+      PresentCodemarks.should_receive(:present_link_record).with(codemark, link).and_return({})
+      data = PresentCodemarks.present_resource(codemark)
+    end
+
+    it 'presents the id and title' do
+      PresentCodemarks.stub(:present_link_record) { {} }
+      data = PresentCodemarks.present_resource(codemark)
+      data[:id].should == link.id
+      data[:type].should == 'link'
+    end
+  end
+
+  describe '#present_topic_record' do
+    it 'presents text' do
+      codemark.stub(:resource => text_record)
+      data = PresentCodemarks.present_resource(codemark)
+      data[:text].should == text_record.text
+    end
+  end
+
+  describe '#present_link_record' do
+    it 'presents text' do
+      data = PresentCodemarks.present_resource(codemark)
+      data[:host].should == link.host
+      data[:url].should == link.url
     end
   end
 

@@ -6,10 +6,12 @@ window.Codemarks.Header =
     @setupTextCodemarkLink()
 
   setupTextCodemarkLink: ->
-    $('#header').delegate '#add_text_codemark', 'click', => @prepareTextCodemarkForm()
+    $('#header').delegate '#add_text_codemark', 'click', (e) =>
+      e.preventDefault()
+      @prepareTextCodemarkForm()
 
   prepareTextCodemarkForm: ->
-    $.ajax(
+    $.ajax
       url: "/codemark_forms/text"
       data:
         saver: USER_ID
@@ -17,8 +19,7 @@ window.Codemarks.Header =
       error: ->
         console.log 'help'
       success: (response) ->
-        $('body').append($(response))
-    )
+        $('body').append(response)
 
 $ ->
   window.USER_ID ||= undefined
