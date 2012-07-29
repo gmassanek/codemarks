@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711062940) do
+ActiveRecord::Schema.define(:version => 20120729040931) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -81,6 +81,13 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
 
   add_index "link_records", ["url"], :name => "index_link_records_on_url"
 
+  create_table "text_records", :force => true do |t|
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "author_id"
+  end
+
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -108,15 +115,4 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
-  execute <<-SQL
-  CREATE TRIGGER codemarks_search_update
-  BEFORE INSERT OR UPDATE ON codemark_records
-  FOR EACH ROW EXECUTE PROCEDURE
-    tsvector_update_trigger(search,
-                            'pg_catalog.english',
-                            title,
-                            note);
-  SQL
-
-  execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note);"
 end

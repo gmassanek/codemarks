@@ -17,12 +17,12 @@ def new
     }
 
     if params[:type] == 'text'
-      attributes[:resource_id] = Resource::Text.create!(params[:resource], params[:saver_id]).id
-      p attributee
+      resource = TextRecord.create!(params[:resource].merge(author_id: params[:saver_id]))
+      attributes[:resource_id] = resource.id
+      attributes[:user_id] = params[:saver_id]
     end
 
     @codemark = Codemark.create(attributes, topic_info)
-    p @codemark
 
     respond_to do |format|
       format.html { redirect_to :back, :notice => 'Thanks!' }

@@ -10,7 +10,9 @@ window.Codemarks.Header =
 
   prepareTextCodemarkForm: ->
     $.ajax(
-      url: "/codemark_forms/text?saver=#{USER_ID}"
+      url: "/codemark_forms/text"
+      data:
+        saver: USER_ID
       dataType: 'html'
       error: ->
         console.log 'help'

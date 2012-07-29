@@ -7,11 +7,11 @@ describe CodemarksController do
         :type => 'text',
         :resource => {
           'text' => 'I think I should write one about this topic',
-          :saver_id => 1
         },
         :codemark => {
           'title' => 'Blog post idea',
-        }
+        },
+        :saver_id => 1
       }
     end
 

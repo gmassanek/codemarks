@@ -7,4 +7,8 @@ class Resource::Text < Resource
     super
   end
 
+  def self.create!(attrs)
+
+    resource_type_class.create!(attrs)
+  end
 end
