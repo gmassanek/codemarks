@@ -14,6 +14,17 @@ describe CodemarksController do
     it 'creates a resource' do
       post 'codemarks', {:format => :js}.merge(@params)
     end
+  end
+
+  context 'link codemarks' do
+    before do
+      @params = {
+        :type => 'text',
+        :saver_id => 1,
+        :resource => { 'url' => 'I think I should write one about this topic' },
+        :codemark => { 'title' => 'Blog post idea' }
+      }
+    end
 
     it 'passes back save failures'
 
