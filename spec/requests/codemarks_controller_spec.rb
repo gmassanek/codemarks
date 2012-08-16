@@ -12,7 +12,7 @@ describe CodemarksController do
     end
 
     it 'creates a resource' do
-      post 'codemarks', {:format => :js}.merge(@params)
+      post 'codemarks', {:format => :json}.merge(@params)
     end
   end
 

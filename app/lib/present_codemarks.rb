@@ -81,6 +81,7 @@ class PresentCodemarks
   end
 
   def self.present_author(author)
+    return unless author
     {
       :name => author.nickname,
       :avatar => {
@@ -131,6 +132,7 @@ class PresentCodemarks
 
   def self.tweet_text(codemark)
     return unless codemark.resource # should never happen!
+    return unless codemark.user
     author = codemark.user.nickname
     tags = codemark_short_tag_list(codemark)
     sign_off = "via @#{author} @codemarks"

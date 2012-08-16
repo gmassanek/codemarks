@@ -26,12 +26,15 @@ App.MainRouter = Backbone.Router.extend
     @setActiveNav('topic')
 
   user: (username, params) ->
-    App.codemarks ||= new App.Collections.Codemarks
-    App.codemarks.filters.username = username
-    @clearFilters()
+
+    console.log 'hi'
+
+    filters =
+      username: username
+
     if params
       params = params.split('=')
-      App.codemarks.filters[params[0]] = params[1]
+      filters[params[0]] = params[1]
       selected = 'your_topic'
     else
       if CURRENT_USER? && CURRENT_USER == username
@@ -39,8 +42,37 @@ App.MainRouter = Backbone.Router.extend
       else
         selected = 'theirs'
 
-    App.codemarks.flush(@showCodemarkList)
-    @setActiveNav(selected)
+    filters = _.extend(@defaults, filters)
+
+    $html = $('')
+    $html.load('/codemarks.html')
+    #url: @url
+    #data: filters
+
+    console.log $html
+
+  defaults:
+    by: 'date'
+
+  url: 'codemarks'
+
+
+    #App.codemarks ||= new App.Collections.Codemarks
+    #console.log App.codemarks
+    #App.codemarks.filters.username = username
+    #@clearFilters()
+    #if params
+    #  params = params.split('=')
+    #  App.codemarks.filters[params[0]] = params[1]
+    #  selected = 'your_topic'
+    #else
+    #  if CURRENT_USER? && CURRENT_USER == username
+    #    selected = 'yours'
+    #  else
+    #    selected = 'theirs'
+
+    #App.codemarks.flush(@showCodemarkList)
+    #@setActiveNav(selected)
 
   clearFilters: ->
     delete App.codemarks.filters.topic_id

@@ -26,11 +26,12 @@ def new
     PresentCodemarks.present(@codemark, current_user)
     
     respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Thanks!' }
+      format.html { redirect_to :index, :notice => 'Thanks!' }
       format.json { render :json => {:codemark => PresentCodemarks.present(@codemark, current_user)} }
     end
   rescue Exception => ex
     p ex
+    puts ex.backtrace.first(5).join("\n")
   end
 
   def index
@@ -38,20 +39,22 @@ def new
     @user ||= User.find_by_id(params[:user])
 
     @topic = Topic.find(params[:topic_id]) if params[:topic_id]
+
+
+    search_attributes = {}
+    search_attributes[:page] = params[:page] if params[:page]
+    search_attributes[:by] = params[:by] if params[:by]
+    search_attributes[:current_user] = current_user
+    search_attributes[:user] = @user if @user
+    search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
+    @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
     respond_to do |format|
       format.html do
         render 'codemarks/index', :layout => 'backbone'
       end
 
       format.json do
-        search_attributes = {}
-        search_attributes[:page] = params[:page] if params[:page]
-        search_attributes[:by] = params[:by] if params[:by]
-        search_attributes[:current_user] = current_user
-        search_attributes[:user] = @user if @user
-        search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
-        @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks, current_user)
+        render :json => @codemarks
       end
     end
   end

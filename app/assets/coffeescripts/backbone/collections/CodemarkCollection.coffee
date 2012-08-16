@@ -12,7 +12,7 @@ App.Collections.Codemarks = Backbone.Collection.extend
     response = $.ajax
       url: @url
       data: @filters
-      dataType: 'json'
+      dataType: 'html'
       success: (response) =>
         @setAttributes(response, success)
 
