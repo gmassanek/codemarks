@@ -5,10 +5,6 @@ When /^I fill out the form with Twitter$/ do
   wait_until { find('#codemark_title').visible? }
 end
 
-When /^I submit the form$/ do
-  page.click_button('fetch')
-end
-
 Given /^I add the 'private' tag$/ do
   Fabricate(:topic, :title => 'private')
   page.fill_in('link_form_topic_autocomplete', :with => 'private')

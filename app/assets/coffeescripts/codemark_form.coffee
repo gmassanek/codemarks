@@ -8,8 +8,7 @@ window.CodemarkForm =
           existingCheckbox = $("#topic_chb_#{newTopic}")
           existingCheckbox = $(".title:contains('#{newTopic}')") if existingCheckbox.length == 0
           if(existingCheckbox.length == 0)
-            newListItem = CodemarkForm.buildTopicListItem(newTopic)
-            $("#topic_tags").append(newListItem)
+            CodemarkForm.insertNewTopicItem(newTopic)
           else
             existingCheckbox.closest('li').effect('highlight', {}, 2000)
 
@@ -22,6 +21,10 @@ window.CodemarkForm =
     listItem.append("<div class='title'>#{newTopic}</div>")
     listItem.append("<div class='delete'><a href='#'>X</a></div>")
     listItem.append("<div class='clear'></div>")
+
+  insertNewTopicItem: (newTopic) ->
+    newListItem = CodemarkForm.buildTopicListItem(newTopic)
+    $("#topic_tags").append(newListItem)
 
   prepareDeletes: ->
     $('#topic_tags').delegate '.delete', 'click', (event) ->

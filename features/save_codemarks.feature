@@ -8,6 +8,7 @@ Feature: Saving Codemarks
     Given I am a logged in user
     When I go to my dashboard
     And I fill out the codemark form with Twitter
+    And I submit the form
     Then I should see "Twitter"
     And that codemark should have a note
     And I should be Twitter's author
@@ -52,3 +53,12 @@ Feature: Saving Codemarks
     Given gmassanek is a user with a codemark
     When I go to the public page
     Then I should not see "steal"
+
+  @javascript @omniauth_test_success
+  Scenario: Creating a new topic on save
+    Given I am a logged in user
+    When I go to my dashboard
+    And I fill out the codemark form with Twitter
+    And I add a tweets as a new topic
+    And I submit the form
+    Then I should see "tweets"

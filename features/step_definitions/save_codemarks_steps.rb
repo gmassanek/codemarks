@@ -5,7 +5,6 @@ When /^I fill out the codemark form with Twitter$/ do
   Capybara.default_wait_time = 10
   wait_until { find('#codemark_title').visible? }
   page.fill_in('codemark_note', :with => 'I should use this for codemarks')
-  page.click_button('fetch')
 end
 
 When /^I submit the codemark form$/ do
@@ -26,6 +25,10 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button("fetch")
   wait_until { find('#codemark_title').visible? }
   page.click_button("fetch")
+end
+
+When /^I add a tweets as a new topic$/ do
+  page.evaluate_script("CodemarkForm.insertNewTopicItem('tweets')")
 end
 
 Given /^tom_brady has codemarked Twitter$/ do

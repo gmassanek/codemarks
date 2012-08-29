@@ -16,6 +16,10 @@ When /^I click "([^"]*)"$/ do |arg1|
   page.click_link_or_button(arg1)
 end
 
+When /^I submit the form$/ do
+  page.click_button('fetch')
+end
+
 When /^I copy that codemark/ do
   page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
   find('.copy').click()
