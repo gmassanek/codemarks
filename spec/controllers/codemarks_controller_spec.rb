@@ -1,6 +1,33 @@
 require 'spec_helper'
 
 describe CodemarksController do
+
+  ##=======     Receiver    =======###
+  describe "#index" do
+    it "calls FindCodemarks" do
+      codemarks = []
+      codemarks.stub(:num_pages)
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.should_receive(:new).and_return(finder)
+      get :index, :format => :json
+    end
+
+    it "it assigns codemarks" do
+      Fabricate(:codemark_record)
+      get :index, :format => :json
+      assigns[:codemarks].should_not be_nil
+    end
+
+    it "it presents codemarks" do
+      codemarks = []
+      PresentCodemarks.stub!(:for => codemarks)
+      get :index, :format => :json
+      assigns[:codemarks].should == codemarks
+    end
+  end
+  ##=======     Receiver    =======###
+
+
   describe "new" do
     let(:valid_url) { "http://www.example.com" }
 
@@ -19,34 +46,22 @@ describe CodemarksController do
   end
 
   describe "#create" do
-    it "creates a codemark" do
-      codemark = {
-        'resource' =>  {}
+    it 'does not break with perfect input' do
+      @resource = Fabricate(:link_record)
+      @attributes = {
+        :resource_id => @resource.id
       }
-      tags = {}
-      user = stub
-      controller.stub!(:current_user => user)
+      @params = {
+        :codemark => @attributes
+      }
+      topics = [Fabricate(:topic), Fabricate(:topic)]
+      @topic_info = { }
+      topics.each { |t| @topic_info[t.id] = [t.id] }
+      user = stub(:id => 11)
+      controller.stub!(:current_user_id => user.id)
 
-      Codemark.should_receive(:create).with(codemark, codemark['resource'], [], user, :new_topic_titles => nil)
-      @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
-      post :create, :format => :js, :codemark => codemark, :tags => tags
-    end
-  end
-
-  describe "#public" do
-    it "calls FindCodemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.should_receive(:new).and_return(finder)
-      get :public
-    end
-
-    it "it assigns codemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.stub!(:new => finder)
-      get :public
-      assigns[:codemarks].should == codemarks
+      @topic_ids = { 'woo' => 'woo'}
+      post :create, :format => :js, :codemark => @attributes, :topic_info => @topic_info, :topic_ids => @topic_ids
     end
   end
 end

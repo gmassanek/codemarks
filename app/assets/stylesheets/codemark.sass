@@ -15,12 +15,13 @@ $dark_faded: rgb(140, 138, 138)
 @mixin proud_text
   color: $dark_faded
 
-#codemarks, .pagination
+.codemarks
   background: $background
   border: 1px solid $dark_border
   @include border-radius(5px)
 
-  .codemark, .page, .first, .last
+  .codemark
+    position: relative
     padding: 10px 10px
     border-bottom: 1px solid $dark_border
     border-top: 1px solid rgb(252, 252, 252)
@@ -38,11 +39,21 @@ $dark_faded: rgb(140, 138, 138)
       @include border-bottom-right-radius(5px)
       border-bottom: none
 
+    .topics
+      margin-top: 10px
+      float: right
+
+      .topic_title
+        &:after
+          content: " | "
+        &:last-child:after
+          content: ""
+
     .corner
       float: right
       border-top: 25px solid rgba($orange, 0.2)
       border-left: 25px solid transparent
-      margin-top: -11px
+      margin-top: -30px
       margin-right: -10px
       &:first-child
         @include border-top-left-radius(5px)
@@ -51,14 +62,16 @@ $dark_faded: rgb(140, 138, 138)
         border-top: 25px solid rgba(254, 60, 60, 0.7)
 
     h3
-      margin-right: 175px
       a
         font-size: 16px
         &:hover
           color: $orange
 
     .actions
-      float: right
+      position: absolute
+      top: 0
+      right: 30px
+      padding: 5px
       a
         display: none
         float: right
@@ -119,19 +132,12 @@ $dark_faded: rgb(140, 138, 138)
       margin-right: 10px
       color: $light_faded
 
-    #topics_tags
-      margin-top: 10px
-      float: right
-      li
-        display: inline-block
-        &:after
-          content: " | "
-        &:last-child:after
-          content: ""
-
     .note
       margin-top: 5px
       display: inline-block
+
+    .author:hover
+      cursor: pointer
 
     .comments
       display: none
@@ -151,30 +157,21 @@ $dark_faded: rgb(140, 138, 138)
         width: 80%
         height: 35px
 
-#pagination
-  margin: 0 auto
-  clear: both
-  text-align: center
-
 .pagination
-  display: inline-block
-  margin-top: 10px
-  padding-top: 5px
-  padding-bottom: 5px
-  text-align: left
   @include border-radius(3px)
-  .page, .first, .last
-    @include border-radius(3px)
-    padding-top: 5px
-    padding-bottom: 5px
-    border-bottom: none
-    min-width: 30px
-    &:first-child
-      @include border-bottom-right-radius(0)
-      @include border-top-right-radius(0)
-    &:last-child
-      @include border-bottom-left-radius(0)
-      @include border-top-left-radius(0)
-      
-  .current
-    background: $background-hover
+  text-align: center
+  ol.pages
+    li
+      display: inline
+      a.page
+        @include border-radius(3px)
+        &:first-child
+          @include border-bottom-right-radius(0)
+          @include border-top-right-radius(0)
+        &:last-child
+          @include border-bottom-left-radius(0)
+          @include border-top-left-radius(0)
+
+
+        .current
+          background: $background-hover

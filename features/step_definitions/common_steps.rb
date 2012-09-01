@@ -16,14 +16,18 @@ When /^I click "([^"]*)"$/ do |arg1|
   page.click_link_or_button(arg1)
 end
 
+When /^I submit the form$/ do
+  page.click_button('fetch')
+end
+
 When /^I copy that codemark/ do
   page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
-  find('.copy_codemark').click()
+  find('.copy').click()
 end
 
 When /^I click the edit icon/ do
   page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
-  find('.edit_codemark').click()
+  find('.edit').click()
 end
 
 When /^I wait until all Ajax requests are complete$/ do

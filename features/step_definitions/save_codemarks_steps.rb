@@ -5,7 +5,6 @@ When /^I fill out the codemark form with Twitter$/ do
   Capybara.default_wait_time = 10
   wait_until { find('#codemark_title').visible? }
   page.fill_in('codemark_note', :with => 'I should use this for codemarks')
-  page.click_button('fetch')
 end
 
 When /^I submit the codemark form$/ do
@@ -28,10 +27,14 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button("fetch")
 end
 
+When /^I add a tweets as a new topic$/ do
+  page.evaluate_script("CodemarkForm.insertNewTopicItem('tweets')")
+end
+
 Given /^tom_brady has codemarked Twitter$/ do
   @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
   twitter = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.twitter.com')
-  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :link_record => twitter)
+  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :resource => twitter)
 end
 
 Then /^tom_brady should still be Twitter's author$/ do

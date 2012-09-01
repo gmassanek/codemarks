@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2'
 gem 'jquery-rails'
-gem 'haml'
 gem 'decent_exposure'
 gem 'friendly_id', "~> 4.0.0.beta14"
 gem 'bcrypt-ruby'
@@ -17,6 +16,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-github', "~> 1.0.1"
 gem 'therubyracer'
 gem 'newrelic_rpm'
+gem 'haml'
 gem 'pg'
 gem 'browser'
 gem 'bourbon'
@@ -27,6 +27,9 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara'
+  gem 'jasmine', '~> 1.2.0'
+  gem 'watchr'
+  gem 'foreman'
 end
 
 group :test do

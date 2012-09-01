@@ -3,6 +3,7 @@
 //= require jquery-ui-1.8.16.custom.min.js
 //= require jquery.qtip-1.0.0-rc3.min
 //= require autocomplete-rails
+//= require codemark_form
 
 TOPICS_PATH = '/topics/'
 

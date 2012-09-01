@@ -1,6 +1,9 @@
-%li.nav{:class => active_page_class(paths)}
+- extras = {}
+- extras[:class] = klass if klass
+- extras[:"data-#{data_type}"] = data if data_type
+- extras[:"data-user"] = user.nickname if user
+%li.nav
   .nav_info
   .text
-    = link_to text, target
-    - if @codemarks
-      .count (#{@codemarks.total_count})
+    = link_to text, '#', extras
+    .count
