@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if current_user
       @user = current_user
       Authenticator.add_authentication_to_user @user, params[:provider], auth_hash
-      flash[:notice] = "Successfully authentication"
+      flash[:notice] = "Successfully authenticated"
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
       cookies.permanent.signed[:remember_token] = @user.id
