@@ -12,8 +12,8 @@ def new
     attributes[:user_id] = current_user_id
 
     topic_info = {
-      :ids => params[:topic_info].try(:keys),
-      :new_titles => params[:topic_ids].try(:keys)
+      :ids => params[:topic_ids].try(:keys),
+      :new_topics => params[:new_topics].try(:keys)
     }
 
     @codemark = Codemark.create(attributes, topic_info)

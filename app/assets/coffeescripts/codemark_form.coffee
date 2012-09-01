@@ -18,7 +18,7 @@ window.CodemarkForm =
 
   buildTopicListItem: (newTopic) ->
     listItem = $("<li class='alert-message warning'></li>")
-    listItem.append("<input checked='checked' id='topic_chb_#{newTopic}' name='topic_ids[#{newTopic}]' type='hidden' value='#{newTopic}'>")
+    listItem.append("<input checked='checked' id='topic_chb_#{newTopic}' name='new_topics[#{newTopic}]' type='hidden' value='#{newTopic}'>")
     listItem.append("<div class='title'>#{newTopic}</div>")
     listItem.append("<div class='delete'><a href='#'>X</a></div>")
     listItem.append("<div class='clear'></div>")

@@ -141,7 +141,7 @@ class Codemark
 
   def self.build_topics(topic_info)
     topic_ids = topic_info[:ids] || []
-    new_titles = topic_info[:new_topic_titles]
+    new_titles = topic_info[:new_topics]
     return topic_ids if new_titles.nil?
     new_titles.each do |title|
       topic_ids << create_topic(title)
