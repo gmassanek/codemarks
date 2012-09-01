@@ -46,23 +46,34 @@ describe CodemarksController do
   end
 
   describe "#create" do
-    it 'does not break with perfect input' do
+    before do
+      @user = Fabricate(:user)
+      controller.stub(:current_user_id => @user.id)
       @resource = Fabricate(:link_record)
-      @attributes = {
-        :resource_id => @resource.id
-      }
-      @params = {
-        :codemark => @attributes
-      }
-      topics = [Fabricate(:topic), Fabricate(:topic)]
-      @topic_info = { }
-      topics.each { |t| @topic_info[t.id] = [t.id] }
-      user = stub(:id => 11)
-      controller.stub!(:current_user_id => user.id)
+      @link = Fabricate(:link_record)
+      @topics = [Fabricate(:topic), Fabricate(:topic)]
 
-      @topic_ids = { 'woo' => 'woo'}
-      post :create, :format => :js, :codemark => @attributes, :topic_info => @topic_info, :topic_ids => @topic_ids
+      @params = { "codemark"=> {"title"=>"jQuery Knob demo", "note"=>"", "resource_id" => @link.id},
+        "user_id" => @user.id,
+        "commit"=>"Add Link",
+        "topic_ids"=>{"#{@topics.first.id}"=>"#{@topics.first.id}"},
+        "new_topics"=>{"A New Topic"=>"A New Topic"}
+      }
     end
+
+    it 'creates a codemark' do
+      expect {
+        post :create, @params.merge(:format => :js)
+      }.to change(CodemarkRecord, :count).by 1
+    end
+
+    it 'creates a topic' do
+      expect {
+        post :create, @params.merge(:format => :js)
+      }.to change(Topic, :count).by 1
+    end
+
+    it 
   end
 end
 

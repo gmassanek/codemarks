@@ -24,6 +24,7 @@ def new
     end
   rescue Exception => e
     p e
+    puts e.backtrace.first(10).join("\n")
   end
 
   def index
