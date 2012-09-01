@@ -45,7 +45,7 @@ App.Views.Codemark = Backbone.View.extend
     opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
     tweet_text = $link.attr('data-tweet-text')
     referer = 'url=""'
-    via = '&via=jbeiber @codemarks'
+    via = "&via=#{@model.get('author').name} @codemarks"
     text = '&text=' + tweet_text
     url = url + '?' + referer + via + text
     window.open(url, 'twitter', opts)
