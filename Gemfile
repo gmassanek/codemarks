@@ -30,6 +30,7 @@ group :development, :test do
   gem 'jasmine', '~> 1.2.0'
   gem 'watchr'
   gem 'foreman'
+  gem 'pry'
 end
 
 group :test do
