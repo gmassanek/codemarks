@@ -58,7 +58,7 @@ class PresentCodemarks
       :id => topic.id,
       :topic_title => {
         :content => topic.title,
-        :href => topic_path(topic.id)
+        :href => topic_path(topic.slug)
       }
     }
   end
