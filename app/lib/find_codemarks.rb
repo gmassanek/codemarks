@@ -20,6 +20,7 @@ class FindCodemarks
 
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
+    subq = filter_codemarks_project_out(subq)
 
     query = CodemarkRecord.scoped
     query = query.select('"codemark_records".*, save_count, visit_count')
@@ -29,6 +30,7 @@ class FindCodemarks
 
     query = query.where("summary.rk = 1")
     query = query.where(['private = ? OR (private = ? AND user_id = ?)', false, true, @current_user_id])
+
     query = full_text_searchify(query) if @search_term
 
     if @topic
@@ -51,6 +53,17 @@ class FindCodemarks
   private
   def partition_string
     'PARTITION BY "codemark_records".resource_id ORDER BY "codemark_records".created_at DESC'
+  end
+
+  def filter_codemarks_project_out(query)
+    allowed_users = User.find(:all, :conditions => {:nickname => ['gmassanek', 'GravelGallery']})
+    unless allowed_users.map(&:id).include?(@current_user_id)
+      topic = Topic.find_by_title('codemarks')
+      if topic && topic.codemark_records.present?
+        query = query.where(['"codemark_records".id not in (?)', topic.codemark_records.map(&:id) ])
+      end
+    end
+    query
   end
 
   def count_query
