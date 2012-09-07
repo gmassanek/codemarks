@@ -5,7 +5,8 @@ describe PresentCodemarks do
   let(:avatar_url) { 'http://localhost:3000/images/avatar.png' }
   let(:topic) { mock(
     id: 11,
-    title: 'Rspec'
+    title: 'Rspec',
+    slug: 'rspec'
   )}
   let(:topics) { [topic, topic] }
   let(:author) { mock(
@@ -38,7 +39,7 @@ describe PresentCodemarks do
 
   before do
     PresentCodemarks.stub(:codemark_path) { '/codemark/1' }
-    PresentCodemarks.stub(:topic_path) { '/topics/1' }
+    PresentCodemarks.stub(:topic_path) { '/topics/rspec' }
     PresentCodemarks.stub(:time_ago) { '2 hours' }
   end
 
@@ -94,7 +95,7 @@ describe PresentCodemarks do
       data = PresentCodemarks.present_topic(topic)
       data[:id].should == topic.id
       data[:topic_title][:content].should == topic.title
-      data[:topic_title][:href].should_not be_nil # should actually assert the value
+      data[:topic_title][:href].should include topic.slug # should actually assert the value
     end
   end
 
