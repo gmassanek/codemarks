@@ -47,7 +47,17 @@ Feature: Saving Codemarks
     And I copy that codemark
     Then I should see the data for that codemark in the codemark form
 
+  @javascript
   Scenario: Can't steal if not logged in
     Given gmassanek is a user with a codemark
     When I go to the public page
     Then I should not see "steal"
+
+  @javascript @omniauth_test_success
+  Scenario: Saving a text codemark
+    Given I am a logged in user
+    When I go to my dashboard
+    And I click to add text codemark
+    And I fill out the text codemarks form
+    And I submit it
+    Then I should see that text codemark

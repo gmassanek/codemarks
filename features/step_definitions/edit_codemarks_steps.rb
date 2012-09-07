@@ -17,7 +17,7 @@ end
 
 When /^I click the edit image/ do
   page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
-  page.find('.edit_codemark').click()
+  page.find('.edit').click()
 end
 
 When /^I click the delete image/ do

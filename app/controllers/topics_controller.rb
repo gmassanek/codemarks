@@ -27,21 +27,24 @@ class TopicsController < ApplicationController
   end
 
   def show
-    if params[:user_id].present?
-      @user = User.find_by_slug(params[:user_id])
-      @user ||= User.find_by_id(params[:user_id])
-    end
-
     @topic = Topic.find params[:id]
+    @user = current_user
+    respond_to do |format|
+      format.html do
+        render 'codemarks/index', :layout => 'backbone'
+      end
 
-    search_attributes = {}
-    search_attributes[:topic] = @topic
-    search_attributes[:page] = params[:page] if params[:page]
-    search_attributes[:user] = @user if @user
-    search_attributes[:current_user] = current_user
-    search_attributes[:by] = params[:by] if params[:by]
-
-    @codemarks = FindCodemarks.new(search_attributes).codemarks
+      format.json do
+        search_attributes = {}
+        search_attributes[:topic] = @topic
+        search_attributes[:page] = params[:page] if params[:page]
+        search_attributes[:user] = @user if @user
+        search_attributes[:current_user] = current_user
+        search_attributes[:by] = params[:by] if params[:by]
+        @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
+        render :json => PresentCodemarks.for(@codemarks, current_user)
+      end
+    end
   end
 
   def index

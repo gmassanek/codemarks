@@ -1,6 +1,5 @@
 class CodemarksController < ApplicationController
-
-  def new
+def new
     options = {}
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
@@ -9,33 +8,55 @@ class CodemarksController < ApplicationController
   end
 
   def create
-    topic_ids = params[:tags].keys.collect(&:to_i) if params[:tags]
-    topic_ids ||= []
+    attributes = params[:codemark]
+    attributes[:user_id] = current_user_id
 
-    new_topic_titles = params[:topic_ids].keys if params[:topic_ids] 
+    topic_info = {
+      :ids => params[:topic_info].try(:keys),
+      :new_titles => params[:topic_ids].try(:keys)
+    }
 
-    @codemark = Codemark.create(params[:codemark],
-                                params[:codemark][:resource],
-                                topic_ids, 
-                                current_user, 
-                                :new_topic_titles => new_topic_titles)
-
-    respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Thanks!' }
-      format.js { render :text => '', :status => :ok }
+    if params[:type] == 'text'
+      resource_params = params[:resource].merge(author_id: params[:saver_id])
+      attributes[:resource] = TextRecord.create!(resource_params)
+      attributes[:user_id] = params[:saver_id]
     end
-  rescue Exception => e
-    p e
+
+    @codemark = Codemark.create(attributes, topic_info)
+    PresentCodemarks.present(@codemark, current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to :index, :notice => 'Thanks!' }
+      format.json { render :json => {:codemark => PresentCodemarks.present(@codemark, current_user)} }
+    end
+  rescue Exception => ex
+    p ex
+    puts ex.backtrace.first(5).join("\n")
   end
 
-  def public
+  def index
+    @user = User.find_by_slug(params[:username])
+    @user ||= User.find_by_id(params[:user])
+
+    @topic = Topic.find(params[:topic_id]) if params[:topic_id]
+
+
     search_attributes = {}
     search_attributes[:page] = params[:page] if params[:page]
     search_attributes[:by] = params[:by] if params[:by]
     search_attributes[:current_user] = current_user
-    @codemarks = FindCodemarks.new(search_attributes).codemarks
+    search_attributes[:user] = @user if @user
+    search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
+    @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
+    respond_to do |format|
+      format.html do
+        render 'codemarks/index', :layout => 'backbone'
+      end
 
-    render 'users/dashboard'
+      format.json do
+        render :json => @codemarks
+      end
+    end
   end
 
   def search

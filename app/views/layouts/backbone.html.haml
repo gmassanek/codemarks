@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title Codemarks
+    = csrf_meta_tags
+    %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
+    = stylesheet_link_tag    'application'
+
+    - if logged_in?
+      %script
+        :plain
+          window.CURRENT_USER = "#{current_user.nickname}"
+
+    = javascript_include_tag 'application'
+    = javascript_include_tag 'backbone_app'
+
+    = yield :header
+
+    - if ENV['RAILS_ENV']=='production'
+      = javascript_include_tag 'google_analytics'
+      = javascript_include_tag 'uservoice'
+
+  %body
+    = render '/layouts/header'
+    .site_content
+      = render '/layouts/sidebar'
+      .content
+        = render '/layouts/flash', :flash => flash
+
+        = yield
+    = render 'layouts/footer'

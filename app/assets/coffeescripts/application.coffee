@@ -3,10 +3,12 @@
 //= require jquery-ui-1.8.16.custom.min.js
 //= require jquery.qtip-1.0.0-rc3.min
 //= require autocomplete-rails
+//= require codemark_form
+//= require header
 
 TOPICS_PATH = '/topics/'
 
-window.Codemarks =
+$.extend window.Codemarks,
   prepareAutocompletes: ->
     $('input[data-autocomplete]').railsAutocomplete()
 
