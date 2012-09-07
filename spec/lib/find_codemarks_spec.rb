@@ -45,6 +45,32 @@ describe FindCodemarks do
         codemarks  = FindCodemarks.new.codemarks
         codemarks.first.resource_author.should == @user
       end
+
+      it 'only shows codemarks tagged "codemarks" to gmassanek and GravelGallery' do
+        gmassanek = Fabricate(:user, :nickname => 'gmassanek')
+        gravelGallery = Fabricate(:user, :nickname => 'GravelGallery')
+        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+        cm = Fabricate(:codemark_record, :topics => [codemarks_topic])
+
+        FindCodemarks.new.codemarks.should_not include cm
+        FindCodemarks.new(:current_user => @user).codemarks.should_not include cm
+        FindCodemarks.new(:current_user => gmassanek).codemarks.should include cm
+        FindCodemarks.new(:current_user => gravelGallery).codemarks.should include cm
+      end
+
+      it 'shows old codemarks that I have marked with codemarks, just with other others' do
+        cm = Fabricate(:codemark_record)
+        gmassanek = Fabricate(:user, :nickname => 'gmassanek')
+        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+        cm2 = Fabricate(:codemark_record, :resource => cm.resource, :user => gmassanek, :topics => [codemarks_topic])
+        FindCodemarks.new.codemarks.should include cm
+      end
+
+      it 'works if there are no codemarks tagged codemarks' do
+        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+        cm = Fabricate(:codemark_record)
+        FindCodemarks.new.codemarks.should include cm
+      end
     end
 
     context "for a user" do
