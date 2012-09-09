@@ -25,6 +25,6 @@ class CodemarkRecord < ActiveRecord::Base
   end
 
   def title
-    @title || resource.try(:title)
+    attributes[:title] || resource.try(:title)
   end
 end
