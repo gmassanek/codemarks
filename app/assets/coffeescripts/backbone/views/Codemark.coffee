@@ -8,19 +8,66 @@ App.Views.Codemark = Backbone.View.extend
     'click .corner.delete': 'deleteCodemark'
     'click .twitter_share': 'twitterShare'
     'click .edit': 'copyToForm'
-    'click .copy': 'copyToForm'
     'click .author': 'navigateToAuthor'
+    'click .topic': 'navigateToTopic'
 
   render: ->
     @$el.append(@toHTML())
+    @$('.timeago').timeago()
 
   toHTML: ->
     template = angelo('codemark.html')
-    facile(template, @model.attributes)
+    facile(template, @presentedAttributes())
+
+  presentedAttributes: ->
+    resource = @model.get('resource')
+    title:
+      content: @model.get('title'),
+      href: resource.url,
+    host: resource.host,
+    edit:
+      content: @editText()
+    save_date:
+      content: ''
+      class: 'timeago'
+      title: @model.get('created_at')
+    twitter_share:
+      content: 'Tweet'
+      href: 'http://twitter.com/share'
+    author:
+      name: @model.get('author').nickname
+    topics: @presentTopics()
+    corner: @presentCorner()
+
+  editText: ->
+    if @mine() then 'Edit' else 'Save'
+
+  mine: ->
+    @model.get('author').nickname == CURRENT_USER
+
+  tweetText: ->
+    escape(@model.get('title')) + " #{@model.get('resource').url}"
+
+  presentTopics: ->
+    $.map @model.get('topics'), (topic) ->
+      topic:
+        content: topic.title
+        href: ''
+        'data-slug': topic.slug
+
+  presentCorner: ->
+    if @mine()
+      content: ''
+      class: 'delete'
 
   navigateToAuthor: (e) ->
     e.preventDefault()
-    App.router.navigate(@model.get('author').name, {trigger: true})
+    App.router.navigate(@model.get('author').nickname, {trigger: true})
+
+  navigateToTopic: (e) ->
+    e.preventDefault()
+    slug = $(e.currentTarget).data('slug')
+    App.router.navigate("topics/#{slug}", {trigger: true})
 
   deleteCodemark: (e) ->
     e.preventDefault()
@@ -43,10 +90,9 @@ App.Views.Codemark = Backbone.View.extend
     top    = ($(window).height() - height) / 2
     url    = $link.attr('href')
     opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
-    tweet_text = $link.attr('data-tweet-text')
     referer = 'url=""'
-    via = "&via=#{@model.get('author').name} @codemarks"
-    text = '&text=' + tweet_text
+    via = "&via=#{@model.get('author').nickname} on @codemarks"
+    text = '&text=' + @tweetText()
     url = url + '?' + referer + via + text
     window.open(url, 'twitter', opts)
 
