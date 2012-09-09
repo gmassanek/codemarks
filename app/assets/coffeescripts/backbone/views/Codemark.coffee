@@ -10,6 +10,7 @@ App.Views.Codemark = Backbone.View.extend
     'click .edit': 'copyToForm'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
+    'click .title': 'recordClick'
 
   render: ->
     @$el.append(@toHTML())
@@ -47,6 +48,12 @@ App.Views.Codemark = Backbone.View.extend
 
   tweetText: ->
     escape(@model.get('title')) + " #{@model.get('resource').url}"
+
+  recordClick: (e) ->
+    url = "/links/#{@model.get('resource').id}/click "
+    $.post(url)
+    $(e.currentTarget).unbind('click')
+
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
