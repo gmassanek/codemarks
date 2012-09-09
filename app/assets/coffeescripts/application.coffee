@@ -21,13 +21,6 @@ window.Codemarks =
           request.setRequestHeader("Accept", "text/javascript")
     )
 
-  prepareCodemarks: ->
-    $(".codemark_link").click (event) ->
-      codemark = $(event.target).closest("li")
-      url = codemark.find('#click_url').val()
-      $.post(url)
-      $(event.target).unbind('click')
-
 $ ->
   $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
     redirect = $("#_topic_slug").val()
@@ -41,5 +34,4 @@ $ ->
     event.preventDefault()
   )
     
-  Codemarks.prepareCodemarks()
   Codemarks.prepareAutocompletes()
