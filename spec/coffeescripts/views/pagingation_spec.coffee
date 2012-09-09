@@ -2,7 +2,6 @@ describe 'Pagination', ->
   describe '#render', ->
     it 'returns unefined if not given a collection', ->
       @pagination = new App.Views.Pagination
-      @pagination = new App.Views.Pagination
       expect(@pagination.render()).toBeUndefined()
 
   describe 'toHtml', ->
