@@ -5,10 +5,15 @@ class LinkRecord < ActiveRecord::Base
   has_many :clicks
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
 
-  validates_presence_of :url, :host, :title
+  before_validation :default_title
+  validates_presence_of :url, :host
 
   def orphan?
     author_id.blank?
+  end
+
+  def default_title
+    self.title ||= ''
   end
 
   def update_author(author_id = nil)
