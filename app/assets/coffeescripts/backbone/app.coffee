@@ -1,3 +1,4 @@
+window.CURRENT_USER ||= null
 window.App =
   Views: {}
   Collections: {}
