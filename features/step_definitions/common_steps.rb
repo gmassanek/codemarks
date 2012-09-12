@@ -18,7 +18,7 @@ end
 
 When /^I copy that codemark/ do
   page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
-  find('.copy').click()
+  find('.edit').click()
 end
 
 When /^I click the edit icon/ do
