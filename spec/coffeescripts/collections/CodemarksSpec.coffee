@@ -1,8 +1,6 @@
 describe 'CodemarkCollection', ->
-  it 'defaults url to /codemarks', ->
-    coll = new App.Collections.Codemarks
-    expect(coll.url).toBe('/codemarks')
+  beforeEach ->
+    @codemarks = new App.Collections.Codemarks
 
-  it 'accepts a different url', ->
-    coll = new App.Collections.Codemarks('/public')
-    expect(coll.url).toBe('/public')
+  it 'defaults url to /codemarks', ->
+    expect(@codemarks.url).toBe('/codemarks')

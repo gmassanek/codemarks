@@ -8,27 +8,29 @@ App.MainRouter = Backbone.Router.extend
 
   public: (params) ->
     App.codemarks ||= new App.Collections.Codemarks
-    @clearFilters()
-    delete App.codemarks.filters.username
+    App.codemarks.filters.clearUsers()
+    App.codemarks.filters.clearTopics()
 
     if params
       params = params.split('=')
       App.codemarks.filters[params[0]] = params[1]
 
-    App.codemarks.flush(@showCodemarkList)
+    @showCodemarkList()
+    App.codemarks.fetch()
     @setActiveNav('public')
 
-  topic: (params) ->
+  topic: (topicId) ->
     App.codemarks ||= new App.Collections.Codemarks
-    delete App.codemarks.filters.username
-    App.codemarks.filters.topic_id = params
-    App.codemarks.flush(@showCodemarkList)
+    App.codemarks.filters.clearUsers()
+    App.codemarks.filters.setTopic(topicId)
+    @showCodemarkList()
+    App.codemarks.fetch()
     @setActiveNav('topic')
 
   user: (username, params) ->
     App.codemarks ||= new App.Collections.Codemarks
-    App.codemarks.filters.username = username
-    @clearFilters()
+    App.codemarks.filters.addUser(username)
+    App.codemarks.filters.clearTopics()
     if params
       params = params.split('=')
       App.codemarks.filters[params[0]] = params[1]
@@ -39,19 +41,16 @@ App.MainRouter = Backbone.Router.extend
       else
         selected = 'theirs'
 
-    App.codemarks.flush(@showCodemarkList)
+    @showCodemarkList()
+    App.codemarks.fetch()
     @setActiveNav(selected)
 
-  clearFilters: ->
-    delete App.codemarks.filters.topic_id
-    delete App.codemarks.filters.page
-
   showCodemarkList: ->
-    codemarkList = new App.Views.CodemarkList
-      collection: App.codemarks
-    codemarkList.render()
-    $('#main_content').html(codemarkList.$el)
-    App.router.setActiveSort()
+    $ ->
+      codemarkList = new App.Views.CodemarkList
+        el: $('#main_content')
+      $('.content').html(codemarkList.$el)
+      App.router.setActiveSort()
 
   setActiveSort: ($activeSortLink) ->
     unless $activeSortLink

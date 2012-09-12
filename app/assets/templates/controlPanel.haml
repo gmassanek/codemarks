@@ -1,0 +1,23 @@
+/ BEGIN: Control Panel Template.
+
+.sidebar
+  %input#yours{:type => 'checkbox'}
+  %label{:for => 'yours'} View only your codemarks
+  %ul
+    %h3 Users
+    %li.users
+      .user
+
+    %h3 Topics
+    %li.topics
+      .topic
+
+    %h3 Sort by
+    %li.sort
+      %a.date{:href=>''} date
+    %li.sort
+      %a.count{:href=>''} count
+    %li.sort
+      %a.visits{:href=>''} visits
+
+/ END: Control Panel Template.

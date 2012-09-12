@@ -2,8 +2,6 @@ App.Views.Codemark = Backbone.View.extend
   className: 'codemark'
   tagName: 'section'
 
-  initialize: ->
-
   events:
     'click .corner.delete': 'deleteCodemark'
     'click .twitter_share': 'twitterShare'
