@@ -10,11 +10,6 @@ $ ->
     if query
       window.location = "/codemarks/search/#{query}"
 
-  $('.yours').click (e) ->
-    e.preventDefault()
-    username = $(e.currentTarget).attr('data-user')
-    App.router.navigate(username, {trigger: true})
-
   $('.theirs').click (e) ->
     e.preventDefault()
     username = $(e.currentTarget).attr('data-user')

@@ -6,8 +6,6 @@
 //= require autocomplete-rails
 //= require codemark_form
 
-TOPICS_PATH = '/topics/'
-
 window.Codemarks =
   prepareAutocompletes: ->
     $('input[data-autocomplete]').railsAutocomplete()
@@ -23,8 +21,8 @@ window.Codemarks =
 
 $ ->
   $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
-    redirect = $("#_topic_slug").val()
-    window.location = TOPICS_PATH + redirect
+    slug = $("#_topic_slug").val()
+    App.router.navigate("topics/#{slug}", {trigger: true})
   )
     
   $(".flash").delay(2500).fadeOut(1000)
