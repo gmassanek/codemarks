@@ -5,9 +5,9 @@ describe 'Pagination', ->
       expect(@pagination.render()).toBeUndefined()
 
   describe 'toHtml', ->
-    beforeEach ->
-      @pagination = new App.Views.Pagination
-      @$html = $(@pagination.toHtml())
-
     it 'has a pagination wrapper', ->
-      expect(@$html.find('.pagination').length).toBe(1)
+      @pagination = new App.Views.Pagination
+        collection: new Backbone.Collection
+          pagination: {total_pages: 2}
+      @pagination.render()
+      expect(@pagination.$el.filter('.pagination').length).toBe(1)
