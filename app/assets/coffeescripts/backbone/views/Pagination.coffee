@@ -4,8 +4,11 @@ App.Views.Pagination = Backbone.View.extend
   events:
     'click .page': 'pageClick'
 
+  initialize: ->
+    @collection = @options.collection
+
   render: ->
-    return unless @collection.pagination
+    return unless @collection && @collection.pagination
     @pagination = @collection.pagination
     @$el.append(@toHtml())
 
