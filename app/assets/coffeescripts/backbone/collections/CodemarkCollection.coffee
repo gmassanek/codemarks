@@ -1,25 +1,17 @@
 App.Collections.Codemarks = Backbone.Collection.extend
   model: App.Models.Codemark
+  url: '/codemarks'
 
-  initialize: (filters)->
-    @url = '/codemarks'
-    @filters = _.extend(@defaults, filters)
+  initialize: ->
+    @filters = new App.Models.Filters
 
   defaults:
     by: 'date'
+    users: []
 
-  flush: (success) ->
-    response = $.ajax
-      url: @url
-      data: @filters
-      dataType: 'json'
-      success: (response) =>
-        @setAttributes(response, success)
+  fetch: ->
+    Backbone.Collection.prototype.fetch.call(this, data: @filters.data())
 
-  setAttributes: (response, success) ->
-    success ||= App.router.showCodemarkList
+  parse: (response) ->
     @pagination = response.pagination
-    @models = []
-    _.each response.codemarks, (codemark) =>
-      @models.push(new Backbone.Model(codemark))
-    success?()
+    response.codemarks

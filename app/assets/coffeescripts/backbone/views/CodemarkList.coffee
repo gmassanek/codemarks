@@ -1,18 +1,22 @@
 App.Views.CodemarkList = Backbone.View.extend
-  className: 'codemarks'
+  initialize: ->
+    App.codemarks.bind 'reset', => @render()
 
   render: ->
-    @toHTML()
-    @$el.append(@paginationHTML())
+    @$el.append(@codemarks())
 
-  toHTML: ->
-    for codemark in @collection.models
+  codemarks: ->
+    $codemarks = $('<div class="codemarks"></div>')
+    for codemark in App.codemarks.models
       codemarkView = new App.Views.Codemark
         model: codemark
       codemarkView.render()
-      @$el.append(codemarkView.$el)
+      $codemarks.append(codemarkView.$el)
+    $codemarks.append(@pagination())
+    $codemarks
 
-  paginationHTML: ->
+  pagination: ->
     codemarkView = new App.Views.Pagination
       collection: App.codemarks
     codemarkView.render()
+    codemarkView.$el
