@@ -22,7 +22,7 @@ Codemarks::Application.routes.draw do
 
   # API endpoint
   get '/public', to: 'codemarks#index', :as => :public_codemarks
-  get '/:username', :to => 'codemarks#index', :as => "short_user"
+  get '/:username', :to => 'users#show', :as => "short_user"
 
   resources :comments, :only => [:create, :destroy]
   resources :topics
@@ -43,7 +43,7 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :users, :only => [:show, :update]
+  resources :users, :only => [:update]
   get '/:id/account', to: "users#account", as: :account
   get '/:id/account/edit', to: "users#edit", as: :edit_account
 
