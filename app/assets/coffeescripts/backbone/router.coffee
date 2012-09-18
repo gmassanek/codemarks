@@ -1,19 +1,19 @@
 App.MainRouter = Backbone.Router.extend
   routes:
-    'public': 'public'
-    'public?:params': 'public'
-    'topics/:id': 'topic'
-    ':query?:params': 'user'
-    ':query': 'user'
+    'codemarks': 'codemarks'
+    'codemarks?:params': 'codemarks'
 
-  public: (params) ->
+  codemarks: (params) ->
     App.codemarks ||= new App.Collections.Codemarks
     App.codemarks.filters.clearUsers()
     App.codemarks.filters.clearTopics()
 
     if params
       params = params.split('=')
-      App.codemarks.filters[params[0]] = params[1]
+      if params[0] == 'topic_id'
+        App.codemarks.filters.setTopic(params[1])
+      else if params[0] == 'user'
+        App.codemarks.filters.setUser(params[1])
 
     @showCodemarkList()
     App.codemarks.fetch()
