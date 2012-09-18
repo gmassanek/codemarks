@@ -6,3 +6,4 @@ tmp/
 .sass-cache/
 config/database.yml
 spec/javascripts/**/*.js
+public/templates/*.html
