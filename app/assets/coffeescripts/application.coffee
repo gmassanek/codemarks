@@ -20,9 +20,11 @@ window.Codemarks =
     )
 
 $ ->
-  $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
+  $('#_topic_autocomplete').bind('railsAutocomplete.select', (e) ->
     slug = $("#_topic_slug").val()
-    App.router.navigate("topics/#{slug}", {trigger: true})
+    App.codemarks.filters.setTopic(slug)
+    App.codemarks.fetch()
+    $(e.currentTarget).val('')
   )
     
   $(".flash").delay(2500).fadeOut(1000)
