@@ -11,10 +11,6 @@ App.Collections.Codemarks = Backbone.Collection.extend
     query = $.param(@filters.data())
     _gaq.push(['_trackPageview', "/codemarks?#{query}"])
 
-  defaults:
-    by: 'date'
-    users: []
-
   fetch: ->
     Backbone.Collection.prototype.fetch.call(this, data: @filters.data())
 
