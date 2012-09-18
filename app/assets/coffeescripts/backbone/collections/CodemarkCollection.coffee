@@ -4,6 +4,12 @@ App.Collections.Codemarks = Backbone.Collection.extend
 
   initialize: ->
     @filters = new App.Models.Filters
+    @bind 'all', @trackPageview
+
+  trackPageview: ->
+    return unless RAILS_ENV? && RAILS_ENV=='production'
+    query = $.param(@filters.data())
+    _gaq.push(['_trackPageview', "/codemarks?#{query}"])
 
   defaults:
     by: 'date'

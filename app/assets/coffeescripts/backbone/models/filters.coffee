@@ -65,6 +65,7 @@ App.Models.Filters = Backbone.Model.extend
     @addTopic(topic)
 
   data: ->
-    by: @get('sort')
-    username: @username()
-    topic_id: @topicId()
+    data = {by: @get('sort')}
+    data['username'] = @username() if @username()
+    data['topic_id'] = @topicId() if @topicId()
+    data

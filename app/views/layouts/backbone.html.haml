@@ -16,6 +16,9 @@
 
     = yield :header
 
+    :javascript
+      window.RAILS_ENV = "#{ENV['RAILS_ENV']}"
+
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
       = javascript_include_tag 'uservoice'
