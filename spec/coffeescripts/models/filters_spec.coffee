@@ -7,36 +7,23 @@ describe 'Codemark Filters', ->
 
     @filters = new App.Models.Filters
 
-  describe 'have users', ->
-    it 'in a list', ->
-      expect(@filters.get('users')).toBeDefined()
+  describe 'has a user', ->
+    it 'that is empty by default', ->
+      expect(@filters.get('user')).toBeEqualToObject(undefined)
 
-    it 'that are empty by default', ->
-      expect(@filters.get('users')).toBeEqualToObject({})
-
-    it 'that can be added to', ->
-      @filters.addUser('gmassanek')
-      expect(@filters.get('users')['gmassanek']).toBeTruthy()
+    it 'that can be set', ->
+      @filters.setUser('gmassanek')
+      expect(@filters.hasUser('gmassanek')).toBeTruthy()
 
     it 'that can be deleted', ->
       @filters.addUser('gmassanek')
       @filters.removeUser('gmassanek')
-      expect(@filters.get('users')['gmassanek']).toBeUndefined()
+      expect(@filters.hasUser('gmassanek')).toBeFalsy()
 
-    it 'that can be detected', ->
+    it 'that can be cleared', ->
       @filters.addUser('gmassanek')
-      expect(@filters.hasUser('gmassanek')).toBe(true)
-
-    it 'that really are just usernames', ->
       @filters.clearUsers()
-      @filters.addUser('gmassanek')
-      usernames = @filters.usernames()
-      expect(usernames.length).toBe(1)
-      expect(usernames[0]).toBe('gmassanek')
-
-    it 'that can be set', ->
-      @filters.setUser('gmassanek')
-      expect(@filters.get('users')).toBeEqualToObject({'gmassanek':true})
+      expect(@filters.hasUser('gmassanek')).toBeFalsy()
 
   describe 'have topics', ->
     it 'in a list', ->

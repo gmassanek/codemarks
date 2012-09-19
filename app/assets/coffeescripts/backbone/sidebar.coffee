@@ -5,7 +5,7 @@ window.Sidebar.setSort = ->
   $("li.sort a.#{sort}").addClass('active')
 
 window.Sidebar.setFilters = ->
-  user = App.codemarks.filters.username()
+  user = App.codemarks.filters.get('user')
   Sidebar.activateUser(user)
 
   topic = App.codemarks.filters.topicId()
@@ -69,12 +69,20 @@ $ ->
     App.codemarks.filters.setSort($(e.currentTarget).attr('data-by'))
     App.codemarks.fetch()
 
+  $('.reset').click (e) ->
+    e.preventDefault()
+    App.codemarks.filters.reset()
+    App.codemarks.fetch()
+
   App.codemarks.filters.bind 'change:sort', ->
     Sidebar.setSort()
 
-  App.codemarks.filters.bind 'change:users', ->
+  App.codemarks.filters.bind 'change:user', ->
     Sidebar.setFilters()
 
   App.codemarks.filters.bind 'change:topics', ->
     Sidebar.setFilters()
+
+  Sidebar.setSort()
+  Sidebar.setFilters()
 
