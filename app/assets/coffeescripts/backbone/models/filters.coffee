@@ -1,43 +1,51 @@
 App.Models.Filters = Backbone.Model.extend
   initialize: ->
-    @attributes = @defaults
+    saved_filters = JSON.parse($.cookie('filters'))
+    @attributes = @defaults()
+    if saved_filters
+      @setSort(saved_filters.sort)
+      @attributes.topics = saved_filters.topics
+      if saved_filters.user
+        @setUser(saved_filters.user)
 
-  defaults:
-    sort: 'date'
-    users: {}
-    topics: {}
+    $.cookie('filters', null)
+
+  defaults: ->
+    _.extend {},
+      sort: 'date'
+      user: undefined
+      topics: {}
+
+  reset: ->
+    @clearUsers()
+    @clearTopics()
+    @set('sort', @defaults().sort)
 
   setSort: (sortType) ->
     @set('sort', sortType)
 
-  addUser: (username) ->
-    @get('users')[username] = true
-
-  removeUser: (username) ->
-    delete @get('users')[username]
-
-  username: ->
-    for key, _val of @get('users')
-      return key
-
-  usernames: ->
-    keys = []
-    for key, _val of @get('users')
-      keys.push(key)
-    keys
+  setUser: (username) ->
+    @set('user', username)
 
   hasUser: (username) ->
-    $.inArray(username, @usernames()) >= 0
+    @get('user') == username
 
-  setUser: (user) ->
-    @clearTopics()
-    @addUser(user)
+  addUser: (username) ->
+    @setUser(username)
+
+  removeUser: ->
+    @setUser(undefined)
+
+  clearUsers: ->
+    @removeUser()
 
   addTopic: (id) ->
     @get('topics')[id] = true
+    @trigger('change:topics')
 
   removeTopic: (id) ->
     delete @get('topics')[id]
+    @trigger('change:topics')
 
   topicIds: ->
     keys = []
@@ -45,13 +53,8 @@ App.Models.Filters = Backbone.Model.extend
       keys.push(key)
     keys
 
-  clearUsers: ->
-    for key, _val of @get('users')
-      delete @get('users')[key]
-
   clearTopics: ->
-    for key, _val of @get('topics')
-      delete @get('topics')[key]
+    @set('topics', @defaults().topics)
 
   topicId: ->
     for key, _val of @get('topics')
@@ -66,6 +69,6 @@ App.Models.Filters = Backbone.Model.extend
 
   data: ->
     data = {by: @get('sort')}
-    data['username'] = @username() if @username()
+    data['username'] = @get('user') if @get('user')
     data['topic_id'] = @topicId() if @topicId()
     data

@@ -3,7 +3,7 @@ App.Views.CodemarkList = Backbone.View.extend
     App.codemarks.bind 'reset', => @render()
 
   render: ->
-    @$el.append(@codemarks())
+    @$el.html(@codemarks())
 
   codemarks: ->
     $codemarks = $('<div class="codemarks"></div>')
