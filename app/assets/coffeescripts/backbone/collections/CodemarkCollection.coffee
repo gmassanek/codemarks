@@ -8,6 +8,7 @@ App.Collections.Codemarks = Backbone.Collection.extend
 
   trackPageview: ->
     return unless RAILS_ENV? && RAILS_ENV=='production'
+    return if CURRENT_USER == 'gmassanek'
     query = $.param(@filters.data())
     _gaq.push(['_trackPageview', "/codemarks?#{query}"])
 
