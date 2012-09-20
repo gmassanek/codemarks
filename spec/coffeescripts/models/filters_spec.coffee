@@ -8,8 +8,8 @@ describe 'Codemark Filters', ->
     @filters = new App.Models.Filters
 
   describe 'has a currentPage', ->
-    it 'that is empty by default', ->
-      expect(@filters.get('currentPage')).toBe(undefined)
+    it 'that is 1 by default', ->
+      expect(@filters.get('currentPage')).toBe(1)
 
     it 'that can be set', ->
       @filters.setPage(8)
@@ -18,7 +18,7 @@ describe 'Codemark Filters', ->
     it 'that can be cleared', ->
       @filters.setPage(8)
       @filters.clearPage()
-      expect(@filters.get('currentPage')).toBe(undefined)
+      expect(@filters.get('currentPage')).toBe(1)
 
   describe 'has a user', ->
     it 'that is empty by default', ->

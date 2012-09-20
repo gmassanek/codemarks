@@ -1,5 +1,5 @@
 class FindCodemarks
-  PAGE_SIZE = 25
+  PAGE_SIZE = 20
 
   def initialize(options = {})
     options.each do |key, val|
