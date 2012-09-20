@@ -1,5 +1,8 @@
 App.Models.Filters = Backbone.Model.extend
   initialize: ->
+    @bind 'change:user', @clearPage
+    @bind 'change:topics', @clearPage
+
     saved_filters = JSON.parse($.cookie('filters'))
     @attributes = @defaults()
     if saved_filters
@@ -15,12 +18,14 @@ App.Models.Filters = Backbone.Model.extend
   defaults: ->
     _.extend {},
       sort: 'date'
+      currentPage: 1
       user: undefined
       topics: {}
 
   reset: ->
     @clearUsers()
     @clearTopics()
+    @clearPage()
     @set('sort', @defaults().sort)
 
   setSort: (sortType) ->
@@ -73,11 +78,11 @@ App.Models.Filters = Backbone.Model.extend
     @set('currentPage', page)
 
   clearPage: ->
-    @set('currentPage', undefined)
+    @set('currentPage', @defaults().currentPage)
 
   data: ->
     data = {by: @get('sort')}
     data['username'] = @get('user') if @get('user')
     data['topic_id'] = @topicId() if @topicId()
-    data['page'] = @get('currentPage') if @get('currentPage')
+    data['page'] = @get('currentPage')
     data

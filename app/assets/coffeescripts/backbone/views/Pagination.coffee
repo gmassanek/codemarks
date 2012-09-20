@@ -6,7 +6,7 @@ App.Views.Pagination = Backbone.View.extend
 
   initialize: ->
     @collection = @options.collection
-    @currentPage = @collection.filters.get('currentPage')
+    @currentPage = @collection?.filters?.get('currentPage')
 
   render: ->
     return unless @collection && @collection.pagination
