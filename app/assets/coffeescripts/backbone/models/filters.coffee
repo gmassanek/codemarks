@@ -7,6 +7,8 @@ App.Models.Filters = Backbone.Model.extend
       @attributes.topics = saved_filters.topics
       if saved_filters.user
         @setUser(saved_filters.user)
+      if saved_filters.currentPage
+        @setPage(saved_filters.currentPage)
 
     $.cookie('filters', null)
 
@@ -67,8 +69,15 @@ App.Models.Filters = Backbone.Model.extend
     @clearTopics()
     @addTopic(topic)
 
+  setPage: (page) ->
+    @set('currentPage', page)
+
+  clearPage: ->
+    @set('currentPage', undefined)
+
   data: ->
     data = {by: @get('sort')}
     data['username'] = @get('user') if @get('user')
     data['topic_id'] = @topicId() if @topicId()
+    data['page'] = @get('currentPage') if @get('currentPage')
     data
