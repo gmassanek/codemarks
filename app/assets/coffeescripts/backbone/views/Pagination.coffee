@@ -29,3 +29,4 @@ App.Views.Pagination = Backbone.View.extend
     $pageLink = $(e.currentTarget)
     @collection.filters.setPage($pageLink.text())
     @collection.fetch()
+    $("html, body").animate({ scrollTop: '0px'}, 200)
