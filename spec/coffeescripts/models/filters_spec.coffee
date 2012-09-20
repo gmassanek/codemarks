@@ -7,6 +7,19 @@ describe 'Codemark Filters', ->
 
     @filters = new App.Models.Filters
 
+  describe 'has a currentPage', ->
+    it 'that is empty by default', ->
+      expect(@filters.get('currentPage')).toBe(undefined)
+
+    it 'that can be set', ->
+      @filters.setPage(8)
+      expect(@filters.get('currentPage')).toBe(8)
+
+    it 'that can be cleared', ->
+      @filters.setPage(8)
+      @filters.clearPage()
+      expect(@filters.get('currentPage')).toBe(undefined)
+
   describe 'has a user', ->
     it 'that is empty by default', ->
       expect(@filters.get('user')).toBeEqualToObject(undefined)
@@ -59,3 +72,11 @@ describe 'Codemark Filters', ->
         
   describe 'can turn into query data',  ->
     it 'just does', ->
+      @filters.setUser('gmassanek')
+      @filters.addTopic('rspec')
+      @filters.setPage(8)
+      expect(@filters.data()).toBeEqualToObject
+        by: 'date'
+        username: 'gmassanek'
+        topic_id: 'rspec'
+        page: 8
