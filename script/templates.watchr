@@ -31,6 +31,6 @@ def compile_templates(md = nil)
   end
 end
 
-watch('app/assets/templates/(.*)\.haml') { |md|compile_templates(md) }
+watch('app/assets/templates/(.*)\.haml') { `bundle exec rake assets:compile_templates` }
 
-compile_templates
+`bundle exec rake assets:compile_templates`
