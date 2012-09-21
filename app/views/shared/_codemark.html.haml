@@ -1,4 +1,4 @@
-- link = codemark.link_record
+- link = codemark.resource
 - author = codemark.resource_author || codemark.user
 - name = author.get(:nickname) || author.get(:name)
 - other_count = codemark.save_count.to_i-1
@@ -19,7 +19,7 @@
           = link_to 'Save', '', :class => 'copy_codemark'
       = link_to 'Share', 'http://twitter.com/share', :class => 'twitter_popup', :'data-tweet-text' => tweet_text(codemark)
     %h3
-      = link_to codemark.title || codemark.link_record.title, link.url, :target => :blank, :class => 'codemark_link'
+      = link_to codemark.title || codemark.resource.title, link.url, :target => :blank, :class => 'codemark_link'
       .host= link.host
 
     - if mine && codemark.note.present?

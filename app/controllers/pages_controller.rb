@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   autocomplete :topic, :title, :full => true, :extra_data => [:slug]
 
   def landing
-    redirect_to short_user_path(current_user) if logged_in?
+    redirect_to codemarks_path if logged_in?
     @codemarks = FindCodemarks.new(:current_user => current_user).codemarks
   end
 

@@ -31,7 +31,7 @@ end
 Given /^tom_brady has codemarked Twitter$/ do
   @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
   twitter = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.twitter.com')
-  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :link_record => twitter)
+  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :resource => twitter)
 end
 
 Then /^tom_brady should still be Twitter's author$/ do
