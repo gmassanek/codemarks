@@ -1,34 +1,32 @@
 App.MainRouter = Backbone.Router.extend
   routes:
-    'public': 'public'
-    'public?:params': 'public'
-    'topics/:id': 'topic'
-    ':query?:params': 'user'
-    ':query': 'user'
+    'codemarks': 'codemarks'
+    'codemarks?:params': 'codemarks'
 
-  public: (params) ->
+  codemarks: (params) ->
     App.codemarks ||= new App.Collections.Codemarks
-    @clearFilters()
-    delete App.codemarks.filters.username
 
     if params
       params = params.split('=')
-      App.codemarks.filters[params[0]] = params[1]
+      if params[0] == 'topic_id'
+        App.codemarks.filters.setTopic(params[1])
+      else if params[0] == 'user'
+        App.codemarks.filters.setUser(params[1])
 
-    App.codemarks.flush(@showCodemarkList)
-    @setActiveNav('public')
+    @showCodemarkList()
+    App.codemarks.fetch()
 
-  topic: (params) ->
+  topic: (topicId) ->
     App.codemarks ||= new App.Collections.Codemarks
-    delete App.codemarks.filters.username
-    App.codemarks.filters.topic_id = params
-    App.codemarks.flush(@showCodemarkList)
-    @setActiveNav('topic')
+    App.codemarks.filters.clearUsers()
+    App.codemarks.filters.setTopic(topicId)
+    @showCodemarkList()
+    App.codemarks.fetch()
 
   user: (username, params) ->
     App.codemarks ||= new App.Collections.Codemarks
-    App.codemarks.filters.username = username
-    @clearFilters()
+    App.codemarks.filters.addUser(username)
+    App.codemarks.filters.clearTopics()
     if params
       params = params.split('=')
       App.codemarks.filters[params[0]] = params[1]
@@ -39,30 +37,17 @@ App.MainRouter = Backbone.Router.extend
       else
         selected = 'theirs'
 
-    App.codemarks.flush(@showCodemarkList)
-    @setActiveNav(selected)
-
-  clearFilters: ->
-    delete App.codemarks.filters.topic_id
-    delete App.codemarks.filters.page
+    @showCodemarkList()
+    App.codemarks.fetch()
 
   showCodemarkList: ->
-    codemarkList = new App.Views.CodemarkList
-      collection: App.codemarks
-    codemarkList.render()
-    $('#main_content').html(codemarkList.$el)
-    App.router.setActiveSort()
+    $ ->
+      codemarkList = new App.Views.CodemarkList
+        el: $('#main_content')
+      $('.content').html(codemarkList.$el)
 
-  setActiveSort: ($activeSortLink) ->
-    unless $activeSortLink
-      activeSort = App.codemarks.filters.by
-      $activeSortLink = $("li.sort a[data-by=#{activeSort}]")
-    $('li.sort a').removeClass('active')
-    $activeSortLink.addClass('active')
-
-  setActiveNav: (klass) ->
-    $('.nav').removeClass('active')
-    setTimeout ->
-      $(".nav a.#{klass}").closest('.nav').addClass('active')
-    , 5
-
+      $(window).bind 'beforeunload', (e) ->
+        filterData = App.codemarks.filters.attributes
+        filterCookieVal = JSON.stringify(filterData)
+        $.cookie('filters', filterCookieVal)
+        return

@@ -27,24 +27,8 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find params[:id]
-    @user = current_user
-    respond_to do |format|
-      format.html do
-        render 'codemarks/index', :layout => 'backbone'
-      end
-
-      format.json do
-        search_attributes = {}
-        search_attributes[:topic] = @topic
-        search_attributes[:page] = params[:page] if params[:page]
-        search_attributes[:user] = @user if @user
-        search_attributes[:current_user] = current_user
-        search_attributes[:by] = params[:by] if params[:by]
-        @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks, current_user)
-      end
-    end
+    cookies[:filters] = {:topic_id => params[:id]}.to_json
+    redirect_to codemarks_path
   end
 
   def index

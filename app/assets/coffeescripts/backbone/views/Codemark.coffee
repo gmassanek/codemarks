@@ -2,8 +2,6 @@ App.Views.Codemark = Backbone.View.extend
   className: 'codemark'
   tagName: 'section'
 
-  initialize: ->
-
   events:
     'click .corner.delete': 'deleteCodemark'
     'click .twitter_share': 'twitterShare'
@@ -69,12 +67,14 @@ App.Views.Codemark = Backbone.View.extend
 
   navigateToAuthor: (e) ->
     e.preventDefault()
-    App.router.navigate(@model.get('author').nickname, {trigger: true})
+    App.codemarks.filters.setUser(@model.get('author').nickname)
+    App.codemarks.fetch()
 
   navigateToTopic: (e) ->
     e.preventDefault()
     slug = $(e.currentTarget).data('slug')
-    App.router.navigate("topics/#{slug}", {trigger: true})
+    App.codemarks.filters.setTopic(slug)
+    App.codemarks.fetch()
 
   deleteCodemark: (e) ->
     e.preventDefault()
