@@ -4,17 +4,17 @@ App.Models.Filters = Backbone.Model.extend
     @bind 'change:topics', @clearPage
     @reset()
 
-    saved_filters = JSON.parse($.cookie('filters'))
-    @attributes = @defaults()
-    if saved_filters
+    @loadFromCookie()
+
+  loadFromCookie: ->
+    if saved_filters = JSON.parse($.cookie('filters'))
       @setSort(saved_filters.sort)
       @attributes.topics = saved_filters.topics
       if saved_filters.user
         @setUser(saved_filters.user)
       if saved_filters.currentPage
         @setPage(saved_filters.currentPage)
-
-    $.cookie('filters', null)
+      $.cookie('filters', null)
 
   defaults: ->
     _.extend {},
