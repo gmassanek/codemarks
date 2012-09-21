@@ -27,7 +27,8 @@ class TopicsController < ApplicationController
   end
 
   def show
-    redirect_to codemarks_path(:topic_id => params[:id])
+    cookies[:filters] = {:topic_id => params[:id]}.to_json
+    redirect_to codemarks_path
   end
 
   def index
