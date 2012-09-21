@@ -1,25 +1,20 @@
 App.Collections.Codemarks = Backbone.Collection.extend
   model: App.Models.Codemark
+  url: '/codemarks'
 
-  initialize: (filters)->
-    @url = '/codemarks'
-    @filters = _.extend(@defaults, filters)
+  initialize: ->
+    @filters = new App.Models.Filters
+    @bind 'all', @trackPageview
 
-  defaults:
-    by: 'date'
+  trackPageview: ->
+    return unless RAILS_ENV? && RAILS_ENV=='production'
+    return if CURRENT_USER == 'gmassanek'
+    query = $.param(@filters.data())
+    _gaq.push(['_trackPageview', "/codemarks?#{query}"])
 
-  flush: (success) ->
-    response = $.ajax
-      url: @url
-      data: @filters
-      dataType: 'json'
-      success: (response) =>
-        @setAttributes(response, success)
+  fetch: ->
+    Backbone.Collection.prototype.fetch.call(this, data: @filters.data())
 
-  setAttributes: (response, success) ->
-    success ||= App.router.showCodemarkList
+  parse: (response) ->
     @pagination = response.pagination
-    @models = []
-    _.each response.codemarks, (codemark) =>
-      @models.push(new Backbone.Model(codemark))
-    success?()
+    response.codemarks
