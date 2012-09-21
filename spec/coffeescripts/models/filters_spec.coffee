@@ -69,6 +69,15 @@ describe 'Codemark Filters', ->
     it 'that can be change', ->
       expect(@filters.setSort('count'))
       expect(@filters.get('sort')).toBe('count')
+
+  describe 'reset', ->
+    it 're-established the defaults', ->
+      @filters.setUser('gmassanek')
+      @filters.addTopic('rspec')
+      @filters.setPage(8)
+      @filters.setSort('hooplah')
+      @filters.reset()
+      expect(@filters.attributes).toBeEqualToObject(@filters.defaults())
         
   describe 'can turn into query data',  ->
     it 'just does', ->

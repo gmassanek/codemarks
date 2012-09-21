@@ -2,6 +2,7 @@ App.Models.Filters = Backbone.Model.extend
   initialize: ->
     @bind 'change:user', @clearPage
     @bind 'change:topics', @clearPage
+    @reset()
 
     saved_filters = JSON.parse($.cookie('filters'))
     @attributes = @defaults()
@@ -23,10 +24,8 @@ App.Models.Filters = Backbone.Model.extend
       topics: {}
 
   reset: ->
-    @clearUsers()
-    @clearTopics()
-    @clearPage()
-    @set('sort', @defaults().sort)
+    @attributes = @defaults()
+    @trigger('change:topics')
 
   setSort: (sortType) ->
     @set('sort', sortType)
