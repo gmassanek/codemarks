@@ -1,16 +1,6 @@
-= javascript_include_tag 'sidebar'
-
 .sidebar
+  = link_to 'Reset', '#', :class => 'reset'
   %ul
-    - if logged_in?
-      %li.user_info
-        - user = current_user || @user
-        .image
-          - if user.get(:image).present?
-            - image = image_tag user.get(:image)
-            = link_to image, short_user_path(user)
-        .name
-          = user.nickname
     - if @topic
       %h3 By topic
       = render '/layouts/nav_link', :text => @topic.title, :klass => 'topic', :data_type => 'topic-id', :data => @topic.id, :user => @user

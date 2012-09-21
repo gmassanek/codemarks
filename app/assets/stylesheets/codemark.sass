@@ -18,6 +18,7 @@ $dark_faded: rgb(140, 138, 138)
 .codemarks
   background: $background
   border: 1px solid $dark_border
+  overflow: hidden
   @include border-radius(5px)
 
   .codemark
@@ -158,12 +159,14 @@ $dark_faded: rgb(140, 138, 138)
         height: 35px
 
 .pagination
+  padding: 5px
   @include border-radius(3px)
   text-align: center
   ol.pages
     li
       display: inline
       a.page
+        padding: 5px
         @include border-radius(3px)
         &:first-child
           @include border-bottom-right-radius(0)
@@ -172,6 +175,7 @@ $dark_faded: rgb(140, 138, 138)
           @include border-bottom-left-radius(0)
           @include border-top-left-radius(0)
 
+        &.current
+          text-decoration: underline
+          color: $orange
 
-        .current
-          background: $background-hover

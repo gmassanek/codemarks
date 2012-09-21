@@ -31,10 +31,10 @@ describe "Home page" do
     #end
   end
 
-  it "redirects to user show page when a user is logged in" do
+  it "redirects to codemarks page when a user is logged in" do
     simulate_signed_in
     visit root_path
-    current_path.should == short_user_path(@user)
+    current_path.should == codemarks_path
   end
 
 end

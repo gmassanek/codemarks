@@ -16,16 +16,18 @@
 
     = yield :header
 
+    :javascript
+      window.RAILS_ENV = "#{ENV['RAILS_ENV']}"
+
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
       = javascript_include_tag 'uservoice'
 
   %body
     = render '/layouts/header'
+    = render '/layouts/flash', :flash => flash
     .site_content
       = render '/layouts/sidebar'
-      .content
-        = render '/layouts/flash', :flash => flash
-
+      #main_content
         = yield
     = render 'layouts/footer'
