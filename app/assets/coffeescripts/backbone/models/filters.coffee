@@ -66,8 +66,8 @@ App.Models.Filters = Backbone.Model.extend
     for key, _val of @get('topics')
       return key
 
-  hasTopic: (username) ->
-    $.inArray(username, @topicIds()) >= 0
+  hasTopic: (topic_id) ->
+    $.inArray(topic_id, @topicIds()) >= 0
 
   setTopic: (topic) ->
     @clearTopics()
