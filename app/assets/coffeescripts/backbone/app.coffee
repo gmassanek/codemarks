@@ -4,5 +4,7 @@ window.App =
   Collections: {}
   Models: {}
   init: ->
-    App.router = new App.MainRouter
-    Backbone.history.start({pushState: true})
+    $ ->
+      App.router = new App.MainRouter
+      App.codemarks = new App.Collections.Codemarks
+      Backbone.history.start({pushState: true})

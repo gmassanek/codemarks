@@ -31,7 +31,7 @@ App.Models.Filters = Backbone.Model.extend
 
   reset: ->
     @attributes = @defaults()
-    @trigger('change:topics')
+    @trigger('change')
 
   setSort: (sortType) ->
     @set('sort', sortType)
