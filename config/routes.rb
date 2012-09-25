@@ -13,13 +13,16 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :codemarks, :only => [:new, :create, :destroy] do
+  resources :codemarks, :only => [:index, :new, :create, :destroy] do
     collection do
       get 'search/:query', :action => :search
       get :topic_checkbox
     end
   end
-  get '/public', to: "codemarks#public", :as => :public_codemarks
+
+  # API endpoint
+  get '/public', to: 'codemarks#index', :as => :public_codemarks
+  get '/:username', :to => 'users#show', :as => "short_user"
 
   resources :comments, :only => [:create, :destroy]
   resources :topics
@@ -40,8 +43,7 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :users, :only => [:show, :update]
-  get '/:id', :to => 'users#show', :as => "short_user"
+  resources :users, :only => [:update]
   get '/:id/account', to: "users#account", as: :account
   get '/:id/account/edit', to: "users#edit", as: :edit_account
 

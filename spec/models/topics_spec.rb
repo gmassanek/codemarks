@@ -21,7 +21,7 @@ describe Topic do
       dup_topic.should be_valid
     end
 
-    xit "is global by default" do
+    it "is global by default" do
       topic.save!
       topic.global.should == true
     end

@@ -8,7 +8,7 @@ describe "User Profile Page" do
     end
 
     it "contains the user's nickname" do
-      current_path.should include(@user.nickname)
+      current_path.should == '/codemarks'
     end
 
     it "does what the dashboard does"

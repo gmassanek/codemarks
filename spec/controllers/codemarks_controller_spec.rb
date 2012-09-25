@@ -1,6 +1,33 @@
 require 'spec_helper'
 
 describe CodemarksController do
+
+  ##=======     Receiver    =======###
+  describe "#index" do
+    it "calls FindCodemarks" do
+      codemarks = []
+      codemarks.stub(:num_pages)
+      finder = stub(:codemarks => codemarks)
+      FindCodemarks.should_receive(:new).and_return(finder)
+      get :index, :format => :json
+    end
+
+    it "it assigns codemarks" do
+      Fabricate(:codemark_record)
+      get :index, :format => :json
+      assigns[:codemarks].should_not be_nil
+    end
+
+    it "it presents codemarks" do
+      codemarks = []
+      PresentCodemarks.stub!(:for => codemarks)
+      get :index, :format => :json
+      assigns[:codemarks].should == codemarks
+    end
+  end
+  ##=======     Receiver    =======###
+
+
   describe "new" do
     let(:valid_url) { "http://www.example.com" }
 
@@ -19,35 +46,34 @@ describe CodemarksController do
   end
 
   describe "#create" do
-    it "creates a codemark" do
-      codemark = {
-        'resource' =>  {}
+    before do
+      @user = Fabricate(:user)
+      controller.stub(:current_user_id => @user.id)
+      @resource = Fabricate(:link_record)
+      @link = Fabricate(:link_record)
+      @topics = [Fabricate(:topic), Fabricate(:topic)]
+
+      @params = { "codemark"=> {"title"=>"jQuery Knob demo", "note"=>"", "resource_id" => @link.id},
+        "user_id" => @user.id,
+        "commit"=>"Add Link",
+        "topic_ids"=>{"#{@topics.first.id}"=>"#{@topics.first.id}"},
+        "new_topics"=>{"A New Topic"=>"A New Topic"}
       }
-      tags = {}
-      user = stub
-      controller.stub!(:current_user => user)
-
-      Codemark.should_receive(:create).with(codemark, codemark['resource'], [], user, :new_topic_titles => nil)
-      @request.env['HTTP_REFERER'] = 'http://localhost:3000/dashboard'
-      post :create, :format => :js, :codemark => codemark, :tags => tags
-    end
-  end
-
-  describe "#public" do
-    it "calls FindCodemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.should_receive(:new).and_return(finder)
-      get :public
     end
 
-    it "it assigns codemarks" do
-      codemarks = []
-      finder = stub(:codemarks => codemarks)
-      FindCodemarks.stub!(:new => finder)
-      get :public
-      assigns[:codemarks].should == codemarks
+    it 'creates a codemark' do
+      expect {
+        post :create, @params.merge(:format => :js)
+      }.to change(CodemarkRecord, :count).by 1
     end
+
+    it 'creates a topic' do
+      expect {
+        post :create, @params.merge(:format => :js)
+      }.to change(Topic, :count).by 1
+    end
+
+    it 
   end
 end
 
