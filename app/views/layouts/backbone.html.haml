@@ -10,6 +10,7 @@
       %script
         :plain
           window.CURRENT_USER = "#{current_user.nickname}"
+          window.USER_ID = "#{current_user.id}"
 
     = javascript_include_tag 'application'
     = javascript_include_tag 'backbone_app'

@@ -11,6 +11,7 @@ App.Views.Codemark = Backbone.View.extend
     'click .title': 'recordClick'
 
   render: ->
+    console.log @model.attributes
     @$el.append(@toHTML())
     @$('.timeago').timeago()
 

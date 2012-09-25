@@ -1,3 +1,6 @@
+%script
+  :plain
+    window.USER_ID = #{current_user.id if current_user}
 #header
   .site_content
     #logo
@@ -5,4 +8,5 @@
       = link_to logo, root_path
 
     = render '/codemarks/form' if logged_in?
+    = link_to 'Add Text codemark', '#', :id => 'add_text_codemark'
     = render '/layouts/authentication'

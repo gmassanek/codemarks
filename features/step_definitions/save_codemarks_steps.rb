@@ -28,6 +28,20 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button("fetch")
 end
 
+When /^I click to add text codemark$/ do
+  page.find('#add_text_codemark').click()
+end
+
+When /^I fill out the text codemarks form$/ do
+  page.fill_in('codemark[title]', :with => 'Blog post idea')
+  @text_codemark_text = 'I think I should write one about this topic'
+  page.fill_in('resource[text]', :with => 'I think I should write one about this topic')
+end
+
+When /^I submit it$/ do
+  page.find('.submit').click()
+end
+
 Given /^tom_brady has codemarked Twitter$/ do
   @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
   twitter = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.twitter.com')

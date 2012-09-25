@@ -1,0 +1,12 @@
+= javascript_include_tag 'text_form'
+
+= form_tag codemarks_url, id: "codemark_form", class: 'second' do
+  = submit_tag 'Save', :class => 'btn primary submit'
+  = hidden_field_tag "saver_id", current_user.id
+  = hidden_field_tag "type", 'text'
+  %p
+    = text_field_tag "codemark[title]", '', :placeholder => 'Title', :name => 'codemark[title]'
+    = text_area_tag "resource[text]", '', :placeholder => 'Whatever\'s on your mind', :name => 'resource[text]'
+  .clear
+  = render '/codemarks/topic_tags_list', :pos_topics => []
+  = render '/layouts/search', :prefix => 'link_form', :placeholder => "Add topic tags..."

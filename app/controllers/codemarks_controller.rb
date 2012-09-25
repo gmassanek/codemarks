@@ -16,11 +16,18 @@ def new
       :new_topics => params[:new_topics].try(:keys)
     }
 
-    @codemark = Codemark.create(attributes, topic_info)
+    if params[:type] == 'text'
+      resource_params = params[:resource].merge(author_id: params[:saver_id])
+      attributes[:resource] = TextRecord.create!(resource_params)
+      attributes[:user_id] = params[:saver_id]
+    end
 
+    @codemark = Codemark.create(attributes, topic_info)
+    PresentCodemarks.present(@codemark, current_user)
+    
     respond_to do |format|
       format.html { redirect_to :back, :notice => 'Thanks!' }
-      format.js { render :text => '', :status => :ok }
+      format.json { render :json => {:codemark => PresentCodemarks.present(@codemark, current_user)} }
     end
   rescue Exception => e
     p e
