@@ -2,9 +2,9 @@
 //= require jquery_ujs
 //= require jquery-ui-1.8.16.custom.min.js
 //= require jquery.qtip-1.0.0-rc3.min
+//= require jquery.timeago
 //= require autocomplete-rails
-
-TOPICS_PATH = '/topics/'
+//= require codemark_form
 
 window.Codemarks =
   prepareAutocompletes: ->
@@ -19,17 +19,12 @@ window.Codemarks =
           request.setRequestHeader("Accept", "text/javascript")
     )
 
-  prepareCodemarks: ->
-    $(".codemark_link").click (event) ->
-      codemark = $(event.target).closest("li")
-      url = codemark.find('#click_url').val()
-      $.post(url)
-      $(event.target).unbind('click')
-
 $ ->
-  $('#_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
-    redirect = $("#_topic_slug").val()
-    window.location = TOPICS_PATH + redirect
+  $('#_topic_autocomplete').bind('railsAutocomplete.select', (e) ->
+    slug = $("#_topic_slug").val()
+    App.codemarks.filters.setTopic(slug)
+    App.codemarks.fetch()
+    $(e.currentTarget).val('')
   )
     
   $(".flash").delay(2500).fadeOut(1000)
@@ -39,5 +34,4 @@ $ ->
     event.preventDefault()
   )
     
-  Codemarks.prepareCodemarks()
   Codemarks.prepareAutocompletes()
