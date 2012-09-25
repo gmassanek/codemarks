@@ -8,13 +8,19 @@ App.Models.Filters = Backbone.Model.extend
 
   loadFromCookie: ->
     if saved_filters = JSON.parse($.cookie('filters'))
-      @setSort(saved_filters.sort)
-      @attributes.topics = saved_filters.topics
-      if saved_filters.user
-        @setUser(saved_filters.user)
-      if saved_filters.currentPage
-        @setPage(saved_filters.currentPage)
+      saveTime = new Date($.cookie('filters-save-date'))
+      timeThreshold = new Date()
+      timeThreshold.setSeconds(timeThreshold.getSeconds() - 5)
+      if saveTime > timeThreshold || $.cookie('server-set') == 'true'
+        @setSort(saved_filters.sort)
+        if saved_filters.topics
+          @setTopic(saved_filters.topics[0])
+        if saved_filters.user
+          @setUser(saved_filters.user)
+        if saved_filters.currentPage
+          @setPage(saved_filters.currentPage)
       $.cookie('filters', null)
+      $.cookie('filters-save-date', null)
 
   defaults: ->
     _.extend {},
@@ -85,3 +91,9 @@ App.Models.Filters = Backbone.Model.extend
     data['topic_id'] = @topicId() if @topicId()
     data['page'] = @get('currentPage')
     data
+
+  dataForCookie: ->
+    sort: @get('sort')
+    currentPage: @get('currentPage')
+    user: @get('user')
+    topics: @topicIds()

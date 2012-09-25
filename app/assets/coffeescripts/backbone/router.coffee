@@ -47,7 +47,8 @@ App.MainRouter = Backbone.Router.extend
       $('.content').html(codemarkList.$el)
 
       $(window).bind 'beforeunload', (e) ->
-        filterData = App.codemarks.filters.attributes
+        filterData = App.codemarks.filters.dataForCookie()
         filterCookieVal = JSON.stringify(filterData)
         $.cookie('filters', filterCookieVal)
+        $.cookie('filters-save-date', new Date())
         return
