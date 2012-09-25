@@ -3,7 +3,6 @@
 //= require facile
 //= require angelo
 //= require jquery.cookie
-//= require backbone/sidebar
 
 //= require backbone/app
 //= require backbone/router
