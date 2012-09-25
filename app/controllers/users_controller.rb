@@ -25,22 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_slug(params[:id])
-    @user ||= User.find_by_id(params[:id])
-    unless @user
-      redirect_to public_codemarks_path
-      return
-    end
-
-    search_attributes = {}
-    search_attributes[:user] = @user if @user
-    search_attributes[:current_user] = current_user
-    search_attributes[:page] = params[:page] if params[:page]
-    search_attributes[:by] = params[:by] if params[:by]
-
-    @codemarks = FindCodemarks.new(search_attributes).codemarks
-    @topics = {}
-
-    render 'users/dashboard'
+    cookies[:filters] = {:user => params[:username]}.to_json
+    redirect_to codemarks_path
   end
 end

@@ -1,7 +1,0 @@
-%ul#link_preferences.piped
-  %li.first
-    = label_tag :reminder, "Remind me to revisit this", :class => 'right'
-    = check_box_tag :reminder, "1", true, :class => 'right'
-  %li.last
-    = label_tag :private, "Private", :class => 'right'
-    = check_box_tag "link[private]", 1, filter_by_mine?, :class => 'right'

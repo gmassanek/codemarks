@@ -1,38 +1,25 @@
-= javascript_include_tag 'sidebar'
-
 .sidebar
+  = link_to 'Reset', '#', :class => 'reset'
   %ul
-    - if logged_in?
-      %li.user_info
-        - user = @user || current_user
-        .image
-          - if user.get(:image).present?
-            - image = image_tag user.get(:image)
-            = link_to image, short_user_path(user)
-        .name
-          = user.nickname
     - if @topic
       %h3 By topic
-      = render '/layouts/nav_link', :paths => [topic_path(@topic)], :text => @topic.title, :target => topic_path(@topic)
+      = render '/layouts/nav_link', :text => @topic.title, :klass => 'topic', :data_type => 'topic-id', :data => @topic.id, :user => @user
       - if logged_in?
-        = render '/layouts/nav_link', :paths => [topic_user_path(@topic, current_user)], :text => "your #{@topic.title}", :target => topic_user_path(@topic, current_user)
+        = render '/layouts/nav_link', :text => "your #{@topic.title}", :klass => 'your_topic', :data_type => 'topic-id', :data => @topic.id, :user => @user
     %h3 By user
     - if @user && @user != current_user
-      = render '/layouts/nav_link', :paths => [short_user_path(@user), user_path(@user)], :text => @user.nickname, :target => short_user_path(@user)
+      = render '/layouts/nav_link', :text => @user.nickname, :klass => 'theirs', :data_type => nil, :data => nil, :user => @user
     - if logged_in?
-      = render '/layouts/nav_link', :paths => [short_user_path(current_user), user_path(current_user)], :text => 'yours', :target => short_user_path(current_user)
-    = render '/layouts/nav_link', :paths => [public_codemarks_path], :text => 'everyone\'s', :target => public_codemarks_path
+      = render '/layouts/nav_link', :text => 'yours', :klass => 'yours', :data_type => nil, :data => nil, :user => current_user
+      = render '/layouts/nav_link', :text => 'everyone\'s', :klass => 'public', :data_type => nil, :data => nil, :user => nil
 
     %h3 Sort by
-    %li.sort{:class => sort_class('date', true)}
-      .nav_info
-      = link_to "date", url_for(:only_path => false, :by =>  :date)
-    %li.sort{:class => sort_class('count')}
-      .nav_info
-      = link_to "save count", url_for(:only_path => false, :by =>  :count)
-    %li.sort{:class => sort_class('visits')}
-      .nav_info
-      = link_to "visits", url_for(:only_path => true, :by => :visits)
+    %li.sort
+      = link_to 'date', '#', :class => 'date', :'data-by' => 'date'
+    %li.sort
+      = link_to 'count', '#', :class => 'count', :'data-by' => 'count'
+    %li.sort
+      = link_to 'visits', '#', :class => 'visits', :'data-by' => 'visits'
 
     %h3 Search
     %li
