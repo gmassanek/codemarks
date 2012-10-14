@@ -1,6 +1,5 @@
 describe 'Router', ->
   beforeEach ->
-    @router = new App.MainRouter
 
   describe 'routes pages like', ->
     it 'passes showCodemarkList to succes? - Should you test what function you pass?', ->
