@@ -1,0 +1,20 @@
+.pagination
+  padding: 5px
+  @include border-radius(3px)
+  text-align: center
+  ol.pages
+    li
+      display: inline
+      a.page
+        padding: 5px
+        @include border-radius(3px)
+        &:first-child
+          @include border-bottom-right-radius(0)
+          @include border-top-right-radius(0)
+        &:last-child
+          @include border-bottom-left-radius(0)
+          @include border-top-left-radius(0)
+
+        &.current
+          text-decoration: underline
+          color: $orange

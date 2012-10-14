@@ -1,13 +1,14 @@
-@import "configuration"
 @import "bourbon"
-@import "style"
 @import "mixins/circle"
 
 @mixin text-only
   padding-top: 13px
 
 .sidebar
-  @include white-pop
+  @include border-radius(4px)
+  background-color: #fefefe
+  border: 1px solid #dddddd
+  box-shadow: 1px 2px 0px #EEE
   margin-right: 15px
   float: left
   width: 200px
