@@ -1,6 +1,6 @@
 App.Views.Codemark = Backbone.View.extend
   className: 'codemark'
-  tagName: 'section'
+  tagName: 'article'
 
   events:
     'click .corner.delete': 'deleteCodemark'
@@ -20,7 +20,7 @@ App.Views.Codemark = Backbone.View.extend
 
   presentedAttributes: ->
     resource = @model.get('resource')
-    title:
+    title_link:
       content: @model.get('title'),
       href: resource.url,
     host: resource.host,
@@ -34,9 +34,14 @@ App.Views.Codemark = Backbone.View.extend
       content: 'Tweet'
       href: 'http://twitter.com/share'
     author:
+      avatar: if @model.get('author').image then {content: '', src: @model.get('author').image} else null
       name: @model.get('author').nickname
     topics: @presentTopics()
-    corner: @presentCorner()
+    views: @model.get('visit_count')
+    'main-image':
+      content: ''
+      src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
+
 
   editText: ->
     if @mine() then 'Edit' else 'Save'
@@ -59,11 +64,6 @@ App.Views.Codemark = Backbone.View.extend
         content: topic.title
         href: ''
         'data-slug': topic.slug
-
-  presentCorner: ->
-    if @mine()
-      content: ''
-      class: 'delete'
 
   navigateToAuthor: (e) ->
     e.preventDefault()
