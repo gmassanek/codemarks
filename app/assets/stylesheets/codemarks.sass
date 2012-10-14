@@ -1,0 +1,106 @@
+@import 'mixins/circle'
+@import 'bourbon/css3/transition'
+
+@mixin light_text
+  color: $light_faded
+  font-weight: normal
+
+@mixin proud_text
+  color: $dark_faded
+
+.codemarks
+  .codemark
+    float: left
+    overflow: hidden
+    position: relative
+    height: 254px
+    width: 235px
+    padding: 10px
+    margin-right: 5px
+    margin-bottom: 5px
+    background: white
+    border: 1px solid #dddddd
+    @include border-radius(5px)
+
+    &:hover
+      background: #fcfcfc
+      h1
+        .icon
+          cursor: pointer
+          &:before
+            color: $orange
+            content: "\23"
+
+    h1
+      font-weight: normal
+      margin-bottom: 5px
+      .icon
+        float: left
+        font-size: 24px
+        height: 32px
+        width: 32px
+        &:before
+          position: relative
+          top: 5px
+        &:hover:before
+          color: lighten($orange, 20%)
+
+      .title
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        a
+          line-height: 14px
+          font-size: 14px
+      .save_date
+        font-size: 12px
+
+    .main
+      z-index: 0
+      position: relative
+      width: 200px
+      height: 140px
+      margin: 0 auto
+      cursor: pointer
+      &:before, &:after
+        position: absolute
+        content: ""
+        bottom: 15px
+        width: 50%
+        top: 85%
+        max-width: 300px
+        @include box-shadow(0 15px 10px #777)
+      &:before
+        left: 10px
+        @include transform(rotate(-3deg))
+      &:after
+        right: 10px
+        @include transform(rotate(3deg))
+      .main-image
+        z-index: 2
+        position: relative
+        display: block
+        width: 100%
+        height: 100%
+        border: 1px solid #dedede
+    footer
+      position: absolute
+      bottom: 15px
+      left: 10px
+      right: 10px
+      font-size: 14px
+      .author
+        float: left
+        .avatar
+          height: 20px
+          width: 20px
+          margin-bottom: -5px
+          @include border-radius(3px)
+      .views
+        float: right
+        &:before
+          position: relative
+          top: 2px
+          margin-right: 5px
+
+

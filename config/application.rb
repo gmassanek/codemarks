@@ -50,7 +50,8 @@ module Codemarks
     config.assets.version = '1.0'
 
     # Add paths to asset pipeline path
-    config.assets.paths << "#{Rails.root}/app/assets/coffeescripts"
+    config.assets.paths << Rails.root.join('app', 'assets', 'coffeescripts')
+    config.assets.paths << Rails.root.join('app', 'assets', 'templates')
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
