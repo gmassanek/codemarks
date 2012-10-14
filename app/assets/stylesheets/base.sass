@@ -1,52 +1,55 @@
-@import "configuration"
-@import "header"
-@import "sidebar"
-
 html
+  height: 100%
+  color: $c1
+  font: 12px 'Proxima Nova', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, 'Lucida Grande', sans-serif
 
-a:hover
-  cursor: pointer
+  body
+    background: #F4F4F4
 
-.content
-  overflow: hidden
+h1, h2, h3, h4, h5, h6 
+  font-weight: bold
+  margin: 0
 
-.site_search
-  input
-    padding: 3px
-    border: 1px solid $border-color1
-    border-radius: $border-radius-tight
-    width: 150px
+h1 
+  font-size: 160%
+h2
+  font-size: 150%
+h3
+  font-size: 140%
+h4
+  font-size: 130%
+h5
+  font-size: 120%
+h6
+  font-size: 110%
+em
+  font-style: italic
 
-#logo
-  float: left
-  margin-top: 10px
+.inputs
+  label
+    margin-right: 5px
+    font-size: 14px
+a 
+  color: $c2
+  text-decoration: none
 
-  img
-    margin-top: 1px
-    height: 26px
+  &:hover
+    cursor: pointer
+    color: $c5
+    text-decoration: none
 
-#authentication
-  float: right
-  margin-top: 18px
+.clear
+  clear: both
 
-  li
-    float: left
-    padding: 0 15px
-
-    &.last
-      padding-right: 0
-
-    &.image
-      margin: -5px -20px 0 0
-      padding: 0
-      padding-right: 10px
-      img
-        border: 1px solid $c6
-        height: 25px
-
-  .site_search input
-    margin-top: -2px
-    padding: 2px
-
-body
-  background: #FAFAFA
+.site_content
+  margin: 0 auto
+  @media (min-width: 1200px)
+    width: 1200px
+  @media (min-width: 960px) and (max-width: 1200px)
+    width: 960px
+  @media (min-width: 720px) and (max-width: 960px)
+    width: 720px
+  @media (min-width: 480px) and (max-width: 720px)
+    width: 480px
+  @media (min-width: 240px) and (max-width: 480px)
+    width: 240px

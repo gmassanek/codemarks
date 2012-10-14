@@ -26,8 +26,6 @@
   %body
     = render '/layouts/header'
     = render '/layouts/flash', :flash => flash
+    =# render '/layouts/sidebar'
     .site_content
-      = render '/layouts/sidebar'
-      #main_content
-        = yield
-    = render 'layouts/footer'
+      = yield
