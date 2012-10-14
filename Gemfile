@@ -23,6 +23,10 @@ gem 'bourbon'
 gem 'thin'
 gem 'unicorn'
 gem 'capistrano'
+gem 'aws-sdk'
+gem 'grabzit'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
