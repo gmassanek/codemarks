@@ -4,7 +4,7 @@ App.CodemarkView = Backbone.View.extend
 
   events:
     'click .corner.delete': 'deleteCodemark'
-    'click .twitter_share': 'twitterShare'
+    'click .share': 'twitterShare'
     'click .edit': 'copyToForm'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
@@ -49,9 +49,6 @@ App.CodemarkView = Backbone.View.extend
   mine: ->
     @model.get('author').nickname == CURRENT_USER
 
-  tweetText: ->
-    escape(@model.get('title')) + " #{@model.get('resource').url}"
-
   recordClick: (e) ->
     url = "/links/#{@model.get('resource').id}/click "
     $.post(url)
@@ -85,23 +82,25 @@ App.CodemarkView = Backbone.View.extend
           @$el.fadeOut 500, =>
             @$el.remove()
 
-
-  # copying stuff over
-  #
   twitterShare: (e) ->
     e.preventDefault()
-    $link  = $(e.currentTarget)
+    window.open(@tweetShareUrl(), 'twitter', @tweetWindowOptions())
+
+  tweetShareUrl: ->
+    data =
+      url: ''
+      via: "#{@model.get('author').nickname} on @codemarks"
+    "http://twitter.com/share?#{$.param(data)}&text=#{@tweetText()}"
+
+  tweetText: ->
+    escape(@model.get('title')) + " #{@model.get('resource').url}"
+
+  tweetWindowOptions: ->
     width  = 575
     height = 400
     left   = ($(window).width()  - width)  / 2
     top    = ($(window).height() - height) / 2
-    url    = $link.attr('href')
-    opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
-    referer = 'url=""'
-    via = "&via=#{@model.get('author').nickname} on @codemarks"
-    text = '&text=' + @tweetText()
-    url = url + '?' + referer + via + text
-    window.open(url, 'twitter', opts)
+    "status=1,width=#{width},height=#{height},top=#{top},left=#{left}"
 
   copyToForm: ->
     $('#url').val(@model.get('resource').url)
