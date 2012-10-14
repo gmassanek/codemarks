@@ -1,4 +1,4 @@
-App.Views.Codemark = Backbone.View.extend
+App.CodemarkView = Backbone.View.extend
   className: 'codemark'
   tagName: 'article'
 
