@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711062940) do
+ActiveRecord::Schema.define(:version => 20121010031010) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -65,6 +65,22 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "link_records", :force => true do |t|
     t.string   "url"
     t.string   "title"
@@ -77,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
     t.string   "host"
     t.text     "site_data"
     t.integer  "author_id"
+    t.string   "snapshot_url"
   end
 
   add_index "link_records", ["url"], :name => "index_link_records_on_url"
@@ -108,15 +125,4 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
-  execute <<-SQL
-  CREATE TRIGGER codemarks_search_update
-  BEFORE INSERT OR UPDATE ON codemark_records
-  FOR EACH ROW EXECUTE PROCEDURE
-    tsvector_update_trigger(search,
-                            'pg_catalog.english',
-                            title,
-                            note);
-  SQL
-
-  execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note);"
 end
