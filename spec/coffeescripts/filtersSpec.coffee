@@ -5,7 +5,7 @@ describe 'Codemark Filters', ->
       toBeEqualToObject: (expected) ->
         _.isEqual @actual, expected
 
-    @filters = new App.Models.Filters
+    @filters = new App.Filters
 
   describe 'has a currentPage', ->
     it 'that is 1 by default', ->
