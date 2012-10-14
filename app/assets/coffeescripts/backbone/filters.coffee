@@ -1,4 +1,4 @@
-App.Models.Filters = Backbone.Model.extend
+App.Filters = Backbone.Model.extend
   initialize: ->
     @bind 'change:user', @clearPage
     @bind 'change:topics', @clearPage
