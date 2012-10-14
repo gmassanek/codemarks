@@ -3,6 +3,7 @@
 //= require facile
 //= require angelo
 //= require jquery.cookie
+//= require jquery.ba-bbq
 
 //= require backbone/app
 //= require backbone/router
@@ -11,4 +12,6 @@
 //= require_tree ./backbone/views
 //= require_tree ../templates
 
-App.init()
+$ ->
+  unless ENV? && ENV == 'test'
+    App.init()

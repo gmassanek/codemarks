@@ -2,25 +2,19 @@ App.Models.Filters = Backbone.Model.extend
   initialize: ->
     @bind 'change:user', @clearPage
     @bind 'change:topics', @clearPage
+    @bind 'change', @updateUrlWithFilters
     @reset()
 
-    @loadFromCookie()
+  updateUrlWithFilters: ->
+    filterParams = $.param(@dataForCookie())
+    App.router.navigate("/codemarks?#{filterParams}")
 
-  loadFromCookie: ->
-    if saved_filters = JSON.parse($.cookie('filters'))
-      saveTime = new Date($.cookie('filters-save-date'))
-      timeThreshold = new Date()
-      timeThreshold.setSeconds(timeThreshold.getSeconds() - 5)
-      if saveTime > timeThreshold || $.cookie('server-set') == 'true'
-        @setSort(saved_filters.sort)
-        if saved_filters.topics
-          @setTopic(saved_filters.topics[0])
-        if saved_filters.user
-          @setUser(saved_filters.user)
-        if saved_filters.currentPage
-          @setPage(saved_filters.currentPage)
-      $.cookie('filters', null)
-      $.cookie('filters-save-date', null)
+  loadFromCookie: (saved_filters)->
+    @attributes = @defaults()
+    @setSort(saved_filters.by) if saved_filters.by
+    @setTopic(saved_filters.topic_id) if saved_filters.topic_id
+    @setUser(saved_filters.user) if saved_filters.user
+    @setPage(saved_filters.page) if saved_filters.page
 
   defaults: ->
     _.extend {},
@@ -87,13 +81,15 @@ App.Models.Filters = Backbone.Model.extend
 
   data: ->
     data = {by: @get('sort')}
-    data['username'] = @get('user') if @get('user')
+    data['username'] = @get('user') if @get('user')?
     data['topic_id'] = @topicId() if @topicId()
     data['page'] = @get('currentPage')
     data
 
   dataForCookie: ->
-    sort: @get('sort')
-    currentPage: @get('currentPage')
-    user: @get('user')
-    topics: @topicIds()
+    data = {}
+    data['by'] = @get('sort') if @get('sort') != @defaults().sort
+    data['user'] = @get('user') if @get('user')
+    data['topic_id'] = @topicId() if @topicId()
+    data['page'] = @get('currentPage') if @get('currentPage')? && @get('currentPage') != 1
+    data
