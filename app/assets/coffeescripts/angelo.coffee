@@ -1,5 +1,5 @@
+window.templates = {}
 window.angelo = (path) ->
-  window.templates ||= {}
   template = window.templates[path]
   return template if template
 
