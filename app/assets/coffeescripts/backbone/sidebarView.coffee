@@ -1,4 +1,4 @@
-App.Views.Sidebar = Backbone.View.extend
+App.SidebarView = Backbone.View.extend
   el: '.sidebar'
 
   events:
