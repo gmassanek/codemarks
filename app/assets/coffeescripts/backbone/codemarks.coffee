@@ -1,9 +1,9 @@
 App.Codemarks = Backbone.Collection.extend
-  model: App.Models.Codemark
+  model: App.Codemark
   url: '/codemarks'
 
   initialize: ->
-    @filters = new App.Models.Filters
+    @filters = new App.Filters
     @bind 'all', @trackPageview
 
   trackPageview: ->
