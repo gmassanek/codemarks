@@ -21,6 +21,10 @@ gem 'pg'
 gem 'browser'
 gem 'bourbon'
 gem 'thin'
+gem 'aws-sdk'
+gem 'grabzit'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
