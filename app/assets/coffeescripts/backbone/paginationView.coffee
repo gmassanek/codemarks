@@ -1,4 +1,4 @@
-App.Views.Pagination = Backbone.View.extend
+App.PaginationView = Backbone.View.extend
   className: 'pagination'
 
   events:
