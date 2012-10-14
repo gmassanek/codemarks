@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'icomoon';
+    src:url('fonts/icomoon.eot');
+    src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.svg#icomoon') format('svg'),
+        url('fonts/icomoon.woff') format('woff'),
+        url('fonts/icomoon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+    font-family: 'icomoon';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: 'icomoon';
+    font-style: normal;
+    speak: none;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+}
+.icon-picture:before {
+    content: "\21";
+}
+.icon-picture-2:before {
+    content: "\22";
+}
+.icon-pencil:before {
+    content: "\23";
+}
+.icon-book:before {
+    content: "\24";
+}
+.icon-mail:before {
+    content: "\25";
+}
+.icon-twitter:before {
+    content: "\26";
+}
+.icon-twitter-2:before {
+    content: "\27";
+}
+.icon-twitter-3:before {
+    content: "\28";
+}
+.icon-out:before {
+    content: "\29";
+}
+.icon-out-2:before {
+    content: "\2a";
+}
+.icon-heart:before {
+    content: "\2b";
+}
+.icon-heart-2:before {
+    content: "\2c";
+}
+.icon-thumbs-up:before {
+    content: "\2d";
+}
+.icon-thumbs-down:before {
+    content: "\2e";
+}
+.icon-upload:before {
+    content: "\2f";
+}
+.icon-download:before {
+    content: "\30";
+}
+.icon-cloud:before {
+    content: "\31";
+}
+.icon-upload-2:before {
+    content: "\32";
+}
+.icon-star:before {
+    content: "\33";
+}
+.icon-star-2:before {
+    content: "\34";
+}
+.icon-star-3:before {
+    content: "\35";
+}
+.icon-eye:before {
+    content: "\36";
+}
+.icon-eye-2:before {
+    content: "\37";
+}
+.icon-flag:before {
+    content: "\38";
+}
+.icon-undo:before {
+    content: "\39";
+}
+.icon-redo:before {
+    content: "\3a";
+}
+.icon-forward:before {
+    content: "\3b";
+}
+.icon-reply:before {
+    content: "\3c";
+}
+.icon-reply-2:before {
+    content: "\3d";
+}
+.icon-comments:before {
+    content: "\3e";
+}
+.icon-comments-2:before {
+    content: "\3f";
+}
+.icon-user:before {
+    content: "\40";
+}
+.icon-user-2:before {
+    content: "\41";
+}
+.icon-link:before {
+    content: "\42";
+}
+.icon-file-word:before {
+    content: "\43";
+}
+.icon-file-excel:before {
+    content: "\44";
+}
+.icon-html5:before {
+    content: "\45";
+}
+.icon-html5-2:before {
+    content: "\46";
+}
+.icon-github:before {
+    content: "\47";
+}
+.icon-github-2:before {
+    content: "\48";
+}
+.icon-github-3:before {
+    content: "\49";
+}
+.icon-github-4:before {
+    content: "\4a";
+}
+.icon-github-5:before {
+    content: "\4b";
+}
+.icon-github-6:before {
+    content: "\4c";
+}
+.icon-git:before {
+    content: "\4d";
+}
+.icon-github-7:before {
+    content: "\4e";
+}
+.icon-location:before {
+    content: "\4f";
+}
+.icon-calendar:before {
+    content: "\50";
+}
+.icon-tag:before {
+    content: "\51";
+}
+.icon-copy:before {
+    content: "\52";
+}
+.icon-paper:before {
+    content: "\53";
+}
+.icon-play:before {
+    content: "\54";
+}
+.icon-film:before {
+    content: "\55";
+}
+.icon-camera:before {
+    content: "\56";
+}
+.icon-music:before {
+    content: "\57";
+}
+.icon-microphone:before {
+    content: "\58";
+}
