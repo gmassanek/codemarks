@@ -1,4 +1,4 @@
-App.Collections.Codemarks = Backbone.Collection.extend
+App.Codemarks = Backbone.Collection.extend
   model: App.Models.Codemark
   url: '/codemarks'
 
