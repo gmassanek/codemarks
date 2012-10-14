@@ -83,6 +83,9 @@
         width: 100%
         height: 100%
         border: 1px solid #dedede
+
+.codemarks
+  .codemark
     footer
       position: absolute
       bottom: 15px
@@ -96,11 +99,20 @@
           width: 20px
           margin-bottom: -5px
           @include border-radius(3px)
+      .hover-icons
+        float: left
+        display: none
       .views
         float: right
         &:before
           position: relative
           top: 2px
           margin-right: 5px
-
-
+    &:hover
+      footer
+        .author
+          display: none
+        .hover-icons
+          display: inherit
+          .share
+            font-family: 'icomoon'
