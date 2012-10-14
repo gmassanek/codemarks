@@ -6,6 +6,7 @@ src_files:
 
 spec_dir: spec/javascripts
 spec_files:
+  - 'jasmine.js'
   - '**/*[sS]pec.js'
 
 stylesheets:
