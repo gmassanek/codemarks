@@ -3,9 +3,9 @@ App.CodemarkView = Backbone.View.extend
   tagName: 'article'
 
   events:
-    'click .corner.delete': 'deleteCodemark'
-    'click .twitter_share': 'twitterShare'
-    'click .edit': 'copyToForm'
+    'click .delete': 'deleteCodemark'
+    'click .share': 'twitterShare'
+    'click .add': 'copyToForm'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
@@ -38,9 +38,12 @@ App.CodemarkView = Backbone.View.extend
       name: @model.get('author').nickname
     topics: @presentTopics()
     views: @model.get('visit_count')
+    saves: "(#{@model.get('save_count')})"
     'main-image':
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
+    delete: if @model.mine() then '&#x66;' else null
+    add: if @model.mine() then null else '&#xe00e;'
 
 
   editText: ->
@@ -48,9 +51,6 @@ App.CodemarkView = Backbone.View.extend
 
   mine: ->
     @model.get('author').nickname == CURRENT_USER
-
-  tweetText: ->
-    escape(@model.get('title')) + " #{@model.get('resource').url}"
 
   recordClick: (e) ->
     url = "/links/#{@model.get('resource').id}/click "
@@ -85,23 +85,25 @@ App.CodemarkView = Backbone.View.extend
           @$el.fadeOut 500, =>
             @$el.remove()
 
-
-  # copying stuff over
-  #
   twitterShare: (e) ->
     e.preventDefault()
-    $link  = $(e.currentTarget)
+    window.open(@tweetShareUrl(), 'twitter', @tweetWindowOptions())
+
+  tweetShareUrl: ->
+    data =
+      url: ''
+      via: "#{@model.get('author').nickname} on @codemarks"
+    "http://twitter.com/share?#{$.param(data)}&text=#{@tweetText()}"
+
+  tweetText: ->
+    escape(@model.get('title')) + " #{@model.get('resource').url}"
+
+  tweetWindowOptions: ->
     width  = 575
     height = 400
     left   = ($(window).width()  - width)  / 2
     top    = ($(window).height() - height) / 2
-    url    = $link.attr('href')
-    opts   = 'status=1' + ',width='  + width  + ',height=' + height + ',top='    + top    + ',left='   + left
-    referer = 'url=""'
-    via = "&via=#{@model.get('author').nickname} on @codemarks"
-    text = '&text=' + @tweetText()
-    url = url + '?' + referer + via + text
-    window.open(url, 'twitter', opts)
+    "status=1,width=#{width},height=#{height},top=#{top},left=#{left}"
 
   copyToForm: ->
     $('#url').val(@model.get('resource').url)
