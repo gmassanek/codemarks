@@ -43,7 +43,9 @@ a
 
 .site_content
   margin: 0 auto
-  @media (min-width: 1200px)
+  @media (min-width: 1440px)
+    width: 1440px
+  @media (min-width: 1200px) and (max-width: 1440px)
     width: 1200px
   @media (min-width: 960px) and (max-width: 1200px)
     width: 960px
@@ -51,5 +53,7 @@ a
     width: 720px
   @media (min-width: 480px) and (max-width: 720px)
     width: 480px
-  @media (min-width: 240px) and (max-width: 480px)
+  @media (max-width: 480px)
     width: 240px
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px)
+    width: 480px
