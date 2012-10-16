@@ -47,11 +47,11 @@ App.Filters = Backbone.Model.extend
 
   addTopic: (id) ->
     @get('topics')[id] = true
-    @trigger('change:topics')
+    @trigger('change')
 
   removeTopic: (id) ->
     delete @get('topics')[id]
-    @trigger('change:topics')
+    @trigger('change')
 
   topicIds: ->
     keys = []
