@@ -9,7 +9,7 @@
     - if logged_in?
       %script
         :plain
-          window.CURRENT_USER = "#{current_user.nickname}"
+          window.CURRENT_USER = "#{current_user.slug}"
 
     = javascript_include_tag 'application'
     = javascript_include_tag 'backbone_app'

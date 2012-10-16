@@ -3,9 +3,9 @@ App.CodemarkView = Backbone.View.extend
   tagName: 'article'
 
   events:
-    'click .corner.delete': 'deleteCodemark'
+    'click .delete': 'deleteCodemark'
     'click .share': 'twitterShare'
-    'click .edit': 'copyToForm'
+    'click .add': 'copyToForm'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
@@ -38,9 +38,12 @@ App.CodemarkView = Backbone.View.extend
       name: @model.get('author').nickname
     topics: @presentTopics()
     views: @model.get('visit_count')
+    saves: "(#{@model.get('save_count')})"
     'main-image':
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
+    delete: if @model.mine() then '&#x66;' else null
+    add: if @model.mine() then null else '&#xe00e;'
 
 
   editText: ->
