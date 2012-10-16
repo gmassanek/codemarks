@@ -1,5 +1,6 @@
 class SnapLinkJob < Struct.new(:link)
   def perform
+    return if ENV['RAILS_ENV']=='test'
     p "Taking Snapshot for: #{link.url}"
 
     filepath = "/tmp/snapshot_#{link.id}.jpeg"
