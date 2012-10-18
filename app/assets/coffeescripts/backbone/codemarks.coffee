@@ -14,6 +14,7 @@ App.Codemarks = Backbone.Collection.extend
 
   fetch: ->
     Backbone.Collection.prototype.fetch.call(this, data: @filters.data())
+    @filters.updateUrlWithFilters()
 
   parse: (response) ->
     @pagination = response.pagination
