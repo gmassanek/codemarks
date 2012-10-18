@@ -1,0 +1,55 @@
+nav
+  .site_content
+    position: absolute
+    bottom: 0
+
+  .tabs
+    li
+      float: left
+      position: relative
+      height: 25px
+      margin-right: 2px
+      &.active
+        a
+          background: white
+      a.disabled
+        background: #ddd
+        color: #ccc
+        &:hover
+          cursor: default
+
+      //&:before, &:after
+      //  content: ''
+      //  position: absolute
+      //  bottom: 0
+      //  background: #F4F4F4
+      //  width: 10px
+      //  height: 10px
+      //  z-index: 50
+      //&:before
+      //  left: -10px
+      //&:after
+      //  right: -10px
+
+    a
+      padding: 10px 40px
+      position: relative
+      background: #F4F4F4
+      @include border-top-left-radius(10px)
+      @include border-top-right-radius(10px)
+      &:hover
+        background: #ddd
+
+      //&:before, &:after
+      //  content: ''
+      //  position: absolute
+      //  bottom: 10px
+      //  width: 20px
+      //  height: 20px
+      //  @include border-radius(10px)
+      //  background: red
+      //  z-index: 100
+      //&:before
+      //  left: -20px
+      //&:after
+      //  right: -20px
