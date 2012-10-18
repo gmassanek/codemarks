@@ -16,4 +16,8 @@ App.MainRouter = Backbone.Router.extend
       el: $('#main_content')
       codemarks: @codemarks
 
+    tabsNav = new App.TabsView
+      el: $('nav ul.tabs')
+      codemarks: @codemarks
+
     $('.content').html(codemarkList.$el)
