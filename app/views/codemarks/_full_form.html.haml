@@ -1,6 +1,7 @@
 = form_tag codemarks_url, id: "codemark_form", class: 'second' do
   #first
     = hidden_field_tag "codemark[resource_id]]", @codemark.resource.id
+    = hidden_field_tag "codemark[resource_type]]", 'LinkRecord'
     = url_field_tag '', @codemark.resource.url
     = submit_tag "Add Link", :id => 'fetch', :class => "btn primary"
   #second
