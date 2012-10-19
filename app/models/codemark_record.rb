@@ -1,12 +1,12 @@
 class CodemarkRecord < ActiveRecord::Base
-  belongs_to :resource, :class_name => 'LinkRecord'
+  belongs_to :resource, :polymorphic => true
   belongs_to :user
 
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
   has_many :comments, :foreign_key => 'codemark_id'
 
-  validates_presence_of :resource
+  validates_presence_of :resource_id
   validates_presence_of :user_id
 
   scope :unarchived, where(['archived = ?', false])
