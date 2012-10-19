@@ -74,7 +74,7 @@ class FindCodemarks
 
   def visits_query
     visits_query = CodemarkRecord.scoped.select('"link_records".id as resource_id, COALESCE(count(clicks.*), 0) as visit_count')
-    visits_query = visits_query.joins(:resource)
+    visits_query = visits_query.joins('LEFT JOIN link_records on codemark_records.resource_id = link_records.id')
     visits_query = visits_query.joins('LEFT JOIN clicks on link_records.id = clicks.link_record_id')
     visits_query = visits_query.group('link_records.id')
     visits_query
