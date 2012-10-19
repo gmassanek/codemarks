@@ -4,14 +4,15 @@ App.CodemarksView = Backbone.View.extend
     @codemarks.bind 'reset', => @render()
 
   render: ->
-    #@renderControlPanel()
-    @$el.html(@codemarksHtml())
+    @$el.html('')
+    @$el.append(@renderNewCodemarkTileHtml())
+    @$el.append(@codemarksHtml())
     @$el.append(@paginationHtml())
 
-  renderControlPanel: ->
-    @sidebar ||= new App.SidebarView
-      codemarks: @codemarks
-    @sidebar.render()
+  renderNewCodemarkTileHtml: ->
+    newCodemarkTile = new App.NewCodemarkTileView
+    newCodemarkTile.render()
+    newCodemarkTile.$el
 
   codemarksHtml: ->
     $codemarks = $('<div class="codemarks"></div>')
