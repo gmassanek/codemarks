@@ -53,11 +53,14 @@ describe CodemarksController do
       @link = Fabricate(:link_record)
       @topics = [Fabricate(:topic), Fabricate(:topic)]
 
-      @params = { "codemark"=> {"title"=>"jQuery Knob demo", "note"=>"", "resource_id" => @link.id},
-        "user_id" => @user.id,
-        "commit"=>"Add Link",
-        "topic_ids"=>{"#{@topics.first.id}"=>"#{@topics.first.id}"},
-        "new_topics"=>{"A New Topic"=>"A New Topic"}
+      @params = { "codemark"=> {"title"=>"jQuery Knob demo",
+                                "note"=>"",
+                                "resource_id" => @link.id,
+                                "resource_type" => 'LinkRecord'},
+                                "user_id" => @user.id,
+                                "commit"=>"Add Link",
+                                "topic_ids"=>{"#{@topics.first.id}"=>"#{@topics.first.id}"},
+                                "new_topics"=>{"A New Topic"=>"A New Topic"}
       }
     end
 

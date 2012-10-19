@@ -17,7 +17,7 @@ class Seeder
     def create_codemark(url, user)
       link = Link.load(:url => url)
       attributes = {
-        :resource_id => link.id,
+        :resource => link.link_record,
         :user_id => user.id
       }
       topic_info = {
