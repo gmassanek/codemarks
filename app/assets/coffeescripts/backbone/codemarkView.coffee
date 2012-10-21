@@ -12,6 +12,7 @@ App.CodemarkView = Backbone.View.extend
 
   render: ->
     @$el.append(@toHTML())
+    @$el.addClass('mine') if CURRENT_USER == @model.get('author').slug
     @$('.timeago').timeago()
 
   toHTML: ->
