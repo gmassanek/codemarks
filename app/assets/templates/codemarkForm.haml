@@ -1,7 +1,12 @@
 / BEGIN: Codemark Form Template.
 %a.cancel &#xe00a;
-%input{:class => 'title', :name => 'title', :type => 'text', :placeholder => 'Title'}
-%textarea{:class => 'description', :name => 'description', :type => 'text', :placeholder => 'description'}
+%input(class='title' name='title' type='text' placeholder='Title')
+%textarea(class='description' name='description' type='text' placeholder='description')
+
+%select(class='chosen' data-placeholder="Choose a Country" multiple='multiple')
+  %option(value='US') United States
+  %option(value='Canada') Canada
+
 %ul.topics
   %li
     %a.topic

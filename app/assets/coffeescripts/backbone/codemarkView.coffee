@@ -32,6 +32,7 @@ App.CodemarkView = Backbone.View.extend
     formView.bind 'cancel', => @cancelForm()
     @$el.html(formView.$el)
     @$el.addClass('form-mode')
+    @$('.chosen').chosen()
 
   cancelForm: ->
     console.log 'cancel'

@@ -5,6 +5,7 @@
 //= require jquery.cookie
 //= require jquery.ba-bbq
 //= require jquery.timeago.js
+//= require jquery.chosen.js
 
 //= require backbone/app
 //= require_tree ./backbone
