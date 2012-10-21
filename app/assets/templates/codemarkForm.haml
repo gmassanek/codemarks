@@ -1,16 +1,17 @@
 / BEGIN: Codemark Form Template.
-%a.cancel &#xe00a;
+%label Title
 %input(class='title' name='title' type='text' placeholder='Title')
+%label Description
 %textarea(class='description' name='description' type='text' placeholder='description')
 
-%select(class='chosen' data-placeholder="Choose a Country" multiple='multiple')
-  %option(value='US') United States
-  %option(value='Canada') Canada
+%label Tags
+%select(class='topics' data-placeholder="Add a tag" multiple='multiple')
+  %option.possible_topic
 
-%ul.topics
-  %li
-    %a.topic
+%button.submit Submit
+
 %footer
+  .hover-icons
+    %a.cancel &#xe00a;
 .clear
-
 / END: Codemark Form Template.
