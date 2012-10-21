@@ -24,3 +24,29 @@ describe 'CodemarkView', ->
         model: codemark
       view.render()
       expect(view.$el.hasClass('mine')).toBeFalsy()
+
+  describe 'is editable', ->
+    it 'if the author is the current user', ->
+      window.CURRENT_USER = 'gmassanek'
+      codemark = new App.Codemark
+        author: { slug: 'gmassanek' }
+      view = new App.CodemarkView
+        model: codemark
+      expect(view.editable()).toBeTruthy()
+
+    it 'unless the auther is somebody else', ->
+      window.CURRENT_USER = 'somebody_else'
+      codemark = new App.Codemark
+        author: { slug: 'gmassanek' }
+      view = new App.CodemarkView
+        model: codemark
+      expect(view.editable()).toBeFalsy()
+
+  describe 'has a form mode', ->
+    it 'is denoted with the form-mode class', ->
+      codemark = new App.Codemark
+        author: { slug: 'gmassanek' }
+      view = new App.CodemarkView
+        model: codemark
+      view.showEditForm()
+      expect(view.$el.hasClass('form-mode')).toBeTruthy()

@@ -8,6 +8,9 @@
 @mixin proud_text
   color: $dark_faded
 
+@mixin hover-icon
+  font-family: 'icomoon'
+
 .codemark
   float: left
   overflow: hidden
@@ -43,7 +46,7 @@
     .save_date
       font-size: 12px
 
-  &:hover
+  &.mine:hover
     background: #fcfcfc
     h1
       .icon
@@ -102,7 +105,7 @@
     > *
       float: right
     > a
-      font-family: 'icomoon'
+      @include hover-icon
       margin-left: 5px
     .share
     .saves:before
@@ -153,3 +156,14 @@
     &.new_link
       form
         padding: 30px 20px
+
+.codemark
+  @include transition (all 5.0s)
+  .cancel
+    float: left
+    font-size: 24px
+    @include hover-icon
+    margin-top: 5px
+  .form-mode
+    //height: 254px * 2
+    //width: 235px * 2
