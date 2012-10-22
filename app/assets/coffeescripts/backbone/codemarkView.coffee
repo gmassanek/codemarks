@@ -15,6 +15,7 @@ App.CodemarkView = Backbone.View.extend
     @$el.html(@toHTML())
     @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
+    @$el.removeClass('form-mode')
 
   toHTML: ->
     template = angelo('codemark.html')
@@ -30,6 +31,7 @@ App.CodemarkView = Backbone.View.extend
       model: @model
     formView.render()
     formView.bind 'cancel', => @cancelForm()
+    formView.bind 'updated', => @render()
     @$el.html(formView.$el)
     @$el.addClass('form-mode')
     @$('.topics').chosen()

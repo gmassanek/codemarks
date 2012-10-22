@@ -21,8 +21,8 @@ App.CodemarkFormView = Backbone.View.extend
   presentedTopics: ->
     _.map App.topics.models, (topic) ->
       possible_topic:
-          value: topic.get('slug')
-          content: topic.get('title')
+        value: topic.get('id')
+        content: topic.get('title')
 
   cancel: ->
     @trigger('cancel')
@@ -32,8 +32,19 @@ App.CodemarkFormView = Backbone.View.extend
     @updateCodemark()
 
   updateCodemark: ->
-    console.log @data()
+    $.ajax
+      type: 'PUT'
+      url: "codemarks/#{@model.get('id')}"
+      data: @data()
+      success: (response) =>
+        @model.attributes = JSON.parse(response.codemark)
+        @trigger('updated')
 
   data: ->
-    title: @$('.title').val()
-    description: @$('.description').val()
+    data = codemark:
+      title: @$('.title').val()
+      description: @$('.description').val()
+      resource_type: 'LinkRecord'
+      resource_id: @model.get('resource').id
+    data.codemark['topic_ids'] = @$('.topics').val() if @$('.topics').val()?
+    data
