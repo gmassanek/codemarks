@@ -1,27 +1,29 @@
 class CodemarksController < ApplicationController
-def new
+  def new
     options = {}
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
     options[:user_id] = current_user.id if current_user
     @codemark = Codemark.load(options)
+    render :json => PresentCodemarks.present(@codemark, current_user)
   end
 
   def create
+    topic_ids = params[:codemark].delete("topic_ids")
     attributes = params[:codemark]
     attributes[:user_id] = current_user_id
 
     topic_info = {
-      :ids => params[:topic_ids].try(:keys),
+      :ids => topic_ids,
       :new_topics => params[:new_topics].try(:keys)
     }
 
     @codemark = Codemark.create(attributes, topic_info)
 
-    respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Thanks!' }
-      format.js { render :text => '', :status => :ok }
-    end
+    render :json => {
+      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
+      :success => true
+    }
   rescue Exception => e
     p e
     puts e.backtrace.first(10).join("\n")
@@ -71,6 +73,15 @@ def new
         format.js { render :topic_checkbox }
       end
     end
+  end
+
+  def update
+    @codemark = CodemarkRecord.find(params[:id])
+    @codemark.update_attributes(params['codemark'])
+    render :json => {
+      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
+      :success => true
+    }
   end
 
   def github

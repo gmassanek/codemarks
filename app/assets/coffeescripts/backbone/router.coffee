@@ -5,6 +5,8 @@ App.MainRouter = Backbone.Router.extend
 
   codemarks: (params) ->
     @codemarks = App.codemarks
+    App.topics = new App.Topics
+    App.topics.fetch()
     @showCodemarkList()
     @codemarks.filters.loadFromCookie($.deparam(params || ''))
     @codemarks.fetch()
