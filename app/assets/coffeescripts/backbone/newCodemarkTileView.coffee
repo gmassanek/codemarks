@@ -26,5 +26,29 @@ App.NewCodemarkTileView = Backbone.View.extend
 
   fetchFullFormFor: (url) ->
     data = { url: url }
-    #@$el.load("/codemarks/new?url=#{url}")
-    @$('.new_link').html('<a class="icon-link-2">New Link</a>')
+    $.ajax
+      type: 'GET'
+      url: '/codemarks/new'
+      data: { url: url }
+      success: (response) =>
+        @showNewLinkForm(response)
+
+  showNewLinkForm: (response) ->
+    codemark = new App.Codemark(response)
+    @formView = new App.CodemarkFormView
+      model: codemark
+    @formView.render()
+    @formView.bind 'cancel', => @cancelForm()
+    @formView.bind 'updated', => @render()
+    @formView.bind 'created', => @newCodemarkAdded()
+    @$el.html(@formView.$el)
+    @$el.addClass('form-mode')
+    @$('.topics').chosen()
+
+  newCodemarkAdded: ->
+    App.codemarks.add(@formView.model.attributes)
+    @render()
+
+  cancelForm: ->
+    @render()
+    @$el.removeClass('form-mode')

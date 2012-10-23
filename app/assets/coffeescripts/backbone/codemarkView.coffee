@@ -37,7 +37,6 @@ App.CodemarkView = Backbone.View.extend
     @$('.topics').chosen()
 
   cancelForm: ->
-    console.log 'cancel'
     @render()
     @$el.removeClass('form-mode')
 

@@ -32,13 +32,22 @@ App.CodemarkFormView = Backbone.View.extend
     @updateCodemark()
 
   updateCodemark: ->
-    $.ajax
-      type: 'PUT'
-      url: "codemarks/#{@model.get('id')}"
-      data: @data()
-      success: (response) =>
-        @model.attributes = JSON.parse(response.codemark)
-        @trigger('updated')
+    if @model.get('id')
+      $.ajax
+        type: 'PUT'
+        url: "codemarks/#{@model.get('id')}"
+        data: @data()
+        success: (response) =>
+          @model.attributes = JSON.parse(response.codemark)
+          @trigger('updated')
+    else
+      $.ajax
+        type: 'POST'
+        url: 'codemarks'
+        data: @data()
+        success: (response) =>
+          @model.attributes = JSON.parse(response.codemark)
+          @trigger('created')
 
   data: ->
     data = codemark:
