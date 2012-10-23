@@ -5,7 +5,6 @@ class CodemarksController < ApplicationController
     options[:id] = params[:id] if params[:id]
     options[:user_id] = current_user.id if current_user
     @codemark = Codemark.load(options)
-    p @codemark
     render :json => PresentCodemarks.present(@codemark, current_user)
   end
 
