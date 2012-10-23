@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe CodemarksController do
-
-  ##=======     Receiver    =======###
-  describe "#index" do
-    it "calls FindCodemarks" do
+  describe '#index' do
+    it 'calls FindCodemarks' do
       codemarks = []
       codemarks.stub(:num_pages)
       finder = stub(:codemarks => codemarks)
@@ -12,40 +10,38 @@ describe CodemarksController do
       get :index, :format => :json
     end
 
-    it "it assigns codemarks" do
+    it 'it assigns codemarks' do
       Fabricate(:codemark_record)
       get :index, :format => :json
       assigns[:codemarks].should_not be_nil
     end
 
-    it "it presents codemarks" do
+    it 'it presents codemarks' do
       codemarks = []
       PresentCodemarks.stub!(:for => codemarks)
       get :index, :format => :json
       assigns[:codemarks].should == codemarks
     end
   end
-  ##=======     Receiver    =======###
 
+  describe 'new' do
+    let(:valid_url) { 'http://www.example.com' }
 
-  describe "new" do
-    let(:valid_url) { "http://www.example.com" }
-
-    it "asks for a prepared codemark" do
+    it 'asks for a prepared codemark' do
       Codemark.should_receive(:load).with(:url => valid_url)
       get :new, :format  => :js, :url => valid_url
     end
 
-    it "creates a new codemark with the new link" do
+    it 'creates a new codemark with the new link' do
       codemark = stub
       Codemark.stub(:load) { codemark }
 
-      get :new, format: "js"
+      get :new, format: :js
       assigns(:codemark).should == codemark
     end
   end
 
-  describe "#create" do
+  describe '#create' do
     before do
       @user = Fabricate(:user)
       controller.stub(:current_user_id => @user.id)
@@ -75,7 +71,5 @@ describe CodemarksController do
         post :create, @params.merge(:format => :json)
       }.to change(Topic, :count).by 1
     end
-
-    it 
   end
 end
