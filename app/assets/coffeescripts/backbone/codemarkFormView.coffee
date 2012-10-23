@@ -8,6 +8,14 @@ App.CodemarkFormView = Backbone.View.extend
 
   render: ->
     @$el.html(@toHtml())
+    @selectTopics()
+
+  selectTopics: ->
+    $topics = @$('.topics')
+    _.map @model.get('topics'), (topic) ->
+      console.log topic
+      $topics.find("option[value=#{topic.id}]").prop('selected', true)
+
 
   toHtml: ->
     template = angelo('codemarkForm.html')
