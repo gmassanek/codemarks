@@ -2,6 +2,7 @@ App.CodemarksView = Backbone.View.extend
   initialize: ->
     @codemarks = @options.codemarks
     @codemarks.bind 'reset', => @render()
+    @codemarks.bind 'add', (codemark) => @addCodemark(codemark)
 
   render: ->
     @$el.html('')
@@ -36,7 +37,12 @@ App.CodemarksView = Backbone.View.extend
     form = new App.CodemarkFormView
       model: view.codemark || view.model
     form.render()
+
     form.bind 'cancel', => @cancelForm(form)
+    form.bind 'updated', => @cancelForm(form)
+    form.bind 'created', (data) => @addCodemark(data)
+    form.bind 'created', => @cancelForm(form)
+
     view.$el.replaceWith(form.$el)
 
   cancelForm: (view) ->
@@ -54,3 +60,10 @@ App.CodemarksView = Backbone.View.extend
   replaceNewCodemarkTile: (view) ->
     $newEl = @newCodemarkTileHtml()
     view.$el.replaceWith($newEl)
+
+  addCodemark: (data) ->
+    codemark = new App.Codemark(data)
+    codemarkView = new App.CodemarkView
+      model: codemark
+    codemarkView.render()
+    @$('.codemarks').prepend(codemarkView.$el)
