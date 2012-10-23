@@ -29,14 +29,16 @@ describe CodemarksController do
 
     it 'asks for a prepared codemark' do
       Codemark.should_receive(:load).with(:url => valid_url)
-      get :new, :format  => :js, :url => valid_url
+      PresentCodemarks.stub(:present)
+      get :new, :format  => :json, :url => valid_url
     end
 
     it 'creates a new codemark with the new link' do
       codemark = stub
       Codemark.stub(:load) { codemark }
+      PresentCodemarks.stub(:present)
 
-      get :new, format: :js
+      get :new, format: :json
       assigns(:codemark).should == codemark
     end
   end
