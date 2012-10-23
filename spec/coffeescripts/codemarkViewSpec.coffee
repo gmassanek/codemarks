@@ -44,6 +44,7 @@ describe 'CodemarkView', ->
 
   describe 'has a form mode', ->
     it 'is denoted with the form-mode class', ->
+      spyOn($.fn, 'chosen')
       codemark = new App.Codemark
         author: { slug: 'gmassanek' }
       view = new App.CodemarkView
