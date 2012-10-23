@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20121019005513) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.boolean  "archived",      :default => false
-    t.text     "note"
+    t.text     "description"
     t.text     "title"
     t.tsvector "search"
     t.boolean  "private",       :default => false
