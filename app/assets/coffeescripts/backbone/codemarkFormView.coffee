@@ -7,8 +7,22 @@ App.CodemarkFormView = Backbone.View.extend
     'submit': 'submit'
 
   render: ->
+    if !@model.get('resource').id?
+      @fetchFullFormFor(@model.get('resource').url)
+      return
+
     @$el.html(@toHtml())
     @selectTopics()
+
+  fetchFullFormFor: (url) ->
+    data = { url: url }
+    $.ajax
+      type: 'GET'
+      url: '/codemarks/new'
+      data: { url: url }
+      success: (response) =>
+        @model = new App.Codemark(response)
+        @render()
 
   selectTopics: ->
     $topics = @$('.topics')
@@ -44,15 +58,24 @@ App.CodemarkFormView = Backbone.View.extend
     @updateCodemark()
 
   updateCodemark: ->
-    $.ajax
-      type: 'PUT'
-      url: "codemarks/#{@model.get('id')}"
-      data: @data()
-      success: (response) =>
-        @model.attributes = JSON.parse(response.codemark)
-        @trigger('updated')
+    if @model.get('id')
+      $.ajax
+        type: 'PUT'
+        url: "codemarks/#{@model.get('id')}"
+        data: @data()
+        success: (response) =>
+          @model.attributes = JSON.parse(response.codemark)
+          @trigger('updated')
+    else
+      $.ajax
+        type: 'POST'
+        url: 'codemarks'
+        data: @data()
+        success: (response) =>
+          @trigger('created', JSON.parse(response.codemark))
 
   data: ->
+    console.log @model
     data = codemark:
       title: @$('.title').val()
       description: @$('.description').val()
