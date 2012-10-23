@@ -61,6 +61,14 @@ class Codemark
     @tags || @resource.tags
   end
 
+  def attributes
+    @codemark_record.try(&:attributes) || {}
+  end
+
+  def topics
+    tags
+  end
+
   def title
     @title || @resource.title
   end
