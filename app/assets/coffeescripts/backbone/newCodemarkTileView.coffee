@@ -37,8 +37,3 @@ App.NewCodemarkTileView = Backbone.View.extend
 
   turnIntoLinkForm: ->
     @trigger('turnIntoForm')
-
-  fetchFullFormFor: (url) ->
-    data = { url: url }
-    #@$el.load("/codemarks/new?url=#{url}")
-    @$('.new_link').html('<a class="icon-link-2">New Link</a>')
