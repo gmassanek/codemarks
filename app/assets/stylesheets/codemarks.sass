@@ -88,7 +88,7 @@
 
 .codemark footer
   position: absolute
-  bottom: 15px
+  bottom: 10px
   left: 10px
   right: 10px
   font-size: 12px
@@ -139,31 +139,40 @@
   padding: 0
   position: relative
 
-  li
-    border-bottom: 1px solid #ddd
-    &:last-child
-      border-bottom: none
-    a
-      font-size: 25px
-      display: inline-block
-      padding: 30px 25px
-      color: #666
-      width: 100%
-      &:hover
-        color: $orange
-      &:before
-        margin-right: 20px
-    &.add_link
-      form
-        padding: 30px 20px
+  ul.new_options
+    li
+      border-bottom: 1px solid #ddd
+      &:last-child
+        border-bottom: none
+      a
+        font-size: 25px
+        display: inline-block
+        padding: 30px 25px
+        color: #666
+        width: 100%
+        &:hover
+          color: $orange
+        &:before
+          margin-right: 20px
+      &.add_link
+        form
+          padding: 30px 20px
 
-.codemark
+.codemark.form-mode
   @include transition (all 5.0s)
-  .cancel
-    float: left
-    font-size: 24px
-    @include hover-icon
-    margin-top: 5px
-  .form-mode
-    //height: 254px * 2
-    //width: 235px * 2
+  footer
+    bottom: 0
+    .hover-icons
+      display: inherit
+      .cancel
+        display: inherit
+        margin-bottom: 10px
+
+  .codemark_form
+    .title
+      width: 100%
+    .description
+      width: 100%
+      height: 50px
+    .topics
+      width: 100%
