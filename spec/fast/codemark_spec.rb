@@ -122,10 +122,10 @@ describe Codemark do
       codemark.title.should == "Some Title"
     end
 
-    it "saves a note" do
-      attributes = { :note => "Some Note" }
+    it "saves a description" do
+      attributes = { :description => "Some Description" }
       codemark = Codemark.new(attributes)
-      codemark.note.should == "Some Note"
+      codemark.description.should == "Some Description"
     end
 
     describe "saves resource attributes like" do
