@@ -73,6 +73,15 @@ def new
     end
   end
 
+  def update
+    @codemark = CodemarkRecord.find(params[:id])
+    @codemark.update_attributes(params['codemark'])
+    render :json => {
+      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
+      :success => true
+    }
+  end
+
   def github
     payload = params[:payload]
     payload = JSON.parse(payload)
