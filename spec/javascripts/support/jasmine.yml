@@ -1,7 +1,6 @@
 src_dir: public
 src_files:
   - assets/jquery.js
-  - templates/*.html
   - assets/backbone_app.js
 
 spec_dir: spec/javascripts
