@@ -20,7 +20,7 @@ def new
 
     respond_to do |format|
       format.html { redirect_to :back, :notice => 'Thanks!' }
-      format.js { render :text => '', :status => :ok }
+      format.json { render :text => '', :status => :ok }
     end
   rescue Exception => e
     p e
