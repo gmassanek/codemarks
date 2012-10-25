@@ -24,11 +24,6 @@ $ ->
     $cm = $(e.target).closest('.codemark')
     copy_codemark($cm)
 
-  $(".show_note").click (event) =>
-    event.preventDefault()
-    $cm = $(event.target).closest('.codemark')
-    $cm.find('.note').toggle()
-
   $(".show_comments").click (event) ->
     event.preventDefault()
     $cm = $(event.target).closest('.codemark')
@@ -44,10 +39,6 @@ $ ->
 
   $(".edit_codemark").qtip
     content: 'Edit your codemark'
-    show: { delay: 1000 }
-
-  $(".show_note").qtip
-    content: 'View your codemark\'s note'
     show: { delay: 1000 }
 
   $(".show_comments").qtip
