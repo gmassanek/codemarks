@@ -4,25 +4,39 @@ App.NewCodemarkTileView = Backbone.View.extend
   tagName: 'article'
 
   events:
-    'click .new_link a': 'newLinkClicked'
-    'submit .new_link form': 'newLinkFormSubmitted'
+    'click .add_link a': 'addLink'
+    'submit .add_link form': 'newLinkFormSubmitted'
 
   render: ->
     template = angelo('newCodemarkTile.html')
     @$el.html(template)
 
-  newLinkClicked: (e) ->
+  addLink: (e) ->
     e.preventDefault()
     @showUrlForm()
 
   showUrlForm: ->
     template = '<form><input placeholder="Paste Link"/><button>Add</button></form>'
-    @$('.new_link').html(template)
+    @$('.add_link').html(template)
 
   newLinkFormSubmitted: (e) ->
     e.preventDefault()
     url = $(e.currentTarget).find('input').val()
-    @fetchFullFormFor(url)
+    if @createCodemarkFor(url)
+      @turnIntoLinkForm()
+    else
+      @showUrlForm()
+      @$('.add_link').find('form').append('<br><label>Need a URL</label>')
+
+  createCodemarkFor: (url) ->
+    return unless url
+    link = { url: url }
+    @codemark = new App.Codemark
+      resource: link
+      resource_type: 'LinkRecord'
+
+  turnIntoLinkForm: ->
+    @trigger('turnIntoForm')
 
   fetchFullFormFor: (url) ->
     data = { url: url }
