@@ -7,10 +7,27 @@ App.CodemarkFormView = Backbone.View.extend
 
   render: ->
     @$el.html(@toHtml())
+    @selectTopics()
+
+  selectTopics: ->
+    $topics = @$('.topics')
+    _.map @model.get('topics'), (topic) ->
+      $topics.find("option[value=#{topic.id}]").prop('selected', true)
 
   toHtml: ->
     template = angelo('codemarkForm.html')
-    facile(template, @model.attributes)
+    facile(template, @presentedAttributes())
+
+  presentedAttributes: ->
+    title: @model.get('title')
+    description: @model.get('description') || ''
+    topics: @presentedTopics()
+
+  presentedTopics: ->
+    _.map App.topics.models, (topic) ->
+      possible_topic:
+        value: topic.get('id')
+        content: topic.get('title')
 
   cancel: ->
     @trigger('cancel')
