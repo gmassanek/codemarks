@@ -9,15 +9,27 @@ App.CodemarkView = Backbone.View.extend
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
+    'click .icon': 'iconClick'
 
   render: ->
-    @$el.append(@toHTML())
-    @$el.addClass('mine') if CURRENT_USER == @model.get('author').slug
+    @$el.html(@toHTML())
+    @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
 
   toHTML: ->
     template = angelo('codemark.html')
     facile(template, @presentedAttributes())
+
+  iconClick: (e) ->
+    e.preventDefault()
+    return unless @editable()
+    @showEditForm()
+
+  showEditForm: ->
+    @trigger('turnIntoForm', @)
+
+  editable: ->
+    CURRENT_USER == @model.get('author').slug
 
   presentedAttributes: ->
     resource = @model.get('resource')
