@@ -11,7 +11,7 @@ class PresentCodemarks
 
   def self.present(codemark, current_user = nil)
     data = {
-      resource: codemark.resource.attributes,
+      resource: codemark.resource.attributes.reject { |k, _| k == 'site_data'},
       author: codemark.user.attributes,
       topics: codemark.topics.map(&:attributes)
     }.merge(codemark.attributes)
