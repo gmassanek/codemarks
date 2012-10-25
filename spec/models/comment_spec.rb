@@ -8,7 +8,6 @@ describe Comment do
   )}
 
   it 'requires an codemark_id' do
-    p comment
     comment.codemark_id = nil
     comment.should_not be_valid
   end
