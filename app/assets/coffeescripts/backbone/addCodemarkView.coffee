@@ -15,7 +15,7 @@ App.AddCodemarkView = Backbone.View.extend
     @showUrlForm()
 
   showUrlForm: ->
-    template = '<form><input placeholder="Paste Link"/><button>Add</button></form>'
+    template = '<form><input name="url" placeholder="Paste Link"/><button>Add</button></form>'
     @$('.add_link').html(template)
 
   newLinkFormSubmitted: (e) ->

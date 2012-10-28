@@ -1,8 +1,6 @@
 @omniauth_test_success
 
 Feature: Edit Codemarks
-  In order to make codemarks more accurate
-  As a user
   I want to edit my codemarks
 
   @javascript
