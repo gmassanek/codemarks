@@ -23,7 +23,6 @@ Codemarks::Application.routes.draw do
   resources :topics
 
   # API endpoint
-  get '/public', to: 'codemarks#index', :as => :public_codemarks
   get '/:username', :to => 'users#show', :as => "short_user"
 
   resources :comments, :only => [:create, :destroy]
