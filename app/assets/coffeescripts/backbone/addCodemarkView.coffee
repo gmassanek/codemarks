@@ -1,14 +1,13 @@
-App.NewCodemarkTileView = Backbone.View.extend
-  id: 'new_codemarks'
-  className: 'codemark'
-  tagName: 'article'
+App.AddCodemarkView = Backbone.View.extend
+  className: 'new_options'
+  tagName: 'ul'
 
   events:
     'click .add_link a': 'addLink'
     'submit .add_link form': 'newLinkFormSubmitted'
 
   render: ->
-    template = angelo('newCodemarkTile.html')
+    template = angelo('addCodemark.html')
     @$el.html(template)
 
   addLink: (e) ->
@@ -31,7 +30,7 @@ App.NewCodemarkTileView = Backbone.View.extend
   createCodemarkFor: (url) ->
     return unless url
     link = { url: url }
-    @codemark = new App.Codemark
+    @model = new App.Codemark
       resource: link
       resource_type: 'LinkRecord'
 

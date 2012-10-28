@@ -1,10 +1,6 @@
-describe 'NewCodemarkTileView', ->
+describe 'AddCodemarkView', ->
   beforeEach ->
-    @tile = new App.NewCodemarkTileView
-
-  it 'looks like a tile', ->
-    @tile.render()
-    expect(@tile.$el.hasClass('codemark')).toBeTruthy()
+    @tile = new App.AddCodemarkView
 
   describe 'shows a url form', ->
     it 'has a form in the new_link section', ->
