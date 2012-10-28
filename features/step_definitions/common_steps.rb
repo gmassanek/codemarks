@@ -33,7 +33,7 @@ When /^I copy that codemark/ do
 end
 
 When /^I click the edit icon$/ do
-  find('.icon').click()
+  find('.codemark .icon').click()
 end
 
 Then /^I should not see the copy icon$/ do

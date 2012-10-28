@@ -6,7 +6,7 @@ Feature: Saving Codemarks
     Given I am logged in
 
   Scenario: Saving twitter on the dashboard
-    And I fill out the add codemark form with Twitter
+    And I fill out and submit the add codemark form with Twitter
     Then I should see "Twitter"
     And I should be Twitter's author
 
