@@ -105,15 +105,6 @@ When /^I go to the "([^"]*)" topic page$/ do |topic_title|
   visit topic_path(@topic)
 end
 
-When /^I go to my dashboard$/ do
-  visit '/'
-end
-
-When /^I go to the public page$/ do
-  visit '/public'
-  step 'I wait until all Ajax requests are complete'
-end
-
 When /^I go to his page$/ do
   visit "/#{@user.nickname}"
 end
