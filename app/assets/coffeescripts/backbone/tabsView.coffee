@@ -1,5 +1,4 @@
 App.TabsView = Backbone.View.extend
-
   events:
     'click .yours': 'clickYours'
     'click .everyones': 'clickEveryones'

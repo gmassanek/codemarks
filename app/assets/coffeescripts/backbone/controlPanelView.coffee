@@ -15,19 +15,19 @@ App.ControlPanelView = Backbone.View.extend
     template = angelo('filter.html')
     $container = $('<div></div>')
 
-    _.each @filters.topicIds(), (topicId) ->
-      data =
-        description: topicId
-        'remove@data-type': 'topic'
-        'remove@data-id': topicId
-      html = facile(template, data)
-      $container.append(html)
-
     if @filters.get('user')
       data =
         description: @filters.get('user')
         'remove@data-type': 'user'
         'remove@data-id': @filters.get('user')
+      html = facile(template, data)
+      $container.append(html)
+
+    _.each @filters.topicIds(), (topicId) ->
+      data =
+        description: topicId
+        'remove@data-type': 'topic'
+        'remove@data-id': topicId
       html = facile(template, data)
       $container.append(html)
 
