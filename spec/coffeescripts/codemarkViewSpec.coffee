@@ -2,6 +2,18 @@ describe 'CodemarkView', ->
   afterEach ->
     window.CURRENT_USER = null
 
+  describe 'rerenders itself', ->
+    it 'when its model changes', ->
+      codemark = new App.Codemark
+        resource: {}
+        topics: []
+        author: { slug: 'gmassanek' }
+      view = new App.CodemarkView
+        model: codemark
+      spyOn(view, 'render')
+      codemark.trigger('change')
+      expect(view.render).toHaveBeenCalled()
+
   describe "renders it's own HTML", ->
     it 'and adds the "mine" class if it belongs to the current user', ->
       window.CURRENT_USER = 'gmassanek'

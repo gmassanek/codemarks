@@ -11,3 +11,6 @@ App.Codemark = Backbone.Model.extend
 
   exists: ->
     !@new()
+
+  hasNewResource: ->
+    @get('resource')? && !@get('resource').id?

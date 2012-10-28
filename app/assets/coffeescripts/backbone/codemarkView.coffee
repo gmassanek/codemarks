@@ -15,6 +15,9 @@ App.CodemarkView = Backbone.View.extend
     @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
 
+  initialize: ->
+    @model.bind 'change', => @render()
+
   toHTML: ->
     template = angelo('codemark.html')
     facile(template, @presentedAttributes())
@@ -25,7 +28,7 @@ App.CodemarkView = Backbone.View.extend
     @showEditForm()
 
   showEditForm: ->
-    @trigger('turnIntoForm', @)
+    @trigger('turnIntoForm')
 
   editable: ->
     CURRENT_USER == @model.get('author').slug
