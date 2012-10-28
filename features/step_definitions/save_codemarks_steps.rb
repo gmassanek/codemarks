@@ -4,7 +4,11 @@ When /^I fill out the add codemark form with Twitter$/ do
   page.fill_in('url', :with => 'http://www.twitter.com')
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
-  page.click_button('Submit')
+end
+
+When /^I fill out and submit the add codemark form with Twitter$/ do
+  step 'I fill out the add codemark form with Twitter'
+  step 'I submit the codemark form'
 end
 
 When /^I fill out the codemark form with the existing one$/ do
@@ -13,6 +17,7 @@ When /^I fill out the codemark form with the existing one$/ do
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
   page.click_button('Submit')
+  step 'I wait until all Ajax requests are complete'
 end
 
 When /^I submit the codemark form$/ do
