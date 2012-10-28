@@ -8,7 +8,7 @@ App.CodemarkFormView = Backbone.View.extend
 
   render: ->
     #console.log 'AHHH no resource' unless @model.get('resource')?
-    if @model.get('resource')? && !@model.get('resource').id?
+    if @model.hasNewResource()
       @fetchFullFormFor(@model.get('resource').url)
       return
 
@@ -22,7 +22,8 @@ App.CodemarkFormView = Backbone.View.extend
       url: '/codemarks/new'
       data: { url: url }
       success: (response) =>
-        @model = new App.Codemark(response)
+        existingModel = App.codemarks.where({ id: response.id })[0]
+        @model = existingModel || new App.Codemark(response)
         @render()
 
   selectTopics: ->
@@ -66,6 +67,8 @@ App.CodemarkFormView = Backbone.View.extend
         data: @data()
         success: (response) =>
           @model.attributes = JSON.parse(response.codemark)
+          console.log @model
+          @model.trigger('change')
           @trigger('updated')
     else
       $.ajax
@@ -76,7 +79,6 @@ App.CodemarkFormView = Backbone.View.extend
           @trigger('created', JSON.parse(response.codemark))
 
   data: ->
-    console.log @model
     data = codemark:
       title: @$('.title').val()
       description: @$('.description').val()
