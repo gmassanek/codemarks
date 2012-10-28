@@ -1,6 +1,5 @@
 App.CodemarkView = Backbone.View.extend
   className: 'codemark'
-  tagName: 'article'
 
   events:
     'click .delete': 'deleteCodemark'
