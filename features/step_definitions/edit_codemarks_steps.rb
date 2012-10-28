@@ -16,8 +16,7 @@ When /^I accept the prompt$/ do
 end
 
 When /^I click the edit image/ do
-  page.driver.browser.execute_script("$('.actions a').css('display', 'inline')")
-  page.find('.edit').click()
+  page.find('.codemark .icon').click()
 end
 
 When /^I click the delete image/ do
