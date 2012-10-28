@@ -2,8 +2,8 @@
 //= require backbone
 //= require facile
 //= require angelo
-//= require jquery.cookie
 //= require jquery.ba-bbq
+//= require jquery.timeago.js
 
 //= require backbone/app
 //= require_tree ./backbone

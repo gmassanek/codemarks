@@ -18,6 +18,10 @@ class Link
     self
   end
 
+  def attributes
+    link_record.attributes
+  end
+
   def self.load(attributes = {})
     link = Link.new(attributes)
     link.load
@@ -50,7 +54,7 @@ class Link
     html_response = parsed_html_response(url)
 
     link_record.url = self.url
-    link_record.title = html_response.title.strip
+    link_record.title = html_response.title.try(:strip)
     link_record.host = URI.parse(url).host
     link_record.site_data = html_response.content
     link_record.save!

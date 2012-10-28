@@ -1,22 +1,37 @@
 App.CodemarkView = Backbone.View.extend
   className: 'codemark'
-  tagName: 'article'
 
   events:
     'click .delete': 'deleteCodemark'
     'click .share': 'twitterShare'
-    'click .add': 'copyToForm'
+    'click .add': 'createCopy'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
+    'click .icon': 'iconClick'
 
   render: ->
-    @$el.append(@toHTML())
+    @$el.html(@toHTML())
+    @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
+
+  initialize: ->
+    @model.bind 'change', => @render()
 
   toHTML: ->
     template = angelo('codemark.html')
     facile(template, @presentedAttributes())
+
+  iconClick: (e) ->
+    e.preventDefault()
+    return unless @editable()
+    @showEditForm()
+
+  showEditForm: ->
+    @trigger('turnIntoForm')
+
+  editable: ->
+    CURRENT_USER == @model.get('author').slug
 
   presentedAttributes: ->
     resource = @model.get('resource')
@@ -43,8 +58,7 @@ App.CodemarkView = Backbone.View.extend
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
     delete: if @model.mine() then '&#x66;' else null
-    add: if @model.mine() then null else '&#xe00e;'
-
+    add: if @model.mine() || CURRENT_USER == null then null else '&#xe00e;'
 
   editText: ->
     if @mine() then 'Edit' else 'Save'
@@ -82,8 +96,7 @@ App.CodemarkView = Backbone.View.extend
       $.post "/codemarks/#{@model.get('id')}",
         _method: 'delete'
         success: =>
-          @$el.fadeOut 500, =>
-            @$el.remove()
+          @trigger('delete')
 
   twitterShare: (e) ->
     e.preventDefault()
@@ -105,9 +118,5 @@ App.CodemarkView = Backbone.View.extend
     top    = ($(window).height() - height) / 2
     "status=1,width=#{width},height=#{height},top=#{top},left=#{left}"
 
-  copyToForm: ->
-    $('#url').val(@model.get('resource').url)
-    $('#resource_attrs_id').val(@model.get('resource').id)
-    $('#id').val(@model.get('id'))
-    $('#codemark_form').submit()
-    $(window).scrollTop(0)
+  createCopy: ->
+    @trigger('createCopy')

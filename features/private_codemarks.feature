@@ -4,23 +4,23 @@ Feature: Private Codemarks
   As a user
   I want to save private codemarks
 
+  Background:
+    Given a private tag exists
+    Given I am logged in
+
   Scenario: Saving a private codemark
-    Given I am a logged in user
-    When I go to the public page
-    And I fill out the form with Twitter
+    And I fill out the add codemark form with Twitter
     And I add the 'private' tag
-    And I submit the form
+    And I submit the codemark form
     Then I should see "Twitter"
     And that codemark should be private
 
   Scenario: Viewing my own private codemarks
-    Given I am a logged in user
     And I have a private codemark
-    When I go to my dashboard
+    When I am on the codemarks page
     Then I should see that codemark
 
   Scenario: Cannot view other people's private codemarks
-    Given I am a logged in user
     And another user has a private codemark
-    When I go to his page
+    When I am on the codemarks page
     Then I should not see that codemark

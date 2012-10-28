@@ -25,7 +25,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    cookies[:filters] = {:user => params[:username]}.to_json
-    redirect_to codemarks_path
+    redirect_to codemarks_path(:user => params[:username])
   end
 end

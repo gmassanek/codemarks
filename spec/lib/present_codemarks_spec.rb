@@ -6,7 +6,9 @@ describe PresentCodemarks do
   it 'presents everything it needs to' do
     codemark.title = nil
     presented = PresentCodemarks.present(codemark)
-    presented[:resource].should == codemark.resource.attributes
+    data = codemark.resource.attributes
+    data.delete('site_data')
+    presented[:resource].should == data
     presented['title'].should == codemark.title
   end
 end
