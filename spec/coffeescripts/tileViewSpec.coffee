@@ -2,6 +2,7 @@ describe 'Tile View', ->
   beforeEach ->
     @codemark = new App.Codemark
       id: 10
+      author: { slug: 'gmassanek' }
       resource: {}
     @view = new App.TileView
       model: @codemark
@@ -150,6 +151,24 @@ describe 'Tile View', ->
       codemarkFormView.trigger('created')
       expect(@view.codemarkCreated).toHaveBeenCalled()
 
+    it 'for when it has been removed', ->
+      codemarkView = new App.CodemarkView
+        model: @codemark
+      @view.view = codemarkView
+      @view.bindToView()
+      spyOn(@view, 'remove')
+      codemarkView.trigger('delete')
+      expect(@view.remove).toHaveBeenCalled()
+
+    it 'for when it is being copied to a new user', ->
+      codemarkView = new App.CodemarkView
+        model: @codemark
+      @view.view = codemarkView
+      @view.bindToView()
+      spyOn(@view, 'copyForNewUser')
+      codemarkView.trigger('createCopy')
+      expect(@view.copyForNewUser).toHaveBeenCalled()
+
   describe 'handles a codemark being created', ->
     it 'by rerendering', ->
       spyOn(@view, 'render')
@@ -162,3 +181,29 @@ describe 'Tile View', ->
       App.codemarks.bind 'add', createdSpy
       @view.codemarkCreated()
       expect(createdSpy).toHaveBeenCalled()
+
+  describe 'creates a codemark for a new user', ->
+    it 'remembers the model to copy', ->
+      codemarkView = new App.CodemarkView
+        model: @codemark
+      @view.view = codemarkView
+      @view.copyForNewUser()
+      expect(@view.modelToCopy).toBe(@codemark)
+
+    it 'removes the user and id of the existing model', ->
+      codemarkView = new App.CodemarkView
+        model: @codemark
+      @view.view = codemarkView
+      @view.copyForNewUser()
+      expect(@view.view.model.get('id')).toBeUndefined()
+      expect(@view.view.model.get('author')).toBeUndefined()
+      expect(@view.view.model.get('user_id')).toBeUndefined()
+
+    it 'turns into a form', ->
+      codemarkView = new App.CodemarkView
+        model: @codemark
+      @view.view = codemarkView
+      spyOn(@view, 'turnViewIntoForm')
+      @view.copyForNewUser()
+      expect(@view.turnViewIntoForm).toHaveBeenCalled()
+
