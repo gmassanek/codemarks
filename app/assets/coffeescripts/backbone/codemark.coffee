@@ -5,3 +5,12 @@ App.Codemark = Backbone.Model.extend
 
   mine: ->
     @get('author').slug == CURRENT_USER
+
+  new: ->
+    !@get('id')?
+
+  exists: ->
+    !@new()
+
+  hasNewResource: ->
+    @get('resource')? && !@get('resource').id?

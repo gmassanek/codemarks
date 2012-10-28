@@ -10,6 +10,24 @@ describe CodemarkRecord do
     end
   end
 
+  describe '#resource' do
+    let(:user) { Fabricate(:user) }
+
+    it 'can be a link_record' do
+      link = Fabricate.build(:link_record)
+      cm = CodemarkRecord.new(:resource => link, :user => user)
+      cm.save
+      cm.resource.should == link
+    end
+
+    it 'can be a note' do
+      note = TextRecord.new(:text => 'Some Note')
+      cm = CodemarkRecord.new(:resource => note, :user => user)
+      cm.save
+      cm.resource.should == note
+    end
+  end
+
   describe '#resource_author' do
     it 'is the author of its resource' do
       codemark = Fabricate.build(:codemark_record)
