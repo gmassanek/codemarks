@@ -1,6 +1,6 @@
 App.CodemarkFormView = Backbone.View.extend
-  className: 'codemark form-mode'
-  tagName: 'article'
+  className: 'codemark_form'
+  tagName: 'form'
 
   events:
     'click .cancel': 'cancel'
@@ -67,7 +67,6 @@ App.CodemarkFormView = Backbone.View.extend
         data: @data()
         success: (response) =>
           @model.attributes = JSON.parse(response.codemark)
-          console.log @model
           @model.trigger('change')
           @trigger('updated')
     else

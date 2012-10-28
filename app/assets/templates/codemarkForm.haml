@@ -1,19 +1,17 @@
 / BEGIN: Codemark Form Template.
-%form.codemark_form
-  %label Title
-  %input(class='title' name='title' type='text' placeholder='Title')
+%label Title
+%input(class='title' name='title' type='text' placeholder='Title')
 
-  %label Description
-  %textarea(class='description' name='description' type='text' placeholder='description')
+%label Description
+%textarea(class='description' name='description' type='text' placeholder='description')
 
-  %label Tags
-  %select(class='topics' data-placeholder="Add a tag" multiple='multiple')
-    %option.possible_topic
+%label Tags
+%select(class='topics' data-placeholder="Add a tag" multiple='multiple')
+  %option.possible_topic
 
-  %button.submit Submit
+%button.submit Submit
 
-  %footer
-    .hover-icons
-      %a.cancel &#xe00a;
-.clear
+%footer
+  .hover-icons
+    %a.cancel &#xe00a;
 / END: Codemark Form Template.

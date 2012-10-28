@@ -4,7 +4,7 @@ App.CodemarkView = Backbone.View.extend
   events:
     'click .delete': 'deleteCodemark'
     'click .share': 'twitterShare'
-    'click .add': 'copyToForm'
+    'click .add': 'createCopy'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
@@ -97,8 +97,7 @@ App.CodemarkView = Backbone.View.extend
       $.post "/codemarks/#{@model.get('id')}",
         _method: 'delete'
         success: =>
-          @$el.fadeOut 500, =>
-            @$el.remove()
+          @trigger('delete')
 
   twitterShare: (e) ->
     e.preventDefault()
@@ -120,9 +119,5 @@ App.CodemarkView = Backbone.View.extend
     top    = ($(window).height() - height) / 2
     "status=1,width=#{width},height=#{height},top=#{top},left=#{left}"
 
-  copyToForm: ->
-    $('#url').val(@model.get('resource').url)
-    $('#resource_attrs_id').val(@model.get('resource').id)
-    $('#id').val(@model.get('id'))
-    $('#codemark_form').submit()
-    $(window).scrollTop(0)
+  createCopy: ->
+    @trigger('createCopy')
