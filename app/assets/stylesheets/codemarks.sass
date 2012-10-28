@@ -87,7 +87,7 @@
       height: 100%
       border: 1px solid #dedede
 
-.codemark footer
+.codemark footer, .codemark_form footer
   position: absolute
   bottom: 10px
   left: 10px
@@ -126,16 +126,6 @@
   .hover-icons
     display: inherit
 
-.codemark ul.topics
-  display: none
-  float: right
-  padding-top: 3px
-  li
-    float: left
-    padding-right: 3px
-.codemark:hover ul.topics
-  display: block
-
 ul.new_options
   li
     border-bottom: 1px solid #ddd
@@ -155,8 +145,7 @@ ul.new_options
       form
         padding: 30px 20px
 
-.codemark.form-mode
-  @include transition (all 5.0s)
+.codemark_form
   footer
     bottom: 0
     .hover-icons
@@ -165,11 +154,18 @@ ul.new_options
         display: inherit
         margin-bottom: 10px
 
-  .codemark_form
-    .title
-      width: 100%
-    .description
-      width: 100%
-      height: 50px
-    .topics
-      width: 100%
+  ul.topics
+    display: none
+    float: right
+    padding-top: 3px
+    li
+      float: left
+      padding-right: 3px
+
+  .title
+    width: 100%
+  .description
+    width: 100%
+    height: 50px
+  .topics
+    width: 100%
