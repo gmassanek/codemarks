@@ -13,14 +13,15 @@ App.CodemarksView = Backbone.View.extend
     @newCodemarkTile.bind 'turnIntoForm', => @turnTileIntoForm(@newCodemarkTile)
 
   newCodemarkTileHtml: ->
-    @newCodemarkTile = new App.NewCodemarkTileView
+    #@newCodemarkTile = new App.NewCodemarkTileView
+    @newCodemarkTile = new App.TileView
     @newCodemarkTile.render()
     @newCodemarkTile.$el
 
   codemarksHtml: ->
     $codemarks = $('<div class="codemarks"></div>')
     for codemark in @codemarks.models
-      codemarkView = new App.CodemarkView
+      codemarkView = new App.TileView
         model: codemark
       codemarkView.render()
       $codemarks.append(codemarkView.$el)
