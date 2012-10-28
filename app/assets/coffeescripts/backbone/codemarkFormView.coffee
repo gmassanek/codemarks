@@ -7,7 +7,8 @@ App.CodemarkFormView = Backbone.View.extend
     'submit': 'submit'
 
   render: ->
-    if !@model.get('resource').id?
+    #console.log 'AHHH no resource' unless @model.get('resource')?
+    if @model.get('resource')? && !@model.get('resource').id?
       @fetchFullFormFor(@model.get('resource').url)
       return
 

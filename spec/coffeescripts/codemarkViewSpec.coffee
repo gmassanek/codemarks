@@ -1,6 +1,6 @@
 describe 'CodemarkView', ->
   afterEach ->
-    delete window.CURRENT_USER
+    window.CURRENT_USER = null
 
   describe "renders it's own HTML", ->
     it 'and adds the "mine" class if it belongs to the current user', ->
