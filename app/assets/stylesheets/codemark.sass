@@ -1,0 +1,77 @@
+.codemark
+  h1
+    z-index: 100
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    font-weight: normal
+    background: rgba(0, 0, 0, .75)
+    color: white
+    padding: 10px
+    min-height: 45px
+    .icon
+      display: inline-block
+      vertical-align: top
+      width: 35px
+      font-size: 24px
+      line-height: 24px
+    .title
+      display: inline-block
+      width: 168px
+      margin-top: -5px
+      a
+        color: white
+        font-size: 13px
+        line-height: 13px
+        &:hover
+          color: $orange
+
+  .topics
+    li
+      float: right
+      margin: 5px 0 0 5px
+
+  &.mine:hover
+    h1
+      .icon
+        cursor: pointer
+        &:before
+          color: $orange
+          content: "\26"
+        &:hover:before
+          color: lighten($orange, 20%)
+
+  .main
+    width: 235px
+    height: 224px
+    margin: 0 auto
+    .main-image
+      position: relative
+      width: 100%
+      height: 100%
+
+  footer
+    .author
+      float: left
+      .avatar
+        height: 20px
+        width: 20px
+        margin-bottom: -5px
+        @include border-radius(3px)
+      .saves:before
+        position: relative
+        margin-right: 5px
+    .views
+      float: right
+      &:before
+        position: relative
+        top: 2px
+        margin-right: 5px
+
+  &:hover
+    footer
+      .views
+        display: none
+      .hover-icons
+        display: inherit
