@@ -27,21 +27,6 @@
         &:hover
           color: $orange
 
-  .topics
-    li
-      float: right
-      margin: 5px 0 0 5px
-
-  &.mine:hover
-    h1
-      .icon
-        cursor: pointer
-        &:before
-          color: $orange
-          content: "\26"
-        &:hover:before
-          color: lighten($orange, 20%)
-
   .main
     width: $tile-width
     height: $tile-height - $footer-height
@@ -50,6 +35,15 @@
       position: relative
       width: 100%
       height: 100%
+
+    .topics
+      display: none
+      position: absolute
+      bottom: $footer-height
+      right: 0
+      li
+        float: left
+        margin: 5px 0 0 5px
 
   footer
     .author
@@ -74,10 +68,23 @@
       position: relative
       background: rgba(0, 0, 0, .4)
 
-    .main-image
-      display: none
+    .main
+      .topics
+        display: block
+      .main-image
+        display: none
     footer
       .views
         display: none
       .hover-icons
         display: inherit
+
+  &.mine:hover
+    h1
+      .icon
+        cursor: pointer
+        &:before
+          color: $orange
+          content: "\26"
+        &:hover:before
+          color: lighten($orange, 20%)
