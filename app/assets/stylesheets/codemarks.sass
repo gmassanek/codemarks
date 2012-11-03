@@ -12,6 +12,7 @@
   font-family: 'icomoon'
 
 .tile
+  z-index: -100
   float: left
   overflow: hidden
   position: relative
@@ -64,33 +65,16 @@
           color: lighten($orange, 20%)
 
   .main
-    z-index: 0
-    position: relative
+    z-index: 10
     width: 200px
     height: 140px
     margin: 0 auto
-    cursor: pointer
-    &:before, &:after
-      position: absolute
-      content: ""
-      bottom: 15px
-      width: 50%
-      top: 85%
-      max-width: 300px
-      @include box-shadow(0 15px 10px #777)
-    &:before
-      left: 10px
-      @include transform(rotate(-3deg))
-    &:after
-      right: 10px
-      @include transform(rotate(3deg))
+    @include box-shadow(inset 0 0 10px 0px #999)
     .main-image
-      z-index: 2
+      z-index: -10
       position: relative
-      display: block
       width: 100%
       height: 100%
-      border: 1px solid #dedede
 
 .codemark footer, .codemark_form footer
   position: absolute
