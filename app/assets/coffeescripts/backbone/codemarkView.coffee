@@ -42,6 +42,7 @@ App.CodemarkView = Backbone.View.extend
       content: @model.get('title'),
       href: resource.url,
     host: resource.host,
+    description: @model.get('description')
     edit:
       content: @editText()
     save_date:
