@@ -8,11 +8,10 @@
 @mixin proud_text
   color: $dark_faded
 
-@mixin hover-icon
+@mixin icon
   font-family: 'icomoon'
 
 .tile
-  z-index: -100
   float: left
   overflow: hidden
   position: relative
@@ -21,31 +20,44 @@
   margin: 0 10px 10px 0
   background: #fefefe
   border: 1px solid #ccc
+  background: white
   @include border-radius(5px)
 
-.codemark
-  padding: 10px
-  h1
-    font-weight: normal
-    margin-bottom: 5px
-    .icon
-      float: left
-      font-size: 24px
-      height: 32px
-      width: 32px
-      &:before
-        position: relative
-        top: 5px
+  &:hover
+    @include box-shadow(0 0 10px 0px #ccc)
 
+.codemark
+  h1
+    z-index: 100
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    font-weight: normal
+    background: rgba(0, 0, 0, .75)
+    color: white
+    padding: 10px
+    min-height: 45px
+    .icon
+      display: inline-block
+      vertical-align: top
+      width: 35px
+      font-size: 24px
+      line-height: 24px
     .title
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
+      display: inline-block
+      width: 168px
+      margin-top: -5px
       a
-        line-height: 14px
+        color: white
         font-size: 14px
-    .save_date
-      font-size: 12px
+        line-height: 14px
+        &:hover
+          color: $orange
+
+  .save_date
+    font-size: 12px
+
   .topics
     li
       float: right
@@ -59,28 +71,28 @@
         cursor: pointer
         &:before
           color: $orange
-          content: "\25"
+          content: "\26"
         &:hover:before
           color: lighten($orange, 20%)
 
   .main
-    z-index: 10
-    width: 200px
-    height: 140px
+    width: 235px
+    height: 214px
     margin: 0 auto
-    @include box-shadow(inset 0 0 10px 0px #999)
     .main-image
-      z-index: -10
       position: relative
       width: 100%
       height: 100%
 
 .codemark footer, .codemark_form footer
   position: absolute
-  bottom: 10px
-  left: 10px
-  right: 10px
+  bottom: 0
+  left: 0
+  right: 0
   font-size: 12px
+  padding: 10px
+  background: white
+  height: 40px
   .author
     float: left
     .avatar
@@ -94,7 +106,7 @@
     > *
       float: right
     > a
-      @include hover-icon
+      @include icon
       margin-left: 5px
     .share
     .saves:before
