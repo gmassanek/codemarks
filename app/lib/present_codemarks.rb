@@ -10,11 +10,11 @@ class PresentCodemarks
   end
 
   def self.present(codemark, current_user = nil)
-    data = {
+    data = codemark.attributes.merge({
       resource: codemark.resource.attributes.reject { |k, _| k == 'site_data'},
-      author: codemark.user.attributes,
+      author: present_user(codemark.user),
       topics: codemark.topics.map(&:attributes)
-    }.merge(codemark.attributes)
+    })
     data['title'] = codemark.title
     data
   end
@@ -23,5 +23,11 @@ class PresentCodemarks
     {
       :total_pages => codemarks.num_pages
     }
+  end
+
+  def self.present_user(user)
+    user.attributes.merge({
+      image: user.get('image')
+    })
   end
 end
