@@ -1,13 +1,6 @@
 @import 'mixins/circle'
 @import 'bourbon/css3/transition'
 
-@mixin light_text
-  color: $light_faded
-  font-weight: normal
-
-@mixin proud_text
-  color: $dark_faded
-
 @mixin icon
   font-family: 'icomoon'
 
@@ -15,8 +8,8 @@
   float: left
   overflow: hidden
   position: relative
-  height: 254px
-  width: 230px
+  height: $tile-height
+  width: $tile-width
   margin: 0 10px 10px 0
   background: #fefefe
   border: 1px solid #ccc
@@ -26,146 +19,26 @@
   &:hover
     @include box-shadow(0 0 10px 0px #ccc)
 
-.codemark
-  h1
-    z-index: 100
+  footer
     position: absolute
-    top: 0
+    bottom: 0
     left: 0
     right: 0
-    font-weight: normal
-    background: rgba(0, 0, 0, .75)
-    color: white
-    padding: 10px
-    min-height: 45px
-    .icon
-      display: inline-block
-      vertical-align: top
-      width: 35px
-      font-size: 24px
-      line-height: 24px
-    .title
-      display: inline-block
-      width: 168px
-      margin-top: -5px
-      a
-        color: white
-        font-size: 14px
-        line-height: 14px
-        &:hover
-          color: $orange
-
-  .save_date
+    border-top: 1px solid #ddd
     font-size: 12px
-
-  .topics
-    li
-      float: right
-      margin: 5px 0 0 5px
-
-  &:hover
-    background: #eee
-  &.mine:hover
-    h1
-      .icon
-        cursor: pointer
-        &:before
-          color: $orange
-          content: "\26"
-        &:hover:before
-          color: lighten($orange, 20%)
-
-  .main
-    width: 235px
-    height: 224px
-    margin: 0 auto
-    .main-image
-      position: relative
-      width: 100%
-      height: 100%
-
-.codemark footer, .codemark_form footer
-  position: absolute
-  bottom: 0
-  left: 0
-  right: 0
-  font-size: 12px
-  padding: 5px
-  background: white
-  height: 30px
-  .author
-    float: left
-    .avatar
-      height: 20px
-      width: 20px
-      margin-bottom: -5px
-      @include border-radius(3px)
-  .hover-icons
-    float: right
-    display: none
-    > *
-      float: right
-    > a
-      @include icon
-      margin-left: 5px
-    .share
-    .saves:before
-      position: relative
-      margin-right: 5px
-  .views
-    float: right
-    &:before
-      position: relative
-      top: 2px
-      margin-right: 5px
-
-.codemark:hover footer
-  .author
-  .views
-    display: none
-  .hover-icons
-    display: inherit
-
-ul.new_options
-  li
-    border-bottom: 1px solid #ddd
-    &:last-child
-      border-bottom: none
-    a
-      font-size: 25px
-      display: inline-block
-      padding: 30px 25px
-      color: #666
-      width: 100%
-      &:hover
-        color: $orange
-      &:before
-        margin-right: 20px
-    &.add_link
-      form
-        padding: 30px 20px
-
-.codemark_form
-  footer
-    bottom: 0
+    padding: 5px
+    background: white
+    height: 30px
     .hover-icons
-      display: inherit
-      .cancel
-        display: inherit
-        margin-bottom: 10px
+      float: right
+      display: none
+      > *
+        float: right
+      > a
+        @include icon
+        margin-left: 5px
 
-  ul.topics
-    display: none
-    float: right
-    padding-top: 3px
-    li
-      float: left
-      padding-right: 3px
-
-  .title
-    width: 100%
-  .description
-    width: 100%
-    height: 50px
-  .topics
-    width: 100%
+@import codemark
+@import add_codemark
+@import codemark_form
+@import pagination
