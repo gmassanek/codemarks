@@ -30,8 +30,7 @@ class CodemarksController < ApplicationController
   end
 
   def index
-    @user = User.find_by_slug(params[:username])
-    @user ||= User.find_by_id(params[:user])
+    @user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
 
     @topic = Topic.find(params[:topic_id]) if params[:topic_id]
     respond_to do |format|

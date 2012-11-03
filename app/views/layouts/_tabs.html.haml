@@ -1,0 +1,14 @@
+%nav
+  .site_content
+    %ul.tabs
+      %li
+        = link_to "Everyone's Codemarks", '#', :class => 'everyones'
+      %li
+        = link_to 'Your Codemarks', '#', :class => 'yours'
+      %li
+        = link_to 'Following (3)', '', :class => 'following disabled'
+      %li
+        = link_to 'Suggested', '', :class => 'suggested disabled'
+      %li
+        = link_to 'Popular', '', :class => 'popular disabled'
+    = text_field_tag 'search'

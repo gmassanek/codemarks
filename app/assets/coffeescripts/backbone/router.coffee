@@ -12,8 +12,12 @@ App.MainRouter = Backbone.Router.extend
     @codemarks.fetch()
 
   showCodemarkList: ->
-    codemarkList = new App.CodemarksView
+    codemarksView = new App.CodemarksView
       el: $('#main_content')
       codemarks: @codemarks
 
-    $('.content').html(codemarkList.$el)
+    tabsNav = new App.TabsView
+      el: $('nav ul.tabs')
+      codemarks: @codemarks
+
+    $('.content').html(codemarksView.$el)

@@ -17,7 +17,7 @@ describe 'Codemark Filters', ->
 
     it 'that can be cleared', ->
       @filters.setPage(8)
-      @filters.clearPage()
+      @filters.reset()
       expect(@filters.get('currentPage')).toBe(1)
 
   describe 'has a user', ->
@@ -83,9 +83,10 @@ describe 'Codemark Filters', ->
     it 'just does', ->
       @filters.setUser('gmassanek')
       @filters.addTopic('rspec')
+      @filters.setSort('visits')
       @filters.setPage(8)
       expect(@filters.data()).toBeEqualToObject
-        by: 'date'
-        username: 'gmassanek'
+        by: 'visits'
+        user: 'gmassanek'
         topic_id: 'rspec'
         page: 8
