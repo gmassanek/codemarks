@@ -6,7 +6,7 @@ describe SiteSnapshot do
       url, filepath = 'http://www.google.com', '/tmp/img1.jpeg'
       client = mock
       GrabzItClient.should_receive(:new).and_return(client)
-      client.should_receive(:save_picture).with(url, filepath)
+      client.should_receive(:save_picture).with(url, filepath, SiteSnapshot::WIDTH, SiteSnapshot::HEIGHT)
       SiteSnapshot.save_picture(url, filepath)
     end
   end
