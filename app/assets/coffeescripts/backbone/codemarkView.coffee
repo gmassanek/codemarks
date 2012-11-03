@@ -16,6 +16,7 @@ App.CodemarkView = Backbone.View.extend
     @$('.timeago').timeago()
     if @model.get('author').image?
       @$('.author').removeClass('icon-user-2')
+    @$('.icon').addClass('icon-link-2')
 
   initialize: ->
     @model.bind 'change', => @render()
@@ -41,6 +42,7 @@ App.CodemarkView = Backbone.View.extend
       content: @model.get('title'),
       href: resource.url,
     host: resource.host,
+    description: @model.get('description') || 'No description'
     edit:
       content: @editText()
     save_date:
@@ -55,7 +57,7 @@ App.CodemarkView = Backbone.View.extend
       name: @model.get('author').nickname
     topics: @presentTopics()
     views: @model.get('visit_count')
-    saves: "+#{@model.get('save_count')}"
+    saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
     'main-image':
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
