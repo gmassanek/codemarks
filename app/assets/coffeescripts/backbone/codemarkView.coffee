@@ -57,7 +57,7 @@ App.CodemarkView = Backbone.View.extend
       name: @model.get('author').nickname
     topics: @presentTopics()
     views: @model.get('visit_count')
-    saves: "+#{@model.get('save_count')}"
+    saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
     'main-image':
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
