@@ -2,6 +2,7 @@
   float: left
   width: 100%
   margin-bottom: 10px
+
   .filter
     background: #fefefe
     border: 1px solid #ccc
@@ -9,10 +10,25 @@
     padding: 5px
     background: white
     float: left
-    width: 100px
     margin-right: 10px
+
     .description
       float: left
+    a.description
+      display: none
+
     .remove
+      margin-left: 10px
       font-family: 'icomoon'
       float: right
+
+    &.off
+      @include background-image(linear-gradient($orange 0, lighten($orange, 20%) 5%, $orange 100%))
+      a:hover
+        color: white
+      .remove
+        display: none
+      .description
+        display: none
+      a.description
+        display: inherit

@@ -1,49 +1,32 @@
 App.ControlPanelView = Backbone.View.extend
   className: 'controlPanel'
 
-  events:
-    'click .remove': 'removeFilter'
-
   initialize: ->
     @codemarks = @options.codemarks
     @filters = @codemarks.filters
 
   render: ->
-    @$el.html(@toHtml())
-
-  toHtml: ->
-    template = angelo('filter.html')
-    $container = $('<div></div>')
+    if CURRENT_USER != @filters.get('user')
+      $filter = @filterHtml('user', CURRENT_USER, 'off')
+      @$el.append($filter)
 
     if @filters.get('user')
-      data =
-        description: @filters.get('user')
-        'remove@data-type': 'user'
-        'remove@data-id': @filters.get('user')
-      html = facile(template, data)
-      $container.append(html)
+      $filter = @filterHtml('user', @filters.get('user'), 'on')
+      @$el.append($filter)
 
-    _.each @filters.topicIds(), (topicId) ->
-      data =
-        description: topicId
-        'remove@data-type': 'topic'
-        'remove@data-id': topicId
-      html = facile(template, data)
-      $container.append(html)
+    _.each @filters.topicIds(), (topicId) =>
+      $filter = @filterHtml('topic', topicId, 'on')
+      @$el.append($filter)
 
-    $container.html()
+  filterHtml: (type, id, mode) ->
+    data =
+      type: type
+      id: id
+      description: id
+      mode: mode
 
-  removeFilter: (e) ->
-    $target = $(e.currentTarget)
-    if $target.data('type') == 'topic'
-      @removeTopic($target.data('id'))
-    if $target.data('type') == 'user'
-      @removeUser($target.data('id'))
-
-  removeTopic: (topicId) ->
-    @filters.removeTopic(topicId)
-    @codemarks.fetch()
-
-  removeUser: (username) ->
-    @filters.removeUser()
-    @codemarks.fetch()
+    filterView = new App.FilterView
+      data: data
+      codemarks: @codemarks
+    filterView.render()
+    filterView.$el
