@@ -113,6 +113,7 @@ App.CodemarkView = Backbone.View.extend
     data =
       url: ''
       via: "#{@model.get('author').nickname} on @codemarks"
+      related: 'codemarks'
     "http://twitter.com/share?#{$.param(data)}&text=#{@tweetText()}"
 
   tweetText: ->
