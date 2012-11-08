@@ -22,21 +22,19 @@
   footer
     position: absolute
     bottom: 0
-    left: 0
-    right: 0
-    border-top: 1px solid #ddd
-    font-size: 12px
+    height: $tile-footer-height
+    width: 100%
     padding: 5px
-    background: white
-    height: $footer-height
-    .hover-icons
+    font-size: 12px
+
+  .hover-icons
+    float: right
+    display: none
+    > *
       float: right
-      display: none
-      > *
-        float: right
-      > a
-        @include icon
-        margin-left: 5px
+    > a
+      @include icon
+      margin-left: 5px
 
 @import codemark
 @import add_codemark
