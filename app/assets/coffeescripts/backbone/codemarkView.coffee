@@ -8,6 +8,7 @@ App.CodemarkView = Backbone.View.extend
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
     'click .title': 'recordClick'
+    'click .main': 'mainClicked'
     'click .icon': 'iconClick'
 
   render: ->
@@ -17,6 +18,9 @@ App.CodemarkView = Backbone.View.extend
     if @model.get('author').image?
       @$('.author').removeClass('icon-user-2')
     @$('.icon').addClass('icon-link-2')
+
+  mainClicked: (e) ->
+    @$('.main').toggleClass('clicked')
 
   initialize: ->
     @model.bind 'change', => @render()
@@ -74,7 +78,6 @@ App.CodemarkView = Backbone.View.extend
     url = "/links/#{@model.get('resource').id}/click "
     $.post(url)
     $(e.currentTarget).unbind('click')
-
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
