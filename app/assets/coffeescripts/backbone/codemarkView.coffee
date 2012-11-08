@@ -46,7 +46,7 @@ App.CodemarkView = Backbone.View.extend
       content: @model.get('title'),
       href: resource.url,
     host: resource.host,
-    description: @model.get('description') || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. \n nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    description: @model.get('description') || '<p>ingle-origin coffee terry richardson shoreditch, banksy bespoke vegan craft beer glut.</p><p>Bird on it art party lo-fi, polaroid raw denim brunch jean shorts post-ironic mixtape wolf sustainable. PBR narwhal tumblr PBR</p>.'
     edit:
       content: @editText()
     save_date:
