@@ -5,9 +5,6 @@
   font-family: 'icomoon'
 
 .tile
-  float: left
-  overflow: hidden
-  position: relative
   height: $tile-height
   width: $tile-width
   margin: 0 10px 10px 0
@@ -16,6 +13,10 @@
   border: 1px solid #ccc
   background: white
   @include border-radius(5px)
+
+  -webkit-transition-duration: 0.8s
+  -webkit-transition-property: height, width
+  -webkit-transition-property: -webkit-transform, opacity
 
   &:hover
     @include box-shadow(0 0 20px 0px lighten($orange, 40%))

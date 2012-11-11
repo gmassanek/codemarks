@@ -6,7 +6,7 @@ App.ControlPanelView = Backbone.View.extend
     @filters = @codemarks.filters
 
   render: ->
-    if CURRENT_USER != @filters.get('user')
+    if CURRENT_USER? && CURRENT_USER != @filters.get('user')
       $filter = @filterHtml('user', CURRENT_USER, 'off')
       @$el.append($filter)
 

@@ -4,6 +4,7 @@
 //= require angelo
 //= require jquery.ba-bbq
 //= require jquery.timeago.js
+//= require jquery.isotope.js
 
 //= require backbone/app
 //= require_tree ./backbone

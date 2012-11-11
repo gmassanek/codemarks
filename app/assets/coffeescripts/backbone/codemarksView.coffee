@@ -7,9 +7,16 @@ App.CodemarksView = Backbone.View.extend
   render: ->
     @$el.html('')
     @$el.append(@renderControlPanel())
-    @$el.append(@newCodemarkTileHtml())
     @$el.append(@codemarksHtml())
+    @$('.codemarks').prepend(@newCodemarkTileHtml())
     @$el.append(@paginationHtml())
+
+    $('.codemarks').isotope
+      itemSelector: '.tile'
+      animationEngine: 'best-available'
+      getSortData:
+        views: ($elem) ->
+          $elem.find('.views').text()
 
   newCodemarkTileHtml: ->
     newCodemarkTile = new App.TileView
