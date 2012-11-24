@@ -1,7 +1,8 @@
 %header
   .site_content
+    = render '/layouts/tabs'
     #logo
-      - logo = image_tag 'cm-logo-1-small.png'
+      - logo = image_tag 'cm_tag_440x280_transparent.png'
       = link_to logo, root_path
 
     = render '/layouts/authentication'

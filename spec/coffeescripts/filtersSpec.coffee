@@ -15,11 +15,6 @@ describe 'Codemark Filters', ->
       @filters.setPage(8)
       expect(@filters.get('currentPage')).toBe(8)
 
-    it 'that can be cleared', ->
-      @filters.setPage(8)
-      @filters.clearPage()
-      expect(@filters.get('currentPage')).toBe(1)
-
   describe 'has a user', ->
     it 'that is empty by default', ->
       expect(@filters.get('user')).toBeEqualToObject(undefined)
@@ -80,12 +75,13 @@ describe 'Codemark Filters', ->
       expect(@filters.attributes).toBeEqualToObject(@filters.defaults())
         
   describe 'can turn into query data',  ->
-    it 'just does', ->
+    it 'nicely', ->
       @filters.setUser('gmassanek')
       @filters.addTopic('rspec')
       @filters.setPage(8)
+      @filters.setSort('visits')
       expect(@filters.data()).toBeEqualToObject
-        by: 'date'
-        username: 'gmassanek'
+        by: 'visits'
+        user: 'gmassanek'
         topic_id: 'rspec'
         page: 8
