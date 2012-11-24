@@ -12,12 +12,17 @@ body > header
   border-bottom: 1px solid #dddddd
 
   #logo
-    float: left
-    margin-top: 10px
+    position: fixed
+    top: 10px
+    left: 50%
+    margin-left: -55px
 
     img
-      margin-top: 1px
-      height: 26px
+      width: 110px
+      //-webkit-filter: grayscale(80%)
+      //@include transition
+    &:hover img
+      //-webkit-filter: grayscale(0%)
 
   #authentication
     float: right
