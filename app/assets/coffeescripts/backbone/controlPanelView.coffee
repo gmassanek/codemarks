@@ -17,6 +17,8 @@ App.ControlPanelView = Backbone.View.extend
       html = @filterHtml(topicId, 'topic')
       @$el.append(html)
 
+    @$el.append(@searchHtml())
+
   filterHtml: (value, type) ->
     template = angelo('filter.html')
     data =
@@ -24,6 +26,9 @@ App.ControlPanelView = Backbone.View.extend
       'remove@data-type': type
       'remove@data-id': value
     facile(template, data)
+
+  searchHtml: ->
+    '<input id="search" name="search" type="text" placeholder="search...">'
 
   removeFilter: (e) ->
     $target = $(e.currentTarget)
