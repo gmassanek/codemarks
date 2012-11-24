@@ -1,7 +1,4 @@
 App.Filters = Backbone.Model.extend
-  initialize: ->
-    @reset()
-
   updateUrlWithFilters: ->
     filterParams = $.param(@data())
     if filterParams == ''
