@@ -1,13 +1,10 @@
 App.Filters = Backbone.Model.extend
-  initialize: ->
-    @bind 'change:user', @clearPage
-    @bind 'change:topics', @clearPage
-    @bind 'change', @updateUrlWithFilters
-    @reset()
-
   updateUrlWithFilters: ->
-    filterParams = $.param(@dataForCookie())
-    App.router.navigate("/codemarks?#{filterParams}")
+    filterParams = $.param(@data())
+    if filterParams == ''
+      App.router.navigate("/codemarks")
+    else
+      App.router.navigate("/codemarks?#{filterParams}")
 
   loadFromCookie: (saved_filters)->
     @attributes = @defaults()
@@ -20,11 +17,11 @@ App.Filters = Backbone.Model.extend
     _.extend {},
       sort: 'date'
       currentPage: 1
-      user: undefined
       topics: {}
 
   reset: ->
     @attributes = @defaults()
+    @set('currentPage', @defaults().currentPage)
     @trigger('change')
 
   setSort: (sortType) ->
@@ -76,17 +73,7 @@ App.Filters = Backbone.Model.extend
   setPage: (page) ->
     @set('currentPage', page)
 
-  clearPage: ->
-    @set('currentPage', @defaults().currentPage)
-
   data: ->
-    data = {by: @get('sort')}
-    data['username'] = @get('user') if @get('user')?
-    data['topic_id'] = @topicId() if @topicId()
-    data['page'] = @get('currentPage')
-    data
-
-  dataForCookie: ->
     data = {}
     data['by'] = @get('sort') if @get('sort') != @defaults().sort
     data['user'] = @get('user') if @get('user')

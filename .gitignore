@@ -8,3 +8,5 @@ config/database.yml
 spec/javascripts/*.js
 spec/javascripts/**/*.js
 public/templates/*.html
+**/.DS_Store
+**/*/.DS_Store
