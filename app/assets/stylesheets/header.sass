@@ -1,12 +1,15 @@
 @import "bourbon"
 
 body > header
-  height: 50px
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  height: $header-height
+  z-index: 100
+
   background-color: #fefefe
-  margin-bottom: 10px
   border-bottom: 1px solid #dddddd
-  .site_content
-    min-width: 480px
 
   #logo
     float: left
