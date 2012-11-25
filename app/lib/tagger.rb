@@ -1,11 +1,15 @@
 class Tagger
   def self.tag(text)
     return [] if text.blank?
-    matches = Topic.all.select do |t| 
-      text = sanitize(text)
-      term = sanitize(t.title)
-      text[/\b#{term}\b/]
+    text = sanitize(text)
+    tag_matches = {}
+    Topic.all.each do |topic|
+      term = sanitize(topic.title)
+      matches = text.scan(/\b#{term}\b/)
+      next unless matches.present?
+      tag_matches[topic] = matches.count
     end
+    tag_matches.keys.sort { |x, y| tag_matches[y] <=> tag_matches[x] }
   end
 
   private

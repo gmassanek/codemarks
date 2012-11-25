@@ -9,34 +9,38 @@ describe Tagger do
 
     before do
       Topic.stub!(:all => topics)
+      @rspec = topics.find { |t| t.title == 'rspec' }
+      @github = topics.find { |t| t.title == 'github' }
+      @jquery = topics.find { |t| t.title == 'jquery' }
     end
 
     it 'returns all the topics that are in the text' do
       text = 'rspec stuff'
-      rspec = topics.first
-      Tagger.tag(text).should == [rspec]
+      Tagger.tag(text).should == [@rspec]
     end
 
     it 'returns an empty array if the text is blank' do
       text = ''
-      rspec = topics.first
       Tagger.tag(text).should == []
     end
 
     it 'returns an empty array if the text is nil' do
       text = nil
-      rspec = topics.first
       Tagger.tag(text).should == []
     end
 
     it 'matches regardless of case' do
-      rspec = topics.first
-      text = rspec.title.upcase
-      Tagger.tag(text).should == [rspec]
+      text = @rspec.title.upcase
+      Tagger.tag(text).should == [@rspec]
     end
 
     it 'does not match sub words' do
       Tagger.tag('Github').count.should == 1
+    end
+
+    it 'orders them by their frequency' do
+      text = ['rspec', 'jquery', 'jquery', 'jquery', 'github', 'github'].join(' ')
+      Tagger.tag(text).map(&:title).should == ['jquery', 'github', 'rspec']
     end
   end
 end
