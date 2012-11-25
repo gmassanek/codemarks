@@ -61,12 +61,20 @@ describe 'Codemark Filters', ->
     it 'that is "date" by default', ->
       expect(@filters.get('sort')).toBe('date')
 
-    it 'that can be change', ->
+    it 'that can be changed', ->
       expect(@filters.setSort('count'))
       expect(@filters.get('sort')).toBe('count')
 
+  describe 'has a search query', ->
+    it 'that is undefined by default', ->
+      expect(@filters.searchQuery()).toBeUndefined()
+
+    it 'that can be changed', ->
+      expect(@filters.setSearchQuery('javascript'))
+      expect(@filters.searchQuery()).toBe('javascript')
+
   describe 'reset', ->
-    it 're-established the defaults', ->
+    it 're-establishes the defaults', ->
       @filters.setUser('gmassanek')
       @filters.addTopic('rspec')
       @filters.setPage(8)
@@ -80,8 +88,10 @@ describe 'Codemark Filters', ->
       @filters.addTopic('rspec')
       @filters.setPage(8)
       @filters.setSort('visits')
+      @filters.setSearchQuery('javascript')
       expect(@filters.data()).toBeEqualToObject
         by: 'visits'
         user: 'gmassanek'
         topic_id: 'rspec'
         page: 8
+        query: 'javascript'

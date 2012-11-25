@@ -45,6 +45,7 @@ class CodemarksController < ApplicationController
         search_attributes[:current_user] = current_user
         search_attributes[:user] = @user if @user
         search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
+        search_attributes[:search_term] = params[:query] if params[:query]
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
         render :json => PresentCodemarks.for(@codemarks, current_user)
       end

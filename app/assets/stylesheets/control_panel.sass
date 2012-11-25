@@ -18,5 +18,20 @@
       font-family: 'icomoon'
       float: right
 
-  #search
+  .search-container
     float: right
+
+    input#search
+      float: left
+      padding: 5px
+      padding-right: 20px
+      width: 200px
+      @include border-radius(10px)
+      @include transition
+      &:focus
+        @include box-shadow(0 0 10px $orange)
+
+    a.search
+      float: right
+      font-size: 14px
+      margin: 5px 10px 0 -20px

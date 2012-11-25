@@ -73,10 +73,17 @@ App.Filters = Backbone.Model.extend
   setPage: (page) ->
     @set('currentPage', page)
 
+  searchQuery: ->
+    @get('query')
+
+  setSearchQuery: (query) ->
+    @set('query', query)
+
   data: ->
     data = {}
     data['by'] = @get('sort') if @get('sort') != @defaults().sort
     data['user'] = @get('user') if @get('user')
     data['topic_id'] = @topicId() if @topicId()
     data['page'] = @get('currentPage') if @get('currentPage')? && @get('currentPage') != 1
+    data['query'] = @searchQuery() if @searchQuery()
     data
