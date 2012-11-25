@@ -27,6 +27,9 @@
       padding-right: 20px
       width: 200px
       @include border-radius(10px)
+      @include transition
+      &:focus
+        @include box-shadow(0 0 10px $orange)
 
     a.search
       float: right
