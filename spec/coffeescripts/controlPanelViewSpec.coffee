@@ -16,6 +16,11 @@ describe 'ControlPanelView', ->
       @view.render()
       expect(@view.$('.filter a[data-type=topic]').length).toBe(2)
 
+    it 'makes a filter object for a search filter', ->
+      @codemarks.filters.setSearchQuery('This thing')
+      @view.render()
+      expect(@view.$('.filter a[data-type=query]').length).toBe(1)
+
     it 'makes a search bar', ->
       @view.render()
       expect(@view.$('input#search').length).toBe(1)
@@ -36,6 +41,14 @@ describe 'ControlPanelView', ->
       @view.$('.remove').click()
       expect(@codemarks.fetch).toHaveBeenCalled()
       expect(@codemarks.filters.topicIds().length).toBe(0)
+
+    it 'removes a search', ->
+      @codemarks.filters.setSearchQuery('This thing')
+      @view.render()
+      spyOn(@codemarks, 'fetch')
+      @view.$('.remove').click()
+      expect(@codemarks.fetch).toHaveBeenCalled()
+      expect(@codemarks.filters.searchQuery()).toBeUndefined()
 
   describe 'search', ->
     describe 'gets triggered by', ->

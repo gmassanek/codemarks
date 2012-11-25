@@ -12,6 +12,7 @@ App.Filters = Backbone.Model.extend
     @setTopic(saved_filters.topic_id) if saved_filters.topic_id
     @setUser(saved_filters.user) if saved_filters.user
     @setPage(saved_filters.page) if saved_filters.page
+    @setSearchQuery(saved_filters.query) if saved_filters.query
 
   defaults: ->
     _.extend {},
@@ -78,6 +79,9 @@ App.Filters = Backbone.Model.extend
 
   setSearchQuery: (query) ->
     @set('query', query)
+
+  clearSearchQuery: ->
+    @unset('query')
 
   data: ->
     data = {}
