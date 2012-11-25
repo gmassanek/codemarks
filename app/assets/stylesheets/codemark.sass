@@ -8,18 +8,21 @@
     display: block
     width: 100%
     height: $tile-header-height
-    padding: 14px
-    overflow: hidden
+    padding: 10px
 
     .icon
+      display: block
       float: left
-      font-size: 24px
-      line-height: 26px
+      font-size: 25px
+      line-height: 25px
       margin-right: 10px
 
     .title
-      display: inline
-      width: 168px
+      display: block
+      float: left
+      width: 172px
+      height: 32px
+      overflow: hidden
 
       a
         color: #777
@@ -30,16 +33,15 @@
 
   .main
     width: 100%
+    padding: 0 10px
     height: $tile-main-height
     margin: 0 auto
     margin-bottom: $tile-footer-height
     position: relative
 
     img
-      width: $tile-width - 22px
-      height: $tile-main-height - 22px
-      margin-top: 11px
-      margin-left: 11px
+      width: $tile-width - 20px
+      height: 100%
 
     .topics
       display: none
@@ -47,18 +49,18 @@
       right: 0
       bottom: 0
       li
-        float: left
+        float: right
         margin: 5px
         border: 1px solid #ccc
         background: white
         @include border-radius(5px)
         a
           display: inline-block
-          padding: 5px
+          padding: 3px
 
     .description
       display: none
-      padding: 10px
+      padding-top: 10px
 
     &:hover
       img
