@@ -6,17 +6,28 @@
   .filter
     background: #fefefe
     border: 1px solid #ccc
-    @include border-radius(5px)
-    padding: 5px
+    @include border-radius(3px)
     background: white
     float: left
-    width: 100px
+    min-width: 100px
     margin-right: 10px
+
+    > *
+      padding: 7px
+
     .description
       float: left
     .remove
       font-family: 'icomoon'
       float: right
+      border-left: 1px solid $grey
+      color: $faded
+
+    &:hover
+      .remove
+        color: #666
+        &:hover
+          color: $orange
 
   .search-container
     float: right
