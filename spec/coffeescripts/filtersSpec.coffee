@@ -61,9 +61,17 @@ describe 'Codemark Filters', ->
     it 'that is "date" by default', ->
       expect(@filters.get('sort')).toBe('date')
 
-    it 'that can be change', ->
+    it 'that can be changed', ->
       expect(@filters.setSort('count'))
       expect(@filters.get('sort')).toBe('count')
+
+  describe 'has a search query', ->
+    it 'that is undefined by default', ->
+      expect(@filters.searchQuery()).toBeUndefined()
+
+    it 'that can be changed', ->
+      expect(@filters.setSearchQuery('javascript'))
+      expect(@filters.searchQuery()).toBe('javascript')
 
   describe 'reset', ->
     it 're-established the defaults', ->
