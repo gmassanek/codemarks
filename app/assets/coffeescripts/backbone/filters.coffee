@@ -85,4 +85,5 @@ App.Filters = Backbone.Model.extend
     data['user'] = @get('user') if @get('user')
     data['topic_id'] = @topicId() if @topicId()
     data['page'] = @get('currentPage') if @get('currentPage')? && @get('currentPage') != 1
+    data['query'] = @searchQuery() if @searchQuery()
     data
