@@ -19,6 +19,10 @@ App.ControlPanelView = Backbone.View.extend
       html = @filterHtml(topicId, 'topic')
       @$el.append(html)
 
+    if @filters.searchQuery()
+      html = @filterHtml(@filters.searchQuery(), 'query')
+      @$el.append(html)
+
     @$el.append(@searchHtml())
 
   filterHtml: (value, type) ->
@@ -55,6 +59,8 @@ App.ControlPanelView = Backbone.View.extend
       @removeTopic($target.data('id'))
     if $target.data('type') == 'user'
       @removeUser($target.data('id'))
+    if $target.data('type') == 'query'
+      @removeSearchQuery()
 
   removeTopic: (topicId) ->
     @filters.removeTopic(topicId)
@@ -62,4 +68,8 @@ App.ControlPanelView = Backbone.View.extend
 
   removeUser: (username) ->
     @filters.removeUser()
+    @codemarks.fetch()
+
+  removeSearchQuery: ->
+    @filters.clearSearchQuery()
     @codemarks.fetch()
