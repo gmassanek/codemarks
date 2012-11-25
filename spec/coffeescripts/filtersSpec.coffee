@@ -74,7 +74,7 @@ describe 'Codemark Filters', ->
       expect(@filters.searchQuery()).toBe('javascript')
 
   describe 'reset', ->
-    it 're-established the defaults', ->
+    it 're-establishes the defaults', ->
       @filters.setUser('gmassanek')
       @filters.addTopic('rspec')
       @filters.setPage(8)
@@ -88,8 +88,10 @@ describe 'Codemark Filters', ->
       @filters.addTopic('rspec')
       @filters.setPage(8)
       @filters.setSort('visits')
+      @filters.setSearchQuery('javascript')
       expect(@filters.data()).toBeEqualToObject
         by: 'visits'
         user: 'gmassanek'
         topic_id: 'rspec'
         page: 8
+        query: 'javascript'
