@@ -3,6 +3,8 @@ App.ControlPanelView = Backbone.View.extend
 
   events:
     'click .remove': 'removeFilter'
+    'click a.search': 'searchClicked'
+    'keypress input#search': 'searchKeyPress'
 
   initialize: ->
     @codemarks = @options.codemarks
@@ -28,7 +30,24 @@ App.ControlPanelView = Backbone.View.extend
     facile(template, data)
 
   searchHtml: ->
-    '<input id="search" name="search" type="text" placeholder="search...">'
+    angelo('search.html')
+
+  search: ->
+    if @searchQuery()
+      @filters.setSearchQuery(@searchQuery())
+      @codemarks.fetch()
+
+  searchClicked: (e) ->
+    e.preventDefault()
+    @search()
+
+  searchQuery: ->
+    @$('input#search').val()
+
+  searchKeyPress: (e) ->
+    if e.which == 13
+      e.preventDefault()
+      @search()
 
   removeFilter: (e) ->
     $target = $(e.currentTarget)
