@@ -1,8 +1,7 @@
 require_relative 'tagger'
 
 module Taggable
-
-  TAG_LIMIT = 5
+  TAG_LIMIT = 3
 
   def tags
     # Codemark
