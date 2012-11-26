@@ -2,6 +2,8 @@
   float: left
   width: 100%
   margin-bottom: 10px
+  height: 32px
+  overflow: visible
 
   .filter
     background: #fefefe
@@ -12,19 +14,50 @@
     min-width: 100px
     margin-right: 10px
 
+    &.sort
+      position: relative
+      z-index: 100
+
     > *
       padding: 7px
 
     .description
       float: left
+
     .remove
       font-family: 'icomoon'
       float: right
       border-left: 1px solid $grey
       color: $faded
 
+    .more
+      float: right
+      font-family: 'icomoon'
+      padding: 0
+      border-left: 1px solid $grey
+      color: $faded
+      font-size: 25px
+      width: 25px
+      line-height: 29px
+
+    ul.other_sorts
+      clear: both
+      border-top: 1px solid $grey
+      position: relative
+      z-index: 100
+      li
+        position: relative
+        z-index: 100
+        padding: 2px 0
+        a
+          display: inline-block
+          width: 100%
+
+      &:hover
+        cursor: pointer
+
     &:hover
-      .remove
+      .remove, .more
         color: #666
         &:hover
           color: $orange
