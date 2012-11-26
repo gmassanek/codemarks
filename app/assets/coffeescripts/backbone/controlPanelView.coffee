@@ -2,7 +2,6 @@ App.ControlPanelView = Backbone.View.extend
   className: 'controlPanel'
 
   events:
-    'click .remove': 'removeFilter'
     'click a.search': 'searchClicked'
     'keypress input#search': 'searchKeyPress'
 
@@ -23,15 +22,20 @@ App.ControlPanelView = Backbone.View.extend
       html = @filterHtml(@filters.searchQuery(), 'query')
       @$el.append(html)
 
+    html = @filterHtml(@filters.get('sort'), 'sort')
+    @$el.append(html)
+
     @$el.append(@searchHtml())
 
   filterHtml: (value, type) ->
-    template = angelo('filter.html')
-    data =
+    filterView = new App.FilterView
       description: value
-      'remove@data-type': type
-      'remove@data-id': value
-    facile(template, data)
+      type: type
+      dataId: value
+      codemarks: @codemarks
+
+    filterView.render()
+    filterView.$el
 
   searchHtml: ->
     angelo('search.html')
@@ -52,24 +56,3 @@ App.ControlPanelView = Backbone.View.extend
     if e.which == 13
       e.preventDefault()
       @search()
-
-  removeFilter: (e) ->
-    $target = $(e.currentTarget)
-    if $target.data('type') == 'topic'
-      @removeTopic($target.data('id'))
-    if $target.data('type') == 'user'
-      @removeUser($target.data('id'))
-    if $target.data('type') == 'query'
-      @removeSearchQuery()
-
-  removeTopic: (topicId) ->
-    @filters.removeTopic(topicId)
-    @codemarks.fetch()
-
-  removeUser: (username) ->
-    @filters.removeUser()
-    @codemarks.fetch()
-
-  removeSearchQuery: ->
-    @filters.clearSearchQuery()
-    @codemarks.fetch()
