@@ -13,8 +13,10 @@ set -e
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/home/deployer/apps/codemarks/current
+SHARED_ROOT=/home/deployer/apps/codemarks/shared
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
+ENV_FILE=$SHARED_ROOT/config/load_envs.sh
+CMD="if [ -a "${ENV_FILE}" ]; then . $ENV_FILE fi; cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
 AS_USER=deployer
 set -u
 
