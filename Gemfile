@@ -21,6 +21,8 @@ gem 'pg'
 gem 'browser'
 gem 'bourbon'
 gem 'thin'
+gem 'unicorn'
+gem 'capistrano'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
