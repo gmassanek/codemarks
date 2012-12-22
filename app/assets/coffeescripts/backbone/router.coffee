@@ -1,5 +1,6 @@
 App.MainRouter = Backbone.Router.extend
   routes:
+    '': 'codemarks'
     'codemarks?:params': 'codemarks'
     'codemarks': 'codemarks'
 
