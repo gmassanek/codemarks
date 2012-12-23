@@ -35,7 +35,7 @@ class CodemarksController < ApplicationController
     @topic = Topic.find(params[:topic_id]) if params[:topic_id]
     respond_to do |format|
       format.html do
-        render 'codemarks/index', :layout => 'backbone'
+        render 'codemarks/index'
       end
 
       format.json do
