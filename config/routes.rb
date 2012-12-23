@@ -3,7 +3,6 @@ Codemarks::Application.routes.draw do
   get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
   get '/codemarklet_test', to: "pages#codemarklet_test"
-  get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
   get '/pages/test_bookmarklet?:l&:url', :to => 'pages#test_bookmarklet', :as => :test_bookarklet
 
   resources :codemarklet, :only => [:new, :create] do
@@ -13,13 +12,7 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :codemarks, :only => [:index, :new, :create, :destroy, :update] do
-    collection do
-      get 'search/:query', :action => :search
-      get :topic_checkbox
-    end
-  end
-
+  resources :codemarks
   resources :topics
 
   # API endpoint
