@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Can build codemarks" do
+  use_vcr_cassette 'codemarks'
 
   it "hits the internet to save a link for a new link" do
     codemark = Codemark.load(:url => 'http://www.google.com')

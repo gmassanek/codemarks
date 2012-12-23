@@ -5,17 +5,18 @@ Feature: Saving Codemarks
   Background:
     Given I am logged in
 
-  Scenario: Saving twitter on the dashboard
-    And I fill out and submit the add codemark form with Twitter
-    Then I should see "Twitter"
-    And I should be Twitter's author
+  @vcr
+  Scenario: Saving google on the dashboard
+    And I fill out and submit the add codemark form with Google
+    Then I should see "Google"
+    And I should be Google's author
 
   Scenario: Stealing somebody's codemark leaves them as the author
-    Given tom_brady has codemarked Twitter
+    Given tom_brady has codemarked Google
     And I am on the codemarks page
     When I copy that codemark
     And I submit the codemark form
-    Then tom_brady should still be Twitter's author
+    Then tom_brady should still be Google's author
 
   Scenario: Different users saving codemarks with the same resource
     Given there is 1 codemark
@@ -32,7 +33,7 @@ Feature: Saving Codemarks
     Then I should see a codemark form
 
   Scenario: Can't steal if not logged in
-    Given tom_brady has codemarked Twitter
+    Given tom_brady has codemarked Google
     And I am not logged in anymore
     And I am on the codemarks page
     Then I should not see the copy icon
