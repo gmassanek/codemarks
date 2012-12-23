@@ -36,7 +36,7 @@ Codemarks::Application.routes.draw do
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: 'sessions#failure'
-  resources :sessions, :only => [:create] do
+  resources :sessions, :only => [:new, :create] do
     collection do
       get :codemarklet
       delete :destroy
@@ -47,5 +47,5 @@ Codemarks::Application.routes.draw do
   get '/:id/account', to: "users#account", as: :account
   get '/:id/account/edit', to: "users#edit", as: :edit_account
 
-  root :to => 'pages#landing'
+  root :to => 'codemarks#index'
 end

@@ -1,8 +1,14 @@
 Given /^I am logged in$/ do
-  visit '/'
+  visit new_session_path
   page.click_link('sign in with twitter')
   visit '/'
   @current_user = User.last
+end
+
+When /^I sign up with twitter$/ do
+  visit new_session_path
+  page.click_link("sign in with twitter")
+  @user = User.last
 end
 
 Given /^I am not logged in anymore$/ do
