@@ -52,10 +52,6 @@ class CodemarksController < ApplicationController
     end
   end
 
-  def search
-    @codemarks = FindCodemarks.new(:search_term => params[:query], :current_user => current_user).codemarks
-  end
-
   def destroy
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.destroy
