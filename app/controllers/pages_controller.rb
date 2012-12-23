@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
 
-  layout 'pages'
-
   autocomplete :topic, :title, :full => true, :extra_data => [:slug]
 
   def landing
