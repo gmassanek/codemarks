@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_user_id, :current_user, :filter_by_mine?
 
   def logged_in?
-    current_user_id.present?
+    current_user.present?
   end
 
   def current_user_id
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    User.find current_user_id if logged_in?
+    @current_user ||= User.find current_user_id if current_user_id
   end
 
   def filter_by_mine?

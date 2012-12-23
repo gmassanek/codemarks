@@ -34,6 +34,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @current_user = nil
     reset_session
     cookies[:remember_token] = {:expires => 1.day.ago.utc}
     redirect_to root_path, :notice => "Logged out successfully"

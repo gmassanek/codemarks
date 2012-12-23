@@ -11,7 +11,7 @@ class CodemarksController < ApplicationController
   def create
     topic_ids = params[:codemark].delete("topic_ids")
     attributes = params[:codemark]
-    attributes[:user_id] = current_user_id
+    attributes[:user_id] = current_user.id
 
     topic_info = {
       :ids => topic_ids,
