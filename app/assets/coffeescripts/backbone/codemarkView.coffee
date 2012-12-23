@@ -66,7 +66,7 @@ App.CodemarkView = Backbone.View.extend
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
     delete: if @model.mine() then '&#x66;' else null
-    add: if @model.mine() || CURRENT_USER == null then null else '&#xe00e;'
+    add: if @model.mine() || CURRENT_USER == '' then null else '&#xe00e;'
 
   editText: ->
     if @mine() then 'Edit' else 'Save'
