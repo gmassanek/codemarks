@@ -37,6 +37,8 @@ group :development, :test do
   gem 'watchr'
   gem 'foreman'
   gem 'pry'
+  gem "webmock", "~> 1.9.0"
+  gem "vcr", "~> 2.3.0"
 end
 
 group :test do
