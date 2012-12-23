@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def sign_in_path(provider)
-    "auth/#{provider.to_s}"
+    "/auth/#{provider.to_s}"
   end
 
   def bookmarklet_url

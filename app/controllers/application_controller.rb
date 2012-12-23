@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :logged_in?, :current_user_id, :current_user, :filter_by_mine?
+  helper_method :logged_in?, :current_user_id, :current_user
+
+  def require_user
+    redirect_to root_path unless logged_in?
+  end
 
   def logged_in?
     current_user.present?
@@ -14,13 +18,4 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find current_user_id if current_user_id
   end
-
-  def filter_by_mine?
-    session[:filter] == 'mine'
-  end
-
-  def require_user
-    redirect_to root_path unless logged_in?
-  end
-
 end

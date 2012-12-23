@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  def new
+    redirect_to codemarks_path if logged_in?
+  end
+
   def failure
     Rails.logger.error "======================== Failed auth =========================="
     Rails.logger.error params.inspect
@@ -19,6 +23,7 @@ class SessionsController < ApplicationController
       redirect_to session[:callback]
       return
     end
+
     if FindCodemarks.new(:user => @user, :current_user => current_user).codemarks.count == 0
       @link = Link.new
       redirect_to welcome_path
@@ -50,5 +55,4 @@ class SessionsController < ApplicationController
 
     redirect_to "/auth/#{params[:provider]}"
   end
-
 end
