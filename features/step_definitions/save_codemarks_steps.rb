@@ -1,13 +1,13 @@
-When /^I fill out the add codemark form with Twitter$/ do
-  Fabricate(:topic, :title => 'twitter')
+When /^I fill out the add codemark form with Google$/ do
+  Fabricate(:topic, :title => 'google')
   page.find('.add_link a').click()
-  page.fill_in('url', :with => 'http://www.twitter.com')
+  page.fill_in('url', :with => 'http://www.google.com')
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
 end
 
-When /^I fill out and submit the add codemark form with Twitter$/ do
-  step 'I fill out the add codemark form with Twitter'
+When /^I fill out and submit the add codemark form with Google$/ do
+  step 'I fill out the add codemark form with Google'
   step 'I submit the codemark form'
 end
 
@@ -32,23 +32,23 @@ Given /^there is (a|1) codemark$/ do |arg1|
   @codemark = Fabricate(:codemark_record)
 end
 
-Given /^tom_brady has codemarked Twitter$/ do
+Given /^tom_brady has codemarked Google$/ do
   @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
-  twitter = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.twitter.com')
-  @codemark = @twitter = Fabricate(:codemark_record, :user => @tom_brady, :resource => twitter)
+  google = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.google.com')
+  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google)
 end
 
 Then /^I should see a codemark form$/ do
   page.should have_selector('.tile form.codemark_form')
 end
 
-Then /^tom_brady should still be Twitter's author$/ do
-  @twitter.reload.resource_author.should == @tom_brady
+Then /^tom_brady should still be Google's author$/ do
+  @google.reload.resource_author.should == @tom_brady
 end
 
-Then /^I should be Twitter's author$/ do
-  twitter = LinkRecord.find_by_url('http://www.twitter.com')
-  twitter.author.should == @current_user
+Then /^I should be Google's author$/ do
+  google = LinkRecord.find_by_url('http://www.google.com')
+  google.author.should == @current_user
 end
 
 Then /^I should have (\d+) codemark$/ do |num_codemarks|

@@ -5,6 +5,13 @@
 # files.
 
 require 'cucumber/rails'
+require 'webmock/cucumber'
+require 'vcr'
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+VCR.cucumber_tags do |t|
+  t.tag '@vcr', :use_scenario_name => true
+end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
