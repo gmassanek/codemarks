@@ -1,13 +1,10 @@
-- if logged_in?
-  #authentication
-    %ul.piped
+#authentication
+  %ul
+    - if logged_in?
       - if current_user.get(:image).present?
         - image = image_tag current_user.get(:image), class: "account"
-        %li.first.last.image= link_to image, account_path(current_user)
-      %li.first
-        = link_to current_user.nickname, account_path(current_user)
+        %li.image= link_to image, account_path(current_user)
+      %li= link_to current_user.nickname, account_path(current_user)
       %li.last= link_to 'log out', sessions_path, :method => :delete
-- else
-  #authentication
-    %ul.piped
-      %li.first.last= link_to 'Public Codemarks', codemarks_path
+    - else
+      %li= link_to 'Login', new_session_path

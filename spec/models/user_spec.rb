@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { authenticated_user }
+  let(:user) { Fabricate(:user) }
   let!(:authentication) { user.authentications.first }
 
   it "requires at least one authentication"
