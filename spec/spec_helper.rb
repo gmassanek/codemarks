@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'webmock/rspec'
+require 'vcr'
 
 include Exceptions
 include Codemarks
@@ -25,6 +27,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
+  config.extend VCR::RSpec::Macros
 end
 
 OmniAuth.config.test_mode = true
@@ -38,18 +41,20 @@ OmniAuth.config.add_mock(:twitter, {
     :nickname => "twit_monst11"
   }
 })
+
 OmniAuth.config.add_mock(:github, {
   :uid => '223498',
   :info => {
     :name => "Github Monster",
     :image => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
     :location => "San Francisco, CA",
-    :nickname => "twit_monst11"
+    :nickname => "github_monst11"
   }
 })
 
 def simulate_signed_in
-  visit root_path
+  # Change this to stub_user! and just stub user on controller?
+  visit new_session_path
   page.click_link("sign in with twitter")
   @user = User.last
 end
@@ -58,8 +63,4 @@ def simulate_github_signed_in
   visit root_path
   page.click_link("sign in with github")
   @user = User.last
-end
-
-def authenticated_user
-  user = Fabricate(:user)
 end

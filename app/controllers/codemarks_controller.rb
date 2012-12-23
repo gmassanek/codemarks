@@ -11,7 +11,7 @@ class CodemarksController < ApplicationController
   def create
     topic_ids = params[:codemark].delete("topic_ids")
     attributes = params[:codemark]
-    attributes[:user_id] = current_user_id
+    attributes[:user_id] = current_user.id
 
     topic_info = {
       :ids => topic_ids,
@@ -35,7 +35,7 @@ class CodemarksController < ApplicationController
     @topic = Topic.find(params[:topic_id]) if params[:topic_id]
     respond_to do |format|
       format.html do
-        render 'codemarks/index', :layout => 'backbone'
+        render 'codemarks/index'
       end
 
       format.json do

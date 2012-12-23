@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe CodemarkletController do
+  use_vcr_cassette 'codemarks'
+
   describe "#new" do
     it "is successful" do
       CodemarkletController.any_instance.stub(:'logged_in?' => true)

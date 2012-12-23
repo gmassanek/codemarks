@@ -8,11 +8,12 @@ Feature: Private Codemarks
     Given a private tag exists
     Given I am logged in
 
+  @vcr
   Scenario: Saving a private codemark
-    And I fill out the add codemark form with Twitter
+    And I fill out the add codemark form with Google
     And I add the 'private' tag
     And I submit the codemark form
-    Then I should see "Twitter"
+    Then I should see "Google"
     And that codemark should be private
 
   Scenario: Viewing my own private codemarks
