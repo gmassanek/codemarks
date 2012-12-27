@@ -1,6 +1,8 @@
 require "bundler/capistrano"
 
-server "173.230.140.198", :web, :app, :db, primary: true
+set :stages, %w(production staging)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
 
 set :application, "codemarks"
 set :user, "deployer"
@@ -10,14 +12,14 @@ set :use_sudo, false
 
 set :scm, "git"
 set :repository, "git@github.com:gmassanek/#{application}.git"
-set :branch, "master"
+set :branch, fetch(:branch, "master")
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
-namespace :deploy do
+namespace:deploy do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
@@ -41,12 +43,19 @@ namespace :deploy do
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do
-    unless `git rev-parse HEAD` == `git rev-parse origin/master`
-      puts "WARNING: HEAD is not the same as origin/master"
+    unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
+      puts "WARNING: HEAD is not the same as origin/#{branch}"
       puts "Run `git push` to sync changes."
       exit
     end
   end
   before "deploy", "deploy:check_revision"
-end
 
+  namespace:assets do
+    desc "compile templates"
+    task :compile_templates, roles: :app do
+      run "cd #{release_path} && RAILS_ENV=#{stage} bundle exec rake assets:compile_templates"
+    end
+  end
+  after "deploy:assets:precompile", "deploy:assets:compile_templates"
+end

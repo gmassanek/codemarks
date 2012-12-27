@@ -16,7 +16,7 @@ APP_ROOT=/home/deployer/apps/codemarks/current
 SHARED_ROOT=/home/deployer/apps/codemarks/shared
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 ENV_FILE=$SHARED_ROOT/config/load_envs.sh
-CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E production"
+CMD="cd $APP_ROOT; bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E staging"
 AS_USER=deployer
 set -u
 
