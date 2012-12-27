@@ -1,6 +1,7 @@
 require_relative 'taggable'
 require 'nokogiri'
 require 'open-uri'
+require 'postrank-uri'
 
 class Link
   include Taggable
@@ -9,7 +10,7 @@ class Link
   def initialize(attributes = {})
     return if attributes.blank?
     self.id = attributes[:id]
-    self.url = attributes[:url]
+    self.url = Link.normalize(attributes[:url])
     self.author_id = attributes[:author_id]
   end
 
@@ -76,6 +77,11 @@ class Link
   def update_author(author_id = nil)
     @author_id = author_id if author_id
     persist_author if orphan?
+  end
+
+  def self.normalize(url)
+    return if url.blank?
+    PostRank::URI.clean(url)
   end
 
   private
