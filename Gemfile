@@ -15,6 +15,7 @@ gem 'gravatar_image_tag'
 gem 'omniauth-twitter'
 gem 'omniauth-github', "~> 1.0.1"
 gem 'therubyracer'
+gem 'libv8', '~> 3.11.8'
 gem 'newrelic_rpm'
 gem 'haml'
 gem 'pg'
@@ -27,6 +28,7 @@ gem 'aws-sdk'
 gem 'grabzit'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem "postrank-uri", "~> 1.0.17"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
