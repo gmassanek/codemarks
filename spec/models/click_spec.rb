@@ -11,5 +11,4 @@ describe Click do
     click = Fabricate(:click, link_record: link_record)
     LinkRecord.find(link_record.id).clicks_count.should == 6
   end
-
 end

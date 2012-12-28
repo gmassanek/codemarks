@@ -4,8 +4,8 @@ describe "Can build codemarks" do
   use_vcr_cassette 'codemarks'
 
   it "hits the internet to save a link for a new link" do
-    codemark = Codemark.load(:url => 'http://www.google.com')
-    codemark.resource.url.should == 'http://www.google.com'
+    codemark = Codemark.load(:url => 'http://www.google.com/')
+    codemark.resource.url.should == 'http://www.google.com/'
     codemark.resource.site_data.should_not be_nil
   end
 

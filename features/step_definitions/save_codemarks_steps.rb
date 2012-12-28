@@ -29,7 +29,8 @@ Given /^I have (a|1) codemark$/ do |arg1|
 end
 
 Given /^there is (a|1) codemark$/ do |arg1|
-  @codemark = Fabricate(:codemark_record)
+  link = Fabricate(:link_record, :url => 'http://www.google.com/')
+  @codemark = Fabricate(:codemark_record, :resource => link)
 end
 
 Given /^tom_brady has codemarked Google$/ do
@@ -47,7 +48,7 @@ Then /^tom_brady should still be Google's author$/ do
 end
 
 Then /^I should be Google's author$/ do
-  google = LinkRecord.find_by_url('http://www.google.com')
+  google = LinkRecord.find_by_url('http://www.google.com/')
   google.author.should == @current_user
 end
 
