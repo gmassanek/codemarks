@@ -18,6 +18,7 @@ Feature: Saving Codemarks
     And I submit the codemark form
     Then tom_brady should still be Google's author
 
+  @vcr
   Scenario: Different users saving codemarks with the same resource
     Given there is 1 codemark
     And I am on the codemarks page

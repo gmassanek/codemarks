@@ -28,8 +28,8 @@ describe Topic do
   end
 
   it "returns all associated codemarks" do
-    codemark = Fabricate(:codemark_record)
-    topic = codemark.topics.first
+    topic = Fabricate(:topic)
+    codemark = Fabricate(:codemark_record, topics: [topic])
     codemark2 = Fabricate(:codemark_record, topics: [topic])
     topic.codemark_records.should == [codemark, codemark2]
   end
