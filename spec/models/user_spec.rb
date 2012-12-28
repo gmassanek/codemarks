@@ -23,9 +23,9 @@ describe User do
   end
 
   it "deletes all authentications when I delete a user" do
-    authentication = Fabricate(:authentication, user: user, provider: "twitter")
-    authentication.user.destroy
-    Authentication.find_by_id(authentication.id).should == nil
+    expect do
+      user.destroy
+    end.to change(Authentication, :count).by(-1)
   end
 
   it "knows which authentications it's missing" do
@@ -56,9 +56,8 @@ describe User do
   end
 
   it "should destroy it's codemarks" do
-    user = Fabricate(:user)
     Fabricate(:codemark_record, :user => user)
-    lambda {
+    expect {
       user.destroy
     }.should change(CodemarkRecord, :count).by(-1)
   end

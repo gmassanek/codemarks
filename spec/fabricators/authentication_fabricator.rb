@@ -4,5 +4,4 @@ Fabricator(:authentication) do
   name { Faker::Name.name }
   nickname { Faker::Internet.user_name.sub(".", "_") }
   email { Faker::Internet.email }
-  user
 end

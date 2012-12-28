@@ -24,8 +24,9 @@ end
 Given /^([^"]*) is a user with a codemark$/ do |nickname|
   @user = Fabricate(:user)
   @user.update_attributes(:nickname => nickname)
-  @codemark = Fabricate(:codemark_record, :user => @user)
-  @topic = @codemark.topics.first
+  topic = Fabricate(:topic)
+  @topic = Fabricate(:topic)
+  @codemark = Fabricate(:codemark_record, :user => @user, :topics => [@topic, topic])
 end
 
 Given /^there are (\d+) random codemarks$/ do |num|
