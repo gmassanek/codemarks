@@ -18,7 +18,7 @@
       = javascript_include_tag 'google_analytics'
       = javascript_include_tag 'uservoice'
 
-  %body
+  %body{:class => page_class}
     = render '/layouts/header'
     = render '/layouts/flash', :flash => flash
     .site_content
