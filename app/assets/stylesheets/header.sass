@@ -1,4 +1,5 @@
 @import "bourbon"
+@import 'mixins/border_radius'
 
 body > header
   position: fixed
@@ -29,17 +30,43 @@ body > header
   #authentication
     float: right
 
-    li
-      float: left
-      padding: 0 15px
+    .profile_info
+      float: right
 
-      &.last
-        padding-right: 0
+      img
+        position: relative
+        height: 25px
+        top: ($header-height - 25px) / 4
+        @include border_radius(5px)
 
-      &.image
-        margin: -5px -20px 0 0
-        padding: 0
-        padding-right: 10px
-        img
-          border: 1px solid $c6
-          height: 25px
+      a
+        line-height: 40px
+
+      &:hover + .options
+        display: block
+
+    .options
+      display: none
+      background: white
+      clear: both
+      border: 1px solid #dddddd
+      border-top: none
+
+      &:hover
+        display: block
+
+      li
+        float: right
+        padding: 10px
+        line-height: 14px
+        border-bottom: 1px solid #dddddd
+        clear: both
+        width: 100%
+        text-align: center
+        &:last-child
+          border-bottom: none
+
+      .btn-auth
+        height: 22px
+        line-height: 20px
+        font-size: 16px
