@@ -56,13 +56,10 @@ body > header
         display: block
 
       li
-        float: right
         padding: 10px
         line-height: 14px
         border-bottom: 1px solid #dddddd
-        clear: both
         width: 100%
-        text-align: center
         &:last-child
           border-bottom: none
 
@@ -70,3 +67,11 @@ body > header
         height: 22px
         line-height: 20px
         font-size: 16px
+
+      &.logged_in
+        li
+          text-align: right
+
+      &.logged_out
+        li
+          text-align: center
