@@ -61,4 +61,13 @@ describe User do
       user.destroy
     }.should change(CodemarkRecord, :count).by(-1)
   end
+
+  it "finds a user by authenticaion and username" do
+    user = Fabricate(:user)
+    authentication = user.authentications.first
+    provider = authentication.provider
+    nickname = authentication.nickname
+
+    User.find_by_authentication(provider, nickname).should == user
+  end
 end
