@@ -1,9 +1,7 @@
 #authentication
   %ul
     - if logged_in?
-      - if current_user.get(:image).present?
-        - image = image_tag current_user.get(:image), class: "account"
-        %li.image= link_to image, account_path(current_user)
+      %li.image= link_to current_user_image, account_path(current_user) if current_user_image
       %li= link_to current_user.nickname, account_path(current_user)
       %li.last= link_to 'log out', sessions_path, :method => :delete
     - else
