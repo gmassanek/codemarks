@@ -11,15 +11,31 @@ describe Link do
     end
 
     it "saves a url" do
-      attributes = { :url => 'http://www.google.com' }
+      attributes = { :url => 'http://www.google.com/' }
       link = Link.new(attributes)
-      link.url.should == 'http://www.google.com'
+      link.url.should == 'http://www.google.com/'
+    end
+
+    it 'normalized the url' do
+      Link.stub(:normalize => 'clean_url')
+      link = Link.new(:url => 'http://www.google.com')
+      link.url.should == 'clean_url'
     end
 
     it "saves an author_id" do
       attributes = { :author_id => 3 }
       link = Link.new(attributes)
       link.author_id.should == 3
+    end
+  end
+
+  describe 'normalize' do
+    it 'returns nil if blank' do
+      Link.normalize('').should be_nil
+    end
+
+    it 'ensures trailing slashes' do
+      Link.normalize('http://www.google.com').should == 'http://www.google.com/'
     end
   end
 
