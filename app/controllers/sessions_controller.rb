@@ -35,7 +35,6 @@ class SessionsController < ApplicationController
     p "Exception in app/controllers/sessions_controller.rb A"
     logger.info ex.to_s
     puts ex.to_s
-    puts ex.backtrace
     redirect_to root_path, :notice => "Sorry, something went wrong"
   end
 
