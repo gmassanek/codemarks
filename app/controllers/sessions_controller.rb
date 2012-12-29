@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
       @link = Link.new
       redirect_to welcome_path
     else
-      redirect_to short_user_path(@user)
+      redirect_to codemarks_path(:user => @user)
     end
 
   rescue Exception => ex

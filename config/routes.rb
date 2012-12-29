@@ -14,9 +14,7 @@ Codemarks::Application.routes.draw do
 
   resources :codemarks
   resources :topics
-
-  # API endpoint
-  get '/:username', :to => 'users#show', :as => "short_user"
+  resources :users
 
   resources :comments, :only => [:create, :destroy]
   get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
@@ -35,10 +33,6 @@ Codemarks::Application.routes.draw do
       delete :destroy
     end
   end
-
-  resources :users, :only => [:update]
-  get '/:id/account', to: "users#account", as: :account
-  get '/:id/account/edit', to: "users#edit", as: :edit_account
 
   root :to => 'codemarks#index'
 end

@@ -22,8 +22,7 @@ Given /^there are (\d+) codemarks for "([^"]*)"$/ do |num_codemarks, topic_title
 end
 
 Given /^([^"]*) is a user with a codemark$/ do |nickname|
-  @user = Fabricate(:user)
-  @user.update_attributes(:nickname => nickname)
+  @user = Fabricate(:user, :nickname => nickname)
   topic = Fabricate(:topic)
   @topic = Fabricate(:topic)
   @codemark = Fabricate(:codemark_record, :user => @user, :topics => [@topic, topic])
@@ -37,8 +36,7 @@ Given /^there are (\d+) random codemarks$/ do |num|
 end
 
 Given /^([^"]*) is a user with a codemark for that topic$/ do |nickname|
-  @user = Fabricate(:user)
-  @user.update_attributes(:nickname => nickname)
+  @user = Fabricate(:user, :nickname => nickname)
   @another_codemark = Fabricate(:codemark_record, :user => @user, :topic_ids => [@topic.id])
 end
 
@@ -50,12 +48,12 @@ When /^I go to the "([^"]*)" topic page$/ do |topic_title|
   visit topic_path(@topic)
 end
 
-When /^I go to my page$/ do
-  visit "/#{@current_user.slug}"
+When /^I go to my codemarks page$/ do
+  visit codemarks_path(:user => @current_user)
 end
 
-When /^I go to his page$/ do
-  visit "/#{@user.slug}"
+When /^I go to his codemarks page$/ do
+  visit codemarks_path(:user => @user)
 end
 
 When /^I go to that topic page$/ do
