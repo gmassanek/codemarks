@@ -6,7 +6,6 @@
 
 require 'cucumber/rails'
 require 'webmock/cucumber'
-require 'vcr'
 require Rails.root.join("spec/support/vcr.rb")
 
 VCR.cucumber_tags do |t|
@@ -62,31 +61,7 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before('@omniauth_test_success') do
-  OmniAuth.config.test_mode = true
-
-  OmniAuth.config.mock_auth[:twitter] = {
-    "provider"  => "twitter",
-    "uid"       => '12345',
-    "info" => {
-      "nickname"  => "gmassanek",
-      "email" => "email@email.com",
-      "first_name" => "John",
-      "last_name"  => "Doe",
-      "name"       => "John Doe"
-    }
-  }
-
-  OmniAuth.config.mock_auth[:facebook] = {
-    "provider"  => "facebook",
-    "uid"       => '12345',
-    "info" => {
-      "nickname"  => "gmassanek",
-      "email" => "email@email.com",
-      "first_name" => "John",
-      "last_name"  => "Doe",
-      "name"       => "John Doe"
-    }
-  }
+  require Rails.root.join("spec/support/omniauth.rb")
 end
 
 AfterStep('@pause') do
