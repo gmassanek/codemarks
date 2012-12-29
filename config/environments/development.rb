@@ -1,3 +1,4 @@
+require Rails.root.join("spec/support/omniauth.rb")
 STDOUT.sync = true
 Codemarks::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -29,16 +30,3 @@ Codemarks::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
-
-OmniAuth.config.test_mode = true
-OmniAuth.config.add_mock(:twitter, {
-  :uid => '422333',
-  :info => {
-    :nickname => 'gmassanek',
-    :image => 'https://si0.twimg.com/profile_images/1927291188/newjbpic_reasonably_small.jpg'
-  }
-})
-#OmniAuth.config.add_mock(:github, {
-#  :uid => '234234',
-#  :nickname => 'gmassanek'
-#})
