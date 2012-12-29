@@ -11,7 +11,7 @@ gem 'kaminari'
 gem 'gravatar_image_tag'
 gem 'omniauth-twitter'
 gem 'omniauth-github', "~> 1.0.1"
-gem 'therubyracer'
+#gem 'therubyracer'
 #gem 'libv8', '~> 3.11.8' # You might need the native extentions for ruby racer
 gem 'newrelic_rpm'
 gem 'haml'
