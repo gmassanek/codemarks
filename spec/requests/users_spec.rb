@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "User Profile Page" do
+  include Capybara::DSL
+
   context "show" do
     before do
       @user = Fabricate(:user)
