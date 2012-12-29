@@ -13,7 +13,8 @@ end
 
 Given /^I am not logged in anymore$/ do
   visit '/'
-  click_link 'log out'
+  page.execute_script("$('.options').show()")
+  click_link 'Log Out'
 end
 
 Given /^I have (\d+) codemarks$/ do |num|
