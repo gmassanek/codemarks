@@ -1,4 +1,11 @@
 namespace :backfill  do
+  desc 'normalize all link_record urls'
+  task :normalize_urls => :environment do
+    LinkRecord.all.each do |link|
+      link.update_attributes(:url => Link.normalize(link.url))
+    end
+  end
+
   desc "save link_record.author_id based on first codemark.user"
   task :author_id => :environment do
     target_link_records = LinkRecord.find(:all, :conditions => {:author_id => nil})

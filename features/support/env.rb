@@ -7,7 +7,7 @@
 require 'cucumber/rails'
 require 'webmock/cucumber'
 require 'vcr'
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+require Rails.root.join("spec/support/vcr.rb")
 
 VCR.cucumber_tags do |t|
   t.tag '@vcr', :use_scenario_name => true
