@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe 'Authentication' do
+  include Capybara::DSL
+
   describe 'creates new users' do
-    it 'from twitter' do
+    it 'from twitter', :type => :request do
       visit new_session_path
       expect {
         page.click_link 'sign in with twitter'

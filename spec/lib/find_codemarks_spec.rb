@@ -4,7 +4,7 @@ describe FindCodemarks do
   context 'there are codemarks' do
     before do
       @user = Fabricate(:user)
-      @cm = Fabricate(:codemark_record, :user => @user)
+      @cm = Fabricate(:codemark_record, :user => @user, :topics => [Fabricate(:topic), Fabricate(:topic)])
       @cm2 = Fabricate(:codemark_record, :user => @user)
     end
 

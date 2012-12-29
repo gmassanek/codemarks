@@ -1,13 +1,13 @@
 Fabricator(:user) do
-  authentications(:count => 1) { |user| Fabricate(:authentication, :user => user) }
+  authentications(:count => 1) { |user| Fabricate(:authentication) }
 end
 
 Fabricator(:twitter_user, :class_name => "user") do
-  authentications(:count => 1) { |user| Fabricate(:authentication, :user => user, :provider => "twitter") }
+  authentications(:count => 1) { |user| Fabricate(:authentication, :provider => "twitter") }
 end
 
 Fabricator(:github_user, :class_name => "user") do
-  authentications(:count => 1) { |user| Fabricate(:authentication, :user => user, :provider => "github") }
+  authentications(:count => 1) { |user| Fabricate(:authentication, :provider => "github") }
 end
 
 Fabricator(:active_user, :from => :user) do
