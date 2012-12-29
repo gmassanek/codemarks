@@ -12,8 +12,8 @@ require 'vcr'
 include Exceptions
 include Codemarks
 
-TEST_BROKEN = false
-SKIP_JS = true
+TEST_BROKEN = true
+SKIP_JS = false
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::Matchers::MatchArray)
@@ -28,9 +28,10 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
   config.extend VCR::RSpec::Macros
+  Capybara.javascript_driver = :webkit
 end
 
 OmniAuth.config.test_mode = true
