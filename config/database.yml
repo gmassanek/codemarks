@@ -10,6 +10,7 @@ test: &TEST
   adapter:   postgresql
   encoding:  unicode
   database:  codemarks_test
+  host: localhost
   pool: 5
   min_messages: warning
 
