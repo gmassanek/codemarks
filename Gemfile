@@ -32,6 +32,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara', '~> 1.1.0'
+  gem "capybara-webkit", "~> 0.13.0"
   gem 'jasmine', '~> 1.2.0'
   gem 'watchr'
   gem 'foreman'
