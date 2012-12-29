@@ -4,7 +4,7 @@ describe 'Authentication' do
   include Capybara::DSL
 
   describe 'creates new users' do
-    it 'from twitter', :type => :request do
+    it 'from twitter' do
       visit new_session_path
       expect {
         page.click_link 'sign in with twitter'
@@ -27,11 +27,12 @@ describe 'Authentication' do
   end
 
   describe 'logs users in' do
-    it 'from twitter' do
+    it 'from twitter', :js => true do
       # create user and logout
       visit new_session_path
       page.click_link 'sign in with twitter'
-      page.click_link 'log out'
+      page.execute_script("$('.options').show()")
+      page.click_link 'Log Out'
 
       visit new_session_path
       expect {
@@ -39,11 +40,12 @@ describe 'Authentication' do
       }.to change(User, :count).by(0)
     end
 
-    it 'from github' do
+    it 'from github', :js => true do
       # create user and logout
       visit new_session_path
       page.click_link 'sign in with github'
-      page.click_link 'log out'
+      page.execute_script("$('.options').show()")
+      page.click_link 'Log Out'
 
       visit new_session_path
       expect {
