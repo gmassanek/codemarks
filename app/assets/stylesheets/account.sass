@@ -48,9 +48,30 @@
         border: 1px solid darken($border-color2, 15%)
         @include linear-gradient($border-color2, darken($border-color2, 5%))
 
-#edit_account
-  input
-    width: 300px
+#main_content.users.edit
+  padding-top: 10px
+
+  form
+    margin-top: 20px
+
+  label
+    display: block
+  input:not([type=submit]), textarea
+    padding: 10px
+    width: 450px
+    margin-bottom: 10px
+    border: 1px solid $border-color2
+    line-height: 16px
+    font-size: 14px
+    @include border-radius(5px)
+    @include box-shadow(0)
+    @include transition
+
+    &:focus
+      @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+      border-color: lighten($orange, 25%)
 
   input[type=submit]
-    width: 100px
+    font-size: 14px
+    line-height: 18px
+    height: 18px
