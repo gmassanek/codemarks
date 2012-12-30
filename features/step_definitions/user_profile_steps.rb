@@ -21,7 +21,11 @@ Then /^I should see some of my codemarks$/ do
 end
 
 Then /^I should see my top topics$/ do
-  pending # express the regexp above with the code you wish you had
+  topics = @current_user.codemark_records.map(&:topics).flatten.group_by(&:id)
+  topics.each do |_, list|
+    topic = list.first
+    page.should have_content "#{topic.title} (#{list.count})"
+  end
 end
 
 Then /^I should see an edit profile link$/ do
@@ -48,7 +52,7 @@ Then /^I should see Google$/ do
 end
 
 Then /^I should see tom\-brady's top topics$/ do
-  pending
+  page.should have_content "Google (1)"
 end
 
 Then /^I should not see an edit profile link$/ do

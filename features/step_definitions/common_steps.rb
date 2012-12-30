@@ -24,7 +24,8 @@ end
 Given /^I have (\d+) codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do
-    @codemarks << Fabricate(:codemark_record, :user => @current_user)
+    topics = [Fabricate(:topic), Topic.last].compact
+    @codemarks << Fabricate(:codemark_record, :user => @current_user, :topics => topics)
   end
   @codemarks
 end

@@ -70,4 +70,44 @@ describe User do
 
     User.find_by_authentication(provider, nickname).should == user
   end
+
+  describe '#favorite_topics' do
+    let(:user) { Fabricate(:user) }
+    let(:topic1) { Fabricate(:topic) }
+    let(:topic2) { Fabricate(:topic) }
+    let(:topic3) { Fabricate(:topic) }
+
+    it 'is nil if there are no codemarks' do
+      user.favorite_topics.should be_nil
+    end
+
+    it 'is nil if none of the codemarks have topics' do
+      codemark = Fabricate(:codemark_record, :user => user)
+      user.favorite_topics.should be_nil
+    end
+
+    it 'includes topics from all codemarks' do
+      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic1])
+      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic2])
+      user.favorite_topics.count.should == 2
+    end
+
+    it 'counts the codemarks for each topic' do
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      user.favorite_topics[topic1].should == 2
+      user.favorite_topics[topic2].should == 3
+      user.favorite_topics[topic3].should == 1
+    end
+
+    it 'orders them by count' do
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      user.favorite_topics.keys[0].should == topic2
+      user.favorite_topics.keys[1].should == topic1
+      user.favorite_topics.keys[2].should == topic3
+    end
+  end
 end
