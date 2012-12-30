@@ -1,42 +1,22 @@
-%h3
-  - if @user.get(:image).present?
-    = image_tag @user.get(:image), class: "account"
-  = "#{@user.get(:name)}" if @user.get(:name)
-  = "#{@user.get(:nickname)}" if @user.get(:nickname)
-  = link_to "Edit", edit_user_path(@user)
-%br
-%br
-.nickname
-  Nickname:
-  = @user.nickname
-.email
-  Email:
-  = @user.get(:email)
-.description
-  Description:
-  = @user.get(:description)
-.location
-  Location:
-  = @user.get(:location)
-%br
-%h4 Authentications (click on image link to add authentication)
-.icons
-  - twit = image_tag 'twitter.png'
-  - if @user.authentication_by_provider(:twitter).present?
-    = twit
-    Twitter already added
-  - else
-    = link_to twit, '/auth/twitter'
-  %br
-  - git = image_tag 'github.png'
-  - if @user.authentication_by_provider(:github).present?
-    = git
-    Github already added
-  - else
-    = link_to git, '/auth/github'
-#mc_embed_signup
-  = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
-    = label_tag 'Subscribe to our mailing list'
-    = email_field_tag 'EMAIL', @user.email
-    .clear
-    = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
+.side
+  = user_image(@user)
+
+  %h1.name= @user.get(:name) if @user.get(:name)
+  .nickname= '@' + @user.get(:nickname) if @user.get(:nickname)
+  - if current_user && current_user == @user
+    .edit= link_to "Edit", edit_user_path(@user)
+
+  .clear
+
+  .authentications
+    = user_auth_link(@user, :twitter, current_user)
+    = user_auth_link(@user, :github, current_user)
+    - if current_user && current_user == @user && @user.authentications.count < 2
+      (Click to authenticate)
+
+  .details
+    = user_description(@user)
+    = user_location(@user)
+    = user_email(@user)
+
+  .clear
