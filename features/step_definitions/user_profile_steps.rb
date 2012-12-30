@@ -35,7 +35,12 @@ Then /^I should see an edit profile link$/ do
 end
 
 When /^I go to tom\-brady's profile$/ do
-  visit user_path(@tom_brady)
+  visit codemarks_path
+  click_link 'tom-brady'
+  step 'I wait until all Ajax requests are complete'
+  within('.controlPanel') do
+    click_link 'tom-brady'
+  end
 end
 
 Then /^I should see tom\-brady's profile data$/ do
