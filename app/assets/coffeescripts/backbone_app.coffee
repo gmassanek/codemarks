@@ -9,5 +9,5 @@
 //= require_tree ./backbone
 
 $ ->
-  unless ENV? && ENV == 'test'
+  unless ENV? && ENV=='jasmine'
     App.init()

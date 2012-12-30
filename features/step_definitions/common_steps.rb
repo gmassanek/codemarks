@@ -11,6 +11,10 @@ When /^I sign up with twitter$/ do
   @current_user = User.last
 end
 
+Given /^Tom Brady is a user$/ do
+  @tom_brady = Fabricate(:user, :nickname => 'tom-brady')
+end
+
 Given /^I am not logged in anymore$/ do
   visit '/'
   page.execute_script("$('.options').show()")

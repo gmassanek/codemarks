@@ -12,13 +12,13 @@ class SiteSnapshot
       snapshot_url = RemoteStorage.upload_link_snapshot(snapshot, snapshot_id)
       link.update_attributes(:snapshot_url => snapshot_url, :snapshot_id => snapshot_id)
     else
-      link.update_attributes(:snapshot_url => 'assets/error_loading.png')
+      link.update_attributes(:snapshot_url => '/assets/error_loading.png')
     end
   rescue Exception => e
     p 'Failed to take snapshot'
     p e
     puts e.backtrace.first(10).join("\n")
-    link.update_attributes(:snapshot_url => 'assets/error_loading.png')
+    link.update_attributes(:snapshot_url => '/assets/error_loading.png')
   end
 
   def self.create(url)
