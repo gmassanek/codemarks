@@ -21,7 +21,8 @@
   .details
     = user_description(@user)
     = user_location(@user)
-    = user_email(@user)
+    - if current_user && current_user == @user
+      = user_email(@user)
 
   .clear
   - if @favorite_topics
