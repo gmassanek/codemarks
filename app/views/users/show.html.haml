@@ -15,8 +15,6 @@
   .authentications
     = user_auth_link(@user, :twitter, current_user)
     = user_auth_link(@user, :github, current_user)
-    - if current_user && current_user == @user && @user.authentications.count < 2
-      (Click to authenticate)
 
   .details
     = user_description(@user)
