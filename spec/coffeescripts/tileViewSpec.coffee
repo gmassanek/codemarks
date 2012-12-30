@@ -186,6 +186,7 @@ describe 'Tile View', ->
     it 'remembers the model to copy', ->
       codemarkView = new App.CodemarkView
         model: @codemark
+      spyOn(@view, 'turnViewIntoForm')
       @view.view = codemarkView
       @view.copyForNewUser()
       expect(@view.modelToCopy).toBe(@codemark)
@@ -193,6 +194,7 @@ describe 'Tile View', ->
     it 'removes the user and id of the existing model', ->
       codemarkView = new App.CodemarkView
         model: @codemark
+      spyOn(@view, 'turnViewIntoForm')
       @view.view = codemarkView
       @view.copyForNewUser()
       expect(@view.view.model.get('id')).toBeUndefined()

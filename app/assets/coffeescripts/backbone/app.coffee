@@ -5,5 +5,4 @@ window.App =
       cache: false
 
     App.router = new App.MainRouter
-    App.codemarks = new App.Codemarks
     Backbone.history.start({pushState: true})
