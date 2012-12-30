@@ -68,13 +68,14 @@
 
     input#search
       float: left
-      padding: 5px
-      padding-right: 20px
+      padding: 5px 20px 5px 10px
       width: 200px
-      @include border-radius(10px)
+      border: 1px solid $border-color2
+      @include border-radius(20px)
       @include transition
       &:focus
-        @include box-shadow(0 0 10px $orange)
+        @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+        border-color: lighten($orange, 25%)
 
     a.search
       float: right
