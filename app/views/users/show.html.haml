@@ -27,7 +27,7 @@
   .clear
   - if @favorite_topics
     %hr
-    %h3 Topics
+    %h3 Favorite Topics
     %ul
       - @favorite_topics.each do |topic, count|
         %li= link_to "#{topic.title} (#{count})", '#', :class => 'topic_link', :data => {:id => topic.slug}
