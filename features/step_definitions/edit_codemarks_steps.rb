@@ -1,5 +1,5 @@
 When /^I accept the prompt$/ do
-  page.driver.browser.switch_to.alert.accept
+  page.driver.accept_js_confirms!
 end
 
 When /^I click the delete image/ do

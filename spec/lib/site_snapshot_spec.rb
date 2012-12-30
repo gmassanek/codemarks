@@ -1,13 +1,17 @@
 require 'site_snapshot'
 
 describe SiteSnapshot do
-  describe '.save_picture' do
-    it 'calls save_picture on a new grabzit client instance' do
-      url, filepath = 'http://www.google.com', '/tmp/img1.jpeg'
-      client = mock
-      GrabzItClient.should_receive(:new).and_return(client)
-      client.should_receive(:save_picture).with(url, filepath, SiteSnapshot::WIDTH, SiteSnapshot::HEIGHT)
-      SiteSnapshot.save_picture(url, filepath)
+  describe '.create' do
+    before do
+      @client = mock
+      SiteSnapshot.stub(:grabzItClient => @client)
+    end
+
+    it 'calls take_picture and waits for it to be done' do
+      url = 'http://www.google.com'
+      @client.should_receive(:take_picture).with(url, nil, nil, SiteSnapshot::WIDTH, SiteSnapshot::HEIGHT).and_return('ABC123')
+      @client.should_receive(:get_status).with('ABC123').and_return(mock(:processing => false, :message => nil))
+      SiteSnapshot.create(url).should == 'ABC123'
     end
   end
 end

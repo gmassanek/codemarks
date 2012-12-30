@@ -23,11 +23,17 @@ App.FilterView = Backbone.View.extend
     else
       @$('.remove').remove()
     @$el.addClass(@type)
+    if @type == 'user'
+      $(@$('.description')[1]).remove()
+    else
+      $(@$('.description')[0]).remove()
 
   toHtml: ->
     template = angelo('filter.html')
     data =
-      description: @description
+      description:
+        href: "/users/#{@dataId}"
+        content: @description
       other_sorts: @otherSorts()
     facile(template, data)
 

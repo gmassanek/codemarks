@@ -63,4 +63,20 @@ class User < ActiveRecord::Base
       return auth_vals.compact.first
     end
   end
+
+  def favorite_topics
+    codemarks = codemark_records.includes(:topics)
+    return unless codemarks.present?
+
+    topics = codemark_records.map(&:topics).flatten
+    return unless topics.present?
+
+    counts = {}
+    topics.each do |topic|
+      count = counts[topic] || 0
+      counts[topic] = count + 1
+    end
+    sorted_counts = counts.sort_by { |k, v| v }.reverse
+    Hash[sorted_counts]
+  end
 end

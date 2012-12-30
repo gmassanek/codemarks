@@ -34,9 +34,9 @@ Given /^there is (a|1) codemark$/ do |arg1|
 end
 
 Given /^tom_brady has codemarked Google$/ do
-  @tom_brady = Fabricate(:user, :nickname => 'tom_brady')
   google = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.google.com')
-  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google)
+  topic = Fabricate(:topic, :title => 'Google')
+  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google, :topics => [topic])
 end
 
 Then /^I should see a codemark form$/ do
