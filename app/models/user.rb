@@ -77,6 +77,6 @@ class User < ActiveRecord::Base
       counts[topic] = count + 1
     end
     sorted_counts = counts.sort_by { |k, v| v }.reverse
-    Hash[sorted_counts]
+    Hash[sorted_counts.first(15)]
   end
 end

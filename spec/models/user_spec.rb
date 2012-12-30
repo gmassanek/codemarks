@@ -109,5 +109,14 @@ describe User do
       user.favorite_topics.keys[1].should == topic1
       user.favorite_topics.keys[2].should == topic3
     end
+
+    it 'only shows the top 15' do
+      topics = []
+      17.times do
+        topics << Fabricate(:topic)
+      end
+      Fabricate(:codemark_record, :user => user, :topics => topics)
+      user.favorite_topics.length.should == 15
+    end
   end
 end
