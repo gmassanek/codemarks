@@ -22,11 +22,13 @@ App.FilterView = Backbone.View.extend
       @$('.more').remove()
     else
       @$('.remove').remove()
-    @$el.addClass(@type)
+
     if @type == 'user'
       $(@$('.description')[1]).remove()
     else
       $(@$('.description')[0]).remove()
+
+    @$el.addClass(@type)
 
   toHtml: ->
     template = angelo('filter.html')
