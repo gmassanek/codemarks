@@ -2,6 +2,13 @@
   Update your profile
 
 = form_for @user do |form|
+  .inputs
+    .authentications
+      = form.label 'Authentications'
+      = user_auth_link(@user, :twitter, current_user)
+      = user_auth_link(@user, :github, current_user)
+      - if @user.authentications.count < 2
+        (Click to add authentication)
   .inputs 
     = form.label :nickname, 'Username'
     = form.text_field :nickname, value: @user.get(:nickname)
