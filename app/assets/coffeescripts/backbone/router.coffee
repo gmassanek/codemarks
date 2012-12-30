@@ -9,6 +9,7 @@ App.MainRouter = Backbone.Router.extend
     @codemarks = App.codemarks = new App.Codemarks
     @codemarks.filters.loadFromCookie($.deparam(params || ''))
     @$container = $('#main_content')
+    @$container.html('')
     @setupTopics()
 
     @renderTabsNav()
