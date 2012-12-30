@@ -62,7 +62,7 @@ App.CodemarkFormView = Backbone.View.extend
     if @model.get('id')
       $.ajax
         type: 'PUT'
-        url: "codemarks/#{@model.get('id')}"
+        url: "/codemarks/#{@model.get('id')}"
         data: @data()
         success: (response) =>
           @model.attributes = JSON.parse(response.codemark)
