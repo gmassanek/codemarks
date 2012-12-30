@@ -20,3 +20,10 @@
       = form.url_field :image, value: @user.get(:image)
 
     = form.submit "Save"
+
+#mc_embed_signup
+  = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
+    = label_tag 'Subscribe to our mailing list'
+    = email_field_tag 'EMAIL', @user.email
+    .clear
+    = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
