@@ -1,29 +1,31 @@
-#edit_profile
-  = form_for @user do |form|
-    .inputs
-      = form.label :name
-      = form.text_field :name, value: @user.name
-    .inputs 
-      = form.label :email
-      = form.email_field :email, value: @user.get(:email)
-    .inputs 
-      = form.label :location
-      = form.text_field :location, value: @user.get(:location)
-    .inputs 
-      = form.label :description
-      = form.text_area :description, value: @user.get(:description)
-    .inputs 
-      = form.label :nickname
-      = form.text_field :nickname, value: @user.get(:nickname)
-    .inputs 
-      = form.label :image
-      = form.url_field :image, value: @user.get(:image)
+%h2
+  Update your profile
 
-    = form.submit "Save"
+= form_for @user do |form|
+  .inputs 
+    = form.label :nickname, 'Username'
+    = form.text_field :nickname, value: @user.get(:nickname)
+  .inputs
+    = form.label :name, 'Full Name'
+    = form.text_field :name, value: @user.name
+  .inputs 
+    = form.label :email
+    = form.email_field :email, value: @user.get(:email)
+  .inputs 
+    = form.label :location
+    = form.text_field :location, value: @user.get(:location)
+  .inputs 
+    = form.label :description, 'Bio'
+    = form.text_area :description, value: @user.get(:description), :rows => 10
+  .inputs 
+    = form.label :image, 'Profile Image URL'
+    = form.url_field :image, value: @user.get(:image)
 
-#mc_embed_signup
-  = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
-    = label_tag 'Subscribe to our mailing list'
-    = email_field_tag 'EMAIL', @user.email
-    .clear
-    = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
+  = form.submit "Save", :class => 'btn-auth btn-twitter'
+
+//#mc_embed_signup
+//  = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
+//    = label_tag 'Subscribe to our mailing list'
+//    = email_field_tag 'EMAIL', @user.email
+//    .clear
+//    = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
