@@ -11,6 +11,8 @@ App.PaginationView = Backbone.View.extend
   render: ->
     return unless @collection && @collection.pagination
     @pagination = @collection.pagination
+    return unless @pagination.total_pages > 1
+
     @$el.append(@toHtml())
     @$(".page[data-page=#{@currentPage}]").addClass('current')
 
