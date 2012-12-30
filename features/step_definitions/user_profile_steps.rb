@@ -16,7 +16,8 @@ Then /^I should see my profile data$/ do
 end
 
 Then /^I should see some of my codemarks$/ do
-  pending # express the regexp above with the code you wish you had
+  step 'I wait until all Ajax requests are complete'
+  page.should have_selector('.codemark', :count => 3)
 end
 
 Then /^I should see my top topics$/ do
@@ -24,5 +25,34 @@ Then /^I should see my top topics$/ do
 end
 
 Then /^I should see an edit profile link$/ do
-  pending # express the regexp above with the code you wish you had
+  within '.side' do
+    page.should have_link 'Edit'
+  end
+end
+
+When /^I go to tom\-brady's profile$/ do
+  visit user_path(@tom_brady)
+end
+
+Then /^I should see tom\-brady's profile data$/ do
+  page.should have_content @tom_brady.name
+  page.should have_content @tom_brady.nickname
+  page.should have_content @tom_brady.email
+  page.should have_content @tom_brady.description
+  page.should have_content @tom_brady.location
+end
+
+Then /^I should see Google$/ do
+  step 'I wait until all Ajax requests are complete'
+  page.should have_selector('.codemark', :count => 1)
+end
+
+Then /^I should see tom\-brady's top topics$/ do
+  pending
+end
+
+Then /^I should not see an edit profile link$/ do
+  within '.side' do
+    page.should_not have_link 'Edit'
+  end
 end

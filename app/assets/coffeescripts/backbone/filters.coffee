@@ -23,7 +23,6 @@ App.Filters = Backbone.Model.extend
   reset: ->
     @attributes = @defaults()
     @set('currentPage', @defaults().currentPage)
-    @trigger('change')
 
   setSort: (sortType) ->
     @set('sort', sortType)
