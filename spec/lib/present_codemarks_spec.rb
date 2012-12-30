@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe PresentCodemarks do
-  let(:codemark) { Fabricate(:codemark_record) }
+  let(:user) { Fabricate(:user) }
+  let(:link) { Fabricate(:link_record) }
+  let(:codemark) { Fabricate(:codemark_record, :resource => link, :user => user) }
 
   it 'presents everything it needs to' do
     codemark.title = nil
@@ -10,5 +12,15 @@ describe PresentCodemarks do
     data.delete('site_data')
     presented[:resource].should == data
     presented['title'].should == codemark.title
+  end
+
+  it 'presents pagination' do
+    presented = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    presented[:pagination].should be_present
+  end
+
+  it 'presents users' do
+    presented = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    presented[:users].should be_present
   end
 end

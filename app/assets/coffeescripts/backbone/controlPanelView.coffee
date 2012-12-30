@@ -13,25 +13,28 @@ App.ControlPanelView = Backbone.View.extend
   render: ->
     @$el.html('')
     if @filters.get('user')
-      userHtml = @filterHtml(@filters.get('user'), 'user')
+      user = @codemarks.users?.where(slug: @filters.get('user'))[0]
+      desc = user?.get('nickname')
+      val = user?.get('slug')
+      userHtml = @filterHtml(desc, val, 'user')
       @$el.append(userHtml)
 
     _.each @filters.topicIds(), (topicId) =>
-      topicHtml = @filterHtml(topicId, 'topic')
+      topicHtml = @filterHtml(topicId, topicId, 'topic')
       @$el.append(topicHtml)
 
     if @filters.searchQuery()
-      searchHtml = @filterHtml(@filters.searchQuery(), 'query')
+      searchHtml = @filterHtml(@filters.searchQuery(), @filters.searchQuery(), 'query')
       @$el.append(searchHtml)
 
-    sortHtml = @filterHtml(@filters.get('sort'), 'sort')
+    sortHtml = @filterHtml(@filters.get('sort'), @filters.get('sort'), 'sort')
     @$el.append(sortHtml)
 
     @$el.append(@searchHtml())
 
-  filterHtml: (value, type) ->
+  filterHtml: (desc, value, type) ->
     filterView = new App.FilterView
-      description: value
+      description: desc
       type: type
       dataId: value
       codemarks: @codemarks
