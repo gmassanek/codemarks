@@ -127,6 +127,8 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.7.4)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -293,6 +295,7 @@ DEPENDENCIES
   jasmine (~> 1.2.0)
   jquery-rails
   kaminari
+  launchy
   newrelic_rpm
   nokogiri
   omniauth-github (~> 1.0.1)
