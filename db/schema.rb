@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124040354) do
+ActiveRecord::Schema.define(:version => 20121229205737) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20121124040354) do
     t.text     "site_data"
     t.integer  "author_id"
     t.string   "snapshot_url"
+    t.string   "snapshot_id"
   end
 
   add_index "link_records", ["url"], :name => "index_link_records_on_url"

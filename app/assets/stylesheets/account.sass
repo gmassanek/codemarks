@@ -1,30 +1,52 @@
-#account
-  img.account
+#main_content.users.show
+  padding-top: 10px
+  .side
+    width: 235px
+    padding-right: 10px
     float: left
-    padding: 2px
+
+  .user_image
     border: 1px solid $border-color2
-
-  h3
+    margin-right: 10px
     float: left
-    //width: 300px
-    width: 100%
-    margin-left: 10px
+    height: 80px
+    width: 80px
 
-    a
-      font-size: 14px
+  .nickname
+    margin: 5px 0 5px
+    float: left
 
-    .icons
-      float: right
-      
-      img
-        float: left
-        height: 35px
+  .edit
+    margin: 5px 0 5px
+    float: right
 
-        &.missing
-          border: 1px solid red
+  .details > div
+    margin: 5px 0 5px
 
-    .subtle
-      font-weight: normal
+  .location
+    float: left
+
+  .email
+    float: right
+
+  .authentications
+    margin: 5px 0 5px
+    a.auth
+      font-size: 18px
+      line-height: 24px
+      height: 26px
+      font-family: 'icomoon'
+      padding: 1px 6px 1px 1px
+      margin: 0px 3px
+      @include border-radius(3px)
+      &:before
+        content: ''
+      &.twitter
+      &.github
+      &:not(.authenticated)
+        color: #666
+        border: 1px solid darken($border-color2, 15%)
+        @include linear-gradient($border-color2, darken($border-color2, 5%))
 
 #edit_account
   input

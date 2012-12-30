@@ -8,7 +8,11 @@ end
 When /^I sign up with twitter$/ do
   visit new_session_path
   page.click_link("sign in with twitter")
-  @user = User.last
+  @current_user = User.last
+end
+
+Given /^Tom Brady is a user$/ do
+  @tom_brady = Fabricate(:user, :nickname => 'tom-brady')
 end
 
 Given /^I am not logged in anymore$/ do
@@ -20,7 +24,8 @@ end
 Given /^I have (\d+) codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do
-    @codemarks << Fabricate(:codemark_record, :user => @current_user)
+    topics = [Fabricate(:topic), Topic.last].compact
+    @codemarks << Fabricate(:codemark_record, :user => @current_user, :topics => topics)
   end
   @codemarks
 end

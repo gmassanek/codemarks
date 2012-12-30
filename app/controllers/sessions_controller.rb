@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
       @user = current_user
       Authenticator.add_authentication_to_user @user, params[:provider], auth_hash
       flash[:notice] = "Successfully authenticated"
+      redirect_to @user
+      return
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
       cookies.permanent.signed[:remember_token] = @user.id
@@ -28,7 +30,7 @@ class SessionsController < ApplicationController
       @link = Link.new
       redirect_to welcome_path
     else
-      redirect_to short_user_path(@user)
+      redirect_to codemarks_path(:user => @user)
     end
 
   rescue Exception => ex
