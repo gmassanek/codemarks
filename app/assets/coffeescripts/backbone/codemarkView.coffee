@@ -72,7 +72,7 @@ App.CodemarkView = Backbone.View.extend
     if @mine() then 'Edit' else 'Save'
 
   mine: ->
-    @model.get('author').nickname == CURRENT_USER
+    @model.get('author').slug == CURRENT_USER
 
   recordClick: (e) ->
     url = "/links/#{@model.get('resource').id}/click "
@@ -88,7 +88,7 @@ App.CodemarkView = Backbone.View.extend
 
   navigateToAuthor: (e) ->
     e.preventDefault()
-    App.codemarks.filters.setUser(@model.get('author').nickname)
+    App.codemarks.filters.setUser(@model.get('author').slug)
     App.codemarks.fetch()
 
   navigateToTopic: (e) ->

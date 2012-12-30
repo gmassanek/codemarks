@@ -19,4 +19,5 @@ App.Codemarks = Backbone.Collection.extend
 
   parse: (response) ->
     @pagination = response.pagination
+    @users = new Backbone.Collection(response.users)
     response.codemarks

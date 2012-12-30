@@ -6,13 +6,20 @@ class PresentCodemarks
       codemarks: codemarks.select {|cm| cm.resource }.map {|codemark| present(codemark, current_user) }
     }
     response[:pagination] = present_pagination(codemarks)
+    response[:users] = present_users(codemarks)
     response
   end
 
   def self.present(codemark, current_user = nil)
+    if current_user == codemark.user
+      user = codemark.user
+    else
+      user = codemark.resource_author || codemark.user
+    end
+
     data = codemark.attributes.merge({
       resource: codemark.resource.attributes.reject { |k, _| k == 'site_data'},
-      author: present_user(codemark.user),
+      author: present_user(user),
       topics: codemark.topics.map(&:attributes)
     })
     data['title'] = codemark.title
@@ -25,9 +32,19 @@ class PresentCodemarks
     }
   end
 
+  def self.present_users(codemarks)
+    codemarks.map(&:user).map do |user|
+      present_user(user)
+    end
+  end
+
   def self.present_user(user)
-    user.attributes.merge({
+    {
+      id: user.id,
+      name: user.get('name'),
+      nickname: user.get('nickname'),
+      slug: user.slug,
       image: user.get('image')
-    })
+    }
   end
 end
