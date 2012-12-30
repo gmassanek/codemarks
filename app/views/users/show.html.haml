@@ -1,4 +1,5 @@
 = content_for :header do
+  = javascript_include_tag 'user_show'
   = javascript_include_tag 'backbone_app'
 
 .side
@@ -23,5 +24,11 @@
     = user_email(@user)
 
   .clear
+  - if @favorite_topics
+    %hr
+    %h3 Topics
+    %ul
+      - @favorite_topics.each do |topic, count|
+        %li= link_to "#{topic.title} (#{count})", '#', :class => 'topic_link', :data => {:id => topic.slug}
 
 .content

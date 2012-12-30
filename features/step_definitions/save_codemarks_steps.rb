@@ -35,7 +35,8 @@ end
 
 Given /^tom_brady has codemarked Google$/ do
   google = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.google.com')
-  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google)
+  topic = Fabricate(:topic, :title => 'Google')
+  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google, :topics => [topic])
 end
 
 Then /^I should see a codemark form$/ do
