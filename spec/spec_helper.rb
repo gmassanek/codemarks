@@ -7,7 +7,6 @@ require 'capybara/rails'
 require 'capybara/rspec'
 
 require 'webmock/rspec'
-require 'vcr'
 
 include Exceptions
 include Codemarks
@@ -33,28 +32,6 @@ RSpec.configure do |config|
   config.extend VCR::RSpec::Macros
   Capybara.javascript_driver = :webkit
 end
-
-OmniAuth.config.test_mode = true
-OmniAuth.config.add_mock(:twitter, {
-  :uid => '987877',
-  :info => {
-    :name => "Twitter Monster",
-    :image => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
-    :location => "San Francisco, CA",
-    :description => "The baddest twitter monster on the planet",
-    :nickname => "twit_monst11"
-  }
-})
-
-OmniAuth.config.add_mock(:github, {
-  :uid => '223498',
-  :info => {
-    :name => "Github Monster",
-    :image => "http://a3.twimg.com/profile_images/689684365/api_normal.png",
-    :location => "San Francisco, CA",
-    :nickname => "github_monst11"
-  }
-})
 
 def simulate_signed_in
   # Change this to stub_user! and just stub user on controller?

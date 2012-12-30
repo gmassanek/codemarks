@@ -64,7 +64,7 @@ App.CodemarkView = Backbone.View.extend
     saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
     'main-image':
       content: ''
-      src: if resource.snapshot_url then resource.snapshot_url else 'assets/loading.gif'
+      src: if resource.snapshot_url then resource.snapshot_url else '/assets/loading.gif'
     delete: if @model.mine() then '&#x66;' else null
     add: if @model.mine() || CURRENT_USER == '' then null else '&#xe00e;'
 

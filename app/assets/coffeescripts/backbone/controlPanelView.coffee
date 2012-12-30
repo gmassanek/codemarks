@@ -7,23 +7,25 @@ App.ControlPanelView = Backbone.View.extend
 
   initialize: ->
     @codemarks = @options.codemarks
+    @codemarks.bind 'reset', => @render()
     @filters = @codemarks.filters
 
   render: ->
+    @$el.html('')
     if @filters.get('user')
-      html = @filterHtml(@filters.get('user'), 'user')
-      @$el.append(html)
+      userHtml = @filterHtml(@filters.get('user'), 'user')
+      @$el.append(userHtml)
 
     _.each @filters.topicIds(), (topicId) =>
-      html = @filterHtml(topicId, 'topic')
-      @$el.append(html)
+      topicHtml = @filterHtml(topicId, 'topic')
+      @$el.append(topicHtml)
 
     if @filters.searchQuery()
-      html = @filterHtml(@filters.searchQuery(), 'query')
-      @$el.append(html)
+      searchHtml = @filterHtml(@filters.searchQuery(), 'query')
+      @$el.append(searchHtml)
 
-    html = @filterHtml(@filters.get('sort'), 'sort')
-    @$el.append(html)
+    sortHtml = @filterHtml(@filters.get('sort'), 'sort')
+    @$el.append(sortHtml)
 
     @$el.append(@searchHtml())
 

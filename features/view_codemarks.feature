@@ -13,10 +13,10 @@ Feature: View Codemarks
     And I am on the codemarks page
     Then I should see 3 codemarks
 
-  Scenario: I only see my Codemarks on my page
+  Scenario: I only see my Codemarks when filtered by me
     And I have 3 codemarks
     And someone else has codemarks
-    And I go to my page
+    And I go to my codemarks page
     Then I should see 3 codemarks
 
   Scenario: Codemark titles should be links
@@ -31,7 +31,7 @@ Feature: View Codemarks
 
   Scenario: Viewing someone else's codemarks
     Given gmassanek is a user with a codemark
-    When I go to his page
+    When I go to his codemarks page
     Then I should see his codemark
 
   Scenario: Codemarks are paged

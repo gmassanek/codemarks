@@ -1,16 +1,16 @@
 #authentication
   - if logged_in?
     .profile_info
-      = link_to current_user_image, account_path(current_user) if current_user_image
-      = link_to current_user.nickname, account_path(current_user)
-    %ul.options
-      %li= link_to 'Account Settings', account_path(current_user)
+      = link_to current_user_image, user_path(current_user) if current_user_image
+      = link_to current_user.nickname, user_path(current_user)
+    %ul.options.logged_in
+      %li= link_to 'Profile', user_path(current_user)
       %li= link_to 'Log Out', sessions_path, :method => :delete
       .clear
   - else
     .profile_info
       = link_to 'Login', new_session_path
-    %ul.options
+    %ul.options.logged_out
       %li= link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter icon-twitter"
       %li= link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github icon-github"
       .clear

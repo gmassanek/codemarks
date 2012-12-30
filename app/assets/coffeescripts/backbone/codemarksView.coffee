@@ -1,4 +1,6 @@
 App.CodemarksView = Backbone.View.extend
+  className: 'codemarks'
+
   initialize: ->
     @codemarks = @options.codemarks
     @codemarks.bind 'reset', => @render()
@@ -6,43 +8,25 @@ App.CodemarksView = Backbone.View.extend
 
   render: ->
     @$el.html('')
-    @$el.append(@renderControlPanel())
-    @$el.append(@newCodemarkTileHtml())
-    @$el.append(@codemarksHtml())
+    @appendCodemarks()
     @$el.append(@paginationHtml())
 
-  newCodemarkTileHtml: ->
-    newCodemarkTile = new App.TileView
-      add: true
-    newCodemarkTile.render()
-    newCodemarkTile.$el
-
-  renderControlPanel: ->
-    controlPanel = new App.ControlPanelView
-      codemarks: @codemarks
-    controlPanel.render()
-    controlPanel.$el
-
-  codemarksHtml: ->
-    $codemarks = $('<div class="codemarks"></div>')
+  appendCodemarks: ->
     for codemark in @codemarks.models
-      tile = @codemarkHtml(codemark)
-      $codemarks.append(tile.$el)
-    $codemarks
+      @$el.append(@codemarkHtml(codemark))
 
   codemarkHtml: (codemark) ->
     tile = new App.TileView
       model: codemark
     tile.render()
-    tile
+    tile.$el
 
   paginationHtml: ->
-    codemarkView = new App.PaginationView
+    paginationView = new App.PaginationView
       collection: @codemarks
-    codemarkView.render()
-    codemarkView.$el
+    paginationView.render()
+    paginationView.$el
 
   addCodemark: (data) ->
     codemark = new App.Codemark(data)
-    tile = @codemarkHtml(codemark)
-    @$('.codemarks').prepend(tile.$el)
+    @$el.prepend(@codemarkHtml(codemark))

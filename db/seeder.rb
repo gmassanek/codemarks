@@ -10,7 +10,7 @@ class Seeder
     end
 
     def create_me
-      auth = Authentication.new(:uid => '422333', :nickname => 'gmassanek', :provider => 'twitter', :image => 'http://www.gravatar.com/avatar/58dbba1be3de0ccf3a495e978bdcb220.png')
+      auth = Authentication.new(:uid => '987877', :nickname => 'gmassanek', :provider => 'twitter', :image => 'http://www.gravatar.com/avatar/58dbba1be3de0ccf3a495e978bdcb220.png')
       User.create!(:authentications => [auth])
     end
 

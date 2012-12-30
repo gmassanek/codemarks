@@ -1,6 +1,34 @@
-#page_details
-  %p.title= @user.get(:nickname)
+= content_for :header do
+  = javascript_include_tag 'user_show'
+  = javascript_include_tag 'backbone_app'
 
-= render 'codemark_filters'
+.side
+  = user_image(@user)
 
-= render '/shared/codemarks'
+  %h1.name= @user.get(:name) if @user.get(:name)
+  .nickname= '@' + @user.get(:nickname) if @user.get(:nickname)
+  - if current_user && current_user == @user
+    .edit= link_to "Edit", edit_user_path(@user)
+
+  .clear
+
+  .authentications
+    = user_auth_link(@user, :twitter, current_user)
+    = user_auth_link(@user, :github, current_user)
+    - if current_user && current_user == @user && @user.authentications.count < 2
+      (Click to authenticate)
+
+  .details
+    = user_description(@user)
+    = user_location(@user)
+    = user_email(@user)
+
+  .clear
+  - if @favorite_topics
+    %hr
+    %h3 Topics
+    %ul
+      - @favorite_topics.each do |topic, count|
+        %li= link_to "#{topic.title} (#{count})", '#', :class => 'topic_link', :data => {:id => topic.slug}
+
+.content
