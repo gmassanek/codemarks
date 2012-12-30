@@ -1,3 +1,22 @@
+#main_content.users
+  .authentications
+    a.auth
+      font-size: 18px
+      line-height: 24px
+      height: 26px
+      font-family: 'icomoon'
+      padding: 1px 6px 1px 1px
+      margin: 0px 3px
+      @include border-radius(3px)
+      &:before
+        content: ''
+      &.twitter
+      &.github
+      &:not(.authenticated)
+        color: #666
+        border: 1px solid darken($border-color2, 15%)
+        @include linear-gradient($border-color2, darken($border-color2, 5%))
+
 #main_content.users.show
   padding-top: 10px
   .side
@@ -31,22 +50,6 @@
 
   .authentications
     margin: 5px 0 5px
-    a.auth
-      font-size: 18px
-      line-height: 24px
-      height: 26px
-      font-family: 'icomoon'
-      padding: 1px 6px 1px 1px
-      margin: 0px 3px
-      @include border-radius(3px)
-      &:before
-        content: ''
-      &.twitter
-      &.github
-      &:not(.authenticated)
-        color: #666
-        border: 1px solid darken($border-color2, 15%)
-        @include linear-gradient($border-color2, darken($border-color2, 5%))
 
 #main_content.users.edit
   padding-top: 10px
@@ -75,3 +78,6 @@
     font-size: 14px
     line-height: 18px
     height: 18px
+
+  .authentications
+    margin-bottom: 10px
