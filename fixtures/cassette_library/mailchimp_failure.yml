@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://us5.api.mailchimp.com/1.3/?method=listMemberInfo
+    body:
+      encoding: US-ASCII
+      string: ! '%7B%22apikey%22%3A%227408318016e68effbe1748058d56eea3-us5%22%2C%22id%22%3A%22fe2d7ff8fb%22%2C%22email_address%22%3A%5B%22somebody%40nobody.com%22%5D%7D'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Mon, 31 Dec 2012 01:52:58 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '136'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - PHP/5.3.3
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":0,"errors":1,"data":[{"email_address":"somebody@nobody.com","error":"The
+        email address passed does not exist on this list"}]}'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2012 01:52:57 GMT
+recorded_with: VCR 2.3.0

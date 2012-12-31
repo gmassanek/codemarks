@@ -14,7 +14,12 @@ Codemarks::Application.routes.draw do
 
   resources :codemarks
   resources :topics
-  resources :users
+  resources :users do
+    collection do
+      post :subscribe
+      post :unsubscribe
+    end
+  end
 
   resources :comments, :only => [:create, :destroy]
   get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
