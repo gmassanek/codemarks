@@ -26,6 +26,7 @@ gem 'grabzit'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem "postrank-uri", "~> 1.0.17"
+gem 'gibbon'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'

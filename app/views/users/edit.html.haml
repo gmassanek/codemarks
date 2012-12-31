@@ -1,3 +1,6 @@
+= content_for :header do
+  = javascript_include_tag 'user_edit'
+
 %h2
   Update your profile
 
@@ -18,6 +21,10 @@
   .inputs 
     = form.label :email
     = form.email_field :email, value: @user.get(:email)
+    .subscribe
+      = label_tag :subscribe, 'Subscribe to mailing list', :class => 'inline'
+      = check_box_tag :subscribe, nil, @email_subscribed
+    .clear
   .inputs 
     = form.label :location
     = form.text_field :location, value: @user.get(:location)
@@ -29,10 +36,3 @@
     = form.url_field :image, value: @user.get(:image)
 
   = form.submit "Save", :class => 'btn-auth btn-twitter'
-
-//#mc_embed_signup
-//  = form_tag 'http://codemarks.us5.list-manage.com/subscribe/post?u=82e6caa040cf5816ff046f1fd&amp;id=fe2d7ff8fb', :id => 'mc-embedded-subscribe-form', :name => "mc-embedded-subscribe-form", :class => "validate", :target => "_blank" do
-//    = label_tag 'Subscribe to our mailing list'
-//    = email_field_tag 'EMAIL', @user.email
-//    .clear
-//    = submit_tag 'Subscribe', :name => 'subscribe', :id => 'mc-embedded-subscribe', :class => 'button'
