@@ -20,6 +20,30 @@ namespace :backfill  do
     end
   end
 
+  desc 'dedup users'
+  task :dedup_users => :environment do
+    nicknames = User.all.group_by(&:nickname)
+    nicknames.select! { |n, users| users.count > 1 }
+    nicknames.each do |_, users|
+      first = users.min_by(&:created_at)
+      others = users.reject { |u| u.id == first.id }
+      next if others.any? { |u| u.authentications.count > 1 }
+      others.each do |user|
+        user.authentications.each { |auth| auth.update_attributes(:user_id => first.id) }
+        user.clicks.each { |click| click.update_attributes(:user_id => first.id) }
+        user.codemark_records.each { |cm| cm.update_attributes(:user_id => first.id) }
+        user.topics.each { |topic| topic.update_attributes(:user_id => first.id) }
+        Comment.where(:author_id => user).each { |comment| comment.update_attributes(:author_id => first.id) }
+        if user.authentications.count == 0 && user.clicks.count == 0 &&
+          user.codemark_records.count == 0 && user.topics.count == 0 &&
+          Comment.where(:author_id => user).count == 0
+          puts "Removing #{user.nickname}, user ##{user.id}"
+          user.destroy
+        end
+      end
+    end
+  end
+
   desc 'load snapshots to DB'
   task :load_snapshots_from_file => :environment do
     snapshots = eval(File.open('/tmp/link_snapshot_array.rb', 'r').read)

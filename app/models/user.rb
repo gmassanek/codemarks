@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   after_save :take_nickname_from_authentication
 
+  validates_uniqueness_of :nickname
+
   def self.find_by_email email
     id = User.select('users.id')
       .joins('LEFT JOIN authentications on users.id = authentications.user_id')
@@ -34,7 +36,7 @@ class User < ActiveRecord::Base
     if self.nickname.nil?
       nickname = authentications.first.nickname
       self.nickname = nickname
-      self.save
+      self.save!
     end
   end
 

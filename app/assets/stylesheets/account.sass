@@ -17,85 +17,93 @@
         border: 1px solid darken($border-color2, 15%)
         @include linear-gradient($border-color2, darken($border-color2, 5%))
 
-#main_content.users.show
-  padding-top: 10px
-  .side
-    width: 235px
-    padding-right: 10px
-    float: left
+  &.show
+    padding-top: 10px
+    .side
+      width: 235px
+      padding-right: 10px
+      float: left
 
-  .user_image
-    border: 1px solid $border-color2
-    margin-right: 10px
-    float: left
-    height: 80px
-    width: 80px
+    .user_image
+      border: 1px solid $border-color2
+      margin-right: 10px
+      float: left
+      height: 80px
+      width: 80px
 
-  .nickname
-    margin: 5px 0 5px
-    float: left
+    .nickname
+      margin: 5px 0 5px
+      float: left
 
-  .edit
-    margin: 5px 0 5px
-    float: right
-
-  .details > div
-    margin: 5px 0 5px
-
-  .location
-    float: left
-
-  .email
-    float: right
-
-  .authentications
-    margin: 5px 0 5px
-
-#main_content.users.edit
-  padding-top: 10px
-
-  form
-    margin-top: 20px
-    width: 450px
-
-  label
-    display: block
-    &.inline
+    .edit
+      margin: 5px 0 5px
       float: right
-  input:not([type=submit]), textarea
-    padding: 10px
-    margin-bottom: 10px
-    width: 450px
-    border: 1px solid $border-color2
-    line-height: 16px
-    font-size: 14px
-    @include border-radius(5px)
-    @include box-shadow(0)
-    @include transition
 
-    &:focus
-      @include box-shadow(0 0 20px 0px lighten($orange, 40%))
-      border-color: lighten($orange, 25%)
+    .details > div
+      margin: 5px 0 5px
 
-  input#subscribe
-    float: right
-    width: auto
-    &:before
-      position: relative
-      font-family: icomoon
-      right: 20px
-      top: -2px
-    &.success:before
-      content: '\e00c'
-      color: green
-    &.error:before
-      content: '\e00b'
-      color: red
+    .location
+      float: left
 
-  input[type=submit]
-    font-size: 14px
-    line-height: 18px
-    height: 18px
+    .email
+      float: right
 
-  .authentications
-    margin-bottom: 10px
+    .authentications
+      margin: 5px 0 5px
+
+  &.edit, &.update
+    padding-top: 10px
+
+    form
+      margin-top: 20px
+      width: 450px
+
+    label
+      display: block
+      &.inline
+        float: right
+    input:not([type=submit]), textarea
+      padding: 10px
+      margin-bottom: 10px
+      width: 450px
+      border: 1px solid $border-color2
+      line-height: 16px
+      font-size: 14px
+      @include border-radius(5px)
+      @include box-shadow(0)
+      @include transition
+
+      &:focus
+        @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+        border-color: lighten($orange, 25%)
+
+    input#subscribe
+      float: right
+      width: auto
+      &:before
+        position: relative
+        font-family: icomoon
+        right: 20px
+        top: -2px
+      &.success:before
+        content: '\e00c'
+        color: green
+      &.error:before
+        content: '\e00b'
+        color: red
+
+    input[type=submit]
+      font-size: 14px
+      line-height: 18px
+      height: 18px
+
+    .authentications
+      margin-bottom: 10px
+
+    .errors
+      margin-top: 10px
+      font-size: 14px
+      ul
+        list-style-type: disc
+        color: red
+        margin: 5px 0 0 20px

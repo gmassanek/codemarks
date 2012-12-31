@@ -22,6 +22,13 @@ describe User do
     end
   end
 
+  it 'cannot have a duplicate nickname' do
+    another_user = Fabricate(:user)
+    another_user.nickname = user.nickname
+    another_user.save.should == false
+    another_user.errors.should include :nickname
+  end
+
   it "deletes all authentications when I delete a user" do
     expect do
       user.destroy
