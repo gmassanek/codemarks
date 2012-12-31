@@ -30,7 +30,7 @@ Feature: View Codemarks
     Then I should see 2 codemarks
 
   Scenario: Viewing someone else's codemarks
-    Given gmassanek is a user with a codemark
+    Given lilweezy is a user with a codemark
     When I go to his codemarks page
     Then I should see his codemark
 
