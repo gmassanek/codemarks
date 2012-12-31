@@ -42,15 +42,12 @@ class Authenticator
     def set_info_fields authentication, auth_hash
       info = auth_hash[:info] ||= auth_hash["info"]
       return if info.nil?
-      authentication.name = info["name"] ||= info[:name]
-      authentication.email = info["email"] ||= info[:email]
-      authentication.location = info[:location] ||= info["location"]
-      authentication.image = info[:image] ||= info["image"]
-      #authentication.url = info[:url] ||= info["url"]
-      #authentication.followers_count = info[:folowers_count] ||= info["folowers_count"]
-      #authentication.listed_count = info[:listed_count] ||= info["listed_count"]
-      authentication.description = info[:description] ||= info["description"]
-      authentication.nickname = info[:nickname] ||= info["nickname"]
+      authentication.name = info['name'] || info[:name]
+      authentication.email = info['email'] || info[:email]
+      authentication.location = info['location'] || info[:location]
+      authentication.image = info['image'] || info[:image]
+      authentication.description = info['description'] || info[:description]
+      authentication.nickname = info['nickname'] || info[:nickname]
     end
   end
 end

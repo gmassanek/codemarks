@@ -2,4 +2,4 @@
 //= require jquery_ujs
 
 $ ->
-  $(".flash").delay(2500).fadeOut(1000)
+  $(".flash").delay(7500).fadeOut(1000)

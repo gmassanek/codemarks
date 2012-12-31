@@ -6,11 +6,12 @@ class UsersController < ApplicationController
   end
   
   def update
-    current_user.update_attributes(params[:user])
-
-    respond_to do |format|
-      format.html { redirect_to current_user, :notice => "Account saved" }
-      format.js
+    if current_user.update_attributes(params[:user])
+      redirect_to current_user, :notice => "Account saved"
+    else
+      @user = current_user
+      @email_subscribed = MailchimpClient.subscribed?(@user.email)
+      render :edit
     end
   end
 

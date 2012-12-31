@@ -4,6 +4,13 @@
 %h2
   Update your profile
 
+- if @user.errors.present?
+  .errors
+    %p There were errors updating your profile:
+    %ul
+      - @user.errors.full_messages.each do |message|
+        %li= message
+
 = form_for @user do |form|
   .inputs
     .authentications
@@ -13,7 +20,7 @@
       - if @user.authentications.count < 2
         (Click to add authentication)
   .inputs 
-    = form.label :nickname, 'Username'
+    = form.label :nickname
     = form.text_field :nickname, value: @user.get(:nickname)
   .inputs
     = form.label :name, 'Full Name'
@@ -30,7 +37,7 @@
     = form.text_field :location, value: @user.get(:location)
   .inputs 
     = form.label :description, 'Bio'
-    = form.text_area :description, value: @user.get(:description), :rows => 10
+    = form.text_area :description, value: @user.get(:description), :rows => 8
   .inputs 
     = form.label :image, 'Profile Image URL'
     = form.url_field :image, value: @user.get(:image)
