@@ -33,6 +33,12 @@ class SessionsController < ApplicationController
       redirect_to codemarks_path(:user => @user)
     end
 
+  rescue ActiveRecord::RecordInvalid => ex
+    p "Error saving user"
+    logger.info ex.to_s
+    puts ex.to_s
+    redirect_to root_path, :notice => "The username has been taken. Please sign in with your other account"
+
   rescue Exception => ex
     p "Exception in app/controllers/sessions_controller.rb A"
     logger.info ex.to_s
