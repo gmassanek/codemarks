@@ -1,2 +1,4 @@
 - flash.each do |key, value|
-  .flash{:class => key}= value
+  .flash{:class => key}
+    %p= value.html_safe
+    = link_to "&#xe00b".html_safe, '#', :class => 'remove'
