@@ -56,13 +56,16 @@
 
   form
     margin-top: 20px
+    width: 450px
 
   label
     display: block
+    &.inline
+      float: right
   input:not([type=submit]), textarea
     padding: 10px
-    width: 450px
     margin-bottom: 10px
+    width: 450px
     border: 1px solid $border-color2
     line-height: 16px
     font-size: 14px
@@ -73,6 +76,21 @@
     &:focus
       @include box-shadow(0 0 20px 0px lighten($orange, 40%))
       border-color: lighten($orange, 25%)
+
+  input#subscribe
+    float: right
+    width: auto
+    &:before
+      position: relative
+      font-family: icomoon
+      right: 20px
+      top: -2px
+    &.success:before
+      content: '\e00c'
+      color: green
+    &.error:before
+      content: '\e00b'
+      color: red
 
   input[type=submit]
     font-size: 14px
