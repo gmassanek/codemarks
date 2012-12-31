@@ -15,9 +15,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def welcome
-  end
-
   def show
     @user = User.find params[:id]
     @favorite_topics = @user.favorite_topics

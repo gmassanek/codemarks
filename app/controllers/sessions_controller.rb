@@ -13,37 +13,38 @@ class SessionsController < ApplicationController
       @user = current_user
       Authenticator.add_authentication_to_user @user, params[:provider], auth_hash
       flash[:notice] = "Successfully authenticated"
-      redirect_to @user
-      return
+      redirect_to edit_user_path(@user)
     else
       @user = Authenticator.find_or_create_user_from_auth_hash params[:provider], auth_hash
       cookies.permanent.signed[:remember_token] = @user.id
-      flash[:notice] = "Signed in"
-    end
 
-    if session[:callback]
-      redirect_to session[:callback]
-      return
-    end
+      if session[:callback]
+        redirect_to session[:callback]
+        return
+      end
 
-    if FindCodemarks.new(:user => @user, :current_user => current_user).codemarks.count == 0
-      @link = Link.new
-      redirect_to welcome_path
-    else
-      redirect_to codemarks_path(:user => @user)
+      if @user.created_at > 5.minutes.ago
+        flash[:info] = "Welcome! Update your profile, then find out more about <a href=#{about_path}>How Codemarks Works</a>"
+        redirect_to edit_user_path(@user)
+      else
+        flash[:notice] = 'Signed in'
+        redirect_to :back
+      end
     end
 
   rescue ActiveRecord::RecordInvalid => ex
     p "Error saving user"
     logger.info ex.to_s
     puts ex.to_s
-    redirect_to root_path, :notice => "The username has been taken. Please sign in with your other account"
+    flash[:error] = "The username has been taken. Please sign in with your other account"
+    redirect_to root_path
 
   rescue Exception => ex
     p "Exception in app/controllers/sessions_controller.rb A"
     logger.info ex.to_s
     puts ex.to_s
-    redirect_to root_path, :notice => "Sorry, something went wrong"
+    flash[:error] = "Sorry, something went wrong"
+    redirect_to root_path
   end
 
   def destroy

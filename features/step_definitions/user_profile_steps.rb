@@ -1,6 +1,7 @@
 When /^I click on my profile link$/ do
-  page.execute_script("$('header.options').show()")
-  click_link 'Profile'
+  within('header') do
+    page.click_link @current_user.nickname
+  end
 end
 
 Then /^I should be on my user show page$/ do
