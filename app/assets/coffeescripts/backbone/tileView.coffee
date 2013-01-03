@@ -34,6 +34,7 @@ App.TileView = Backbone.View.extend
       @render()
 
   handleCancel: ->
+    @$el.removeClass('expanded')
     if @modelToCopy?
       @model = @modelToCopy
       delete @modelToCopy
@@ -63,6 +64,7 @@ App.TileView = Backbone.View.extend
       model: @model
     @view.render()
 
+    @$el.addClass('expanded')
     @replaceElWithView()
     @bindToView()
 
