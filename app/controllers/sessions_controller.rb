@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
         redirect_to edit_user_path(@user)
       else
         flash[:notice] = 'Signed in'
-        redirect_to :back
+        redirect_to codemarks_path
       end
     end
 
