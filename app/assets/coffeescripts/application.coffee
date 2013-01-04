@@ -10,7 +10,8 @@
 
 //= require backbone/app
 //= require_tree ./backbone
-//= require_tree .
+//= require user_show
+//= require user_edit
 
 $ ->
   $(".flash.notice").delay(3000).fadeOut(1000)
