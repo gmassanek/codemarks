@@ -71,7 +71,7 @@ App.CodemarkFormView = Backbone.View.extend
     else
       $.ajax
         type: 'POST'
-        url: 'codemarks'
+        url: '/codemarks'
         data: @data()
         success: (response) =>
           @trigger('created', JSON.parse(response.codemark))
