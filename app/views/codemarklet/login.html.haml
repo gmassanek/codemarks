@@ -1,20 +1,21 @@
-#codemarklet
-  #banner
-  #banner_text
-    %h2 codemarks
-    %h3 bookmarks for social coders
+:javascript
+  setTimeout(function() { $('.authentication_help').fadeIn(1000); }, 5000)
 
-    .clear
+%header
+  #logo
+    - logo = image_tag 'cm_tag_440x280_transparent.png'
+    = link_to logo, root_path
+
+#main_content
+  .login
+    %h4
+      %p You are currently not signed in to Codemarks.
+      %p Sign in below in order to save this page
+
     = link_to "sign in with twitter", codemarklet_sessions_path(:provider => :twitter, :callback => @callback_url), :class => "btn-auth btn-twitter"
     = link_to "sign in with github", codemarklet_sessions_path(:provider => :github, :callback => @callback_url), :class => "btn-auth btn-github"
-    - if @chrome
-      .chrome_message
-        %h3.clear
-          If authentication is hanging,
-          %br
-          %br
-          you might have to visit
-          = link_to 'codemarks.com', 'http://www.codemarks.com', :target => '_blank'
-          %br
-          %br
-          and login before using the extension
+
+    - if browser.chrome?
+      .authentication_help
+        %p
+          * If authentication is hanging, visit #{link_to 'codemarks.com', 'http://www.codemarks.com', :target => '_blank'}, login there, and try again
