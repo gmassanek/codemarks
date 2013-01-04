@@ -4,7 +4,7 @@ Codemarks::Application.routes.draw do
   get '/codemarklet_test', to: "pages#codemarklet_test"
   get '/pages/test_bookmarklet?:l&:url', :to => 'pages#test_bookmarklet', :as => :test_bookarklet
 
-  resources :codemarklet, :only => [:new, :create] do
+  resources :codemarklet, :only => [:new] do
     collection do
       get :login
       get :chrome_extension
