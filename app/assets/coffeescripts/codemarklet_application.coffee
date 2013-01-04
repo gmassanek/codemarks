@@ -5,5 +5,4 @@ window.App =
       view = new App.CodemarkletView
         model: App.codemark
       view.render()
-
       $('body').html(view.$el)
