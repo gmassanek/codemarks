@@ -9,5 +9,9 @@
 
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
+
+    :javascript
+      window.CURRENT_USER = "#{current_user.try(:slug)}"
+
   %body.codemarklet
     = yield
