@@ -14,7 +14,6 @@ App.MainRouter = Backbone.Router.extend
 
     @renderTabsNav()
     @renderControlPanel()
-    @renderNewCodemarkTile()
     @renderCodemarkList()
     @codemarks.fetch()
 
@@ -26,6 +25,7 @@ App.MainRouter = Backbone.Router.extend
 
     @$container = $('.content')
     @renderCodemarkList()
+    @codemarksView.noNewTile = true
     @codemarks.fetch()
 
   renderControlPanel: ->
@@ -34,16 +34,10 @@ App.MainRouter = Backbone.Router.extend
     controlPanel.render()
     @$container.append(controlPanel.$el)
 
-  renderNewCodemarkTile: ->
-    newCodemarkTile = new App.TileView
-      add: true
-    newCodemarkTile.render()
-    @$container.append(newCodemarkTile.$el)
-
   renderCodemarkList: ->
-    codemarksView = new App.CodemarksView
+    @codemarksView = new App.CodemarksView
       codemarks: @codemarks
-    @$container.append(codemarksView.$el)
+    @$container.append(@codemarksView.$el)
 
   renderTabsNav: ->
     new App.TabsView
