@@ -36,5 +36,5 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  root :to => 'codemarks#index'
+  root :to => redirect('/codemarks')
 end
