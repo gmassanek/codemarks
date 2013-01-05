@@ -6,8 +6,11 @@
   input, select, textarea
     width: 100%
 
-  .description
-    height: 50px
+  .topics
+    display: block
+
+    &.select2-container-multi .select2-choices .select2-search-field input
+      height: auto
 
   footer
     .hover-icons
@@ -16,3 +19,6 @@
         display: block
         margin-bottom: 10px
 
+
+.select2-results
+  max-height: 120px
