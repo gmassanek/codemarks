@@ -9,6 +9,7 @@ App.TileView = Backbone.View.extend
   render: ->
     @renderCodemarkView() if @model.exists()
     @renderAddCodemarkView() if @isTheAddCodemarkTile
+    @$el.removeClass('expanded')
 
   replaceElWithView: ->
     @$el.html(@view.$el)
@@ -34,7 +35,6 @@ App.TileView = Backbone.View.extend
       @render()
 
   handleCancel: ->
-    @$el.removeClass('expanded')
     if @modelToCopy?
       @model = @modelToCopy
       delete @modelToCopy

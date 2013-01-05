@@ -36,6 +36,7 @@ App.CodemarkFormView = Backbone.View.extend
     facile(template, @presentedAttributes())
 
   presentedAttributes: ->
+    url: @model.get('resource').url
     title: @model.get('title')
     description: @model.get('description') || ''
     topics: @presentedTopics()
