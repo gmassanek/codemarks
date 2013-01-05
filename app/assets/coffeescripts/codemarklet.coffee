@@ -5,6 +5,7 @@
 //= require backbone
 //= require facile
 //= require angelo
+//= require select2
 
 //= require codemarklet_application
 //= require backbone/codemark

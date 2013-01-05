@@ -32,7 +32,7 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.all
+    @topics = Topic.all.sort_by(&:title)
     render :json => @topics.to_json
   end
 

@@ -7,6 +7,7 @@
 //= require angelo
 //= require jquery.ba-bbq
 //= require jquery.timeago
+//= require select2
 
 //= require backbone/app
 //= require_tree ./backbone

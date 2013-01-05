@@ -20,7 +20,10 @@ App.ControlPanelView = Backbone.View.extend
       @$el.append(userHtml)
 
     _.each @filters.topicIds(), (topicId) =>
-      topicHtml = @filterHtml(topicId, topicId, 'topic')
+      topic = App.topics.where(slug: topicId)[0]
+      desc = topic?.get('title')
+      val = topic?.get('slug')
+      topicHtml = @filterHtml(desc, val, 'topic')
       @$el.append(topicHtml)
 
     if @filters.searchQuery()

@@ -12,7 +12,8 @@ App.CodemarkFormView = Backbone.View.extend
       return
 
     @$el.html(@toHtml())
-    @selectTopics()
+    @$('.topics').select2
+      tags: App.topics.slugs()
 
   fetchFullFormFor: (url) ->
     data = { url: url }
@@ -40,10 +41,9 @@ App.CodemarkFormView = Backbone.View.extend
     topics: @presentedTopics()
 
   presentedTopics: ->
-    _.map App.topics.models, (topic) ->
-      possible_topic:
-        value: topic.get('id')
-        content: topic.get('title')
+    slugs = _.map @model.get('topics'), (topic) ->
+      topic.slug
+    slugs.join()
 
   cancel: ->
     @trigger('cancel')
@@ -82,5 +82,5 @@ App.CodemarkFormView = Backbone.View.extend
       description: @$('.description').val()
       resource_type: 'LinkRecord'
       resource_id: @model.get('resource').id
-    data.codemark['topic_ids'] = @$('.topics').val() if @$('.topics').val()?
+    data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data
