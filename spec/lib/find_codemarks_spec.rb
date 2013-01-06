@@ -178,7 +178,7 @@ describe FindCodemarks do
       end
     end
 
-    context 'with query' do
+    context 'with query', :search_indexes => true do
       it 'searches a codemarks title' do
         cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
@@ -198,7 +198,7 @@ describe FindCodemarks do
     end
   end
 
-  context '#find_topic_ids_from_search_query' do
+  context '#find_topic_ids_from_search_query', :search_indexes => true do
     it 'matches topics that match the search query' do
       topic = Fabricate(:topic, :title => 'Github')
       matched_topic_ids = FindCodemarks.new(:search_term => 'github').find_topic_ids_from_search_query
