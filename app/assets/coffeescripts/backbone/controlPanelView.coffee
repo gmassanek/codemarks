@@ -16,7 +16,8 @@ App.ControlPanelView = Backbone.View.extend
       user = @codemarks.users?.where(slug: @filters.get('user'))[0]
       desc = user?.get('nickname')
       val = user?.get('slug')
-      userHtml = @filterHtml(desc, val, 'user')
+      img = user?.get('image')
+      userHtml = @filterHtml(desc, val, 'user', img)
       @$el.append(userHtml)
 
     _.each @filters.topicIds(), (topicId) =>
@@ -35,11 +36,12 @@ App.ControlPanelView = Backbone.View.extend
 
     @$el.append(@searchHtml())
 
-  filterHtml: (desc, value, type) ->
+  filterHtml: (desc, value, type, image = null) ->
     filterView = new App.FilterView
       description: desc
       type: type
       dataId: value
+      image: image
       codemarks: @codemarks
 
     filterView.render()

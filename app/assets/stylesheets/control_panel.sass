@@ -23,6 +23,16 @@
 
     .description
       float: left
+      &:before
+        margin: 0 5px 0 -5px
+
+    img
+      float: left
+      height: 25px
+      padding: 2px
+      padding-right: 0
+      margin: 2px 0px 2px 3px
+      @include border_radius(5px)
 
     .remove
       font-family: 'icomoon'
