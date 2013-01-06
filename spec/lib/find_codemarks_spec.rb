@@ -179,9 +179,15 @@ describe FindCodemarks do
     end
 
     context 'with query' do
-      xit 'searches a codemarks title', :travis_skip => true do
+      it 'searches a codemarks title' do
         cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'includes topic in search' do
+        topic = Fabricate(:topic, :title => 'Github')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
     end
   end
@@ -192,4 +198,16 @@ describe FindCodemarks do
     end
   end
 
+  context '#find_topic_ids_from_search_query' do
+    it 'matches topics that match the search query' do
+      topic = Fabricate(:topic, :title => 'Github')
+      matched_topic_ids = FindCodemarks.new(:search_term => 'github').find_topic_ids_from_search_query
+      matched_topic_ids.should == [topic.id]
+    end
+
+    it 'is an empty array if there is no search term' do
+      matched_topic_ids = FindCodemarks.new.find_topic_ids_from_search_query
+      matched_topic_ids.should == []
+    end
+  end
 end

@@ -4,6 +4,6 @@ rvm:
 before_script:
   - cp config/database.example.yml config/database.yml
   - psql -c 'create database codemarks_test;' -U postgres
-  - bundle exec rake db:migrate db:test:prepare
+  - RAILS_ENV=test bundle exec rake db:migrate
 script:
   - bundle exec rake travis
