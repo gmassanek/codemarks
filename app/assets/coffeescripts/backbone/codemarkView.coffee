@@ -95,7 +95,7 @@ App.CodemarkView = Backbone.View.extend
   navigateToTopic: (e) ->
     e.preventDefault()
     slug = $(e.currentTarget).data('slug')
-    App.codemarks.filters.setTopic(slug)
+    App.codemarks.filters.addTopic(slug)
     App.codemarks.filters.setPage(1)
     App.codemarks.fetch()
 
