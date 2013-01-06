@@ -184,9 +184,22 @@ describe FindCodemarks do
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
       end
 
-      it 'includes topic in search' do
+      it 'matches topics from search' do
         topic = Fabricate(:topic, :title => 'Github')
         cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'matches any topics from search' do
+        topic = Fabricate(:topic, :title => 'Github')
+        topic2 = Fabricate(:topic, :title => 'Github2')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'matches title even if no topics match' do
+        topic = Fabricate(:topic, :title => 'Github')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'Github rocks')
         FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
     end

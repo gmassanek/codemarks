@@ -119,7 +119,7 @@ class FindCodemarks
   def full_text_searchify(query)
     if find_topic_ids_from_search_query.present?
       query = join_topics(query, find_topic_ids_from_search_query)
-      query = query.where(["cm_topics_#{@topic_join_count}.count = ?", find_topic_ids_from_search_query.count])
+      query = query.where("codemark_records.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0")
     else
       query = query.where("codemark_records.search @@ #{search_term_sql}")
     end
