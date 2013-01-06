@@ -32,12 +32,10 @@ class FindCodemarks
       query = query.where(["cm_topics_#{@topic_join_count}.count = ?", @topic_ids.count])
     end
 
-    query = query.includes(:resource)
-    query = query.includes(:resource => :author)
+    query = query.includes(:resource => {:author => :authentications})
     query = query.includes(:topics)
-    query = query.includes(:comments)
-    query = query.includes(:user)
     query = query.includes(:user => :authentications)
+    #query = query.includes(:comments)
 
     query = order(query)
     query = page_query(query)
