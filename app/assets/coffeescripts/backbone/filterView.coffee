@@ -11,6 +11,8 @@ App.FilterView = Backbone.View.extend
     @type = @options.type
     @description = @options.description
     @dataId = @options.dataId
+    @image = @options.image
+
     @codemarks = @options.codemarks
     @filters = @codemarks.filters
 
@@ -29,6 +31,7 @@ App.FilterView = Backbone.View.extend
       $(@$('.description')[0]).remove()
 
     @$el.addClass(@type)
+    @renderImageOrIcon()
 
   toHtml: ->
     template = angelo('filter.html')
@@ -66,3 +69,13 @@ App.FilterView = Backbone.View.extend
     if @type == 'query'
       @filters.clearSearchQuery()
     @codemarks.fetch()
+
+  renderImageOrIcon: ->
+    switch @type
+      when 'user'
+        @$('img').attr('src', @image)
+      when 'query'
+        @$('.description').addClass('icon-search')
+      when 'topic'
+        @$('.description').addClass('icon-tag')
+      else @$('img').remove()
