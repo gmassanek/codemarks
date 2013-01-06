@@ -5,7 +5,7 @@ class MailchimpClient
       :id => weekly_digest_list_id,
       :email_address => [email]
     })
-    response['data'].first['status'] == 'subscribed'
+    response['success'] == 1
   end
 
   def self.subscribe(email)
