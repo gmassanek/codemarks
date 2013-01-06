@@ -6,6 +6,7 @@
 
 require 'cucumber/rails'
 require 'webmock/cucumber'
+require 'capybara/poltergeist'
 require Rails.root.join("spec/support/vcr.rb")
 
 VCR.cucumber_tags do |t|
@@ -17,7 +18,7 @@ end
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 

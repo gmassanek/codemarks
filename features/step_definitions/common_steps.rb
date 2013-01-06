@@ -40,7 +40,7 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 When /^I copy that codemark/ do
-  page.driver.browser.execute_script("$('.codemark .hover-icons').show()")
+  page.execute_script("$('.codemark .hover-icons').show()")
   find('.add').click()
 end
 
@@ -49,7 +49,7 @@ When /^I click the edit icon$/ do
 end
 
 Then /^I should not see the copy icon$/ do
-  page.driver.browser.execute_script("$('.codemark .hover-icons').show()")
+  page.execute_script("$('.codemark .hover-icons').show()")
   page.should_not have_selector('.add')
 end
 

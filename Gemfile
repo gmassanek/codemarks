@@ -33,7 +33,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara', '~> 1.1.0'
-  gem "capybara-webkit", "~> 0.13.0"
+  gem 'poltergeist'
   gem 'jasmine', '~> 1.2.0'
   gem 'watchr'
   gem 'foreman'
@@ -44,6 +44,9 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem "webmock", "~> 1.9.0"
+  # used for Rack::SimpleEndpoint in test environment for
+  # PhantomJS crash workaround
+  gem 'rack-contrib'
 end
 
 group :assets do
