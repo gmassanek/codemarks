@@ -2,6 +2,7 @@ language: ruby
 rvm:
   - 1.9.3
 before_script:
+  - cp config/database.example.yml config/database.yml
   - psql -c 'create database codemarks_test;' -U postgres
   - bundle exec rake db:migrate db:test:prepare
 script:
