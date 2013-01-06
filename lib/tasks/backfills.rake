@@ -20,6 +20,16 @@ namespace :backfill  do
     end
   end
 
+  desc 'verify link click count'
+  task :verify_click_count => :environment do
+    LinkRecord.all.each do |link|
+      click_record_count = Click.where(:link_record_id => link.id).count
+      next if link.clicks_count == click_record_count
+      puts "Updating #{link.url} click count from #{link.clicks_count} to #{click_record_count}"
+      link.update_attributes(:clicks_count => click_record_count)
+    end
+  end
+
   desc 'dedup users'
   task :dedup_users => :environment do
     nicknames = User.all.group_by(&:nickname)

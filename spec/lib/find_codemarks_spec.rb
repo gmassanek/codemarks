@@ -142,7 +142,7 @@ describe FindCodemarks do
         all_cms.codemarks.collect(&:id).should == [@cm2.id, @cm3.id, @cm.id]
       end
 
-      it "can be orderd by save_count" do
+      it "can be ordered by save_count" do
         user = Fabricate(:user)
         @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
         @cm4= Fabricate(:codemark_record, :user => @user)
@@ -150,9 +150,9 @@ describe FindCodemarks do
         all_cms.codemarks.first.save_count.should == "2"
       end
 
-      it "can be orderd by visit_count" do
+      it "can be ordered by visit_count" do
         user = Fabricate(:user)
-        2.times { Fabricate(:click, :user => user, :link_record => @cm.resource) }
+        2.times { Fabricate(:click, :user => user, :link_record => @cm2.resource) }
         all_cms = FindCodemarks.new(:by => :visits)
         all_cms.codemarks.first.visit_count.should == "2"
       end

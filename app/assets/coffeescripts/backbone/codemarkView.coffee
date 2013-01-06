@@ -60,7 +60,7 @@ App.CodemarkView = Backbone.View.extend
       avatar: if @model.get('author').image then {content: '', src: @model.get('author').image} else null
       name: @model.get('author').nickname
     topics: @presentTopics()
-    views: @model.get('visit_count')
+    views: @model.get('resource').clicks_count
     saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
     'main-image':
       content: ''
