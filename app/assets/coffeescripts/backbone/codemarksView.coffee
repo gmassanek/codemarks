@@ -15,10 +15,10 @@ App.CodemarksView = Backbone.View.extend
   appendNewCodemarkTile: ->
     if @noNewTile
       return
-    newCodemarkTile = new App.TileView
+    @newCodemarkTile = new App.TileView
       add: true
-    newCodemarkTile.render()
-    @$el.append(newCodemarkTile.$el)
+    @newCodemarkTile.render()
+    @$el.append(@newCodemarkTile.$el)
 
   appendCodemarks: ->
     for codemark in @codemarks.models
@@ -38,4 +38,7 @@ App.CodemarksView = Backbone.View.extend
 
   addCodemark: (data) ->
     codemark = new App.Codemark(data)
-    @$el.prepend(@codemarkHtml(codemark))
+    if @newCodemarkTile?
+      @newCodemarkTile.$el.after(@codemarkHtml(codemark))
+    else
+      @$el.prepend(@codemarkHtml(codemark))
