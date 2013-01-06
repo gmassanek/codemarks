@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230152601) do
+ActiveRecord::Schema.define(:version => 20130106163124) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
     t.string   "slug"
     t.boolean  "global",      :default => true
     t.integer  "user_id"
+    t.tsvector "search"
   end
 
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true

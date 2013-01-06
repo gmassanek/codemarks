@@ -11,11 +11,6 @@ class FindCodemarks
     @topic_ids = options[:topic_ids]
   end
 
-  def full_text_searchify(query)
-    @search_term_sql = ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", @search_term])
-    query = query.where("search @@ #{@search_term_sql}")
-  end
-
   def codemarks
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
@@ -28,13 +23,13 @@ class FindCodemarks
     query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.resource_id = visits.resource_id")
 
     query = query.where("summary.rk = 1")
-    query = query.where(['private = ? OR (private = ? AND user_id = ?)', false, true, @current_user_id])
+    query = query.where(['private = ? OR (private = ? AND codemark_records.user_id = ?)', false, true, @current_user_id])
 
     query = full_text_searchify(query) if @search_term
 
-    if @topic_ids
-      query = query.joins("RIGHT JOIN (#{CodemarkTopic.group('codemark_record_id').select('codemark_record_id, count(*)').where(:topic_id => @topic_ids).to_sql}) cm_topics on codemark_records.id = cm_topics.codemark_record_id")
-      query = query.where(['cm_topics.count = ?', @topic_ids.count])
+    if @topic_ids.present?
+      query = join_topics(query, @topic_ids)
+      query = query.where(["cm_topics_#{@topic_join_count}.count = ?", @topic_ids.count])
     end
 
     query = query.includes(:resource)
@@ -47,6 +42,17 @@ class FindCodemarks
     query = order(query)
     query = page_query(query)
     query
+  end
+
+  def join_topics(query, topic_ids)
+    @topic_join_count ||= 0
+    @topic_join_count += 1
+    query.joins("LEFT JOIN (#{CodemarkTopic.group('codemark_record_id').select('codemark_record_id, count(*)').where(:topic_id => topic_ids).to_sql}) cm_topics_#{@topic_join_count} on codemark_records.id = cm_topics_#{@topic_join_count}.codemark_record_id")
+  end
+
+  def find_topic_ids_from_search_query
+    return [] unless @search_term
+    Topic.where("topics.search @@ #{search_term_sql}").pluck(:id)
   end
 
   private
@@ -108,7 +114,20 @@ class FindCodemarks
       "default" => '"codemark_records".created_at DESC',
       "count" => 'save_count DESC',
       "visits" => 'visit_count DESC',
-      'search_relavance' => "ts_rank_cd(search, #{@search_term_sql}) DESC"
+      'search_relavance' => "ts_rank_cd(codemark_records.search, #{search_term_sql}) DESC"
     }
+  end
+
+  def full_text_searchify(query)
+    if find_topic_ids_from_search_query.present?
+      query = join_topics(query, find_topic_ids_from_search_query)
+      query = query.where(["cm_topics_#{@topic_join_count}.count = ?", find_topic_ids_from_search_query.count])
+    else
+      query = query.where("codemark_records.search @@ #{search_term_sql}")
+    end
+  end
+
+  def search_term_sql
+    @search_term_sql ||= ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", @search_term])
   end
 end
