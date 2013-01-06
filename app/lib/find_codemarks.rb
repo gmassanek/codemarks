@@ -20,7 +20,7 @@ class FindCodemarks
     query = query.select('"codemark_records".*, save_count, visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.resource_id = counts.resource_id")
-    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.resource_id = visits.resource_id")
+    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.id = visits.id")
 
     query = query.where("summary.rk = 1")
     query = query.where(['private = ? OR (private = ? AND codemark_records.user_id = ?)', false, true, @current_user_id])
@@ -76,11 +76,7 @@ class FindCodemarks
   end
 
   def visits_query
-    visits_query = CodemarkRecord.scoped.select('"link_records".id as resource_id, COALESCE(count(clicks.*), 0) as visit_count')
-    visits_query = visits_query.joins('LEFT JOIN link_records on codemark_records.resource_id = link_records.id')
-    visits_query = visits_query.joins('LEFT JOIN clicks on link_records.id = clicks.link_record_id')
-    visits_query = visits_query.group('link_records.id')
-    visits_query
+    CodemarkRecord.select('"codemark_records".id, "link_records".clicks_count as visit_count').joins('LEFT JOIN link_records on codemark_records.resource_id = link_records.id')
   end
 
   def page_query(scope)
