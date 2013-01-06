@@ -8,7 +8,7 @@ Feature: Private Codemarks
     Given a private tag exists
     Given I am logged in
 
-  @vcr
+  @vcr @wip
   Scenario: Saving a private codemark
     And I fill out the add codemark form with Google
     And I add the 'private' tag
