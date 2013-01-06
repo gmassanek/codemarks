@@ -11,13 +11,13 @@ describe MailchimpClient do
     end
 
     it 'is true if Mailchimp says the user is subscribed' do
-      VCR.use_cassette(:mailchimp_success) do
+      VCR.use_cassette(:mailchimp_success, :match_requests_on => [:host, :path], :re_record_interval => 1000.days) do
         MailchimpClient.subscribed?('gmassanek@gmail.com').should be_true
       end
     end
 
     it 'is false if Mailchimp says the user is not subscribed' do
-      VCR.use_cassette(:mailchimp_failure) do
+      VCR.use_cassette(:mailchimp_failure, :match_requests_on => [:host, :path], :re_record_interval => 1000.days) do
         MailchimpClient.subscribed?('somebody@nobody.com').should be_false
       end
     end
