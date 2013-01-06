@@ -7,7 +7,7 @@ describe TopicsController do
       Fabricate(:topic)
       get topics_path
       response.should be_success
-      response.body.should == Topic.all.to_json
+      JSON.parse(response.body).should have(Topic.count).items
     end
   end
 end
