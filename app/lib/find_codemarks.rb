@@ -8,6 +8,7 @@ class FindCodemarks
 
     @user_id = options[:user].id if options[:user]
     @current_user_id = options[:current_user].id if options[:current_user]
+    @topic_ids = options[:topic_ids]
   end
 
   def full_text_searchify(query)
@@ -16,8 +17,6 @@ class FindCodemarks
   end
 
   def codemarks
-    @topic = Topic.find(@topic_id) if @topic_id
-
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
     subq = filter_codemarks_project_out(subq)
@@ -33,9 +32,9 @@ class FindCodemarks
 
     query = full_text_searchify(query) if @search_term
 
-    if @topic
-      query = query.joins("INNER JOIN codemark_topics cm_topics on codemark_records.id = cm_topics.codemark_record_id")
-      query = query.where(['cm_topics.topic_id = ?', @topic.id])
+    if @topic_ids
+      query = query.joins("RIGHT JOIN (#{CodemarkTopic.group('codemark_record_id').select('codemark_record_id, count(*)').where(:topic_id => @topic_ids).to_sql}) cm_topics on codemark_records.id = cm_topics.codemark_record_id")
+      query = query.where(['cm_topics.count = ?', @topic_ids.count])
     end
 
     query = query.includes(:resource)
