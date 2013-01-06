@@ -106,12 +106,21 @@ describe FindCodemarks do
     end
 
     context "for a topic" do
-      let(:topic) { @cm.topics.first }
-      let(:find_by_topic) { FindCodemarks.new(:topic_id => topic.id) }
+      let(:topic1_id) { @cm.topics.first.id }
+      let(:topic2_id) { @cm.topics.last.id }
 
       it "gets all the Codemarks" do
-        cm3 = Fabricate(:codemark_record, :topic_ids => [topic.id])
-        find_by_topic.codemarks.collect(&:id).should =~ [@cm.id, cm3.id]
+        cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+        cms = FindCodemarks.new(:topic_ids => [topic1_id]).codemarks
+        cms.collect(&:id).should =~ [@cm.id, cm3.id]
+      end
+
+      describe 'with multiple topics' do
+        it 'does not find a codemark that only matches one of the topics' do
+          cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+          cms = FindCodemarks.new(:topic_ids => [topic1_id, topic2_id]).codemarks
+          cms.should == [@cm]
+        end
       end
     end
 
