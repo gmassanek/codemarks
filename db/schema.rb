@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
     t.string   "uid"
     t.string   "provider"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "name"
     t.string   "email"
     t.string   "location"
@@ -30,15 +30,15 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "link_record_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "codemark_records", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.boolean  "archived",      :default => false
     t.text     "description"
     t.text     "title"
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
   create_table "codemark_topics", :force => true do |t|
     t.integer  "codemark_record_id"
     t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
   create_table "link_records", :force => true do |t|
     t.string   "url"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.boolean  "private",         :default => false
     t.integer  "popularity",      :default => 0
     t.integer  "clicks_count",    :default => 0
@@ -109,8 +109,8 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
 
   create_table "topics", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.text     "description"
     t.string   "slug"
     t.boolean  "global",      :default => true
@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(:version => 20121230152601) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "name"
     t.string   "location"
     t.string   "image"

@@ -1,10 +1,10 @@
 class RemoveOldTables < ActiveRecord::Migration
   def up
-    drop_table "link_saves"
-    drop_table "link_topics"
-    drop_table "reminders"
-    drop_table "sponsored_sites"
-    drop_table "user_topics"
+    drop_table "link_saves" if ActiveRecord::Base.connection.table_exists? 'link_saves'
+    drop_table "link_topics" if ActiveRecord::Base.connection.table_exists? 'link_topics'
+    drop_table "reminders" if ActiveRecord::Base.connection.table_exists? 'reminders'
+    drop_table "sponsored_sites" if ActiveRecord::Base.connection.table_exists? 'sponsored_sites'
+    drop_table "user_topics" if ActiveRecord::Base.connection.table_exists? 'user_topics'
   end
 
   def down
