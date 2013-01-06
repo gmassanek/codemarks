@@ -14,7 +14,7 @@ include Codemarks
 
 TEST_BROKEN = true
 SKIP_JS = false
-SKIP_SEARCH_INDEXES = true
+SKIP_SEARCH_INDEXES = false
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::Matchers::MatchArray)
@@ -26,6 +26,7 @@ RSpec.configure do |config|
   if SKIP_JS == true
     config.filter_run_excluding :js => true
   end
+
   if SKIP_SEARCH_INDEXES == true
     config.filter_run_excluding :search_indexes => true
   end
