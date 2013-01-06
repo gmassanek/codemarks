@@ -49,4 +49,4 @@ App.MainRouter = Backbone.Router.extend
     App.topics.fetch()
 
   onCodemarksPage: ->
-    Backbone.history.fragment.match(/^codemarks/) || Backbone.history.fragment.match(/^\/codemarks/)
+    (Backbone.history.fragment.match(/^codemarks/) || Backbone.history.fragment.match(/^\/codemarks/))?
