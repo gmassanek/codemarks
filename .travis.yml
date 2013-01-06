@@ -5,5 +5,4 @@ before_script:
   - psql -c 'create database codemarks_test;' -U postgres
   - bundle exec rake db:migrate db:test:prepare
 script:
-  - bundle exec rspec spec --tag ~travis_skip
-  - "bundle exec cucumber --tags ~@javascript --tags ~@travis_skip"
+  - bundle exec rake travis

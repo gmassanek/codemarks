@@ -18,6 +18,5 @@ Feature: Edit Codemarks
     And I have 1 codemarks
     When I am on the codemarks page
     And I click the delete image
-    And I accept the prompt
     And I am on the codemarks page
     Then I do not see my codemark
