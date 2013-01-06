@@ -1,12 +1,12 @@
 class PresentCodemarks
   extend ActionView::Helpers::DateHelper
 
-  def self.for(codemarks, current_user = nil)
+  def self.for(codemarks, current_user = nil, searched_user = nil)
     response = {
       codemarks: codemarks.select {|cm| cm.resource }.map {|codemark| present(codemark, current_user) }
     }
     response[:pagination] = present_pagination(codemarks)
-    response[:users] = present_users(codemarks)
+    response[:users] = present_users(codemarks, current_user, searched_user)
     response
   end
 
@@ -32,8 +32,11 @@ class PresentCodemarks
     }
   end
 
-  def self.present_users(codemarks)
-    codemarks.map(&:user).map do |user|
+  def self.present_users(codemarks, current_user, searched_user)
+    users = codemarks.map(&:user)
+    users << current_user
+    users << searched_user
+    users.compact.uniq.map do |user|
       present_user(user)
     end
   end

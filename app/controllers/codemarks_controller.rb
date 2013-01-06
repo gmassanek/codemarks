@@ -50,7 +50,7 @@ class CodemarksController < ApplicationController
         search_attributes[:topic_ids] = @topic_ids
         search_attributes[:search_term] = params[:query]
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks, current_user)
+        render :json => PresentCodemarks.for(@codemarks, current_user, @user)
       end
     end
   end
