@@ -59,18 +59,6 @@ class CodemarksController < ApplicationController
     render :json => { :head => 200 }
   end
 
-  def topic_checkbox
-    @topic = Topic.find_by_slug params[:topic_id]
-    @topic_title = params[:topic_title]
-    respond_to do |format|
-      if @topic_title.present?
-        format.js { render :new_topic_checkbox }
-      else
-        format.js { render :topic_checkbox }
-      end
-    end
-  end
-
   def update
     params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
     @codemark = CodemarkRecord.find(params[:id])
