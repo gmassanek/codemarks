@@ -27,6 +27,7 @@ App.MainRouter = Backbone.Router.extend
     @renderCodemarkList()
     @codemarksView.noNewTile = true
     @codemarks.fetch()
+    $('.tabs .people').closest('li').addClass('active')
 
   renderControlPanel: ->
     controlPanel = new App.ControlPanelView

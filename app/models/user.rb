@@ -67,18 +67,15 @@ class User < ActiveRecord::Base
   end
 
   def favorite_topics
-    codemarks = codemark_records.includes(:topics)
-    return unless codemarks.present?
+    favorite_topic_counts = topics.group('topics.id').select('topics.id, count(*)').order('count desc').first(15)
+    return unless favorite_topic_counts.present?
 
-    topics = codemark_records.map(&:topics).flatten
-    return unless topics.present?
-
-    counts = {}
-    topics.each do |topic|
-      count = counts[topic] || 0
-      counts[topic] = count + 1
+    favorites = {}
+    topics = Topic.find(favorite_topic_counts.map(&:id))
+    Array(favorite_topic_counts).each do |topic_count|
+      topic = topics.find { |t| t.id == topic_count.id }
+      favorites[topic] = topic_count.count.to_i
     end
-    sorted_counts = counts.sort_by { |k, v| v }.reverse
-    Hash[sorted_counts.first(15)]
+    favorites
   end
 end
