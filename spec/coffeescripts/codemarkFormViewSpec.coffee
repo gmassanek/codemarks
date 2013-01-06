@@ -2,12 +2,12 @@ describe 'CodemarkFormView', ->
   describe 'renders', ->
     it 'selects topics in the model', ->
       codemark = new App.Codemark
-        topics: [{ id: 1 }]
+        topics: [{ id: 1, slug: 'hello' }, { id: 2, slug: 'github'}]
         resource: { id: 1 }
       view = new App.CodemarkFormView
         model: codemark
       view.render()
-      expect(view.$(".topics option:selected").length).toBe(1)
+      expect(view.$("input.topics").val()).toBe('hello,github')
 
   describe 'fetches data for a new codemark', ->
     it 'if it is a new resource with a url', ->

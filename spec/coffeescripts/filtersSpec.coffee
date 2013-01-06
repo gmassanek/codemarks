@@ -86,12 +86,13 @@ describe 'Codemark Filters', ->
     it 'nicely', ->
       @filters.setUser('gmassanek')
       @filters.addTopic('rspec')
+      @filters.addTopic('github')
       @filters.setPage(8)
       @filters.setSort('visits')
       @filters.setSearchQuery('javascript')
       expect(@filters.data()).toBeEqualToObject
         by: 'visits'
         user: 'gmassanek'
-        topic_id: 'rspec'
+        topic_ids: 'rspec,github'
         page: 8
         query: 'javascript'

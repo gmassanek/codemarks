@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://us5.api.mailchimp.com/1.3/?method=listMemberInfo
+    uri: https://api.mailchimp.com/1.3/?method=listMemberInfo
     body:
       encoding: US-ASCII
-      string: ! '%7B%22apikey%22%3A%227408318016e68effbe1748058d56eea3-us5%22%2C%22id%22%3A%22fe2d7ff8fb%22%2C%22email_address%22%3A%5B%22gmassanek%40gmail.com%22%5D%7D'
+      string: ! '%7B%22apikey%22%3Anull%2C%22id%22%3A%22fe2d7ff8fb%22%2C%22email_address%22%3A%5B%22gmassanek%40gmail.com%22%5D%7D'
     headers: {}
   response:
     status:
@@ -36,4 +36,40 @@ http_interactions:
         21:57:54","is_gmonkey":false,"lists":[],"geo":{"latitude":"41.9236000","longitude":"-87.6534000","gmtoff":"-6","dstoff":"-5","timezone":"America\/Chicago","cc":"US","region":"IL"},"clients":[],"static_segments":[]}]}'
     http_version: 
   recorded_at: Mon, 31 Dec 2012 01:52:57 GMT
+- request:
+    method: post
+    uri: https://us5.api.mailchimp.com/1.3/?method=listMemberInfo
+    body:
+      encoding: US-ASCII
+      string: ! 'something'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 06 Jan 2013 20:21:48 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '647'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - PHP/5.3.3
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":1,"errors":0,"data":[{"email":"gmassanek@gmail.com","id":"e3fd49397e","email_type":"html","ip_signup":"173.230.140.198","timestamp_signup":"2013-01-03
+        15:47:03","ip_opt":"74.201.7.111","timestamp_opt":"2013-01-03 15:48:01","member_rating":2,"info_changed":"2013-01-03
+        15:48:01","web_id":2946553,"language":"en","merges":{"EMAIL":"gmassanek@gmail.com","FNAME":"","LNAME":""},"status":"subscribed","timestamp":"2013-01-03
+        15:48:01","is_gmonkey":false,"lists":[],"geo":{"latitude":"41.8871000","longitude":"-87.6365000","gmtoff":"-6","dstoff":"-5","timezone":"America\/Chicago","cc":"US","region":"IL"},"clients":[],"static_segments":[]}]}'
+    http_version: 
+  recorded_at: Sun, 06 Jan 2013 20:21:52 GMT
 recorded_with: VCR 2.3.0
