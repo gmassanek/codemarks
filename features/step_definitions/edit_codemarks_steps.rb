@@ -1,9 +1,5 @@
-When /^I accept the prompt$/ do
-  page.driver.accept_js_confirms!
-end
-
 When /^I click the delete image/ do
-  page.driver.browser.execute_script("$('.codemark .hover-icons').show()")
+  page.execute_script("$('.codemark .hover-icons').show()")
   page.find('.delete').click()
 end
 

@@ -54,9 +54,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.13.0)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     coderay (1.0.8)
@@ -92,6 +89,8 @@ GEM
     fabrication (2.5.2)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    faye-websocket (0.4.6)
+      eventmachine (>= 0.12.0)
     ffaker (1.15.0)
     ffi (1.2.0)
     foreman (0.60.2)
@@ -108,6 +107,7 @@ GEM
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
+    http_parser.rb (0.5.3)
     httparty (0.9.0)
       multi_json (~> 1.0)
       multi_xml
@@ -176,6 +176,12 @@ GEM
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
     pg (0.14.1)
+    poltergeist (1.0.2)
+      capybara (~> 1.1)
+      childprocess (~> 0.3)
+      faye-websocket (~> 0.4, >= 0.4.4)
+      http_parser.rb (~> 0.5.3)
+      multi_json (~> 1.0)
     polyglot (0.3.3)
     postrank-uri (1.0.17)
       addressable (~> 2.3.0)
@@ -189,6 +195,8 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
@@ -281,7 +289,6 @@ DEPENDENCIES
   browser
   capistrano
   capybara (~> 1.1.0)
-  capybara-webkit (~> 0.13.0)
   coffee-rails (~> 3.2.1)
   cucumber-rails
   daemons
@@ -305,8 +312,10 @@ DEPENDENCIES
   omniauth-github (~> 1.0.1)
   omniauth-twitter
   pg
+  poltergeist
   postrank-uri (~> 1.0.17)
   pry
+  rack-contrib
   rails (= 3.2)
   rspec-rails (~> 2.8.0)
   sass-rails (~> 3.2.3)

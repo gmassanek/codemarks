@@ -79,6 +79,6 @@ Then /^I should see that codemark first$/ do
 end
 
 Then /^I should see a twitter share link$/ do
-  page.driver.browser.execute_script("$('.codemark .hover-icons').show()")
+  page.execute_script("$('.codemark .hover-icons').show()")
   page.should have_selector('.share')
 end
