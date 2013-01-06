@@ -12,7 +12,10 @@ App.CodemarkFormView = Backbone.View.extend
       return
 
     @$el.html(@toHtml())
-    @selectTopics()
+    @$('.topics').select2
+      tags: App.topics.slugs()
+
+    @registerCancelOnEscape()
 
   fetchFullFormFor: (url) ->
     data = { url: url }
@@ -35,15 +38,15 @@ App.CodemarkFormView = Backbone.View.extend
     facile(template, @presentedAttributes())
 
   presentedAttributes: ->
+    url: @model.get('resource').url
     title: @model.get('title')
     description: @model.get('description') || ''
     topics: @presentedTopics()
 
   presentedTopics: ->
-    _.map App.topics.models, (topic) ->
-      possible_topic:
-        value: topic.get('id')
-        content: topic.get('title')
+    slugs = _.map @model.get('topics'), (topic) ->
+      topic.slug
+    slugs.join()
 
   cancel: ->
     @trigger('cancel')
@@ -82,5 +85,10 @@ App.CodemarkFormView = Backbone.View.extend
       description: @$('.description').val()
       resource_type: 'LinkRecord'
       resource_id: @model.get('resource').id
-    data.codemark['topic_ids'] = @$('.topics').val() if @$('.topics').val()?
+    data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data
+
+  registerCancelOnEscape: ->
+    $(document).keyup (e) =>
+      if (e.keyCode == 27)
+        @cancel()

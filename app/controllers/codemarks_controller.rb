@@ -9,7 +9,7 @@ class CodemarksController < ApplicationController
   end
 
   def create
-    topic_ids = params[:codemark].delete("topic_ids")
+    topic_ids = process_topic_slugs(params['codemark']["topic_ids"])
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
 
@@ -72,6 +72,7 @@ class CodemarksController < ApplicationController
   end
 
   def update
+    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.update_attributes(params['codemark'])
     render :json => {
@@ -96,4 +97,12 @@ class CodemarksController < ApplicationController
     end
   end
 
+  private
+
+  def process_topic_slugs(topic_slugs)
+    topics = topic_slugs.split(',').map { |slug| Topic.find_by_slug(slug) || slug }
+    topics, new_titles = topics.partition { |item| item.is_a? Topic }
+    new_topics = new_titles.map { |title| Topic.create!(:title => title) }
+    (topics | new_topics).map(&:id)
+  end
 end
