@@ -9,6 +9,8 @@
 //= require jquery.timeago
 //= require select2
 
+//= require util
+
 //= require backbone/app
 //= require_tree ./backbone
 //= require user_show
@@ -16,7 +18,7 @@
 
 $ ->
   $(".flash.notice").delay(3000).fadeOut(1000)
-  $(".flash a.remove").click (e) ->
+  $('body').delegate ".flash a.remove", 'click', (e) ->
     e.preventDefault()
     $(e.currentTarget).closest('.flash').fadeOut(1000)
 
