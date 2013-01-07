@@ -17,6 +17,8 @@ App.CodemarkView = Backbone.View.extend
     if @model.get('author').image?
       @$('.author').removeClass('icon-user-2')
     @$('.icon').addClass('icon-link-2')
+    if @model.get('description') == ''
+      @$('.main').addClass('no-description')
 
   initialize: ->
     @model.bind 'change', => @render()
@@ -42,7 +44,7 @@ App.CodemarkView = Backbone.View.extend
       content: @model.get('title'),
       href: resource.url,
     host: resource.host,
-    description: @model.get('description') || '<p>ingle-origin coffee terry richardson shoreditch, banksy bespoke vegan craft beer glut.</p><p>Bird on it art party lo-fi, polaroid raw denim brunch jean shorts post-ironic mixtape wolf sustainable. PBR narwhal tumblr PBR</p>.'
+    description: @model.get('description')
     edit:
       content: @editText()
     save_date:
