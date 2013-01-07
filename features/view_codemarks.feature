@@ -38,7 +38,7 @@ Feature: View Codemarks
     Given there are 30 random codemarks
     And I am on the codemarks page
     When I click "2"
-    Then I should see 10 codemarks
+    Then I should see 11 codemarks
 
   Scenario: Can view codemarks on topics
     Given there are 2 codemarks for "rspec"
