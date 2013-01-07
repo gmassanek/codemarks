@@ -9,6 +9,7 @@ App.AddCodemarkView = Backbone.View.extend
   render: ->
     template = angelo('addCodemark.html')
     @$el.html(template)
+    @registerCancelOnEscape()
 
   addLink: (e) ->
     e.preventDefault()
@@ -36,3 +37,8 @@ App.AddCodemarkView = Backbone.View.extend
 
   turnIntoLinkForm: ->
     @trigger('turnIntoForm')
+
+  registerCancelOnEscape: ->
+    $(document).keyup (e) =>
+      if (e.keyCode == 27)
+        @render()
