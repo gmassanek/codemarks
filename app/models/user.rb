@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def authentication_by_provider provider
-    authentications.find(:first, :conditions => ["provider = ?", provider])
+  def authentication_by_provider(provider)
+    authentications.find { |a| a.provider.to_s == provider.to_s }
   end
 
   def missing_authentications
