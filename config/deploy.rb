@@ -1,5 +1,13 @@
 require "bundler/capistrano"
 
+#require 'whenever/capistrano/recipes'
+#after 'deploy:create_symlink', 'whenever:update_crontab'
+#after 'deploy:rollback', 'whenever:update_crontab'
+
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+require "whenever/capistrano"
+
 set :stages, %w(production staging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
