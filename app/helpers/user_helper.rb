@@ -4,7 +4,8 @@ module UserHelper
   end
 
   def user_image(user)
-    image_tag(user.get(:image), :class => 'user_image') if user.get(:image).present?
+    return unless user.get(:image).present?
+    image_tag(user.get(:image), :class => 'user_image')
   end
 
   def user_email(user)
@@ -24,8 +25,9 @@ module UserHelper
   end
 
   def user_auth_link(user, provider, current_user)
-    return unless current_user && current_user.id == user.id
     authentication = user.authentication_by_provider(provider)
+    return if (!current_user || current_user.id != user.id) && !authentication
+
     classes = ["auth btn-auth btn-#{provider} #{provider}"]
     classes << 'authenticated' if authentication
     options = {:class => classes.join(' ')}

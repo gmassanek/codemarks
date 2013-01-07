@@ -95,3 +95,59 @@
         list-style-type: disc
         color: red
         margin: 5px 0 0 20px
+
+  &.index
+    .users
+      padding-top: 10px
+
+      .user
+        position: relative
+        width: 400px
+        float: left
+        padding: 10px
+        margin: 5px 10px
+        border: 1px solid $border-color2
+        background: white
+        @include border_radius(5px)
+
+        .user_image
+          float: left
+          width: 50px
+          height: 50px
+          font-size: 50px
+          line-height: 50px
+          text-align: center
+
+        .name, .nickname
+          margin-left: 10px
+          float: left
+
+        .clicks_count, .codemark_count
+          float: right
+          margin-left: 10px
+          position: relative
+          &:before
+            position: absolute
+            left: -15px
+          .c, .m
+            font-family: Harabara
+          .c
+            color: $orange
+          .m
+            color: #908989
+            margin-left: -2px
+
+        .auths
+          position: absolute
+          top: 10px
+          right: 10px
+          .auth
+            font-size: 16px
+            line-height: 16px
+            height: 16px
+            width: 16px
+            padding: 3px
+            text-align: center
+            padding-left: 13px
+
+

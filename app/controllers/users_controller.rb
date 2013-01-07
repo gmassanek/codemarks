@@ -20,6 +20,14 @@ class UsersController < ApplicationController
     @favorite_topics = @user.favorite_topics
   end
 
+  def index
+    @users = User.includes(:authentications).
+      joins("LEFT JOIN (#{CodemarkRecord.select('user_id, count(*)').group(:user_id).to_sql}) cm_count ON users.id = cm_count.user_id").
+      joins("LEFT JOIN (#{Click.select('user_id, count(*)').group(:user_id).to_sql}) click_count ON users.id = click_count.user_id").
+      select('users.*, COALESCE(cm_count.count, 0) as cm_count, COALESCE(click_count.count, 0) as click_count')
+    @users.sort_by! { |u| u.cm_count.to_i + u.click_count.to_i }.reverse!
+  end
+
   def subscribe
     if MailchimpClient.subscribe(params[:email])
       render :json => {:status => :ok}
