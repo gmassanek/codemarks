@@ -28,9 +28,11 @@ class SessionsController < ApplicationController
         redirect_to edit_user_path(@user)
       else
         flash[:notice] = 'Signed in'
-        redirect_to codemarks_path
+        redirect_to :back
       end
     end
+  rescue ActionController::RedirectBackError
+    redirect_to codemarks_path
 
   rescue ActiveRecord::RecordInvalid => ex
     p "Error saving user"
