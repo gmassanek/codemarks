@@ -1,181 +1,105 @@
-@import 'mixins/circle'
-@import 'bourbon/css3/transition'
+.codemark
+  background: white
 
-$orange: rgb(253, 141, 0)
-$background: rgb(244, 243, 243)
-$background-hover: rgb(253, 253, 253)
-$dark_border: rgb(200, 198, 198)
-$light_faded: rgb(152, 177, 174)
-$dark_faded: rgb(140, 138, 138)
+  header
+    display: block
+    width: 100%
+    height: $tile-header-height
+    padding: 10px
 
-@mixin light_text
-  color: $light_faded
-  font-weight: normal
+    .icon
+      display: block
+      float: left
+      font-size: 25px
+      line-height: 25px
+      margin-right: 10px
 
-@mixin proud_text
-  color: $dark_faded
+    .title
+      display: block
+      float: left
+      width: 172px
+      height: 32px
+      overflow: hidden
 
-.codemarks
-  background: $background
-  border: 1px solid $dark_border
-  overflow: hidden
-  @include border-radius(5px)
-
-  .codemark
-    position: relative
-    padding: 10px 10px
-    border-bottom: 1px solid $dark_border
-    border-top: 1px solid rgb(252, 252, 252)
-    @include transition
-    a
-      @include transition
-
-    &:first-child
-      @include border-top-left-radius(5px)
-      @include border-top-right-radius(5px)
-      border-top: none
-
-    &:last-child
-      @include border-bottom-left-radius(5px)
-      @include border-bottom-right-radius(5px)
-      border-bottom: none
-
-    .topics
-      margin-top: 10px
-      float: right
-
-      .topic
-        &:after
-          content: " | "
-        &:last-child:after
-          content: ""
-
-    .corner
-      float: right
-      border-top: 25px solid rgba($orange, 0.2)
-      border-left: 25px solid transparent
-      margin-top: -30px
-      margin-right: -10px
-      &:first-child
-        @include border-top-left-radius(5px)
-        @include border-top-right-radius(5px)
-      &:hover
-        border-top: 25px solid rgba(254, 60, 60, 0.7)
-
-    h3
       a
-        font-size: 16px
+        color: #777
+        font-size: 13px
+        line-height: 13px
         &:hover
           color: $orange
 
-    .actions
-      position: absolute
-      top: 0
-      right: 30px
-      padding: 5px
-      a
-        display: none
-        float: right
-        font-size: 12px
-        @include light_text
-        margin-left: 10px
-      .tweet_button
-        float: right
-        display: none
-        margin-top: -3px
-      .show_comments.present
-        display: block
-
-    &:hover
-      background: $background-hover
-      .actions
-        a
-          display: block
-          @include proud_text
-          &:hover
-            color: $orange
-      .tweet_button
-        display: block
+  .main
+    width: 100%
+    padding: 0 10px
+    height: $tile-main-height
+    margin: 0 auto
+    margin-bottom: $tile-footer-height
+    position: relative
 
     img
-      margin-bottom: -5px
-      height: 16px
-      display: inline
-      padding: 1px
-      border: 1px solid #eee
+      width: $tile-width - 20px
+      height: 100%
 
-    .details
-      float: left
-      color: $light_faded
-      margin-top: 10px
-      .time
-        display: inline-block
-
-        li
-          float: left
-          padding: 3px 5px
-          border-bottom: none
-          &:first-child
-            padding-left: 0
-            border-right: none
-          &:last-child
-            padding-right: 0
-            border-right: none
-
-      .saver
-        display: inline-block
-        margin-left: 3px
-
-    .host
-      display: inline
-      font-size: 11px
-      font-weight: normal
-      margin-right: 10px
-      color: $light_faded
-
-    .note
-      margin-top: 5px
-      display: inline-block
-
-    .author:hover, .edit:hover
-      cursor: pointer
-
-    .comments
+    .topics
       display: none
-      margin-top: 5px
-      border-top: 1px solid #ddd
-      padding: 5px 0
-      .author
-        color: lighten($c2, 40%)
-      .delete
-        float: right
+      position: absolute
+      right: 0
+      bottom: 0
       li
-        width: 85%
-        padding: 5px 0
+        float: right
+        margin: 5px
+        border: 1px solid #ccc
+        background: white
+        @include border-radius(5px)
+        a
+          display: inline-block
+          padding: 3px
 
-    .comment_form
-      textarea
-        width: 80%
-        height: 35px
+    .description
+      display: none
+      padding-top: 10px
 
-.pagination
-  padding: 5px
-  @include border-radius(3px)
-  text-align: center
-  ol.pages
-    li
-      display: inline
-      a.page
-        padding: 5px
+    &:not(.no-description):hover
+      img
+        display: none
+      .description
+        display: block
+
+  footer
+    .author
+      float: left
+      .avatar
+        height: 20px
+        width: 20px
+        margin-bottom: -5px
         @include border-radius(3px)
-        &:first-child
-          @include border-bottom-right-radius(0)
-          @include border-top-right-radius(0)
-        &:last-child
-          @include border-bottom-left-radius(0)
-          @include border-top-left-radius(0)
+      .saves:before
+        position: relative
+        margin-right: 5px
 
-        &.current
-          text-decoration: underline
+    .views
+      float: right
+      &:before
+        position: relative
+        top: 2px
+        margin-right: 5px
+
+  &:hover
+    .main
+      .topics
+        display: block
+    footer
+      .views
+        display: none
+      .hover-icons
+        display: inherit
+
+  &.mine:hover
+    header
+      .icon
+        cursor: pointer
+        &:before
           color: $orange
-
+          content: "\26"
+        &:hover:before
+          color: lighten($orange, 20%)

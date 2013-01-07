@@ -1,0 +1,55 @@
+@import "bourbon"
+@import "mixins/user_drag"
+
+.pagination
+  padding: 5px
+  text-align: center
+  clear: both
+  ol.pages
+    display: inline-block
+    @include border-radius(3px)
+    li
+      display: inline-block
+      a.page
+        position: relative
+        display: inline-block
+        padding: 5px 0.75em
+        text-align: center
+        color: #fff
+        height: 16px
+        line-height: 16px
+        font-size: 14px
+        text-shadow: -1px -1px 0 rgba(0,0,0,0.4)
+        border: 1px solid
+        @include box-sizing(content-box)
+        @include user-select(none)
+        @include user-drag(none)
+
+        $base: lighten(#8e8787, 10%)
+        border-color: darken($base, 5%)
+        border-bottom-color: darken($base, 10%)
+        @include linear-gradient(lighten($base, 5%), darken($base, 5%))
+        &:hover
+          background-color: #cadde9
+          @include linear-gradient(darken($base, 0%), darken($base, 15%))
+        &:active
+          background-image: -webkit-linear-gradient($base, lighten($base, 15%))
+
+        &.current
+          text-shadow: 1px 1px 0 rgba(0,0,0,0.4)
+          color: lighten($orange, 25%)
+          @include linear-gradient(darken($base, 0%), darken($base, 15%))
+
+        &[data-info=first]
+          border-right-color: darken($base, 10%)
+        &[data-info=last]
+          border-left-color: darken($base, 10%)
+
+      &:first-child
+        a
+          @include border-top-left-radius(5px)
+          @include border-bottom-left-radius(5px)
+      &:last-child
+        a
+          @include border-top-right-radius(5px)
+          @include border-bottom-right-radius(5px)

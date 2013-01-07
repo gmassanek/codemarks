@@ -1,0 +1,48 @@
+@import 'mixins/circle'
+@import 'mixins/border_radius'
+@import 'bourbon/css3/transition'
+
+@mixin icon
+  font-family: 'icomoon'
+
+.tile
+  float: left
+  overflow: hidden
+  position: relative
+  height: $tile-height
+  width: $tile-width
+  margin: 0 $tile-gutter $tile-gutter 0
+
+  background: #fefefe
+  border: 1px solid #ccc
+  background: white
+  @include border-radius(5px)
+  @include transition (all, 0.5s, ease-in-out)
+
+  &:hover
+    @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+
+  footer
+    position: absolute
+    bottom: 0
+    left: 0
+    height: $tile-footer-height
+    width: 100%
+    padding: 5px
+    font-size: 12px
+
+  .hover-icons
+    float: right
+    display: none
+    > *
+      float: right
+    > a
+      @include icon
+      margin-left: 5px
+
+@import codemark
+@import add_codemark
+@import codemark_form
+@import pagination
+@import tabs
+@import control_panel

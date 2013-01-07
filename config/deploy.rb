@@ -1,5 +1,13 @@
 require "bundler/capistrano"
 
+#require 'whenever/capistrano/recipes'
+#after 'deploy:create_symlink', 'whenever:update_crontab'
+#after 'deploy:rollback', 'whenever:update_crontab'
+
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+require "whenever/capistrano"
+
 set :stages, %w(production staging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
@@ -58,4 +66,12 @@ namespace:deploy do
     end
   end
   after "deploy:assets:precompile", "deploy:assets:compile_templates"
+
+  namespace:delayed_job do
+    desc "Start delayed_job"
+    task :start, roles: :web do
+      run "cd #{release_path} && RAILS_ENV=#{stage} script/delayed_job stop && RAILS_ENV=#{stage} script/delayed_job -n 2 start"
+    end
+  end
+  after "deploy", "deploy:delayed_job:start"
 end

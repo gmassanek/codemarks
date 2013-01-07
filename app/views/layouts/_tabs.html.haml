@@ -1,0 +1,7 @@
+%nav
+  %ul.tabs
+    %li= link_to "Browse", codemarks_path, :class => 'everyones'
+    - if logged_in?
+      %li= link_to 'Mine', codemarks_path(:user => current_user.slug), :class => 'yours'
+    %li= link_to 'Topics', '', :class => 'topics disabled'
+    %li= link_to 'People', users_path, :class => 'people'

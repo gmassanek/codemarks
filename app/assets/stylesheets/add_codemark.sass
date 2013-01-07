@@ -1,0 +1,44 @@
+ul.new_options
+  li
+    border-bottom: 1px solid #ddd
+    &:last-child
+      border-bottom: none
+    a
+      font-size: 25px
+      display: inline-block
+      padding: 30px 25px
+      color: #666
+      width: 100%
+      &:hover
+        color: $orange
+      &:before
+        margin-right: 20px
+      &.disabled
+        color: $border-color2
+    &.add_link
+      form
+        padding: 5px 10px
+        input
+          width: 100%
+    &.login
+      display: none
+
+.tile.logged-out
+  &:hover
+    ul.new_options
+      li:not(.login)
+        display: none
+      li.login
+        display: block
+        border-bottom: none
+        padding: 10px
+        text-align: center
+
+        h6
+          margin-top: 10px
+
+        .btn-auth
+          padding: 5px 20px
+          margin: 10px 0
+          color: white
+          width: auto

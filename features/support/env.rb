@@ -5,12 +5,20 @@
 # files.
 
 require 'cucumber/rails'
+require 'webmock/cucumber'
+require 'capybara/poltergeist'
+require Rails.root.join("spec/support/vcr.rb")
+
+VCR.cucumber_tags do |t|
+  t.tag '@vcr', :use_scenario_name => true
+end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
+Capybara.javascript_driver = :poltergeist
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
@@ -55,31 +63,7 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before('@omniauth_test_success') do
-  OmniAuth.config.test_mode = true
-
-  OmniAuth.config.mock_auth[:twitter] = {
-    "provider"  => "twitter",
-    "uid"       => '12345',
-    "info" => {
-      "nickname"  => "gmassanek",
-      "email" => "email@email.com",
-      "first_name" => "John",
-      "last_name"  => "Doe",
-      "name"       => "John Doe"
-    }
-  }
-
-  OmniAuth.config.mock_auth[:facebook] = {
-    "provider"  => "facebook",
-    "uid"       => '12345',
-    "info" => {
-      "nickname"  => "gmassanek",
-      "email" => "email@email.com",
-      "first_name" => "John",
-      "last_name"  => "Doe",
-      "name"       => "John Doe"
-    }
-  }
+  require Rails.root.join("spec/support/omniauth.rb")
 end
 
 AfterStep('@pause') do

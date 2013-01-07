@@ -10,14 +10,14 @@ class Seeder
     end
 
     def create_me
-      auth = Authentication.new(:uid => '422333', :nickname => 'gmassanek', :provider => 'twitter')
+      auth = Authentication.new(:uid => '987877', :nickname => 'gmassanek', :provider => 'twitter', :image => 'http://www.gravatar.com/avatar/58dbba1be3de0ccf3a495e978bdcb220.png')
       User.create!(:authentications => [auth])
     end
 
     def create_codemark(url, user)
       link = Link.load(:url => url)
       attributes = {
-        :resource_id => link.id,
+        :resource => link.link_record,
         :user_id => user.id
       }
       topic_info = {

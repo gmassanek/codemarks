@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def sign_in_path(provider)
-    "auth/#{provider.to_s}"
+    "/auth/#{provider.to_s}"
   end
 
   def bookmarklet_url
@@ -28,7 +28,7 @@ module ApplicationHelper
 
   def tweet_out_link(codemark)
     author = codemark.user
-    if author.id == current_user_id
+    if author.id == current_user.id
       short_user_url(current_user)
     else
       #"http://www.codemarks.com/public"

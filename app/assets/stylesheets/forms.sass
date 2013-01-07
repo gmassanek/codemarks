@@ -1,0 +1,18 @@
+@import bourbon
+@import mixins/border_radius
+
+input:not([type=submit]), textarea
+  display: block
+  padding: 10px
+  margin-bottom: 10px
+  border: 1px solid $border-color2
+  line-height: 16px
+  font-size: 14px
+  @include border-radius(5px)
+  @include box-shadow(0)
+  @include transition
+  @include box-sizing(border-box)
+
+  &:focus
+    @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+    border-color: lighten($orange, 25%)

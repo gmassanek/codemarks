@@ -1,10 +1,8 @@
 window.CURRENT_USER ||= null
 window.App =
-  Views: {}
-  Collections: {}
-  Models: {}
   init: ->
-    $ ->
-      App.router = new App.MainRouter
-      App.codemarks = new App.Collections.Codemarks
-      Backbone.history.start({pushState: true})
+    $.ajaxSetup
+      cache: false
+
+    App.router = new App.MainRouter
+    Backbone.history.start({pushState: true})

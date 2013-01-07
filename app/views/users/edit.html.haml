@@ -1,19 +1,42 @@
-#edit_profile
-  = form_for @user do |form|
-    .inputs 
-      = form.label :email
-      = form.email_field :email, value: @user.get(:email)
-    .inputs 
-      = form.label :location
-      = form.text_field :location, value: @user.get(:location)
-    .inputs 
-      = form.label :description
-      = form.text_area :description, value: @user.get(:description)
-    .inputs 
-      = form.label :nickname
-      = form.text_field :nickname, value: @user.get(:nickname)
-    .inputs 
-      = form.label :image
-      = form.url_field :image, value: @user.get(:image)
+%h2
+  Update your profile
 
-    = form.submit "Save"
+- if @user.errors.present?
+  .errors
+    %p There were errors updating your profile:
+    %ul
+      - @user.errors.full_messages.each do |message|
+        %li= message
+
+= form_for @user do |form|
+  .inputs
+    .authentications
+      = form.label 'Authentications'
+      = user_auth_link(@user, :twitter, current_user)
+      = user_auth_link(@user, :github, current_user)
+      - if @user.authentications.count < 2
+        (Click to add authentication)
+  .inputs 
+    = form.label :nickname
+    = form.text_field :nickname, value: @user.get(:nickname)
+  .inputs
+    = form.label :name, 'Full Name'
+    = form.text_field :name, value: @user.name
+  .inputs 
+    = form.label :email
+    = form.email_field :email, value: @user.get(:email)
+    .subscribe
+      = label_tag :subscribe, 'Subscribe to mailing list', :class => 'inline'
+      = check_box_tag :subscribe, nil, @email_subscribed
+    .clear
+  .inputs 
+    = form.label :location
+    = form.text_field :location, value: @user.get(:location)
+  .inputs 
+    = form.label :description, 'Bio'
+    = form.text_area :description, value: @user.get(:description), :rows => 8
+  .inputs 
+    = form.label :image, 'Profile Image URL'
+    = form.url_field :image, value: @user.get(:image)
+
+  = form.submit "Save", :class => 'btn-auth btn-twitter'

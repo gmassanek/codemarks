@@ -27,13 +27,13 @@ class TopicsController < ApplicationController
   end
 
   def show
-    cookies[:filters] = {:topics => [params[:id]]}.to_json
     cookies[:'server-set'] = true
-    redirect_to codemarks_path
+    redirect_to codemarks_path(:topic_ids => params[:id])
   end
 
   def index
-    @topics = Topic.all
+    @topics = Topic.all.sort_by(&:title)
+    render :json => @topics.to_json
   end
 
   def destroy

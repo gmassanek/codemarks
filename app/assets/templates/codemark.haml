@@ -1,18 +1,25 @@
 / BEGIN: Codemark Template.
-%h3
-  %a.title{target: '_blank'}
-  %span.host
-.corner
-%section.actions
-  %a.edit
-  %a.twitter_share
-%section.details
-  %span.save_date
-  by
-  %a.author
-    %span.name
-%section.topics
-  %a.topic
+%header
+  .icon
+  .title
+    %a.title_link{target: '_blank'}
+.main
+  %img.main-image
+  .description
+  %ul.topics
+    %li
+      %a.topic
+%footer
+  .author.icon-user-2
+    %img.avatar
+    %a.name{:href => '#'}
+    %span.saves
+  .hover-icons
+    %a.delete
+    %a.add
+    %a.comments! &#x50;
+    %a.share{:target => '_blank'}! &#xe023;
+  .views.icon-eye
 .clear
 
 / END: Codemark Template.

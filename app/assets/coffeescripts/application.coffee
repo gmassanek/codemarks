@@ -1,37 +1,26 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.16.custom.min.js
-//= require jquery.qtip-1.0.0-rc3.min
+
+//= require underscore
+//= require backbone
+//= require facile
+//= require angelo
+//= require jquery.ba-bbq
 //= require jquery.timeago
-//= require autocomplete-rails
-//= require codemark_form
+//= require select2
 
-window.Codemarks =
-  prepareAutocompletes: ->
-    $('input[data-autocomplete]').railsAutocomplete()
+//= require util
 
-    $('#link_form_topic_autocomplete').bind('railsAutocomplete.select', (event) ->
-      topic_id = $("#link_form_topic_slug").val()
-      $.ajax
-        url: "/codemarks/topic_checkbox",
-        data: { topic_id: topic_id},
-        beforeSend: (request) ->
-          request.setRequestHeader("Accept", "text/javascript")
-    )
+//= require backbone/app
+//= require_tree ./backbone
+//= require user_show
+//= require user_edit
 
 $ ->
-  $('#_topic_autocomplete').bind('railsAutocomplete.select', (e) ->
-    slug = $("#_topic_slug").val()
-    App.codemarks.filters.setTopic(slug)
-    App.codemarks.fetch()
-    $(e.currentTarget).val('')
-  )
-    
-  $(".flash").delay(2500).fadeOut(1000)
+  $(".flash.notice").delay(3000).fadeOut(1000)
+  $('body').delegate ".flash a.remove", 'click', (e) ->
+    e.preventDefault()
+    $(e.currentTarget).closest('.flash').fadeOut(1000)
 
-  $("#new_link_link").click((event) ->
-    $("#codemark_form").dialog('open')
-    event.preventDefault()
-  )
-    
-  Codemarks.prepareAutocompletes()
+  unless ENV? && ENV=='jasmine'
+    App.init()

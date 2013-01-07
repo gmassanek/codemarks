@@ -1,7 +1,5 @@
 class Authentication < ActiveRecord::Base
-
   belongs_to :user
-  validates_presence_of :user
   validates_presence_of :provider, :uid, :nickname
 
   def self.find_by_provider_and_uid(provider, uid)

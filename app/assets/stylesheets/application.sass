@@ -1,63 +1,19 @@
-/*
- *= require 'bootstrap'
- *= require 'jquery-ui-1.8.16.custom'
- *= require_self
+@import 'reset'
+@import 'variables'
+@import 'layout'
+@import 'base'
+@import 'forms'
+@import 'font-icons'
 
-@import "base"
-@import "account"
-@import "codemark"
-@import "codemark_form"
-@import "_configuration"
-@import "dashboard"
-@import "footer"
-@import "links"
-@import "login_buttons"
-@import "pages"
-@import "reset"
-@import "welcome"
-
-/*** VARIABLES ***/
-@import "configuration"
-
-/*** SITE WIDE  ***/
-h1, h2, h3, h4, h5, h6 
-  font-weight: bold
-  margin: 0
-
-h1 
-  font-size: 160%
-h2
-  font-size: 150%
-h3
-  font-size: 140%
-h4
-  font-size: 130%
-h5
-  font-size: 120%
-h6
-  font-size: 110%
-
-em
-  font-style: italic
-
-.inputs
-  label
-    margin-right: 5px
-    font-size: 14px
-
-a 
-  color: $c2
-  text-decoration: none
-
-  &:hover
-    color: $c5
-    text-decoration: none
-
-html
-  height: 100%
-  // font: 12px helvetica, arial, freesans, clean, sans-serif
-  font: 12px "Proxima Nova", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif
-  color: $c1
+@import 'select2'
+@import "header"
+@import 'users'
+@import 'codemarks'
+@import 'footer'
+@import 'login_buttons'
+@import 'pages'
+@import 'sessions_new'
+@import 'moving_tiles'
 
 ul.piped
   li
@@ -75,25 +31,34 @@ ul.piped
 
 .flash
   padding: 12px
-  margin-bottom: 5px
-  postition: absolute
+  position: absolute
   top: ($header-height + $header-extra + $header-box)
-  width: 200px
+  width: 500px
   left: 50%
-  margin-left: -100px
+  margin-left: -250px
   text-align: center
+  z-index: 500
+  p
+    padding-right: 20px
+  .remove
+    font-family: icomoon
+    position: absolute
+    top: 12px
+    right: 10px
 
-.notice
+.success
+  background: lighten($green, 10%)
+  border: 2px solid darken($green, 10%)
+
+.notice, .info
   background: lighten($blue, 30%)
   border: 2px solid darken($blue, 10%)
-  position: absolute
 
 .error
   background: lighten($c4, 30%)
   border: 2px solid darken($c4, 10%)
 
-.clear
-  clear: both
-
+.content
+  overflow: hidden
 .field_with_errors input
   border: 2px red solid

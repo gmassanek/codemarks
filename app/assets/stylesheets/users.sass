@@ -1,0 +1,153 @@
+#main_content.users
+  .authentications
+    a.auth
+      font-size: 18px
+      line-height: 24px
+      height: 26px
+      font-family: 'icomoon'
+      padding: 1px 6px 1px 1px
+      margin: 0px 3px
+      @include border-radius(3px)
+      &:before
+        content: ''
+      &.twitter
+      &.github
+      &:not(.authenticated)
+        color: #666
+        border: 1px solid darken($border-color2, 15%)
+        @include linear-gradient($border-color2, darken($border-color2, 5%))
+
+  &.show
+    padding-top: 10px
+    .side
+      width: 235px
+      padding-right: 10px
+      float: left
+
+    .user_image
+      border: 1px solid $border-color2
+      margin-right: 10px
+      float: left
+      height: 80px
+      width: 80px
+
+    .nickname
+      margin: 5px 0 5px
+      float: left
+
+    .edit
+      margin: 5px 0 5px
+      float: right
+
+    .details > div
+      margin: 5px 0 5px
+
+    .location
+      float: left
+
+    .email
+      float: right
+
+    .authentications
+      margin: 5px 0 5px
+
+  &.edit, &.update
+    padding-top: 10px
+
+    form
+      margin-top: 20px
+      width: 450px
+
+    label
+      display: block
+      &.inline
+        float: right
+    input:not([type=submit]), textarea
+      width: 450px
+
+    input#subscribe
+      float: right
+      width: auto
+      &:before
+        position: relative
+        font-family: icomoon
+        right: 20px
+        top: -2px
+      &.success:before
+        content: '\e00c'
+        color: green
+      &.error:before
+        content: '\e00b'
+        color: red
+
+    input[type=submit]
+      font-size: 14px
+      line-height: 18px
+      height: 18px
+
+    .authentications
+      margin-bottom: 10px
+
+    .errors
+      margin-top: 10px
+      font-size: 14px
+      ul
+        list-style-type: disc
+        color: red
+        margin: 5px 0 0 20px
+
+  &.index
+    .users
+      padding-top: 10px
+
+      .user
+        position: relative
+        width: 400px
+        float: left
+        padding: 10px
+        margin: 5px 10px
+        border: 1px solid $border-color2
+        background: white
+        @include border_radius(5px)
+
+        .user_image
+          float: left
+          width: 50px
+          height: 50px
+          font-size: 50px
+          line-height: 50px
+          text-align: center
+
+        .name, .nickname
+          margin-left: 10px
+          float: left
+
+        .clicks_count, .codemark_count
+          float: right
+          margin-left: 10px
+          position: relative
+          &:before
+            position: absolute
+            left: -15px
+          .c, .m
+            font-family: Harabara
+          .c
+            color: $orange
+          .m
+            color: #908989
+            margin-left: -2px
+
+        .auths
+          position: absolute
+          top: 10px
+          right: 10px
+          .auth
+            font-size: 16px
+            line-height: 16px
+            height: 16px
+            width: 16px
+            padding: 3px
+            text-align: center
+            padding-left: 13px
+
+
