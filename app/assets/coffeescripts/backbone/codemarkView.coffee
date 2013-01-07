@@ -3,7 +3,6 @@ App.CodemarkView = Backbone.View.extend
 
   events:
     'click .delete': 'deleteCodemark'
-    'click .share': 'twitterShare'
     'click .add': 'createCopy'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
@@ -51,9 +50,7 @@ App.CodemarkView = Backbone.View.extend
       content: ''
       class: 'timeago'
       title: @model.get('created_at')
-    twitter_share:
-      content: 'Tweet'
-      href: 'http://twitter.com/share'
+    'share@href': @tweetShareUrl()
     author:
       avatar: if @model.get('author').image then {content: '', src: @model.get('author').image} else null
       name: @model.get('author').nickname
@@ -105,18 +102,20 @@ App.CodemarkView = Backbone.View.extend
         success: =>
           @trigger('delete')
 
-  twitterShare: (e) ->
-    e.preventDefault()
-    window.open(@tweetShareUrl(), 'twitter', @tweetWindowOptions())
-
   tweetShareUrl: ->
     data =
       url: ''
       via: "#{@model.get('author').nickname} on @codemarks"
-    "http://twitter.com/share?#{$.param(data)}&text=#{@tweetText()}"
+      text: @tweetText()
+    "http://twitter.com/share?#{$.param(data)}"
 
   tweetText: ->
-    escape(@model.get('title')) + " #{@model.get('resource').url}"
+    "#{@model.get('title')} #{@model.get('resource').url} #{@tweetHashTags()}"
+
+  tweetHashTags: ->
+    slugs = _.map @model.get('topics'), (topic) ->
+      "##{topic.slug}"
+    slugs.join(' ')
 
   tweetWindowOptions: ->
     width  = 575
