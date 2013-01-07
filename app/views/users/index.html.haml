@@ -10,10 +10,10 @@
         .auths
           = user_auth_link(user, :twitter, current_user)
           = user_auth_link(user, :github, current_user)
-        .codemark_count
+        .codemark_count{:title => 'Codemarks saved'}
           %span.c c
           %span.m m
           = user.cm_count
-        .clicks_count.icon-eye= user.click_count
+        .clicks_count.icon-eye{:title => 'Codemarks visited'}= user.click_count
         .clear
   .clear
