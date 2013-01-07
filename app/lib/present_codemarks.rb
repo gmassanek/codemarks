@@ -42,6 +42,7 @@ class PresentCodemarks
   end
 
   def self.present_user(user)
+    return unless user
     {
       id: user.id,
       name: user.get('name'),

@@ -28,7 +28,8 @@ App.CodemarkFormView = Backbone.View.extend
         @model = existingModel || new App.Codemark(response)
         @render()
       error: (response) =>
-        console.log response
+        setFlash('error', 'Sorry, but something went wrong. <br/> <a href="https://codemarks.uservoice.com/" target="_blank">Tell us what happened</a> or, even better, <a href="https://github.com/gmassanek/codemarks" target="_blank">fix it here</a>!')
+        @cancel()
 
   toHtml: ->
     template = angelo('codemarkForm.html')
