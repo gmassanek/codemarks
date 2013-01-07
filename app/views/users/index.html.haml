@@ -1,0 +1,19 @@
+.users
+  - @users.each do |user|
+    %a{:href => user_path(user)}
+      .user
+        = user_image(user) || content_tag(:div, '', :class => 'icon-user user_image')
+        %h1.name= user.get(:name) || 'John Doe'
+        %br
+        %br
+        .nickname= '@' + user.get(:nickname)
+        .auths
+          = user_auth_link(user, :twitter, current_user)
+          = user_auth_link(user, :github, current_user)
+        .codemark_count
+          %span.c c
+          %span.m m
+          = user.cm_count
+        .clicks_count.icon-eye= user.click_count
+        .clear
+  .clear
