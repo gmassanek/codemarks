@@ -10,6 +10,8 @@ App.TileView = Backbone.View.extend
     @renderCodemarkView() if @model.exists()
     @renderAddCodemarkView() if @isTheAddCodemarkTile
     @$el.removeClass('expanded')
+    if CURRENT_USER == ''
+      @$el.addClass('logged-out')
 
   replaceElWithView: ->
     @$el.html(@view.$el)
