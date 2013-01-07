@@ -4,6 +4,7 @@ App.MainRouter = Backbone.Router.extend
     'codemarks?:params': 'codemarks'
     'codemarks': 'codemarks'
     'users/:username': 'showUser'
+    'users': 'userIndex'
 
   codemarks: (params) ->
     @codemarks = App.codemarks = new App.Codemarks
@@ -27,7 +28,10 @@ App.MainRouter = Backbone.Router.extend
     @renderCodemarkList()
     @codemarksView.noNewTile = true
     @codemarks.fetch()
-    $('.tabs .people').closest('li').addClass('active')
+    @setActiveNav('people')
+
+  userIndex: ->
+    @setActiveNav('people')
 
   renderControlPanel: ->
     controlPanel = new App.ControlPanelView
@@ -51,3 +55,6 @@ App.MainRouter = Backbone.Router.extend
 
   onCodemarksPage: ->
     (Backbone.history.fragment.match(/^codemarks/) || Backbone.history.fragment.match(/^\/codemarks/))?
+
+  setActiveNav: (activeNavClass) ->
+    $(".tabs .#{activeNavClass}").closest('li').addClass('active')
