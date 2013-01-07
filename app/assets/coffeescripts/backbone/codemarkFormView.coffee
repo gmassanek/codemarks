@@ -27,6 +27,8 @@ App.CodemarkFormView = Backbone.View.extend
         existingModel = App.codemarks.where({ id: response.id })[0]
         @model = existingModel || new App.Codemark(response)
         @render()
+      error: (response) =>
+        console.log response
 
   toHtml: ->
     template = angelo('codemarkForm.html')
