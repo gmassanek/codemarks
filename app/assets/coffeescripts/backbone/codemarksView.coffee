@@ -11,6 +11,7 @@ App.CodemarksView = Backbone.View.extend
     @appendNewCodemarkTile()
     @appendCodemarks()
     @$el.append(@paginationHtml())
+    $("html, body").animate({ scrollTop: '0px'}, 200)
 
   appendNewCodemarkTile: ->
     if @noNewTile
