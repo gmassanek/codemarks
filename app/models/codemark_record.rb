@@ -27,4 +27,15 @@ class CodemarkRecord < ActiveRecord::Base
   def title
     attributes['title'] || resource.try(:title)
   end
+
+  def self.most_popular_yesterday
+    candidates = CodemarkRecord.where(["DATE(created_at) = ?", Date.today-1])
+    return unless candidates.present?
+
+    candidates.max_by do |codemark|
+      clicks = codemark.resource.clicks_count
+      saves = candidates.select { |cm| cm.resource == codemark.resource }.count
+      saves + count
+    end
+  end
 end

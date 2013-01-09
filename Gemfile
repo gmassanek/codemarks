@@ -27,6 +27,8 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem "postrank-uri", "~> 1.0.17"
 gem 'gibbon'
+gem 'whenever', "0.7", :require => false
+gem 'twitter'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
