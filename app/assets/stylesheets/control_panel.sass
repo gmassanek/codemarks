@@ -1,9 +1,11 @@
-.controlPanel
-  float: left
+.control-panel
   width: 100%
   margin: 10px 0
-  height: 32px
   overflow: visible
+  position: relative
+
+  .filters
+    margin-right: 210px
 
   .filter
     background: #fefefe
@@ -51,17 +53,24 @@
       line-height: 29px
 
     ul.other_sorts
-      clear: both
-      border-top: 1px solid $grey
-      position: relative
+      position: absolute
+      border: 1px solid #ccc
       z-index: 50
+      top: 30px
+      right: 0
+      left: 0
+      background: white
+      padding: 0
+      @include border-bottom-left-radius(3px)
+      @include border-bottom-right-radius(3px)
+
       li
-        position: relative
-        z-index: 50
-        padding: 2px 0
         a
           display: inline-block
+          padding: 5px 10px
           width: 100%
+          &:hover
+            background: #eee
 
       &:hover
         cursor: pointer
@@ -74,7 +83,9 @@
           color: $orange
 
   .search-container
-    float: right
+    position: absolute
+    right: 0
+    top: 0
 
     input#search
       float: left
@@ -92,4 +103,4 @@
     a.search
       float: right
       font-size: 14px
-      margin: 7px 10px 0 -20px
+      margin: 7px 6px 0 -20px

@@ -1,5 +1,5 @@
 App.ControlPanelView = Backbone.View.extend
-  className: 'controlPanel'
+  className: 'control-panel'
 
   events:
     'click a.search': 'searchClicked'
@@ -12,28 +12,31 @@ App.ControlPanelView = Backbone.View.extend
 
   render: ->
     @$el.html('')
+    $filterDiv = $('<div class="filters"></div>')
     if @filters.get('user')
       user = @codemarks.users?.where(slug: @filters.get('user'))[0]
       desc = user?.get('nickname')
       val = user?.get('slug')
       img = user?.get('image')
       userHtml = @filterHtml(desc, val, 'user', img)
-      @$el.append(userHtml)
+      $filterDiv.append(userHtml)
 
     _.each @filters.topicIds(), (topicId) =>
       topic = App.topics.where(slug: topicId)[0]
       desc = topic?.get('title')
       val = topic?.get('slug')
       topicHtml = @filterHtml(desc, val, 'topic')
-      @$el.append(topicHtml)
+      $filterDiv.append(topicHtml)
 
     if @filters.searchQuery()
       searchHtml = @filterHtml(@filters.searchQuery(), @filters.searchQuery(), 'query')
-      @$el.append(searchHtml)
+      $filterDiv.append(searchHtml)
 
     sortHtml = @filterHtml(@filters.get('sort'), @filters.get('sort'), 'sort')
-    @$el.append(sortHtml)
+    $filterDiv.append(sortHtml)
 
+    $filterDiv.append('<div class="clear"></div>')
+    @$el.append($filterDiv)
     @$el.append(@searchHtml())
 
   filterHtml: (desc, value, type, image = null) ->
