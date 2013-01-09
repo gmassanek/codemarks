@@ -23,6 +23,11 @@
 
     img
       width: 110px
+      opacity: 0.8
+      @include transition
+    &:hover
+      img
+        opacity: 1
 
   .about_link
     float: right
