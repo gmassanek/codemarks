@@ -53,7 +53,9 @@ class SessionsController < ApplicationController
     @current_user = nil
     reset_session
     cookies[:remember_token] = {:expires => 1.day.ago.utc}
-    redirect_to root_path, :notice => "Logged out successfully"
+    redirect_to :back, :notice => "Logged out successfully"
+  rescue ActionController::RedirectBackError
+    redirect_to codemarks_path, :notice => "Logged out successfully"
   end
 
   def auth_hash
