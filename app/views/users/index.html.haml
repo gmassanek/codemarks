@@ -1,7 +1,7 @@
 .users
   - @users.each do |user|
-    %a{:href => user_path(user)}
-      .user
+    .user
+      %a{:href => user_path(user)}
         = user_image(user) || content_tag(:div, '', :class => 'icon-user user_image')
         %h1.name= user.get(:name) || 'John Doe'
         %br
