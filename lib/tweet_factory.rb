@@ -3,7 +3,7 @@ class TweetFactory
   SHORTENED_URL_LENGTH = 20
 
   def self.codemark_of_the_day(codemark)
-    self.new(codemark, 'Codemark of the Day!').tweet_text
+    self.new(codemark, 'Codemark of the Day!').tweet
   end
 
   def initialize(codemark, tagline = nil)
@@ -11,7 +11,7 @@ class TweetFactory
     @codemark = codemark
   end
 
-  def tweet_text
+  def tweet
     @main_text = "#{@tagline} #{@codemark.title}"
     @url = @codemark.resource.url
     @via = "via @#{@codemark.user.nickname} @codemarks"
@@ -20,7 +20,7 @@ class TweetFactory
       topics_being_tweeted << topics.pop
     end
 
-    tweet.sub('  ', ' ')
+    tweet_text.sub('  ', ' ')
   end
 
   def there_is_room_for_topics?
@@ -32,12 +32,12 @@ class TweetFactory
 
   private
 
-  def tweet
+  def tweet_text
     "#{@main_text} #{@url} #{topic_text} #{@via}"
   end
 
   def current_length
-    tweet.sub(@url, SHORTENED_URL_LENGTH * '1').length
+    tweet_text.sub(@url, SHORTENED_URL_LENGTH * '1').length
   end
 
   def topic_text
