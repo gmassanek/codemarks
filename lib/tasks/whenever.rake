@@ -1,6 +1,8 @@
 namespace :whenever do
   desc 'Tweet out the codemark of the day'
   task :codemark_of_the_day => :environment do
+    next unless ENV['RAILS_ENV'] == 'production'
+
     puts "Codemark of the Day"
     puts Time.now
 
