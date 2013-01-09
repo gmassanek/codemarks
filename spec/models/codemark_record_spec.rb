@@ -101,4 +101,27 @@ describe CodemarkRecord do
     codemark_record = Fabricate(:codemark_record, :user => user)
     CodemarkRecord.for_user_and_resource(user.id, codemark_record.resource.id).should == codemark_record
   end
+
+  describe "#most_popular_yesterday" do
+    it 'is nil if there were no codemarks yesterday' do
+      CodemarkRecord.most_popular_yesterday.should be_nil
+    end
+
+    it 'only picks one' do
+      Fabricate(:codemark_record, :created_at => (Date.today-1) + 10.hours)
+      Fabricate(:codemark_record, :created_at => (Date.today-1) + 3.hours)
+      CodemarkRecord.most_popular_yesterday.should be_a CodemarkRecord
+    end
+
+    it 'picks the one first with the most clicks and saves' do
+      cm1 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 10.hours)
+      cm2 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 3.hours)
+      cm3 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 8.hours, :resource => cm2.resource)
+      cm4 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 1.hours)
+
+      Fabricate(:click, :link_record => cm3.resource)
+      Fabricate(:click, :link_record => cm3.resource)
+      CodemarkRecord.most_popular_yesterday.id.should == cm2.id
+    end
+  end
 end
