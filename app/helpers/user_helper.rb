@@ -38,8 +38,8 @@ module UserHelper
 
   def provider_unicode_symbols
     {
-      :twitter => "&#xe023".html_safe,
-      :github => "&#xe028".html_safe
+      :twitter => '',
+      :github => ''
     }
   end
 end
