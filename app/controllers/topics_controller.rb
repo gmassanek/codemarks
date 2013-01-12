@@ -32,8 +32,15 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.all.sort_by(&:title)
-    render :json => @topics.to_json
+    @topics = Topic.order(:title)
+    respond_to do |format|
+      format.json { render :json => @topics.to_json }
+      format.html do
+        @topics = @topics.joins("LEFT JOIN (#{CodemarkTopic.select('topic_id, count(*)').group(:topic_id).to_sql}) cm_count ON topics.id = cm_count.topic_id").select('topics.*, COALESCE(cm_count.count, 0) as cm_count')
+        @topics.shuffle!
+        @max = @topics.max_by { |t| t.cm_count.to_i }.cm_count.to_f
+      end
+    end
   end
 
   def destroy
