@@ -1,9 +1,10 @@
 App.PaginationView = Backbone.View.extend
   className: 'pagination'
+  tagName: 'nav'
   pageSpan: 5
 
   events:
-    'click .page': 'pageClick'
+    'click .page_link': 'pageClick'
 
   initialize: ->
     @collection = @options.collection
@@ -15,7 +16,7 @@ App.PaginationView = Backbone.View.extend
     return unless @pagination.total_pages > 1
 
     @$el.append(@toHtml())
-    @$(".page[data-page=#{@currentPage}]").addClass('current')
+    @$(".page_link[data-page=#{@currentPage}]").closest('.page').addClass('current')
 
   toHtml: ->
     min = parseInt(@currentPage, 10) - @pageSpan
@@ -25,16 +26,16 @@ App.PaginationView = Backbone.View.extend
 
     data = {pages: []}
     if min > 1
-      data.pages.push page:
+      data.pages.push page_link:
         content: 'first'
         'data-page': 1
         'data-info': 'first'
     for num in [min..max]
-      data.pages.push page:
+      data.pages.push page_link:
         content: num
         'data-page': num
     if max < @pagination.total_pages
-      data.pages.push page:
+      data.pages.push page_link:
         content: 'last'
         'data-page': @pagination.total_pages
         'data-info': 'last'
