@@ -16,4 +16,5 @@
           = user.cm_count
         .clicks_count.icon-eye{:title => 'Codemarks visited'}= user.click_count
         .clear
-  .clear
+= paginate @users
+.clear
