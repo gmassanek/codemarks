@@ -8,6 +8,7 @@ App.ControlPanelView = Backbone.View.extend
   initialize: ->
     @codemarks = @options.codemarks
     @codemarks.bind 'reset', => @render()
+    App.topics.bind 'reset', => @render()
     @filters = @codemarks.filters
 
   render: ->
