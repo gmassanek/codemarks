@@ -5,13 +5,12 @@
       line-height: 24px
       height: 26px
       font-family: 'icomoon'
-      padding: 1px 6px 1px 1px
-      margin: 0px 3px
+      padding: 0
+      margin: 0
+      width: 30px
       @include border-radius(3px)
       &:before
-        content: ''
-      &.twitter
-      &.github
+        margin-left: 6px
       &:not(.authenticated)
         color: #666
         border: 1px solid darken($border-color2, 15%)
