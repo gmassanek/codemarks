@@ -1,0 +1,21 @@
+body
+  height: 100%
+
+.content-wrapper
+  min-height: 100%
+  position: relative
+
+#main_content
+  padding-top: $header-height
+  padding-bottom: $footer-height + $footer-extra
+
+.site_content
+  margin: 0 auto
+  @media screen and (min-width: 1441px)
+    width: 1200px
+  @media screen and (min-width: 1201px) and (max-width: 1440px)
+    width: 960px
+  @media screen and (min-width: 961px) and (max-width: 1200px)
+    width: 720px
+  @media screen and (min-width: 0px) and (max-width: 960px)
+    width: 480px

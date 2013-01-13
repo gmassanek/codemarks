@@ -5,63 +5,53 @@ Feature: View Codemarks
   As anybody
   I want to see codemarks
 
-  Scenario: Viewing my Codemarks on my dashboard
-    Given I am a logged in user
+  Background:
+    Given I am logged in
+
+  Scenario: Viewing my Codemarks
     And I have 3 codemarks
-    When I go to my dashboard
+    And I am on the codemarks page
     Then I should see 3 codemarks
 
-  Scenario: I only see my Codemarks on my page
-    Given I am a logged in user
+  Scenario: I only see my Codemarks when filtered by me
     And I have 3 codemarks
     And someone else has codemarks
-    When I go to my dashboard
+    And I go to my codemarks page
     Then I should see 3 codemarks
 
   Scenario: Codemark titles should be links
-    Given I am a logged in user
     And I have a codemarks called "Some Title"
-    When I go to my dashboard
+    And I am on the codemarks page
     Then I should see a link, "Some Title"
 
   Scenario: Viewing public codemarks
     Given there are 2 random codemarks
-    When I go to the public page
+    And I am on the codemarks page
     Then I should see 2 codemarks
 
   Scenario: Viewing someone else's codemarks
-    Given gmassanek is a user with a codemark
-    When I go to his page
+    Given lilweezy is a user with a codemark
+    When I go to his codemarks page
     Then I should see his codemark
-    And I should see a nav with his name
 
   Scenario: Codemarks are paged
     Given there are 30 random codemarks
-    When I go to the public page
-    And I click "2"
-    Then I should see 5 codemarks
-
-  Scenario: Codemarks can be viewed in save count order
-    Given I am a logged in user
-    And I have 3 codemarks
-    And one of my codemarks has been save 3 other times
-    When I go to my dashboard
-    And I click "count"
-    Then I should see that codemark first
+    And I am on the codemarks page
+    When I click "2"
+    Then I should see 11 codemarks
 
   Scenario: Can view codemarks on topics
-    Given there are 5 codemarks for "rspec"
+    Given there are 2 codemarks for "rspec"
+    And I am on the codemarks page
     When I go to the "rspec" topic page
-    Then I should see 5 codemarks
+    Then I should see 2 codemarks
 
   Scenario: Can filter between mine and public on topics show
-    Given I am a logged in user
     And superman is a user with a codemark
     When I go to that topic page
     Then I should see his codemark
-    And I should see a nav with my name
 
   Scenario: Codemarks have twitter share links
     Given there are 1 random codemarks
-    When I go to the public page
-    #Then I should see a twitter share link
+    And I am on the codemarks page
+    Then I should see a twitter share link

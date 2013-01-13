@@ -1,32 +1,24 @@
 Codemarks::Application.routes.draw do
 
-  get '/welcome', to: "users#welcome", as: :welcome
   get '/about', to: "pages#about", as: :about
-  get '/codemarklet_test', to: "pages#codemarklet_test"
-  get 'pages/autocomplete_topic_title', :as => :topic_title_autocomplete
-  get '/pages/test_bookmarklet?:l&:url', :to => 'pages#test_bookmarklet', :as => :test_bookarklet
 
-  resources :codemarklet, :only => [:new, :create] do
+  resources :codemarklet, :only => [:new] do
     collection do
       get :login
       get :chrome_extension
     end
   end
 
-  resources :codemarks, :only => [:index, :new, :create, :destroy] do
+  resources :codemarks
+  resources :topics
+  resources :users do
     collection do
-      get 'search/:query', :action => :search
-      get :topic_checkbox
+      post :subscribe
+      post :unsubscribe
     end
   end
 
-  # API endpoint
-  get '/public', to: 'codemarks#index', :as => :public_codemarks
-  get '/:username', :to => 'users#show', :as => "short_user"
-
   resources :comments, :only => [:create, :destroy]
-  resources :topics
-  get 'topics/:id/:user_id', :to => 'topics#show', :as => 'topic_user'
 
   resources :links, :only => [] do
     member do
@@ -36,16 +28,12 @@ Codemarks::Application.routes.draw do
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: 'sessions#failure'
-  resources :sessions, :only => [:create] do
+  resources :sessions, :only => [:new, :create] do
     collection do
       get :codemarklet
       delete :destroy
     end
   end
 
-  resources :users, :only => [:update]
-  get '/:id/account', to: "users#account", as: :account
-  get '/:id/account/edit', to: "users#edit", as: :edit_account
-
-  root :to => 'pages#landing'
+  root :to => redirect('/codemarks')
 end

@@ -1,17 +1,38 @@
-/*** VARIABLES ***/
-@import "configuration"
+@import 'bourbon/css3/transition'
 
 #footer
+  position: absolute
+  bottom: 0
   width: 100%
-  margin: 20px auto 20px
+  height: $footer-height
+  margin-top: $footer-extra
+  padding-top: 20px
   border-top: 1px solid $border_color2
   background: white
+  color: lighten($c1, 15%)
+  a
+    color: lighten($c1, 15%)
+    &:hover
+      color: $orange
 
-  ul
-    width: 300px
-    margin: 0 auto
-    padding: 15px 0 20px
+  .tagline
+    float: left
     text-align: center
+    img.logo
+      width: $tile-width * 0.75
+      opacity: 0.3
+      @include transition
+    &:hover
+      img.logo
+        opacity: 0.7
 
-    li
-      padding: 0 15px
+  .icons
+    margin-left: 15px
+    border-left: 1px solid $border-color2
+    li a
+      float: right
+      font-family: icomoon
+      font-size: 18px
+      margin-left: 10px
+  .links
+    float: right

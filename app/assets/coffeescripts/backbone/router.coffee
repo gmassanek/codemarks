@@ -1,31 +1,60 @@
 App.MainRouter = Backbone.Router.extend
   routes:
-    'codemarks': 'codemarks'
+    '': 'codemarks'
     'codemarks?:params': 'codemarks'
+    'codemarks': 'codemarks'
+    'users/:username': 'showUser'
+    'users': 'userIndex'
 
   codemarks: (params) ->
-    @codemarks = App.codemarks
+    @codemarks = App.codemarks = new App.Codemarks
+    @codemarks.filters.loadFromCookie($.deparam(params || ''))
+    @$container = $('#main_content')
+    @$container.html('')
+    @setupTopics()
 
-    if params
-      params = params.split('=')
-      if params[0] == 'topic_id'
-        @codemarks.filters.setTopic(params[1])
-      else if params[0] == 'user'
-        @codemarks.filters.setUser(params[1])
-
-    @showCodemarkList()
+    @renderTabsNav()
+    @renderControlPanel()
+    @renderCodemarkList()
     @codemarks.fetch()
 
-  showCodemarkList: ->
-    codemarkList = new App.Views.CodemarkList
-      el: $('#main_content')
+  showUser: (username) ->
+    @codemarks = App.codemarks = new App.Codemarks
+    @codemarks.filters.setUser(username)
+    @codemarks.filters.setSort('visits')
+    @setupTopics()
+
+    @$container = $('.content')
+    @renderCodemarkList()
+    @codemarksView.noNewTile = true
+    @codemarks.fetch()
+    @setActiveNav('people')
+
+  userIndex: ->
+    @setActiveNav('people')
+
+  renderControlPanel: ->
+    controlPanel = new App.ControlPanelView
+      codemarks: @codemarks
+    controlPanel.render()
+    @$container.append(controlPanel.$el)
+
+  renderCodemarkList: ->
+    @codemarksView = new App.CodemarksView
+      codemarks: @codemarks
+    @$container.append(@codemarksView.$el)
+
+  renderTabsNav: ->
+    new App.TabsView
+      el: $('nav ul.tabs')
       codemarks: @codemarks
 
-    $('.content').html(codemarkList.$el)
+  setupTopics: ->
+    App.topics = new App.Topics
+    App.topics.fetch()
 
-    $(window).bind 'beforeunload', (e) ->
-      filterData = @codemarks.filters.dataForCookie()
-      filterCookieVal = JSON.stringify(filterData)
-      $.cookie('filters', filterCookieVal)
-      $.cookie('filters-save-date', new Date())
-      return
+  onCodemarksPage: ->
+    (Backbone.history.fragment.match(/^codemarks/) || Backbone.history.fragment.match(/^\/codemarks/))?
+
+  setActiveNav: (activeNavClass) ->
+    $(".tabs .#{activeNavClass}").closest('li').addClass('active')

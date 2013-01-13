@@ -4,7 +4,7 @@ describe FindCodemarks do
   context 'there are codemarks' do
     before do
       @user = Fabricate(:user)
-      @cm = Fabricate(:codemark_record, :user => @user)
+      @cm = Fabricate(:codemark_record, :user => @user, :topics => [Fabricate(:topic), Fabricate(:topic)])
       @cm2 = Fabricate(:codemark_record, :user => @user)
     end
 
@@ -106,12 +106,21 @@ describe FindCodemarks do
     end
 
     context "for a topic" do
-      let(:topic) { @cm.topics.first }
-      let(:find_by_topic) { FindCodemarks.new(:topic_id => topic.id) }
+      let(:topic1_id) { @cm.topics.first.id }
+      let(:topic2_id) { @cm.topics.last.id }
 
       it "gets all the Codemarks" do
-        cm3 = Fabricate(:codemark_record, :topic_ids => [topic.id])
-        find_by_topic.codemarks.collect(&:id).should =~ [@cm.id, cm3.id]
+        cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+        cms = FindCodemarks.new(:topic_ids => [topic1_id]).codemarks
+        cms.collect(&:id).should =~ [@cm.id, cm3.id]
+      end
+
+      describe 'with multiple topics' do
+        it 'does not find a codemark that only matches one of the topics' do
+          cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+          cms = FindCodemarks.new(:topic_ids => [topic1_id, topic2_id]).codemarks
+          cms.should == [@cm]
+        end
       end
     end
 
@@ -133,7 +142,7 @@ describe FindCodemarks do
         all_cms.codemarks.collect(&:id).should == [@cm2.id, @cm3.id, @cm.id]
       end
 
-      it "can be orderd by save_count" do
+      it "can be ordered by save_count" do
         user = Fabricate(:user)
         @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
         @cm4= Fabricate(:codemark_record, :user => @user)
@@ -141,9 +150,9 @@ describe FindCodemarks do
         all_cms.codemarks.first.save_count.should == "2"
       end
 
-      it "can be orderd by visit_count" do
+      it "can be ordered by visit_count" do
         user = Fabricate(:user)
-        2.times { Fabricate(:click, :user => user, :link_record => @cm.resource) }
+        2.times { Fabricate(:click, :user => user, :link_record => @cm2.resource) }
         all_cms = FindCodemarks.new(:by => :visits)
         all_cms.codemarks.first.visit_count.should == "2"
       end
@@ -169,10 +178,29 @@ describe FindCodemarks do
       end
     end
 
-    context 'with query' do
-      it 'searches a codemarks title', :travis_skip => true do
+    context 'with query', :search_indexes => true do
+      it 'searches a codemarks title' do
         cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'matches topics from search' do
+        topic = Fabricate(:topic, :title => 'Github')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'matches any topics from search' do
+        topic = Fabricate(:topic, :title => 'Github')
+        topic2 = Fabricate(:topic, :title => 'Github2')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'matches title even if no topics match' do
+        topic = Fabricate(:topic, :title => 'Github')
+        cm = Fabricate(:codemark_record, :user => @user, :title => 'Github rocks')
+        FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
     end
   end
@@ -183,4 +211,16 @@ describe FindCodemarks do
     end
   end
 
+  context '#find_topic_ids_from_search_query', :search_indexes => true do
+    it 'matches topics that match the search query' do
+      topic = Fabricate(:topic, :title => 'Github')
+      matched_topic_ids = FindCodemarks.new(:search_term => 'github').find_topic_ids_from_search_query
+      matched_topic_ids.should == [topic.id]
+    end
+
+    it 'is an empty array if there is no search term' do
+      matched_topic_ids = FindCodemarks.new.find_topic_ids_from_search_query
+      matched_topic_ids.should == []
+    end
+  end
 end

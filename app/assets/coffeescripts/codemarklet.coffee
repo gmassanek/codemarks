@@ -1,26 +1,15 @@
-window.Codemarklet =
-  closeWindowOnEscape: ->
-    $(document).keyup (event) ->
-      if (event.keyCode == 27)
-        window.close()
+//= require jquery
+//= require jquery_ujs
 
-  setupSubmit: ->
-    $("#codemark_form").submit (event) ->
-      event.preventDefault()
-      $cm_form = $(event.currentTarget)
-      data = $cm_form.serialize()
-      url = $cm_form.attr('action')
-      $.post url, data, Codemarklet.successfulPost, 'SCRIPT'
+//= require underscore
+//= require backbone
+//= require facile
+//= require angelo
+//= require select2
 
-  successfulPost: (response) ->
-    console.log response
-    $('.cm_notice').show()
-    delay = (ms, func) -> setTimeout func, ms
-
-    delay 1500, -> window.close()
-
-  bootstrap: ->
-    $ ->
-      Codemarklet.closeWindowOnEscape()
-      Codemarklet.setupSubmit()
-      window.CodemarkForm.bootstrap()
+//= require codemarklet_application
+//= require backbone/codemark
+//= require backbone/topic
+//= require backbone/topics
+//= require backbone/codemarkletView
+//= require backbone/codemarkFormView

@@ -2,25 +2,28 @@
 %html
   %head
     %title Codemarks
-    = csrf_meta_tags
     %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
+    = csrf_meta_tags
+
     = stylesheet_link_tag    'application'
     = javascript_include_tag 'application'
-    = javascript_include_tag 'codemark_form'
 
     = yield :header
 
     :javascript
-      window.RAILS_ENV = #{ENV['RAILS_ENV']}
+      window.RAILS_ENV = '#{ENV['RAILS_ENV']}'
+      window.CURRENT_USER = "#{current_user.try(:slug)}"
 
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'
       = javascript_include_tag 'uservoice'
 
   %body
-    = render '/layouts/header'
-    .site_content
-      .content
-        = render '/layouts/flash', :flash => flash
-        = yield
-    = render 'layouts/footer'
+    .content-wrapper
+      = render '/layouts/header'
+      = render '/layouts/flash', :flash => flash
+      .site_content
+        #main_content{:class => page_class}
+          = yield
+      = render '/layouts/footer'
+    = javascript_include_tag 'http://js.pusher.com/1.12/pusher.min.js'
