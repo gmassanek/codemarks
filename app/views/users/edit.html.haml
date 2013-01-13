@@ -40,3 +40,18 @@
     = form.url_field :image, value: @user.get(:image)
 
   = form.submit "Save", :class => 'btn-auth btn-twitter'
+
+- if params[:signup] == '1'
+  .signup_messages.notice
+    %h1 Welcome!
+    %p
+      Thanks for signing up. Now that you're here, to get the most out of Codemarks you should
+    %ol
+      %li Update your profile so people know more about you
+      - if browser.chrome?
+        %li Add the #{link_to('Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank')} so you can save codemarks from any site
+      - else
+        %li Drag the #{link_to 'Codemarklet', bookmarklet_url} to your bookmark bar so you can save codemarks from any site
+      %li Start browsing #{link_to 'codemarks', codemarks_path}! If you see any you like, add them to your stash!
+
+.clear

@@ -56,6 +56,7 @@
     form
       margin-top: 20px
       width: 450px
+      float: left
 
     label
       display: block
@@ -94,6 +95,19 @@
         list-style-type: disc
         color: red
         margin: 5px 0 0 20px
+
+    .signup_messages
+      float: right
+      padding: 10px
+      @include border_radius(5px)
+      border-width: 1px
+      line-height: 18px
+      width: 450px
+      ol
+        list-style: decimal
+        margin-top: 5px
+        margin-left: 25px
+        line-height: 24px
 
   &.index
     .users
