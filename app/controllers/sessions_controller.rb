@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
       if @user.created_at > 5.minutes.ago
         flash[:info] = "Welcome! Update your profile, then find out more about <a href=#{about_path}>How Codemarks Works</a>"
-        redirect_to edit_user_path(@user)
+        redirect_to edit_user_path(@user, :signup => 1)
       else
         flash[:notice] = 'Signed in'
         redirect_to :back
