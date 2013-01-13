@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711062940) do
+ActiveRecord::Schema.define(:version => 20130106163124) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
     t.string   "provider"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "name"
     t.string   "email"
     t.string   "location"
@@ -30,20 +30,21 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "link_record_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "codemark_records", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "archived",    :default => false
-    t.text     "note"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "archived",      :default => false
+    t.text     "description"
     t.text     "title"
     t.tsvector "search"
-    t.boolean  "private",     :default => false
+    t.boolean  "private",       :default => false
+    t.string   "resource_type"
   end
 
   add_index "codemark_records", ["search"], :name => "codemarks_search_index"
@@ -51,8 +52,8 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   create_table "codemark_topics", :force => true do |t|
     t.integer  "codemark_record_id"
     t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -65,11 +66,27 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
   create_table "link_records", :force => true do |t|
     t.string   "url"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.boolean  "private",         :default => false
     t.integer  "popularity",      :default => 0
     t.integer  "clicks_count",    :default => 0
@@ -77,26 +94,36 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
     t.string   "host"
     t.text     "site_data"
     t.integer  "author_id"
+    t.string   "snapshot_url"
+    t.string   "snapshot_id"
   end
 
   add_index "link_records", ["url"], :name => "index_link_records_on_url"
 
+  create_table "text_records", :force => true do |t|
+    t.text     "text"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "topics", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.text     "description"
     t.string   "slug"
     t.boolean  "global",      :default => true
     t.integer  "user_id"
+    t.tsvector "search"
   end
 
   add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "name"
     t.string   "location"
     t.string   "image"
@@ -108,15 +135,4 @@ ActiveRecord::Schema.define(:version => 20120711062940) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
-  execute <<-SQL
-  CREATE TRIGGER codemarks_search_update
-  BEFORE INSERT OR UPDATE ON codemark_records
-  FOR EACH ROW EXECUTE PROCEDURE
-    tsvector_update_trigger(search,
-                            'pg_catalog.english',
-                            title,
-                            note);
-  SQL
-
-  execute "UPDATE codemark_records SET search = to_tsvector('english', title || ' ' || note);"
 end

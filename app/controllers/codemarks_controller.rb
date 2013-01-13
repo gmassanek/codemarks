@@ -1,57 +1,63 @@
 class CodemarksController < ApplicationController
-def new
+  def new
     options = {}
     options[:url] = params[:url]
     options[:id] = params[:id] if params[:id]
     options[:user_id] = current_user.id if current_user
     @codemark = Codemark.load(options)
+    render :json => PresentCodemarks.present(@codemark, current_user)
   end
 
   def create
+    topic_ids = process_topic_slugs(params['codemark']["topic_ids"])
     attributes = params[:codemark]
-    attributes[:user_id] = current_user_id
+    attributes[:user_id] = current_user.id
 
     topic_info = {
-      :ids => params[:topic_ids].try(:keys),
+      :ids => topic_ids,
       :new_topics => params[:new_topics].try(:keys)
     }
 
     @codemark = Codemark.create(attributes, topic_info)
 
-    respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Thanks!' }
-      format.js { render :text => '', :status => :ok }
-    end
+    render :json => {
+      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
+      :success => true
+    }
   rescue Exception => e
     p e
     puts e.backtrace.first(10).join("\n")
   end
 
   def index
-    @user = User.find_by_slug(params[:username])
-    @user ||= User.find_by_id(params[:user])
+    @user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
 
-    @topic = Topic.find(params[:topic_id]) if params[:topic_id]
+    if params[:topic_ids]
+      @topic_ids = Topic.where(:slug => params[:topic_ids].split(',')).pluck(:id)
+    end
+
     respond_to do |format|
       format.html do
-        render 'codemarks/index', :layout => 'backbone'
+        render 'codemarks/index'
       end
 
       format.json do
         search_attributes = {}
-        search_attributes[:page] = params[:page] if params[:page]
-        search_attributes[:by] = params[:by] if params[:by]
+        search_attributes[:page] = params[:page]
+        search_attributes[:by] = params[:by]
         search_attributes[:current_user] = current_user
-        search_attributes[:user] = @user if @user
-        search_attributes[:topic_id] = params[:topic_id] if params[:topic_id]
+        search_attributes[:user] = @user
+        search_attributes[:topic_ids] = @topic_ids
+        search_attributes[:search_term] = params[:query]
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks, current_user)
+        render :json => PresentCodemarks.for(@codemarks, current_user, @user)
       end
     end
   end
 
-  def search
-    @codemarks = FindCodemarks.new(:search_term => params[:query], :current_user => current_user).codemarks
+  def show
+    codemark = CodemarkRecord.find(params[:id])
+    render :json => PresentCodemarks.present(codemark, current_user)
   end
 
   def destroy
@@ -61,16 +67,14 @@ def new
     render :json => { :head => 200 }
   end
 
-  def topic_checkbox
-    @topic = Topic.find_by_slug params[:topic_id]
-    @topic_title = params[:topic_title]
-    respond_to do |format|
-      if @topic_title.present?
-        format.js { render :new_topic_checkbox }
-      else
-        format.js { render :topic_checkbox }
-      end
-    end
+  def update
+    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+    @codemark = CodemarkRecord.find(params[:id])
+    @codemark.update_attributes(params['codemark'])
+    render :json => {
+      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
+      :success => true
+    }
   end
 
   def github
@@ -89,4 +93,13 @@ def new
     end
   end
 
+  private
+
+  def process_topic_slugs(topic_slugs)
+    return [] unless topic_slugs.present?
+    topics = topic_slugs.split(',').map { |slug| Topic.find_by_slug(slug) || slug }
+    topics, new_titles = topics.partition { |item| item.is_a? Topic }
+    new_topics = new_titles.map { |title| Topic.create!(:title => title) }
+    (topics | new_topics).map(&:id)
+  end
 end

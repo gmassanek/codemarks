@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let(:user) { authenticated_user }
+  let(:user) { Fabricate(:user) }
   let!(:authentication) { user.authentications.first }
 
   it "requires at least one authentication"
@@ -22,10 +22,17 @@ describe User do
     end
   end
 
+  it 'cannot have a duplicate nickname' do
+    another_user = Fabricate(:user)
+    another_user.nickname = user.nickname
+    another_user.save.should == false
+    another_user.errors.should include :nickname
+  end
+
   it "deletes all authentications when I delete a user" do
-    authentication = Fabricate(:authentication, user: user, provider: "twitter")
-    authentication.user.destroy
-    Authentication.find_by_id(authentication.id).should == nil
+    expect do
+      user.destroy
+    end.to change(Authentication, :count).by(-1)
   end
 
   it "knows which authentications it's missing" do
@@ -56,10 +63,67 @@ describe User do
   end
 
   it "should destroy it's codemarks" do
-    user = Fabricate(:user)
     Fabricate(:codemark_record, :user => user)
-    lambda {
+    expect {
       user.destroy
     }.should change(CodemarkRecord, :count).by(-1)
+  end
+
+  it "finds a user by authenticaion and username" do
+    user = Fabricate(:user)
+    authentication = user.authentications.first
+    provider = authentication.provider
+    nickname = authentication.nickname
+
+    User.find_by_authentication(provider, nickname).should == user
+  end
+
+  describe '#favorite_topics' do
+    let(:user) { Fabricate(:user) }
+    let(:topic1) { Fabricate(:topic) }
+    let(:topic2) { Fabricate(:topic) }
+    let(:topic3) { Fabricate(:topic) }
+
+    it 'is nil if there are no codemarks' do
+      user.favorite_topics.should be_nil
+    end
+
+    it 'is nil if none of the codemarks have topics' do
+      codemark = Fabricate(:codemark_record, :user => user)
+      user.favorite_topics.should be_nil
+    end
+
+    it 'includes topics from all codemarks' do
+      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic1])
+      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic2])
+      user.favorite_topics.count.should == 2
+    end
+
+    it 'counts the codemarks for each topic' do
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      user.favorite_topics[topic1].should == 2
+      user.favorite_topics[topic2].should == 3
+      user.favorite_topics[topic3].should == 1
+    end
+
+    it 'orders them by count' do
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      user.favorite_topics.keys[0].should == topic2
+      user.favorite_topics.keys[1].should == topic1
+      user.favorite_topics.keys[2].should == topic3
+    end
+
+    it 'only shows the top 15' do
+      topics = []
+      17.times do
+        topics << Fabricate(:topic)
+      end
+      Fabricate(:codemark_record, :user => user, :topics => topics)
+      user.favorite_topics.length.should == 15
+    end
   end
 end

@@ -27,13 +27,20 @@ class TopicsController < ApplicationController
   end
 
   def show
-    cookies[:filters] = {:topics => [params[:id]]}.to_json
     cookies[:'server-set'] = true
-    redirect_to codemarks_path
+    redirect_to codemarks_path(:topic_ids => params[:id])
   end
 
   def index
-    @topics = Topic.all
+    @topics = Topic.order(:title)
+    respond_to do |format|
+      format.json { render :json => @topics.to_json }
+      format.html do
+        @topics = @topics.joins("LEFT JOIN (#{CodemarkTopic.select('topic_id, count(*)').group(:topic_id).to_sql}) cm_count ON topics.id = cm_count.topic_id").select('topics.*, COALESCE(cm_count.count, 0) as cm_count')
+        @topics.shuffle!
+        @max = @topics.max_by { |t| t.cm_count.to_i }.cm_count.to_f
+      end
+    end
   end
 
   def destroy

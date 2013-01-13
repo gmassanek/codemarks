@@ -1,7 +1,10 @@
 .clear
 #footer
-  %ul.piped
-    #footer_links
-      %li.first= link_to 'about', about_path
-      %li= link_to 'contact', 'mailto:gmassanek@gmail.com'
-      %li.last= link_to 'contribute', 'https://github.com/gmassanek/codemarks'
+  .site_content
+    %a.tagline{:href => root_path}
+      = image_tag 'cm-logo-1.png', :class => 'logo'
+      %p bookmarks for social coders
+    %ul.icons
+      %li= link_to "&#xe029".html_safe, 'http://www.github.com/gmassanek/codemarks', :target => '_blank'
+      %li= link_to "&#x003e".html_safe, 'mailto:gmassanek@gmail.com', :target => '_blank'
+      %li= link_to "&#xe023".html_safe, 'http://www.twitter.com/codemarks', :target => '_blank'

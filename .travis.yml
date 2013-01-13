@@ -1,11 +1,9 @@
 language: ruby
 rvm:
-  - 1.9.3
+  - 1.9.3-p327
 before_script:
+  - cp config/database.example.yml config/database.yml
   - psql -c 'create database codemarks_test;' -U postgres
-  - bundle exec rake db:migrate db:test:prepare
+  - RAILS_ENV=test bundle exec rake db:migrate
 script:
-  - bundle exec rspec spec/fast
-  - bundle exec rspec spec/lib --tag ~travis_skip
-  - bundle exec rspec spec/controllers spec/integration spec/models
-  - "bundle exec cucumber --tags ~@javascript --tags ~@travis_skip"
+  - bundle exec rake travis

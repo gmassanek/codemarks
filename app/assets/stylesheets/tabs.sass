@@ -1,0 +1,19 @@
+header nav
+  float: left
+  .tabs
+    font-size: 14px
+    li
+      float: left
+      a
+        height: $header-height
+        display: inline-block
+        width: 70px
+        text-align: center
+        &:hover:not(.disabled)
+          background: #ddd
+      &.active
+        a
+          background: $orange
+          &:hover
+            background: $orange
+            color: $c1

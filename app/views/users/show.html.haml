@@ -1,6 +1,29 @@
-#page_details
-  %p.title= @user.get(:nickname)
+.side
+  = user_image(@user)
 
-= render 'codemark_filters'
+  %h1.name= @user.get(:name) if @user.get(:name)
+  .nickname= '@' + @user.get(:nickname) if @user.get(:nickname)
+  - if current_user && current_user == @user
+    .edit= link_to "Edit", edit_user_path(@user)
 
-= render '/shared/codemarks'
+  .clear
+
+  .authentications
+    = user_auth_link(@user, :twitter, current_user)
+    = user_auth_link(@user, :github, current_user)
+
+  .details
+    = user_description(@user)
+    = user_location(@user)
+    - if current_user && current_user == @user
+      = user_email(@user)
+
+  .clear
+  - if @favorite_topics
+    %hr
+    %h3 Favorite Topics
+    %ul
+      - @favorite_topics.each do |topic, count|
+        %li= link_to "#{topic.title} (#{count})", '#', :class => 'topic_link', :data => {:id => topic.slug}
+
+.content
