@@ -1,19 +1,17 @@
-#about 
-  #banner
-  #banner_text
+#about
+  #banner_text.clearfix
     %h2 What is Codemarks?
     %p.explanation Codemarks is the best way to save, organize, and discover code-related resources online
-    .clear
-    %ul#site_explanation.piped
-      %li.first
+    %ul#site_explanation
+      %li
         %h4 Codemarklet
-        %p 
+        %p
           Drag this
           %br
           = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
           %br
           to your bookmark bar to save Codemarks from anywhere
-      %li 
+      %li
         %h4 Chrome Extension
         %p
           Download the official
@@ -22,7 +20,7 @@
           %br
           to save Codemarks from Google Chrome
 
-      %li.last
+      %li
         %h4 @codemarks
         %p
           Follow
