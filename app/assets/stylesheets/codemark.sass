@@ -36,8 +36,17 @@
     margin-bottom: $tile-footer-height
     position: relative
 
+    $image-width: $tile-width - 20px
+    .image-container
+      position: absolute
+      top: 0
+      width: $image-width
+      height: 100%
+      @include box_shadow(inset 0 0 25px -3px #ddd)
+      border: 1px solid rgba(32, 32, 32, 0.2)
+
     img
-      width: $tile-width - 20px
+      width: $image-width
       height: 100%
 
     .topics
@@ -60,7 +69,7 @@
       padding-top: 10px
 
     &:not(.no-description):hover
-      img
+      img, .image-container
         display: none
       .description
         display: block
