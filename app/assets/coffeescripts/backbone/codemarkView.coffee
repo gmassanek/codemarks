@@ -16,7 +16,7 @@ App.CodemarkView = Backbone.View.extend
     if @model.get('author').image?
       @$('.author').removeClass('icon-user-2')
     @$('.icon').addClass('icon-link-2')
-    if @model.get('description') == ''
+    if @model.get('description') == '' || @model.get('description') == null
       @$('.main').addClass('no-description')
 
   initialize: ->
