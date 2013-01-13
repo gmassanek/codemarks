@@ -1,5 +1,5 @@
 App.Codemark = Backbone.Model.extend
-  urlRoot : '/codemarks'
+  urlRoot: '/codemarks'
 
   initialize: ->
 

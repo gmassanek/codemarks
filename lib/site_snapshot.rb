@@ -19,6 +19,8 @@ class SiteSnapshot
     p e
     puts e.backtrace.first(10).join("\n")
     link.update_attributes(:snapshot_url => '/assets/error_loading.png')
+  ensure
+    Pusher.trigger("codemarks", "snapshot:loaded", { resourceId: link.id })
   end
 
   def self.create(url)
