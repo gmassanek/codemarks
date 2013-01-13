@@ -60,9 +60,17 @@ class Link
     link_record.site_data = html_response.content
     link_record.save!
     link_record
-  rescue Exception => e
+  rescue OpenURI::HTTPError => e
     p e
-    return nil
+    link_record.url = url
+    link_record.host = URI.parse(url).host
+    link_record.save!
+    link_record
+  rescue ActiveRecord::StatementInvalid => e
+    p e
+    link_record.site_data = nil
+    link_record.save!
+    link_record
   end
 
   #should pass this off to Tagger via Tagger.tag_these([:title, :html_content])
