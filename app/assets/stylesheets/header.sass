@@ -1,18 +1,96 @@
-@import "configuration"
 @import "bourbon"
-@include content-width
+@import 'mixins/border_radius'
 
-#header
-  height: 50px
+.content-wrapper > header
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  height: $header-height
+  z-index: 100
+
   background-color: #fefefe
-  margin-bottom: 10px
-
   border-bottom: 1px solid #dddddd
-  //box-shadow: 1px 2px 0px #EEE, #EEE 0px 0px 5px inset
+  @include box-shadow(0 -2px 15px rgba(0, 0, 0, 0.25))
 
+  line-height: $header-height
 
-#codemark_form
-  position: absolute
-  top: 10px
-  left: 50%
-  margin-left: -300px
+  #logo
+    position: fixed
+    top: 10px
+    left: 50%
+    margin-left: -55px
+
+    img
+      width: 110px
+      opacity: 0.8
+      @include transition
+    &:hover
+      img
+        opacity: 1
+  @media screen and (min-width: 0px) and (max-width: 960px)
+    #logo
+      display: none
+
+  .about_link
+    float: right
+    margin-right: 15px
+
+  #authentication
+    float: right
+    position: relative
+
+    .profile_info
+      float: right
+
+      img
+        position: relative
+        height: 25px
+        top: ($header-height - 25px) / 4
+        @include border_radius(5px)
+
+      a
+        line-height: 40px
+
+      &:hover + .options
+        display: block
+
+    .options
+      display: none
+      position: absolute
+      right: 0
+      top: $header-height
+      background: white
+      clear: both
+      border: 1px solid #dddddd
+      border-top: none
+
+      &:hover
+        display: block
+
+      li
+        width: 100%
+        border-bottom: 1px solid #dddddd
+        &:last-child
+          border-bottom: none
+
+      &.logged_in
+        li
+          text-align: left
+          line-height: 14px
+          &:hover
+            background: #eee
+          a
+            display: inline-block
+            padding: 10px
+            width: 100%
+
+      &.logged_out
+        li
+          text-align: center
+          padding: 10px
+
+        .btn-auth
+          height: 22px
+          line-height: 20px
+          font-size: 16px

@@ -1,0 +1,107 @@
+.control-panel
+  width: 100%
+  margin: 10px 0 0
+  overflow: visible
+  position: relative
+
+  .filters
+    margin-right: 210px
+
+  .filter
+    background: #fefefe
+    border: 1px solid #ccc
+    @include border-radius(3px)
+    background: white
+    float: left
+    min-width: 100px
+    margin-right: 10px
+    margin-bottom: 10px
+
+    &.sort
+      position: relative
+      z-index: 50
+
+    > *
+      padding: 7px
+
+    .description
+      float: left
+      &:before
+        margin: 0 5px 0 -5px
+
+    img
+      float: left
+      height: 25px
+      padding: 2px
+      padding-right: 0
+      margin: 2px 0px 2px 3px
+      @include border_radius(5px)
+
+    .remove
+      font-family: 'icomoon'
+      float: right
+      border-left: 1px solid $grey
+      color: $faded
+
+    .more
+      float: right
+      font-family: 'icomoon'
+      padding: 0
+      border-left: 1px solid $grey
+      color: $faded
+      font-size: 25px
+      width: 25px
+      line-height: 29px
+
+    ul.other_sorts
+      position: absolute
+      border: 1px solid #ccc
+      z-index: 50
+      top: 30px
+      right: 0
+      left: 0
+      background: white
+      padding: 0
+      @include border-bottom-left-radius(3px)
+      @include border-bottom-right-radius(3px)
+
+      li
+        a
+          display: inline-block
+          padding: 5px 10px
+          width: 100%
+          &:hover
+            background: #eee
+
+      &:hover
+        cursor: pointer
+
+    &:hover
+      @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+      .remove, .more
+        color: #666
+        &:hover
+          color: $orange
+
+  .search-container
+    position: absolute
+    right: 0
+    top: 0
+
+    input#search
+      float: left
+      padding: 5px 20px 5px 10px
+      width: 200px
+      border: 1px solid $border-color2
+      font-size: 12px
+      line-height: 14px
+      @include border-radius(20px)
+      @include transition
+      &:focus
+        @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+        border-color: lighten($orange, 25%)
+
+    a.search
+      float: right
+      font-size: 14px
+      margin: 7px 6px 0 -20px

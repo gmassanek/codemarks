@@ -1,54 +1,42 @@
+@javascript @omniauth_test_success
 Feature: Saving Codemarks
-  In order to make sense
-  As anybody
   I want to save codemarks
 
-  @javascript @omniauth_test_success
-  Scenario: Saving twitter on the dashboard
-    Given I am a logged in user
-    When I go to my dashboard
-    And I fill out the codemark form with Twitter
-    Then I should see "Twitter"
-    And that codemark should have a note
-    And I should be Twitter's author
+  Background:
+    Given I am logged in
 
-  @javascript @omniauth_test_success
+  @vcr
+  Scenario: Saving google on the dashboard
+    And I fill out and submit the add codemark form with Google
+    Then I should see "Google"
+    And I should be Google's author
+
   Scenario: Stealing somebody's codemark leaves them as the author
-    Given tom_brady has codemarked Twitter
-    And I am a logged in user
-    When I go to the public page
-    And I copy that codemark
+    Given Tom Brady is a user
+    And tom_brady has codemarked Google
+    And I am on the codemarks page
+    When I copy that codemark
     And I submit the codemark form
-    Then tom_brady should still be Twitter's author
+    Then tom_brady should still be Google's author
 
-  @javascript @omniauth_test_success
+  @vcr
   Scenario: Different users saving codemarks with the same resource
     Given there is 1 codemark
-    And I am a logged in user
-    When I go to my dashboard
+    And I am on the codemarks page
     And I fill out the codemark form with the existing one
     Then I should have 1 codemark
     And there should be 2 codemarks
     And there should be 1 links
 
-  @javascript @omniauth_test_success
   Scenario: Editing my own codemark
-    Given I am a logged in user
     And I have 1 codemarks
-    When I go to the public page
-    And I click the edit icon
-    Then I should see the data for that codemark in the codemark form
+    And I am on the codemarks page
+    When I click the edit icon
+    Then I should see a codemark form
 
-  @javascript @omniauth_test_success
-  Scenario: Stealing somebody's codemark
-    Given I am a logged in user
-    And gmassanek is a user with a codemark
-    When I go to the public page
-    And I copy that codemark
-    Then I should see the data for that codemark in the codemark form
-
-  @javascript
   Scenario: Can't steal if not logged in
-    Given gmassanek is a user with a codemark
-    When I go to the public page
-    Then I should not see "steal"
+    Given Tom Brady is a user
+    And tom_brady has codemarked Google
+    And I am not logged in anymore
+    And I am on the codemarks page
+    Then I should not see the copy icon

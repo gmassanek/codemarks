@@ -1,8 +1,9 @@
-#header
+%header
   .site_content
+    = render '/layouts/tabs'
     #logo
-      - logo = image_tag 'cm-logo-1-small.png'
+      - logo = image_tag 'cm_tag_440x280_transparent.png'
       = link_to logo, root_path
 
-    = render '/codemarks/form' if logged_in?
     = render '/layouts/authentication'
+    = link_to 'About', about_path, :class => 'about_link'

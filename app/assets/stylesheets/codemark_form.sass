@@ -1,74 +1,28 @@
-// Variables
-@import "configuration"
-
-#codemark_form
-  $border-sz: 2px
-  z-index: 100
-  border: $border-sz solid $border-color2
-  border-radius: $border-radius
-  float: left
-  width: 600px
+.codemark_form
+  height: $tile-header-height + $tile-main-height
+  margin-bottom: $tile-footer-height
+  padding: 10px
 
   input:not([type=submit]), textarea
-    width: 85%
-    margin: 5px 0
-
-  #first
-    width: 520px
-    margin: 0 auto
-    input
-      &[type=url]
-        padding: 4px
-        width: 400px
-
-  #second
-    margin: 10px auto 0
-    padding: 10px
-    border-top: $border-sz solid $border-color2
-
-    label
-      float: left
-
-    input:not([type=submit]), textarea
-      float: right
-
-    textarea
-      height: 50px
-
-    #link_form_topic_autocomplete
-      margin: 0 40px
-
-  &.first
-    border: $border-sz solid transparent
-    #second 
-      display: none
-
-  &.second
-    background: white
-
-    #resource_attrs_title
-      width: 85%
-
-  ul#topic_tags
-    font-size: 12px
     width: 100%
 
-    li
-      width: 85%
-      margin: 5px auto
-      //background: lighten($border-color2, 10%)
-      //border: 1px solid $border-color2
-      //border-radius: $border-radius
-      padding: 3px 5px
+  .url
+    margin-bottom: 10px
+    word-wrap: break-word
 
-      .title
-        float: left
+  .topics
+    display: block
 
-      .delete
-        float: right
-        font-size: 10px
-        font-weight: bold
-        margin: 4px 3px 0px 5px
+    &.select2-container-multi .select2-choices .select2-search-field input
+      height: auto
 
-        &.first
-          margin-left: none
+  footer
+    .hover-icons
+      display: block
+      .cancel
+        display: block
+        margin-bottom: 10px
+
+
+.select2-results
+  max-height: 120px

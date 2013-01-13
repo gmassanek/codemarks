@@ -1,11 +1,1 @@
-%li.topic
-  %p.title= link_to topic.title, topic, :class => "title"
-  %ul.data.piped
-    /%li.first.last= pluralize(topic.codemarks.count, "link")
-    /li.last=# last updated #{time_ago_in_words(topic.updated_at)} ago
-  .admin_links
-    = link_to "Edit", edit_topic_path(topic)
-    =# link_to "Delete", topic, :method => :delete
-  .clear
-  %p.description= topic.description
-  .clear
+= link_to topic.title, codemarks_path(:topic_ids => topic.slug), :class => "title", :style => "font-size: #{Math.log2(topic.cm_count.to_i) * 4 + 12}px"

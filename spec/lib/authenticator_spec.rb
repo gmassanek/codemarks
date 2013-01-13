@@ -66,7 +66,7 @@ describe Authenticator do
        
       auth_hash["uid"] = 2342
       Authenticator.add_authentication_to_user(user, "twitter", auth_hash)
-      user.authentication_by_provider("twitter").uid.should == "2342"
+      user.authentication_by_provider("twitter").uid.should == 2342
     end
 
     it "creates a new user authentication if it's new" do

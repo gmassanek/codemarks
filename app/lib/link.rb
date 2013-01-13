@@ -1,6 +1,7 @@
 require_relative 'taggable'
 require 'nokogiri'
 require 'open-uri'
+require 'postrank-uri'
 
 class Link
   include Taggable
@@ -9,13 +10,17 @@ class Link
   def initialize(attributes = {})
     return if attributes.blank?
     self.id = attributes[:id]
-    self.url = attributes[:url]
+    self.url = Link.normalize(attributes[:url])
     self.author_id = attributes[:author_id]
   end
 
   def load
     self.link_record = load_link_record
     self
+  end
+
+  def attributes
+    link_record.attributes
   end
 
   def self.load(attributes = {})
@@ -50,14 +55,22 @@ class Link
     html_response = parsed_html_response(url)
 
     link_record.url = self.url
-    link_record.title = html_response.title
+    link_record.title = html_response.title.try(:strip)
     link_record.host = URI.parse(url).host
     link_record.site_data = html_response.content
     link_record.save!
     link_record
-  rescue Exception => e
+  rescue OpenURI::HTTPError => e
     p e
-    return nil
+    link_record.url = url
+    link_record.host = URI.parse(url).host
+    link_record.save!
+    link_record
+  rescue ActiveRecord::StatementInvalid => e
+    p e
+    link_record.site_data = nil
+    link_record.save!
+    link_record
   end
 
   #should pass this off to Tagger via Tagger.tag_these([:title, :html_content])
@@ -72,6 +85,11 @@ class Link
   def update_author(author_id = nil)
     @author_id = author_id if author_id
     persist_author if orphan?
+  end
+
+  def self.normalize(url)
+    return if url.blank?
+    PostRank::URI.clean(url)
   end
 
   private

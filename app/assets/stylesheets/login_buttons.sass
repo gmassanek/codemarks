@@ -1,22 +1,26 @@
 @import "bourbon"
+@import "mixins/user_drag"
 
 .btn-auth
   position: relative
   display: inline-block
   padding: 5px 1em
   border: 1px solid #999
-  margin: 30px 5px
   text-align: center
   text-decoration: none
   white-space: nowrap
   cursor: pointer
-  color: #222
+  color: #fff
   background: #fff
   height: 36px
   line-height: 36px
   font-size: 20px
+  z-index: 0
   @include border-radius(5px)
   @include box-sizing(content-box)
+  @include user-select(none)
+  @include user-drag(none)
+
   /* iOS */
   -webkit-appearance: none
   /* IE6/7 hacks */
@@ -24,94 +28,52 @@
   *display: inline
   *zoom: 1
 
-  -moz-user-select: -moz-none
-  -webkit-user-select: none
-  user-select: none
-
-  -moz-user-drag: -moz-none
-  -webkit-user-drag: none
-  user-drag: none
-
-  z-index: 0
-
-
 .btn-auth:hover,
 .btn-auth:focus,
 .btn-auth:active
   text-decoration: none
-
+  color: #fff
 
 .btn-auth:before
-  width: 36px
-  height: 36px
-  content: ""
-  float: left
-  background: url(auth-icons2.png) no-repeat 99px 99px
-
+  margin: 0 0.6em 0 -0.3em
+  font-family: 'icomoon'
 
 .btn-auth::-moz-focus-inner
   border: 0
   padding: 0
 
 
-/* Twitter
-   ========================================================================== */
-
 .btn-twitter
-  color: #fff
-  border-color: darken(#249bc9, 5%)
-  border-bottom-color: darken(#249bc9, 10%)
   border-color: darken(#249bc9, 5%)
   border-bottom-color: darken(#249bc9, 10%)
   @include linear-gradient(lighten(#249bc9, 5%), darken(#249bc9, 5%))
   text-shadow: -1px -1px 0 rgba(0,0,0,0.3)
 
-
 .btn-twitter:hover,
 .btn-twitter:focus
   border-color: #2687b9
   background-color: #cadde9
-  color: #fff
   @include linear-gradient(darken(#249bc9, 0%), darken(#249bc9, 15%))
 
-
 .btn-twitter:active
-  //background: #cadde9
-  //-webkit-box-shadow: inset 0 1px 0 #bbd6e7
   background-image: -webkit-linear-gradient(#249bc9, lighten(#249bc9, 15%))
-  //box-shadow: inset 0 1px 0 #bbd6e7
-
-
-/*
- * Icon
- */
 
 .btn-twitter:before
-  margin: 0 0.6em 0 -0.6em
-  background-position: -22px 0
-  background-position: -36px -22px
+  content: "\e023"
 
-
-
-/* GitHub
-   ========================================================================== */
 
 .btn-github
   border-color: darken(#518cc6, 5%)
   border-bottom-color: darken(#2a65a0, 5%)
-  color: #fff
   background-color: #599bdc
   @include linear-gradient(darken(#599bdc, 15%), darken(#3072b3, 25%))
   text-shadow: -1px -1px 0 rgba(0,0,0,0.3)
 
-
 .btn-github:hover,
 .btn-github:focus
-  color: #fff
   border-color: darken(#518cc6, 15%)
   background-color: darken(#599bdc, 5%)
-  @include linear-gradient(#599bdc, #3072b3)
-
+  @include linear-gradient(darken(#599bdc, 5%), darken(#3072b3, 15%))
 
 .btn-github:active
   border-color: #2A65A0
@@ -119,19 +81,5 @@
   background: #3072B3
   @include linear-gradient(#3072b3, #599bdc)
 
-
-/*
- * Icon
- */
-
 .btn-github:before
-  margin: 0 0.6em 0 -0.6em
-  background-position: -108px -22px
-
-
-.btn-github:hover:before,
-.btn-github:focus:before,
-.btn-github:active:before
-  //background-position: -72px -22px
-
-
+  content: "\e028"

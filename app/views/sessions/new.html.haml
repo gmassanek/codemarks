@@ -1,6 +1,6 @@
-= form_tag create_session_path do
-  Email
-  = text_field :user, :email
-  Password
-  = password_field :user, :password
-  = submit_tag "Sign in"
+%h4
+  %p You are currently not signed in to Codemarks.
+  %p Sign in below in order to save codemarks and access your private info
+
+= link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
+= link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"

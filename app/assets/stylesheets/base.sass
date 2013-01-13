@@ -1,52 +1,73 @@
-@import "configuration"
-@import "header"
-@import "sidebar"
+@import 'fonts'
 
 html
+  height: 100%
+  color: $c1
+  font: 12px aller, 'Proxima Nova', 'Helvetica Neue', 'HelveticaNeue', Helvetica, Arial, 'Lucida Grande', sans-serif
 
-a:hover
-  cursor: pointer
+  body
+    background: #F4F4F4
 
-.content
-  overflow: hidden
+h1, h2, h3, h4, h5, h6
+  font-weight: bold
+  line-height: 1.5em
+  margin: 0
 
-.site_search
-  input
-    padding: 3px
-    border: 1px solid $border-color1
-    border-radius: $border-radius-tight
-    width: 150px
+h1
+  font-size: 160%
+h2
+  font-size: 150%
+h3
+  font-size: 140%
+h4
+  font-size: 130%
+h5
+  font-size: 120%
+h6
+  font-size: 110%
+em
+  font-style: italic
 
-#logo
-  float: left
-  margin-top: 10px
+*:focus
+  outline: none
 
-  img
-    margin-top: 1px
-    height: 26px
+.inputs
+  label
+    margin-right: 5px
+    font-size: 14px
+a
+  color: $c2
+  text-decoration: none
+  @include transition
 
-#authentication
-  float: right
-  margin-top: 18px
+  &:hover
+    cursor: pointer
+    color: $c5
+    text-decoration: none
+  &.disabled
+    color: $c1
+    &:hover
+      cursor: default
 
-  li
-    float: left
-    padding: 0 15px
+.clear
+  clear: both
 
-    &.last
-      padding-right: 0
+.clearfix:after
+  content: "."
+  display: block
+  clear: both
+  visibility: hidden
+  line-height: 0
+  height: 0
 
-    &.image
-      margin: -5px -20px 0 0
-      padding: 0
-      padding-right: 10px
-      img
-        border: 1px solid $c6
-        height: 25px
+.clearfix
+  display: inline-block
 
-  .site_search input
-    margin-top: -2px
-    padding: 2px
+html[xmlns] .clearfix
+  display: block
 
-body
-  background: #FAFAFA
+* html .clearfix
+  height: 1%
+
+.hide
+  display: none

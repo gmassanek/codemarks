@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
 
-  has_many :authentications, :inverse_of => :user, :dependent => :destroy
+  has_many :authentications, :dependent => :destroy
   has_many :codemark_records, :dependent => :destroy
   has_many :links, :through => :codemark_records
   has_many :topics, :through => :codemark_records
@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :nuggets, :class_name => 'LinkRecord', :foreign_key => :author_id
 
   after_save :take_nickname_from_authentication
+
+  validates_uniqueness_of :nickname
 
   def self.find_by_email email
     id = User.select('users.id')
@@ -34,12 +36,12 @@ class User < ActiveRecord::Base
     if self.nickname.nil?
       nickname = authentications.first.nickname
       self.nickname = nickname
-      self.save
+      self.save!
     end
   end
 
-  def authentication_by_provider provider
-    authentications.find(:first, :conditions => ["provider = ?", provider])
+  def authentication_by_provider(provider)
+    authentications.find { |a| a.provider.to_s == provider.to_s }
   end
 
   def missing_authentications
@@ -62,5 +64,18 @@ class User < ActiveRecord::Base
       auth_vals = authentications.collect { |auth| auth.send attr }
       return auth_vals.compact.first
     end
+  end
+
+  def favorite_topics
+    favorite_topic_counts = topics.group('topics.id').select('topics.id, count(*)').order('count desc').first(15)
+    return unless favorite_topic_counts.present?
+
+    favorites = {}
+    topics = Topic.find(favorite_topic_counts.map(&:id))
+    Array(favorite_topic_counts).each do |topic_count|
+      topic = topics.find { |t| t.id == topic_count.id }
+      favorites[topic] = topic_count.count.to_i
+    end
+    favorites
   end
 end
