@@ -55,6 +55,11 @@ class CodemarksController < ApplicationController
     end
   end
 
+  def show
+    codemark = CodemarkRecord.find(params[:id])
+    render :json => PresentCodemarks.present(codemark, current_user)
+  end
+
   def destroy
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.destroy
