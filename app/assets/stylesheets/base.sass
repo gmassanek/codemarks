@@ -8,12 +8,12 @@ html
   body
     background: #F4F4F4
 
-h1, h2, h3, h4, h5, h6 
+h1, h2, h3, h4, h5, h6
   font-weight: bold
   line-height: 1.5em
   margin: 0
 
-h1 
+h1
   font-size: 160%
 h2
   font-size: 150%
@@ -35,7 +35,7 @@ em
   label
     margin-right: 5px
     font-size: 14px
-a 
+a
   color: $c2
   text-decoration: none
   @include transition
@@ -51,6 +51,23 @@ a
 
 .clear
   clear: both
+
+.clearfix:after
+  content: "."
+  display: block
+  clear: both
+  visibility: hidden
+  line-height: 0
+  height: 0
+
+.clearfix
+  display: inline-block
+
+html[xmlns] .clearfix
+  display: block
+
+* html .clearfix
+  height: 1%
 
 .hide
   display: none
