@@ -39,7 +39,7 @@ When /^I go to tom\-brady's profile$/ do
   visit codemarks_path
   click_link 'tom-brady'
   step 'I wait until all Ajax requests are complete'
-  within('.controlPanel') do
+  within('.control-panel') do
     click_link 'tom-brady'
   end
 end
