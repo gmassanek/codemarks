@@ -5,4 +5,6 @@ window.App =
       cache: false
 
     App.router = new App.MainRouter
-    Backbone.history.start({pushState: true})
+    App.socketListener = new App.SocketListener()
+    Backbone.history.start
+      pushState: true

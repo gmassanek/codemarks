@@ -29,6 +29,7 @@ gem "postrank-uri", "~> 1.0.17"
 gem 'gibbon'
 gem 'whenever', "0.7", :require => false
 gem 'twitter'
+gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
