@@ -4,7 +4,7 @@ App.CodemarksView = Backbone.View.extend
   initialize: ->
     @codemarks = @options.codemarks
     @codemarks.bind 'reset', => @render()
-    @codemarks.bind 'add', (data) => @addCodemark(data)
+    @codemarks.bind 'add', (codemark) => @addCodemark(codemark)
 
   render: ->
     @$el.html('')
@@ -37,8 +37,7 @@ App.CodemarksView = Backbone.View.extend
     paginationView.render()
     paginationView.$el
 
-  addCodemark: (data) ->
-    codemark = new App.Codemark(data)
+  addCodemark: (codemark) ->
     if @newCodemarkTile?
       @newCodemarkTile.$el.after(@codemarkHtml(codemark))
     else
