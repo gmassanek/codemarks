@@ -144,6 +144,9 @@ GEM
     libwebsocket (0.1.7.1)
       addressable
       websocket
+    lograge (0.1.2)
+      actionpack
+      activesupport
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -325,6 +328,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  lograge
   newrelic_rpm
   nokogiri
   omniauth-github (~> 1.0.1)

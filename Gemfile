@@ -30,6 +30,7 @@ gem 'gibbon'
 gem 'whenever', "0.7", :require => false
 gem 'twitter'
 gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
+gem "lograge"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
