@@ -4,7 +4,7 @@ App.MainRouter = Backbone.Router.extend
     'codemarks?:params': 'codemarks'
     'codemarks': 'codemarks'
     'users/:username': 'showUser'
-    'users': 'userIndex'
+    'users(?page=:page)': 'userIndex'
 
   codemarks: (params) ->
     @codemarks = App.codemarks = new App.Codemarks
