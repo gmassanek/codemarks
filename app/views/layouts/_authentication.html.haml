@@ -12,5 +12,5 @@
       = link_to 'Login', new_session_path
     %ul.options.logged_out
       %li= link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter icon-twitter"
-      %li= link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github icon-github"
+      %li.hide= link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github icon-github"
       .clear
