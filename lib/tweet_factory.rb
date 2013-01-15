@@ -14,7 +14,6 @@ class TweetFactory
   def tweet
     @main_text = "#{@tagline} #{@codemark.title}"
     @url = @codemark.resource.url
-    @via = "via @#{@codemark.user.nickname} @codemarks"
 
     while(there_is_room_for_topics?)
       topics_being_tweeted << topics.pop
@@ -23,21 +22,21 @@ class TweetFactory
     tweet_text.sub('  ', ' ')
   end
 
+  private
+
   def there_is_room_for_topics?
-    return false unless @topics.present?
+    return false unless topics.present?
 
     new_length = current_length + topics.last.length + 2
     new_length < TWEET_LENGTH
   end
 
-  private
-
   def tweet_text
-    "#{@main_text} #{@url} #{topic_text} #{@via}"
+    "#{@main_text} #{@url} #{topic_text} #{via}"
   end
 
   def current_length
-    tweet_text.sub(@url, SHORTENED_URL_LENGTH * '1').length
+    tweet_text.sub(@url, 'a' * SHORTENED_URL_LENGTH).length
   end
 
   def topic_text
@@ -50,5 +49,15 @@ class TweetFactory
 
   def topics
     @topics ||= @codemark.topics.map(&:slug).sort_by(&:length).reverse
+  end
+
+  def via
+    return @via if @via
+    twitter_auth = @codemark.user.authentication_by_provider(:twitter)
+    if twitter_auth
+      @via = "via @#{twitter_auth.nickname}"
+    else
+      @via = "via #{@codemark.user.nickname}"
+    end
   end
 end

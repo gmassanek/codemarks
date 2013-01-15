@@ -12,10 +12,16 @@ describe TweetFactory do
       TweetFactory.codemark_of_the_day(codemark).should include('http')
     end
 
-    it 'contains "via @codemarks"' do
-      codemark = Fabricate(:codemark_record)
-      TweetFactory.codemark_of_the_day(codemark).should include('via')
-      TweetFactory.codemark_of_the_day(codemark).should include('@codemarks')
+    it 'contains "via @nickname" for twitter users' do
+      user = Fabricate(:twitter_user)
+      codemark = Fabricate(:codemark_record, :user => user)
+      TweetFactory.codemark_of_the_day(codemark).should include("via @#{user.nickname}")
+    end
+
+    it 'contains "via nickname" for github users' do
+      user = Fabricate(:github_user)
+      codemark = Fabricate(:codemark_record, :user => user)
+      TweetFactory.codemark_of_the_day(codemark).should include("via #{user.nickname}")
     end
 
     it 'should not contain two consecutive spaces' do
