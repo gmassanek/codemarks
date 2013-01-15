@@ -9,8 +9,11 @@ gem 'ffaker'
 gem 'nokogiri'
 gem 'kaminari'
 gem 'gravatar_image_tag'
-gem 'omniauth-twitter'
-gem 'omniauth-github', "~> 1.0.1"
+gem 'omniauth', '1.1.0'
+gem 'omniauth-github', '1.0.1'
+gem 'omniauth-oauth', '1.0.1'
+gem 'omniauth-oauth2', '1.0.2'
+gem 'omniauth-twitter', '0.0.8'
 #gem 'therubyracer'
 #gem 'libv8', '~> 3.11.8' # You might need the native extentions for ruby racer
 gem 'newrelic_rpm'
