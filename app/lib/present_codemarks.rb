@@ -22,7 +22,7 @@ class PresentCodemarks
       author: present_user(user),
       topics: codemark.topics.map(&:attributes)
     })
-    data['title'] = codemark.title
+    data['title'] = codemark.title || 'No title'
     data
   end
 
