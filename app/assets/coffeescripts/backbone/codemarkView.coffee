@@ -73,6 +73,7 @@ App.CodemarkView = Backbone.View.extend
     url = "/links/#{@model.get('resource').id}/click "
     $.post(url)
     $(e.currentTarget).unbind('click')
+    _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
