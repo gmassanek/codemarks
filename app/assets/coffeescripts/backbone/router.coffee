@@ -1,12 +1,12 @@
 App.MainRouter = Backbone.Router.extend
   routes:
     '': 'codemarks'
-    'codemarks?:params': 'codemarks'
     'codemarks': 'codemarks'
     'users/:username': 'showUser'
     'users(?page=:page)': 'userIndex'
 
-  codemarks: (params) ->
+  codemarks: ->
+    params = window.location.search.substring(1)
     @codemarks = App.codemarks = new App.Codemarks
     @codemarks.filters.loadFromCookie($.deparam(params || ''))
     @$container = $('#main_content')
