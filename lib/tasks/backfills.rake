@@ -1,4 +1,74 @@
 namespace :backfill  do
+  desc 'create a StarterLeague Booklist'
+  task :booklist => :environment do
+    file = File.open('script/src_files/booklist.txt', 'r').read
+    file.gsub!(/\r\n?/, "")
+    file.gsub!(/\\r\\n?/, "")
+    chunked_lines = {}
+    person = nil
+    file.each_line do |line|
+      if new_line = line == "\n"
+        person = nil
+      else
+        line.gsub!(/\n?/, "")
+        unless person
+          person = line
+          chunked_lines[person] = []
+        end
+        chunked_lines[person] << line
+      end
+    end
+
+    codemarks = {}
+    chunked_lines.each do |name, lines|
+      nickname = lines[1]
+
+      data = {
+        :nickname => nickname,
+        :text_name => name,
+        :resources => lines[2..-1].map do |resource_data|
+          split_data = resource_data.split(',')
+          {
+            title: split_data[0],
+            url: split_data[1],
+            extras: split_data[2..-1]
+          }
+        end
+      }
+      codemarks[nickname] = data
+    end
+
+    booklist = Topic.find_or_create_by_title('booklist')
+    starterleague = Topic.find_or_create_by_title('Starter League')
+
+    codemarks.each do |nickname, data|
+      user = User.find_by_nickname(nickname) || User.find_by_nickname('gmassanek')
+      p user.nickname
+
+      next unless data[:resources]
+      data[:resources].each do |resource_data|
+        link = Link.new(:url => resource_data[:url].strip, :author_id => user.id)
+        link.load
+        description = resource_data[:extras].join(' ').try(&:strip) if resource_data[:extras]
+
+        topics = [booklist, starterleague] | link.tags
+        topics = topics | Tagger.tag(description) if description
+        topics = topics.reject { |t| ['Amazon', 'Images', 'Width'].include?(t.title) }
+        topics = topics.first(4).compact
+
+        cm = Codemark.create({
+          :resource_id => link.link_record.id,
+          :resource => link.link_record,
+          :user_id => user.id,
+          :title => resource_data[:title],
+          :description => description
+        }, {
+          :ids => topics.map(&:id)
+        })
+      end
+    end
+  end
+
   desc 'normalize all link_record urls'
   task :normalize_urls => :environment do
     LinkRecord.all.each do |link|
