@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe TweetFactory do
   describe '#codemark_of_the_day' do
+    before do
+      bilty_response = mock(:short_url => 'http://google.com')
+      bitly = mock(:bitly, :shorten => bilty_response)
+      TweetFactory.any_instance.stub(:bitly => bitly)
+    end
+
     it 'includes "Codemark of the Day!' do
       codemark = Fabricate(:codemark_record)
       TweetFactory.codemark_of_the_day(codemark).should include('Codemark of the Day!')

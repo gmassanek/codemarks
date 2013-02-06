@@ -44,6 +44,10 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
+    bitly (0.8.1)
+      crack (>= 0.1.4)
+      httparty (>= 0.7.6)
+      oauth2 (>= 0.5.0, < 0.9)
     bourbon (3.0.1)
       sass (>= 3.2.0)
       thor
@@ -301,6 +305,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bcrypt-ruby
+  bitly
   bourbon
   browser
   capistrano
