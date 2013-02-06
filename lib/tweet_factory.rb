@@ -13,7 +13,8 @@ class TweetFactory
 
   def tweet
     @main_text = "#{@tagline} #{@codemark.title}"
-    @url = @codemark.resource.url
+
+    @url = bitly.shorten(@codemark.resource.url).short_url
 
     while(there_is_room_for_topics?)
       topics_being_tweeted << topics.pop
@@ -59,5 +60,9 @@ class TweetFactory
     else
       @via = "via #{@codemark.user.nickname}"
     end
+  end
+
+  def bitly
+    @bitly ||= Bitly.new('gmassanek', ENV['CODEMARK_BITLY_KEY'])
   end
 end
