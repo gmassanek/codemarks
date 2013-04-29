@@ -98,7 +98,6 @@ class FindCodemarks
   end
 
   def order_by_text
-    return order_texts['search_relavance'] if @search_term
     order_by_text = order_texts[@by.to_s]
     order_by_text ||= order_texts["default"]
   end
@@ -108,7 +107,6 @@ class FindCodemarks
       "default" => '"codemark_records".created_at DESC',
       "count" => 'save_count DESC',
       "visits" => 'visit_count DESC',
-      'search_relavance' => "ts_rank_cd(codemark_records.search, #{search_term_sql}) DESC"
     }
   end
 
