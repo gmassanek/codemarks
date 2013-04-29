@@ -202,6 +202,16 @@ describe FindCodemarks do
         cm = Fabricate(:codemark_record, :user => @user, :title => 'Github rocks')
         FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
+
+      it "uses the sort passed in" do
+        cm1 = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
+        cm3 = Fabricate(:codemark_record, :user => @user, :title => 'My boring pony')
+        cm2 = Fabricate(:codemark_record, :user => @user, :title => 'My ugly pony')
+        2.times { Fabricate(:click, :user => @user, :link_record => cm2.resource) }
+
+        all_cms = FindCodemarks.new(:by => :visits, :search_term => 'pony')
+        all_cms.codemarks.first.visit_count.should == "2"
+      end
     end
   end
 
