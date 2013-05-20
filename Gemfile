@@ -47,6 +47,7 @@ group :development, :test do
   gem 'foreman'
   gem 'pry'
   gem "vcr", "~> 2.3.0"
+  gem 'rails-erd'
 end
 
 group :test do
