@@ -18,7 +18,6 @@ my_urls = [
   'http://rspec.info/',
   'https://github.com/rspec/rspec-core',
   'http://anthonyterrien.com/knob/',
-  'http://icomoon.io/',
   'https://www.google.com/',
   'http://mylesmegyesi.blogspot.com/2011/11/tree-traversal-with-tail-recursion.html',
   'http://mylesmegyesi.blogspot.com/2011/11/minimax-depth.html',
@@ -27,7 +26,6 @@ my_urls = [
 ]
 
 beib_urls = [
-  'http://jetstrap.com/',
   'http://blog.8thlight.com/uncle-bob/2012/09/06/I-am-Your-New-CTO.html',
   'http://worrydream.com/LearnableProgramming/?utm_source=statuscode',
   'https://greenivy.mybalsamiq.com/projects',
