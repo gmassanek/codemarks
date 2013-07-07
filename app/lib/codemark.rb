@@ -84,15 +84,14 @@ class Codemark
 
   def self.save(attributes, tag_ids, options = {})
     codemark = Codemark.load(attributes)
-    codemark.tag_ids = tag_ids | handle_new_topics(options[:new_topics])
+    codemark.tag_ids = tag_ids
     codemark.user = Codemark.look_for_user(options)
     codemark.save_to_database
   end
 
   # assume a resource_id is always coming in
-  def self.create(attributes, topic_info, options = {})
+  def self.create(attributes, options = {})
     codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
-    attributes[:topic_ids] = build_topics(topic_info)
     attributes[:private] = private?(attributes[:topic_ids])
     if codemark_record
       codemark_record.update_attributes(attributes)
@@ -147,37 +146,14 @@ class Codemark
     CodemarkRecord.for_user_and_resource(user_id, resource_id)
   end
 
-  def self.build_topics(topic_info)
-    topic_ids = topic_info[:ids] || []
-    new_titles = topic_info[:new_topics]
-    return topic_ids if new_titles.nil?
-    new_titles.each do |title|
-      topic_ids << create_topic(title)
-    end
-    topic_ids
-  end
-
   private
-
-  def self.create_topic(title)
-    Topic.create!(:title => title).id
-  end
 
   def load_codemark_by_id(id)
     CodemarkRecord.find(id)
   end
 
-  # NEED TO TEST THESE CONNECTIONS??
-  #
   def load_link
     Link.load(url: @url)
-  end
-
-  def self.handle_new_topics(topic_titles)
-    return [] unless topic_titles
-    topic_titles.inject([]) do |topic_ids, title|
-      topic_ids << Topic.create!(:title => title).id
-    end
   end
 
   def self.look_for_user(options)

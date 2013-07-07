@@ -9,16 +9,11 @@ class CodemarksController < ApplicationController
   end
 
   def create
-    topic_ids = process_topic_slugs(params['codemark']["topic_ids"])
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
+    attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"])
 
-    topic_info = {
-      :ids => topic_ids,
-      :new_topics => params[:new_topics].try(:keys)
-    }
-
-    @codemark = Codemark.create(attributes, topic_info)
+    @codemark = Codemark.create(attributes)
 
     render :json => {
       :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
@@ -42,13 +37,14 @@ class CodemarksController < ApplicationController
       end
 
       format.json do
-        search_attributes = {}
-        search_attributes[:page] = params[:page]
-        search_attributes[:by] = params[:by]
-        search_attributes[:current_user] = current_user
-        search_attributes[:user] = @user
-        search_attributes[:topic_ids] = @topic_ids
-        search_attributes[:search_term] = params[:query]
+        search_attributes = {
+          :page => params[:page],
+          :by => params[:by],
+          :current_user => current_user,
+          :user => @user,
+          :topic_ids => @topic_ids,
+          :search_term => params[:query]
+        }
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
         render :json => PresentCodemarks.for(@codemarks, current_user, @user)
       end

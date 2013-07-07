@@ -12,11 +12,6 @@ describe Codemark do
         :user_id => @user_id,
         :resource_id => 10
       }
-      @topic_info = {
-        :topic_ids => [45, 12, 122],
-        :new_topic_titles => ['woo']
-      }
-
       @resource = stub
       @resource.stub(:update_author)
       @codemark = stub :resource => @resource
@@ -24,35 +19,23 @@ describe Codemark do
 
     describe '#create' do
       it 'searches for an existing codemark' do
-        Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
         Codemark.stub(:'private?')
         CodemarkRecord.stub(:'create!').and_return(@codemark)
         Codemark.should_receive(:existing_codemark).with(@user_id, 10)
-        Codemark.create(@attributes, @topic_info)
-      end
-
-      it 'builds topics' do
-        Codemark.stub(:existing_codemark)
-        Codemark.stub(:set_resource_author)
-        Codemark.stub(:'private?')
-        CodemarkRecord.stub(:'create!').and_return(@codemark)
-        Codemark.should_receive(:build_topics).with(@topic_info)
-        Codemark.create(@attributes, @topic_info)
+        Codemark.create(@attributes)
       end
 
       it 'updates an existing codemark' do
         Codemark.stub(:existing_codemark).and_return(@codemark)
-        Codemark.stub(:build_topics)
         Codemark.stub(:'private?')
         Codemark.stub(:set_resource_author)
         @codemark.should_receive(:update_attributes)
-        Codemark.create(@attributes, @topic_info)
+        Codemark.create(@attributes)
       end
 
       it 'creates a new codemark' do
         Codemark.stub(:existing_codemark)
-        Codemark.stub(:build_topics)
         Codemark.stub(:set_resource_author)
         Codemark.stub(:'private?')
         CodemarkRecord.stub(:'create!').with(@attributes).and_return(@codemark)
@@ -61,24 +44,12 @@ describe Codemark do
 
       it 'sets the resource author' do
         Codemark.stub(:existing_codemark)
-        Codemark.stub(:build_topics)
         Codemark.stub(:'private?')
         CodemarkRecord.stub(:'create!').and_return(@codemark)
         @resource.should_receive(:update_author).with(@user_id)
         Codemark.create(@attributes, @topic_info)
       end
     end
-
-    describe '#build_topics' do
-      before do
-        Codemark.stub(:create_topic)
-      end
-
-      it 'accepts a hash with :ids => [1, 2, 3] and :new_titles => ["woo"]' do
-        Codemark.build_topics(@topic_info)
-      end
-    end
-
   end
 
   describe "#initialize" do
@@ -316,7 +287,6 @@ describe Codemark do
       tag_ids = []
       codemark = Codemark.new(:tag_ids => tag_ids)
       Codemark.should_receive(:load).with(attributes).and_return(codemark)
-      Codemark.stub(:handle_new_topics) { [] }
       Codemark.stub(:look_for_user)
       codemark.stub(:save_to_database)
       Codemark.save(attributes, tag_ids)

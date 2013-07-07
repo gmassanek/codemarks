@@ -26,11 +26,4 @@ describe Topic do
       topic.global.should == true
     end
   end
-
-  it "returns all associated codemarks" do
-    topic = Fabricate(:topic)
-    codemark = Fabricate(:codemark_record, topics: [topic])
-    codemark2 = Fabricate(:codemark_record, topics: [topic])
-    topic.codemark_records.should == [codemark, codemark2]
-  end
 end
