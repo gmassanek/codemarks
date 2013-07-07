@@ -24,14 +24,6 @@ describe "Can build codemarks" do
     }.should change(CodemarkTopic, :count)
   end
 
-  it "adds any new topics to the tag_id list" do
-    user = Fabricate(:user)
-    codemark = Codemark.save({:url => 'http://www.google.com'}, [], :new_topics => ['Rspec', 'Search'], :user_id => user.id)
-
-    codemark2 = Codemark.save({:url => 'http://www.google.com'}, codemark.tag_ids, :new_topics => ['this', 'that'], :user_id => user.id)
-    codemark2.tag_ids.length.should == 4
-  end
-
   it "persists the codemark" do
     user = Fabricate(:user)
     google = Topic.create(:title => "Google")
@@ -71,7 +63,7 @@ describe "Can build codemarks" do
 
   it "suggests the topic from an existing codemark of the same resource" do
     user = Fabricate(:user)
-    codemark = Codemark.save({:url => 'http://www.google.com'}, [], :new_topics => ['Rspec', 'Search'], :user_id => user.id)
+    codemark = Codemark.save({:url => 'http://www.google.com'}, [], :user_id => user.id)
 
     another_user = Fabricate(:user)
     new_codemark = Codemark.load(:url => 'http://www.google.com', :user_id => another_user.id)
@@ -80,7 +72,7 @@ describe "Can build codemarks" do
 
   it "loads only my topic tags when I edit one" do
     user = Fabricate(:user)
-    codemark = Codemark.save({:url => 'http://www.google.com'}, [], :new_topics => ['Rspec', 'Search'], :user_id => user.id)
+    codemark = Codemark.save({:url => 'http://www.google.com'}, [], :user_id => user.id)
 
     another_user = Fabricate(:user)
     new_codemark = Codemark.load(:url => 'http://www.google.com', :user_id => another_user.id)
