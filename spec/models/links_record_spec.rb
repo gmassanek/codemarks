@@ -13,6 +13,6 @@ describe LinkRecord do
 
   it 'coerces title to an empty string' do
     link = LinkRecord.create(:url => 'http://www.google.com', :host => 'google.com')
-    link.title.should == ''
+    link.title.should == '(No title)'
   end
 end
