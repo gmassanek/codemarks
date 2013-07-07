@@ -13,7 +13,7 @@ class LinkRecord < ActiveRecord::Base
   end
 
   def default_title
-    self.title ||= ''
+    self.title ||= '(No title)'
   end
 
   def update_author(author_id = nil)
