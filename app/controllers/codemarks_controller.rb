@@ -14,6 +14,7 @@ class CodemarksController < ApplicationController
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
     attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"])
+    attributes[:resource] = Resource.create(attributes[:resource_type], params[:resource]) unless attributes[:resource_id]
 
     @codemark = CodemarkRecord.update_or_create(attributes)
 
