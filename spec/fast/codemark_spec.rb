@@ -4,52 +4,13 @@ unless defined?(CodemarkRecord)
   module CodemarkRecord; end
 end
 
+unless defined?(User)
+  module User; end
+end
+
 describe Codemark do
-  context 'coming from the API' do
-    before do
-      @user_id = 10
-      @attributes = {
-        :user_id => @user_id,
-        :resource_id => 10
-      }
-      @resource = stub
-      @resource.stub(:update_author)
-      @codemark = stub :resource => @resource
-    end
-
-    describe '#create' do
-      it 'searches for an existing codemark' do
-        Codemark.stub(:set_resource_author)
-        Codemark.stub(:'private?')
-        CodemarkRecord.stub(:'create!').and_return(@codemark)
-        Codemark.should_receive(:existing_codemark).with(@user_id, 10)
-        Codemark.create(@attributes)
-      end
-
-      it 'updates an existing codemark' do
-        Codemark.stub(:existing_codemark).and_return(@codemark)
-        Codemark.stub(:'private?')
-        Codemark.stub(:set_resource_author)
-        @codemark.should_receive(:update_attributes)
-        Codemark.create(@attributes)
-      end
-
-      it 'creates a new codemark' do
-        Codemark.stub(:existing_codemark)
-        Codemark.stub(:set_resource_author)
-        Codemark.stub(:'private?')
-        CodemarkRecord.stub(:'create!').with(@attributes).and_return(@codemark)
-        Codemark.create(@attributes, @topic_info)
-      end
-
-      it 'sets the resource author' do
-        Codemark.stub(:existing_codemark)
-        Codemark.stub(:'private?')
-        CodemarkRecord.stub(:'create!').and_return(@codemark)
-        @resource.should_receive(:update_author).with(@user_id)
-        Codemark.create(@attributes, @topic_info)
-      end
-    end
+  before do
+    User.stub(:find_by_id => mock(:user, :id => 1))
   end
 
   describe "#initialize" do
@@ -134,9 +95,11 @@ describe Codemark do
     end
 
     it "loads the link if it didn't get a codemark yet" do
-      link = stub
+      link = mock(:link, :id => 1)
       codemark = Codemark.new
-      codemark.should_receive(:load_link).and_return(link)
+      CodemarkRecord.stub(:find_by_id => nil)
+      Link.should_receive(:load).and_return(link)
+      CodemarkRecord.stub(:for_user_and_resource)
       codemark.load
       codemark.resource.should == link
     end
@@ -145,7 +108,9 @@ describe Codemark do
       link = stub
       codemark = Codemark.new
       codemark.stub(:load_link)
-      codemark.should_receive(:load_users_codemark)
+      Link.stub(:load => mock(:id => 1))
+      CodemarkRecord.stub(:find_by_id => nil)
+      CodemarkRecord.should_receive(:for_user_and_resource)
       codemark.load
     end
   end
@@ -153,38 +118,32 @@ describe Codemark do
   describe "#load_requested_codemark" do
     it "loads codemark from persistance and steals it's attributes" do
       codemark = Codemark.new(:id => 122)
-      codemark.should_receive(:load_codemark_by_id).with(122).and_return(stub)
+      CodemarkRecord.should_receive(:find_by_id).with(122).and_return(stub)
       codemark.should_receive(:pull_up_attributes)
-      codemark.load_requested_codemark
-    end
-
-    it "doesn't bother with persistance without an id" do
-      codemark = Codemark.new
-      codemark.should_not_receive(:load_codemark_by_id)
-      codemark.should_not_receive(:pull_up_attributes)
       codemark.load_requested_codemark
     end
 
     it "returns true if it found a codemark" do
       codemark = Codemark.new(:id => 122)
-      codemark.stub(:load_codemark_by_id).and_return(stub)
+      CodemarkRecord.stub(:find_by_id => stub)
       codemark.stub(:pull_up_attributes)
       codemark.load_requested_codemark.should == true
     end
   end
 
   describe "#load_users_codemark" do
-    let(:user) { stub }
-    let(:resource) { stub }
+    let(:user) { mock(:user, :id => 1) }
+    let(:resource) { mock(:resource, :id => 1) }
 
     it "loads codemark from persistance and steals their attributes" do
       codemark = Codemark.new(user: user, resource: resource)
-      codemark.should_receive(:load_codemark_for_user).and_return(stub)
+      CodemarkRecord.stub(:for_user_and_resource => stub)
       codemark.should_receive(:pull_up_attributes)
       codemark.load_users_codemark
     end
 
     it "doesn't bother with persistance without a user" do
+      User.stub(:find_by_id => nil)
       codemark = Codemark.new(resource: resource)
       codemark.should_not_receive(:pull_up_attributes)
       codemark.load_users_codemark

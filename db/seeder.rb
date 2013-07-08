@@ -18,12 +18,10 @@ class Seeder
       link = Link.load(:url => url)
       attributes = {
         :resource => link.link_record,
-        :user_id => user.id
+        :user_id => user.id,
+        :topic_ids => link.tag_ids
       }
-      topic_info = {
-        :ids => link.tag_ids
-      }
-      Codemark.create(attributes, topic_info)
+      CodemarkRecord.create!(attributes)
     end
 
     def clear_database

@@ -13,7 +13,7 @@ class CodemarksController < ApplicationController
     attributes[:user_id] = current_user.id
     attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"])
 
-    @codemark = Codemark.create(attributes)
+    @codemark = CodemarkRecord.update_or_create(attributes)
 
     render :json => {
       :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
