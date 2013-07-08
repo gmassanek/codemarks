@@ -57,25 +57,38 @@ describe CodemarksController do
       @link = Fabricate(:link_record)
       @topics = [Fabricate(:topic), Fabricate(:topic)]
 
-      @params = { "codemark"=> {
-        "title"=>"jQuery Knob demo",
-        "description"=>"",
-        "resource_id" => @link.id,
-        "resource_type" => 'LinkRecord',
-        "topic_ids"=>"#{@topics.first.slug},test-new-topic"
-      }
+      @params = {
+        "format" => :json,
+        "codemark"=> {
+          "title"=>"jQuery Knob demo",
+          "description"=>"",
+          "resource_id" => @link.id,
+          "resource_type" => 'LinkRecord',
+          "topic_ids"=>"#{@topics.first.slug},test-new-topic"
+        }
       }
     end
 
     it 'creates a codemark' do
       expect {
-        post :create, @params.merge(:format => :json)
+        post :create, @params
       }.to change(CodemarkRecord, :count).by 1
     end
 
-    it 'creates a topic' do
+    it 'creates a text codemark' do
+      @params["codemark"]["resource_type"] = 'TextRecord'
+      @params["codemark"]["resource_id"] = nil
+      @params["resource"] = {'text' => 'Sample text codemark'}
+
       expect {
-        post :create, @params.merge(:format => :json)
+        post :create, @params
+      }.to change(CodemarkRecord, :count).by 1
+      CodemarkRecord.last.resource.should be_a TextRecord
+    end
+
+    it 'creates topics' do
+      expect {
+        post :create, @params
       }.to change(Topic, :count).by 1
     end
   end

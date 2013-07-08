@@ -4,4 +4,12 @@ class TextRecord < ActiveRecord::Base
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
 
   validates :text, :presence => true
+
+  def orphan?
+    author_id.blank?
+  end
+
+  def update_author(author_id = nil)
+    update_attributes(:author_id => author_id) if orphan?
+  end
 end
