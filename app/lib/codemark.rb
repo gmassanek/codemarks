@@ -7,8 +7,7 @@ class Codemark
     @id = attributes[:id]
     @resource = attributes[:resource]
     @tags = attributes[:tags]
-    @user = attributes[:user]
-    @user = Codemark.look_for_user(attributes) if attributes[:user_id]
+    @user = attributes[:user] || User.find_by_id(attributes[:user_id])
 
     @codemark_record = attributes[:codemark_record]
 
@@ -30,19 +29,20 @@ class Codemark
   def load
     return self if load_requested_codemark
 
-    @resource = load_link
+    @resource = Link.load(url: @url)
     load_users_codemark
     self
   end
 
   def load_requested_codemark
-    @codemark_record = load_codemark_by_id(@id) if @id.present?
+    @codemark_record = CodemarkRecord.find_by_id(@id)
     pull_up_attributes if @codemark_record
     @codemark_record.present?
   end
 
   def load_users_codemark
-    @codemark_record = load_codemark_for_user
+    return unless @user && @resource
+    @codemark_record = CodemarkRecord.for_user_and_resource(@user.id, @resource.id)
     pull_up_attributes if @codemark_record
   end
 
@@ -85,34 +85,8 @@ class Codemark
   def self.save(attributes, tag_ids, options = {})
     codemark = Codemark.load(attributes)
     codemark.tag_ids = tag_ids
-    codemark.user = Codemark.look_for_user(options)
+    codemark.user = User.find_by_id(options[:user_id])
     codemark.save_to_database
-  end
-
-  # assume a resource_id is always coming in
-  def self.create(attributes, options = {})
-    codemark_record = existing_codemark(attributes[:user_id], attributes[:resource_id])
-    attributes[:private] = private?(attributes[:topic_ids])
-    if codemark_record
-      codemark_record.update_attributes(attributes)
-    else
-      codemark_record = CodemarkRecord.create!(attributes)
-    end
-    codemark_record.resource.update_author(attributes[:user_id])
-    codemark_record
-  end
-
-  def self.private?(topic_ids)
-    topic_ids.include? private_topic.try(:id).to_s
-  end
-
-  def self.build_and_create(user, resource_type, resource_attrs)
-    prepared_codemark = prepare(resource_type, resource_attrs)
-
-    Codemark.create({},
-                    prepared_codemark.resource.resource_attrs,
-                    prepared_codemark.topics.collect(&:id),
-                    user)
   end
 
   def self.steal(codemark_record, user)
@@ -142,34 +116,7 @@ class Codemark
     self
   end
 
-  def self.existing_codemark(user_id, resource_id)
-    CodemarkRecord.for_user_and_resource(user_id, resource_id)
-  end
-
   private
-
-  def load_codemark_by_id(id)
-    CodemarkRecord.find(id)
-  end
-
-  def load_link
-    Link.load(url: @url)
-  end
-
-  def self.look_for_user(options)
-    User.find_by_id(options[:user_id])# || User.find_by_email(options[:email_address])
-  end
-
-  def load_codemark_for_user
-    if @user && @resource
-      cm = CodemarkRecord.find(:first, :conditions => {:user_id => @user.id, :resource_id => @resource.id})
-      cm
-    end
-  end
-
-  def save_resource
-    resource.save
-  end
 
   def save_codemark_record(resource_attributes)
     resource.update_attributes(resource_attributes)
