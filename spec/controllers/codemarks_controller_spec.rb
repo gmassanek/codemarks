@@ -27,19 +27,25 @@ describe CodemarksController do
   describe "new" do
     let(:valid_url) { "http://www.example.com" }
 
-    it "asks for a prepared codemark" do
-      Codemark.should_receive(:load).with(:url => valid_url)
-      PresentCodemarks.stub(:present)
-      get :new, :format  => :json, :url => valid_url
+    it "finds codemarks by id" do
+      cm = Fabricate(:codemark_record)
+      get :new, :format  => :json, :id => cm.id
+      assigns(:codemark).should == cm
     end
 
-    it "creates a new codemark with the new link" do
-      codemark = stub
-      Codemark.stub(:load) { codemark }
-      PresentCodemarks.stub(:present)
+    it "finds codemarks by url" do
+      user = Fabricate(:user)
+      controller.stub(:current_user_id => user.id)
 
-      get :new, :format => :json
-      assigns(:codemark).should == codemark
+      cm = Fabricate(:codemark_record, :user => user)
+      get :new, :format  => :json, :url => cm.resource.url
+      assigns(:codemark).should == cm
+    end
+
+    it "creates a new codemark for that resource" do
+      link = Fabricate(:link_record)
+      get :new, :format  => :json, :url => link.url
+      assigns(:codemark).resource.should == link
     end
   end
 

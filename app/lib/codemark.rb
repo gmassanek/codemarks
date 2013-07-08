@@ -27,14 +27,14 @@ class Codemark
   end
 
   def load
-    return self if load_requested_codemark
+    return self if codemark_by_id
 
     @resource = Link.load(url: @url)
     load_users_codemark
     self
   end
 
-  def load_requested_codemark
+  def codemark_by_id
     @codemark_record = CodemarkRecord.find_by_id(@id)
     pull_up_attributes if @codemark_record
     @codemark_record.present?
