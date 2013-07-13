@@ -1,3 +1,0 @@
-App.LinkRecordCodemarkView = App.CodemarkView.extend
-  template: ->
-    angelo('codemark.html')

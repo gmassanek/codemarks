@@ -6,7 +6,6 @@ App.CodemarkView = Backbone.View.extend
     'click .add': 'createCopy'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
-    'click .title': 'recordClick'
     'click .icon': 'iconClick'
 
   render: ->
@@ -20,6 +19,7 @@ App.CodemarkView = Backbone.View.extend
 
   initialize: ->
     @model.bind 'change', => @render()
+    @events = _.extend({}, @events, @extraEvents)
 
   toHTML: ->
     facile(@template(), @presentedAttributes())
@@ -55,12 +55,6 @@ App.CodemarkView = Backbone.View.extend
 
   mine: ->
     @model.get('author').slug == CURRENT_USER
-
-  recordClick: (e) ->
-    url = "/links/#{@model.get('resource').id}/click "
-    $.post(url)
-    $(e.currentTarget).unbind('click')
-    _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
