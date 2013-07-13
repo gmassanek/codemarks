@@ -19,9 +19,8 @@ App.LinkRecordCodemarkView = App.CodemarkView.extend
     data
 
   recordClick: (e) ->
-    if @model.get('resource_type') == 'LinkRecord'
-      url = "/links/#{@model.get('resource').id}/click "
-      $.post(url)
-      $(e.currentTarget).unbind('click')
-      if _gaq?
-        _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])
+    url = "/resources/#{@model.get('resource').id}/click?resource_type=#{@model.get('resource').id}"
+    $.post(url)
+    $(e.currentTarget).unbind('click')
+    if _gaq?
+      _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])
