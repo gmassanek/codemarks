@@ -72,15 +72,27 @@ class CodemarksController < ApplicationController
     render :json => { :head => 200 }
   end
 
-  def update
-    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+  def edit
     @codemark = CodemarkRecord.find(params[:id])
-    @codemark.update_attributes(params['codemark'])
-    @codemark.resource.update_attributes(params['resource'])
-    render :json => {
-      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
-      :success => true
-    }
+  end
+
+  def update
+    @codemark = CodemarkRecord.find(params[:id])
+    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+    success = @codemark.update_attributes(params['codemark']) && @codemark.resource.update_attributes(params['resource'])
+    respond_to do |format|
+      format.html do
+        if success
+          redirect_to codemark_path(@codemark)
+        else
+          flash[:error] = 'Error updating Codemark'
+          render :edit
+        end
+      end
+      format.json do
+        render :json => { :codemark => PresentCodemarks.present(@codemark, current_user).to_json, :success => true }
+      end
+    end
   end
 
   def github

@@ -10,10 +10,10 @@
       .time_ago #{time_ago_in_words(@codemark.created_at)} ago
 
   .right
-    = link_to 'edit', 'woof' if @user == current_user
+    = link_to 'edit', edit_codemark_path(@codemark) if @user == current_user
   .clear
 
 %article
-  = render "show_text_record", :codemark => @codemark, :user => @user
+  = render "show_#{@codemark.resource_type_underscore}", :codemark => @codemark, :user => @user
 
 %aside
