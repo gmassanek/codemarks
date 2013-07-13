@@ -44,6 +44,7 @@ App.CodemarkFormView = Backbone.View.extend
         type: 'PUT'
         url: "/codemarks/#{@model.get('id')}"
         data: @data()
+        dataType: 'json'
         success: (response) =>
           @model.attributes = JSON.parse(response.codemark)
           @model.trigger('change')
