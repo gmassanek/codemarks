@@ -13,6 +13,11 @@
     = link_to 'edit', edit_codemark_path(@codemark) if @user == current_user
   .clear
 
+%ul.topics_list
+  - @codemark.topics.each do |topic|
+    %li= link_to topic.title, codemarks_path(:topic_ids => topic.slug)
+  .clear
+
 %article
   = render "show_#{@codemark.resource_type_underscore}", :codemark => @codemark, :user => @user
 
