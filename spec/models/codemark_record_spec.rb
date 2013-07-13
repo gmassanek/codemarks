@@ -70,8 +70,8 @@ describe CodemarkRecord do
       cm3 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 8.hours, :resource => cm2.resource)
       cm4 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 1.hours)
 
-      Fabricate(:click, :link_record => cm3.resource)
-      Fabricate(:click, :link_record => cm3.resource)
+      Fabricate(:click, :resource => cm3.resource)
+      Fabricate(:click, :resource => cm3.resource)
       CodemarkRecord.most_popular_yesterday.id.should == cm2.id
     end
   end

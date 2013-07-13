@@ -11,6 +11,11 @@ Feature: Saving Codemarks
     Then I should see "Google"
     And I should be Google's author
 
+  Scenario: Saving a text codemark
+    And I fill out and submit the add note codemark form with "Some text"
+    Then I should see "Some text"
+    And I should be that codemark's author
+
   Scenario: Stealing somebody's codemark leaves them as the author
     Given Tom Brady is a user
     And tom_brady has codemarked Google

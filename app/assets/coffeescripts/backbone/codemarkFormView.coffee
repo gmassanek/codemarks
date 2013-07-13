@@ -7,7 +7,7 @@ App.CodemarkFormView = Backbone.View.extend
     'submit': 'submit'
 
   render: ->
-    if @model.hasNewResource()
+    if @model.hasNewResource() && @model.get('resource_type') == 'LinkRecord'
       @fetchFullFormFor(@model.get('resource').url)
       return
 
@@ -17,29 +17,8 @@ App.CodemarkFormView = Backbone.View.extend
 
     @registerCancelOnEscape()
 
-  fetchFullFormFor: (url) ->
-    data = { url: url }
-    $.ajax
-      type: 'GET'
-      url: '/codemarks/new'
-      data: { url: url }
-      success: (response) =>
-        existingModel = App.codemarks.where({ id: response.id })[0]
-        @model = existingModel || new App.Codemark(response)
-        @render()
-      error: (response) =>
-        setFlash('error', 'Sorry, but something went wrong. <br/> <a href="https://codemarks.uservoice.com/" target="_blank">Tell us what happened</a> or, even better, <a href="https://github.com/gmassanek/codemarks" target="_blank">fix it here</a>!')
-        @cancel()
-
   toHtml: ->
-    template = angelo('codemarkForm.html')
-    facile(template, @presentedAttributes())
-
-  presentedAttributes: ->
-    url: @model.get('resource').url
-    title: @model.get('title')
-    description: @model.get('description') || ''
-    topics: @presentedTopics()
+    facile(@template(), @presentedAttributes())
 
   presentedTopics: ->
     slugs = _.map @model.get('topics'), (topic) ->
@@ -65,6 +44,7 @@ App.CodemarkFormView = Backbone.View.extend
         type: 'PUT'
         url: "/codemarks/#{@model.get('id')}"
         data: @data()
+        dataType: 'json'
         success: (response) =>
           @model.attributes = JSON.parse(response.codemark)
           @model.trigger('change')
@@ -81,7 +61,7 @@ App.CodemarkFormView = Backbone.View.extend
     data = codemark:
       title: @$('.title').val()
       description: @$('.description').val()
-      resource_type: 'LinkRecord'
+      resource_type: @model.get('resource_type')
       resource_id: @model.get('resource').id
     data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data

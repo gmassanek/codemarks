@@ -44,7 +44,8 @@ App.TileView = Backbone.View.extend
 
   renderCodemarkView: ->
     return if @isTheAddCodemarkTile
-    @view = new App.CodemarkView
+
+    @view = new App["#{@model.get('resource_type')}CodemarkView"]
       model: @model
     @view.render()
 
@@ -62,7 +63,7 @@ App.TileView = Backbone.View.extend
 
   turnViewIntoForm: ->
     @model = @view.model
-    @view = new App.CodemarkFormView
+    @view = new App["#{@model.get('resource_type')}FormView"]
       model: @model
     @view.render()
 

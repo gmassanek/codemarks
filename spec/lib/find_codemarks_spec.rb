@@ -30,6 +30,13 @@ describe FindCodemarks do
         all_cms.codemarks.first.save_count.should == "2"
       end
 
+      it "returns the save count for text" do
+        user = Fabricate(:user)
+        text_cm = Fabricate(:codemark_record, :user => user, :resource => TextRecord.create!(:text => 'text'))
+        all_cms = FindCodemarks.new(:user => user)
+        all_cms.codemarks.first.save_count.should == "1"
+      end
+
       it "returns the save count when scoped by user" do
         user = Fabricate(:user)
         @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
@@ -151,10 +158,12 @@ describe FindCodemarks do
       end
 
       it "can be ordered by visit_count" do
+        text_cm = Fabricate(:codemark_record, :user => @user, :resource => TextRecord.create!(:text => 'text'))
         user = Fabricate(:user)
-        2.times { Fabricate(:click, :user => user, :link_record => @cm2.resource) }
+        2.times { Fabricate(:click, :user => user, :resource => @cm2.resource) }
+        3.times { Fabricate(:click, :user => user, :resource => text_cm.resource) }
         all_cms = FindCodemarks.new(:by => :visits)
-        all_cms.codemarks.first.visit_count.should == "2"
+        all_cms.codemarks.first.visit_count.should == "3"
       end
     end
 
@@ -207,7 +216,7 @@ describe FindCodemarks do
         cm1 = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
         cm3 = Fabricate(:codemark_record, :user => @user, :title => 'My boring pony')
         cm2 = Fabricate(:codemark_record, :user => @user, :title => 'My ugly pony')
-        2.times { Fabricate(:click, :user => @user, :link_record => cm2.resource) }
+        2.times { Fabricate(:click, :user => @user, :resource => cm2.resource) }
 
         all_cms = FindCodemarks.new(:by => :visits, :search_term => 'pony')
         all_cms.codemarks.first.visit_count.should == "2"

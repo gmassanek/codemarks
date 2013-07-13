@@ -14,6 +14,7 @@ class CodemarksController < ApplicationController
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
     attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"])
+    attributes[:resource] = Resource.create(attributes[:resource_type], params[:resource]) unless attributes[:resource_id]
 
     @codemark = CodemarkRecord.update_or_create(attributes)
 
@@ -34,10 +35,7 @@ class CodemarksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'codemarks/index'
-      end
-
+      format.html
       format.json do
         search_attributes = {
           :page => params[:page],
@@ -54,8 +52,19 @@ class CodemarksController < ApplicationController
   end
 
   def show
-    codemark = CodemarkRecord.find(params[:id])
-    render :json => PresentCodemarks.present(codemark, current_user)
+    @codemark = CodemarkRecord.find(params[:id])
+
+    respond_to do |format|
+      format.html do
+        @user = @codemark.user
+        @author = @codemark.resource.author
+        Click.create(:resource => @codemark.resource, :user => current_user)
+      end
+
+      format.json do
+        render :json => PresentCodemarks.present(@codemark, current_user)
+      end
+    end
   end
 
   def destroy
@@ -65,14 +74,27 @@ class CodemarksController < ApplicationController
     render :json => { :head => 200 }
   end
 
-  def update
-    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+  def edit
     @codemark = CodemarkRecord.find(params[:id])
-    @codemark.update_attributes(params['codemark'])
-    render :json => {
-      :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
-      :success => true
-    }
+  end
+
+  def update
+    @codemark = CodemarkRecord.find(params[:id])
+    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+    success = @codemark.update_attributes(params['codemark']) && @codemark.resource.update_attributes(params['resource'])
+    respond_to do |format|
+      format.html do
+        if success
+          redirect_to codemark_path(@codemark)
+        else
+          flash[:error] = 'Error updating Codemark'
+          render :edit
+        end
+      end
+      format.json do
+        render :json => { :codemark => PresentCodemarks.present(@codemark, current_user).to_json, :success => true }
+      end
+    end
   end
 
   def github
