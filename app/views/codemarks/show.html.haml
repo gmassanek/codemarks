@@ -10,7 +10,7 @@
       .time_ago #{time_ago_in_words(@codemark.created_at)} ago
 
   .right
-    = link_to 'edit', edit_codemark_path(@codemark) if @user == current_user
+    = link_to 'edit', edit_codemark_path(@codemark) if @author == current_user
   .clear
 
 %ul.topics_list

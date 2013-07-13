@@ -57,7 +57,8 @@ class CodemarksController < ApplicationController
     respond_to do |format|
       format.html do
         @user = @codemark.user
-        Click.create(:resource => @codemark.resource, :user => @user)
+        @author = @codemark.resource.author
+        Click.create(:resource => @codemark.resource, :user => current_user)
       end
 
       format.json do
