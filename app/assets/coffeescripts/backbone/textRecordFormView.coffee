@@ -3,9 +3,8 @@ App.TextRecordFormView = App.CodemarkFormView.extend
     angelo('textRecordForm.html')
 
   presentedAttributes: ->
-    url: @model.get('resource').url
     title: @model.get('title') || ''
-    description: @model.get('description') || ''
+    text: @model.get('resource').text || ''
     topics: @presentedTopics()
 
   data: ->

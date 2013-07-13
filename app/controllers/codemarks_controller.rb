@@ -35,10 +35,7 @@ class CodemarksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'codemarks/index'
-      end
-
+      format.html
       format.json do
         search_attributes = {
           :page => params[:page],
@@ -55,8 +52,17 @@ class CodemarksController < ApplicationController
   end
 
   def show
-    codemark = CodemarkRecord.find(params[:id])
-    render :json => PresentCodemarks.present(codemark, current_user)
+    @codemark = CodemarkRecord.find(params[:id])
+
+    respond_to do |format|
+      format.html do
+        @user = @codemark.user
+      end
+
+      format.json do
+        render :json => PresentCodemarks.present(@codemark, current_user)
+      end
+    end
   end
 
   def destroy
@@ -70,6 +76,7 @@ class CodemarksController < ApplicationController
     params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
     @codemark = CodemarkRecord.find(params[:id])
     @codemark.update_attributes(params['codemark'])
+    @codemark.resource.update_attributes(params['resource'])
     render :json => {
       :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
       :success => true
