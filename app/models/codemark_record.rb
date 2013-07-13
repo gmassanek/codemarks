@@ -44,4 +44,8 @@ class CodemarkRecord < ActiveRecord::Base
   def title
     attributes['title'] || resource.try(:title)
   end
+
+  def resource_type_underscore
+    resource_type.underscore
+  end
 end

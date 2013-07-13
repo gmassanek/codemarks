@@ -1,0 +1,15 @@
+- if codemark.errors.present?
+  %ul
+    - codemark.errors.full_messages.each do |error|
+      %li= error
+
+= form_for codemark, :url => codemark_path(codemark), :as => 'codemark' do |f|
+  .inputs
+    = f.label :title
+    = f.text_field :title
+
+  = render "#{@codemark.resource_type_underscore}_form", :codemark => @codemark
+
+  .actions
+    = f.submit 'Save', :class => 'btn-auth btn-twitter'
+    = link_to 'Cancel', :back

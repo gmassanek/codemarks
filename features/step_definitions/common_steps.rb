@@ -30,6 +30,16 @@ Given /^I have (\d+) codemarks$/ do |num|
   @codemarks
 end
 
+Given /^I have (\d+) text codemarks$/ do |num|
+  @codemarks = []
+  num.to_i.times do
+    topics = [Fabricate(:topic), Topic.last].compact
+    textmark = TextRecord.create!(:text => 'wooooohooo')
+    @codemarks << Fabricate(:codemark_record, :resource => textmark, :user => @current_user, :topics => topics)
+  end
+  @codemarks
+end
+
 When /^I am on the codemarks page$/ do
   visit '/codemarks'
   step 'I wait until all Ajax requests are complete'
@@ -76,7 +86,8 @@ Then /^I should not see "([^"]*)"$/ do |content|
 end
 
 Then /^I should see (my|that) codemark$/ do |_|
-  page.should have_content(@codemark.title)
+  codemark = @codemark || @codemarks.first
+  page.should have_content(codemark.title)
 end
 
 Then /^I should not see that codemark$/ do

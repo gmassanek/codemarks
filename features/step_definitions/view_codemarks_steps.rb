@@ -60,6 +60,14 @@ When /^I go to that topic page$/ do
   visit topic_path(@topic)
 end
 
+When /^I click on that codemark$/ do
+  click_on @codemarks.first.title
+end
+
+Then /^I should be on the show page$/ do
+  current_path.should == codemark_path(@codemarks.first)
+end
+
 Then /^I should see his codemark$/ do
   page.should have_content(@codemark.title)
 end

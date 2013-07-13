@@ -13,7 +13,6 @@ App.MainRouter = Backbone.Router.extend
     @$container.html('')
     @setupTopics()
 
-    @renderTabsNav()
     @renderControlPanel()
     @renderCodemarkList()
     @codemarks.fetch()
@@ -43,11 +42,6 @@ App.MainRouter = Backbone.Router.extend
     @codemarksView = new App.CodemarksView
       codemarks: @codemarks
     @$container.append(@codemarksView.$el)
-
-  renderTabsNav: ->
-    new App.TabsView
-      el: $('nav ul.tabs')
-      codemarks: @codemarks
 
   setupTopics: ->
     App.topics = new App.Topics

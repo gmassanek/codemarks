@@ -2,9 +2,9 @@ App.Filters = Backbone.Model.extend
   updateUrlWithFilters: ->
     filterParams = $.param(@data())
     if filterParams == ''
-      App.router.navigate("/codemarks")
+      App.router.navigate("/codemarks", trigger: false, replace: true)
     else
-      App.router.navigate("/codemarks?#{filterParams}")
+      App.router.navigate("/codemarks?#{filterParams}", trigger: false, replace: true)
 
   loadFromCookie: (saved_filters) ->
     @attributes = @defaults()

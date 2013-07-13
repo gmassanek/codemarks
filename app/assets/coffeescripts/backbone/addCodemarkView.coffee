@@ -4,6 +4,7 @@ App.AddCodemarkView = Backbone.View.extend
 
   events:
     'click .add_link a': 'addLink'
+    'click .add_note a': 'addNote'
     'submit .add_link form': 'newLinkFormSubmitted'
 
   render: ->
@@ -15,6 +16,13 @@ App.AddCodemarkView = Backbone.View.extend
     e.preventDefault()
     @showUrlForm()
 
+  addNote: (e) ->
+    e.preventDefault()
+    @model = new App.Codemark
+      resource: {}
+      resource_type: 'TextRecord'
+    @trigger('turnIntoForm')
+
   showUrlForm: ->
     template = '<form><input name="url" placeholder="Paste Link"/><button>Add</button></form>'
     @$('.add_link').html(template)
@@ -23,7 +31,7 @@ App.AddCodemarkView = Backbone.View.extend
     e.preventDefault()
     url = $(e.currentTarget).find('input').val()
     if @createCodemarkFor(url)
-      @turnIntoLinkForm()
+      @trigger('turnIntoForm')
     else
       @showUrlForm()
       @$('.add_link').find('form').append('<br><label>Need a URL</label>')
@@ -34,9 +42,6 @@ App.AddCodemarkView = Backbone.View.extend
     @model = new App.Codemark
       resource: link
       resource_type: 'LinkRecord'
-
-  turnIntoLinkForm: ->
-    @trigger('turnIntoForm')
 
   registerCancelOnEscape: ->
     $(document).keyup (e) =>

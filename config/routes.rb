@@ -20,7 +20,7 @@ Codemarks::Application.routes.draw do
 
   resources :comments, :only => [:create, :destroy]
 
-  resources :links, :only => [] do
+  resources :resources, :only => [] do
     member do
       post :click
     end

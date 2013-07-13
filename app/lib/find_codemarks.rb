@@ -19,8 +19,8 @@ class FindCodemarks
     query = CodemarkRecord.scoped
     query = query.select('"codemark_records".*, save_count, visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemark_records.id = summary.id")
-    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts on codemark_records.resource_id = counts.resource_id")
-    query = query.joins("LEFT JOIN (#{visits_query.to_sql}) visits on codemark_records.id = visits.id")
+    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts ON codemark_records.resource_id = counts.resource_id AND codemark_records.resource_type = counts.resource_type")
+    query = query.joins("LEFT JOIN (#{visits_query}) visits on codemark_records.id = visits.id")
 
     query = query.where("summary.rk = 1")
     query = query.where(['private = ? OR (private = ? AND codemark_records.user_id = ?)', false, true, @current_user_id])
@@ -55,7 +55,7 @@ class FindCodemarks
 
   private
   def partition_string
-    'PARTITION BY "codemark_records".resource_id ORDER BY "codemark_records".created_at DESC'
+    'PARTITION BY codemark_records.resource_id, codemark_records.resource_type ORDER BY codemark_records.created_at DESC'
   end
 
   def filter_codemarks_project_out(query)
@@ -70,13 +70,25 @@ class FindCodemarks
   end
 
   def count_query
-    count_query = CodemarkRecord.scoped.select('"codemark_records".resource_id, count(*) as save_count')
-    count_query = count_query.group('codemark_records.resource_id')
+    count_query = CodemarkRecord.select('codemark_records.resource_id, codemark_records.resource_type, count(*) as save_count')
+    count_query = count_query.group('codemark_records.resource_id, codemark_records.resource_type')
     count_query
   end
 
   def visits_query
-    CodemarkRecord.select('"codemark_records".id, "link_records".clicks_count as visit_count').joins('LEFT JOIN link_records on codemark_records.resource_id = link_records.id')
+    <<-SQL
+      (SELECT codemark_records.id, clicks_count as visit_count
+      FROM codemark_records
+      LEFT JOIN link_records ON codemark_records.resource_id = link_records.id
+      WHERE codemark_records.resource_type = 'LinkRecord'
+
+      UNION
+
+      SELECT codemark_records.id, clicks_count as visit_count
+      FROM codemark_records
+      LEFT JOIN text_records ON codemark_records.resource_id = text_records.id
+      WHERE codemark_records.resource_type = 'TextRecord')
+    SQL
   end
 
   def page_query(scope)
