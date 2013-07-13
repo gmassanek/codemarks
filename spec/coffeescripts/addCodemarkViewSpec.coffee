@@ -17,11 +17,3 @@ describe 'AddCodemarkView', ->
     it 'is undefined if there is no url', ->
       codemark = @tile.createCodemarkFor()
       expect(codemark).toBeUndefined()
-
-  describe 'turns into a new codemark form', ->
-    it 'by asking to be', ->
-      triggered = false
-      @tile.bind 'turnIntoForm', -> triggered = true
-
-      @tile.turnIntoLinkForm()
-      expect(triggered).toBeTruthy()

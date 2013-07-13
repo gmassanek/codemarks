@@ -35,6 +35,7 @@ gem 'twitter'
 gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
 gem "lograge"
 gem "bitly"
+gem "redcarpet", "~> 3.0.0"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'

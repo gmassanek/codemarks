@@ -12,7 +12,7 @@ When /^I fill out and submit the add codemark form with Google$/ do
 end
 
 When /^I fill out the codemark form with the existing one$/ do
-  page.find('.add_link a').click()
+  page.find('.add_link a').click
   page.fill_in('url', :with => @codemark.url)
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
@@ -37,6 +37,17 @@ Given /^tom_brady has codemarked Google$/ do
   google = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.google.com')
   topic = Fabricate(:topic, :title => 'Google')
   @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google, :topics => [topic])
+end
+
+Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note_text|
+  page.find('.add_note a').click
+  page.fill_in('text', :with => note_text)
+  page.click_button('Submit')
+  step 'I wait until all Ajax requests are complete'
+end
+
+Then /^I should be that codemark's author$/ do
+  CodemarkRecord.last.resource.author.should == @current_user
 end
 
 Then /^I should see a codemark form$/ do
