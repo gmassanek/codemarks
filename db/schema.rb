@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708004547) do
+ActiveRecord::Schema.define(:version => 20130713210309) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -29,9 +29,10 @@ ActiveRecord::Schema.define(:version => 20130708004547) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "link_record_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "resource_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "resource_type"
   end
 
   create_table "codemark_records", :force => true do |t|
@@ -102,9 +103,10 @@ ActiveRecord::Schema.define(:version => 20130708004547) do
   create_table "text_records", :force => true do |t|
     t.text     "text"
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "author_id"
+    t.integer  "clicks_count", :default => 0
   end
 
   create_table "topics", :force => true do |t|
