@@ -9,4 +9,5 @@ App.TextRecordCodemarkView = App.CodemarkView.extend
     data['title_link'] =
       content: @model.get('title'),
       href: "/codemarks/#{@model.get('id')}"
+    data['add'] = null
     data
