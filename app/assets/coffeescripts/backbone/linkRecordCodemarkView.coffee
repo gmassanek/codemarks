@@ -1,4 +1,7 @@
 App.LinkRecordCodemarkView = App.CodemarkView.extend
+  extraEvents:
+    'click .title': 'recordClick'
+
   template: ->
     angelo('link_record_codemark.html')
 
@@ -14,3 +17,11 @@ App.LinkRecordCodemarkView = App.CodemarkView.extend
       content: @model.get('title'),
       href: resource.url
     data
+
+  recordClick: (e) ->
+    if @model.get('resource_type') == 'LinkRecord'
+      url = "/links/#{@model.get('resource').id}/click "
+      $.post(url)
+      $(e.currentTarget).unbind('click')
+      if _gaq?
+        _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])
