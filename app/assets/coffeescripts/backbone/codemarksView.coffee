@@ -7,7 +7,6 @@ App.CodemarksView = Backbone.View.extend
     @codemarks.bind 'add', (codemark) => @addCodemark(codemark)
 
   render: ->
-    console.log @codemarks.models
     @$el.html('')
     @appendNewCodemarkTile()
     @appendCodemarks()
