@@ -53,20 +53,13 @@
       height: $tile-main-height
       overflow: hidden
 
-    .topics
+    .topics_list
       display: none
       position: absolute
       right: 0
       bottom: 0
       li
         float: right
-        margin: 5px
-        border: 1px solid #ccc
-        background: white
-        @include border-radius(5px)
-        a
-          display: inline-block
-          padding: 3px
 
     .description
       display: none
@@ -99,7 +92,7 @@
 
   &:hover
     .main
-      .topics
+      .topics_list
         display: block
     footer
       .views
