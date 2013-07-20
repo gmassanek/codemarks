@@ -2,7 +2,7 @@ App.CodemarkletView = Backbone.View.extend
   className: 'codemarklet'
 
   render: ->
-    @formView = new App.CodemarkFormView
+    @formView = new App.LinkRecordFormView
       model: App.codemark
     @formView.render()
     @$el.html(@formView.$el)
