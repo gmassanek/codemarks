@@ -110,4 +110,23 @@ describe CodemarkRecord do
     codemark_record = Fabricate(:codemark_record, :user => user)
     CodemarkRecord.for_user_and_resource(user.id, codemark_record.resource.id).should == codemark_record
   end
+
+  describe "#suggested_topics" do
+    before do
+      @github = Topic.create!(:title => 'github')
+      @rspec = Topic.create!(:title => 'rspec')
+    end
+
+    it "has none without a resource" do
+      codemark_record = Fabricate(:codemark_record, :user => user)
+      codemark_record.resource = nil
+      codemark_record.suggested_topics.should == []
+    end
+
+    it "delegates to LinkRecord" do
+      codemark_record = Fabricate(:codemark_record, :user => user)
+      codemark_record.resource.stub(:suggested_topics => [@github, @rspec])
+      codemark_record.suggested_topics.should == [@github, @rspec]
+    end
+  end
 end
