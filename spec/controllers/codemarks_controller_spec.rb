@@ -49,9 +49,10 @@ describe CodemarksController do
     end
 
     it "fills new codemarks with suggested tags" do
-      link = Fabricate(:link_record)
+      github = Topic.create!(:title => 'github')
+      link = Fabricate(:link_record, :title => 'Github')
       get :new, :format  => :json, :url => link.url
-      assigns(:codemark).resource.should == link
+      assigns(:codemark).topics.should == [github]
     end
   end
 
