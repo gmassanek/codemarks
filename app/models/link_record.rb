@@ -1,4 +1,6 @@
 class LinkRecord < ActiveRecord::Base
+  TAG_SUGGESTION_LIMIT = 3
+
   has_many :topics, :through => :codemark_records
   has_many :codemark_records, :as => :resource
   has_many :clicks, :as => :resource
@@ -23,5 +25,13 @@ class LinkRecord < ActiveRecord::Base
   def trigger_snapshot
     return unless url && id
     Delayed::Job.enqueue(SnapLinkJob.new(self))
+  end
+
+  def suggested_topics
+    topics = Tagger.tag(self.title)
+    return topics.first(TAG_SUGGESTION_LIMIT) if topics.length >= TAG_SUGGESTION_LIMIT
+
+    topics += Tagger.tag(self.site_data)
+    topics.uniq.first(TAG_SUGGESTION_LIMIT)
   end
 end
