@@ -48,4 +48,17 @@ class CodemarkRecord < ActiveRecord::Base
   def resource_type_underscore
     resource_type.underscore
   end
+
+  def suggested_topics
+    return [] unless resource
+
+    case resource.class.to_s
+    when 'LinkRecord'
+      resource.suggested_topics
+    when 'TextRecord'
+      []
+    else
+      []
+    end
+  end
 end
