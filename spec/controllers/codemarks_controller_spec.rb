@@ -24,7 +24,7 @@ describe CodemarksController do
     end
   end
 
-  describe "new" do
+  describe "#new" do
     let(:valid_url) { "http://www.example.com" }
 
     it "finds codemarks by id" do
@@ -43,6 +43,12 @@ describe CodemarksController do
     end
 
     it "creates a new codemark for that resource" do
+      link = Fabricate(:link_record)
+      get :new, :format  => :json, :url => link.url
+      assigns(:codemark).resource.should == link
+    end
+
+    it "fills new codemarks with suggested tags" do
       link = Fabricate(:link_record)
       get :new, :format  => :json, :url => link.url
       assigns(:codemark).resource.should == link
