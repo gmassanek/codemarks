@@ -87,6 +87,11 @@ describe FindCodemarks do
         find_by_user.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
 
+      it "returns the codemarks of the current_user" do
+        Fabricate(:codemark_record, :user => Fabricate(:user), :resource => @cm.resource)
+        FindCodemarks.new(:current_user => @user).codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+      end
+
       it "returns an ActiveRecord::Relation" do
         find_by_user.codemarks.should be_a ActiveRecord::Relation
       end

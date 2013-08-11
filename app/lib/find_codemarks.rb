@@ -55,7 +55,10 @@ class FindCodemarks
 
   private
   def partition_string
-    'PARTITION BY codemark_records.resource_id, codemark_records.resource_type ORDER BY codemark_records.created_at DESC'
+    query = "PARTITION BY codemark_records.resource_id, codemark_records.resource_type ORDER BY "
+    query = query + "codemark_records.user_id=#{@current_user_id} DESC, " if @current_user_id
+    query = query + "codemark_records.created_at DESC"
+    query
   end
 
   def filter_codemarks_project_out(query)
