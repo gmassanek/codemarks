@@ -1,6 +1,4 @@
-require 'fast_helper'
-
-class Topic; end
+require 'spec_helper'
 
 describe Tagger do
   describe '#tag' do
