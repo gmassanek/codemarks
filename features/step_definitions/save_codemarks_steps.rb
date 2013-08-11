@@ -22,6 +22,7 @@ end
 
 When /^I submit the codemark form$/ do
   page.click_button('Submit')
+  step 'I wait until all Ajax requests are complete'
 end
 
 Given /^I have (a|1) codemark$/ do |arg1|
