@@ -1,15 +1,14 @@
 class CodemarksController < ApplicationController
   def new
     if params[:id]
-      @codemark = CodemarkRecord.find_by_id(params[:id])
+      codemark = CodemarkRecord.find_by_id(params[:id])
     else
-      @resource = Link.load(url: params[:url])
-      @codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), @resource.try(:id))
-      @codemark ||= CodemarkRecord.new(:resource => @resource.link_record, :user => current_user)
-      @codemark ||= CodemarkRecord.new(:resource => @resource.link_record, :user => current_user)
-      @codemark.topics = @codemark.suggested_topics unless @codemark.persisted?
+      resource = Link.load(url: params[:url])
+      codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), resource.try(:id))
+      codemark ||= CodemarkRecord.new(:resource => resource.link_record, :user => current_user)
+      codemark.topics = codemark.suggested_topics unless codemark.persisted?
     end
-    render :json => PresentCodemarks.present(@codemark, current_user)
+    render :json => PresentCodemarks.present(codemark, current_user)
   end
 
   def create
