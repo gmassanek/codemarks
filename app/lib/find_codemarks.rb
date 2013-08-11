@@ -14,6 +14,7 @@ class FindCodemarks
   def codemarks
     subq = CodemarkRecord.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
+    subq = subq.where(['private = ? OR (private = ? AND codemark_records.user_id = ?)', false, true, @current_user_id])
     subq = filter_codemarks_project_out(subq)
 
     query = CodemarkRecord.scoped
