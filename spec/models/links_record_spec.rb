@@ -27,27 +27,27 @@ describe LinkRecord do
 
     it "could get all #{LinkRecord::TAG_SUGGESTION_LIMIT} from the title" do
       @link.assign_attributes(:title => 'Github rspec google')
-      @link.suggested_topics.should == [@github, @rspec, @google]
+      @link.suggested_topics.should =~ [@github, @rspec, @google]
     end
 
     it "could get some from the title and some from site_data" do
       @link.assign_attributes(:title => 'Github rspec', :site_data => 'book')
-      @link.suggested_topics.should == [@github, @rspec, @book]
+      @link.suggested_topics.should =~ [@github, @rspec, @book]
     end
 
     it "could all from site_data" do
       @link.assign_attributes(:site_data => 'Github rspec book')
-      @link.suggested_topics.should == [@github, @rspec, @book]
+      @link.suggested_topics.should =~ [@github, @rspec, @book]
     end
 
     it "never duplicates topics" do
       @link.assign_attributes(:title => 'Github rspec', :site_data => 'Github book')
-      @link.suggested_topics.should == [@github, @rspec, @book]
+      @link.suggested_topics.should =~ [@github, @rspec, @book]
     end
 
     it "limits to #{LinkRecord::TAG_SUGGESTION_LIMIT} topics" do
       @link.assign_attributes(:title => 'Github rspec google book')
-      @link.suggested_topics.should == [@github, @rspec, @google]
+      @link.suggested_topics.should =~ [@github, @rspec, @google]
     end
   end
 end
