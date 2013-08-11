@@ -15,5 +15,9 @@ class Topic < ActiveRecord::Base
 
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
   scope :for_user, lambda { |user| joins(:codemarks).where(["codemarks.user_id = ?",user]) }
+
+  def self.private_topic_id
+    Topic.where(:title => 'private').pluck(:id).first
+  end
 end
 

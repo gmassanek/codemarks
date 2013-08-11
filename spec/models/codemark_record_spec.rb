@@ -129,4 +129,23 @@ describe CodemarkRecord do
       codemark_record.suggested_topics.should == [@github, @rspec]
     end
   end
+
+  describe '#mark_as_private' do
+    before do
+      @private = Topic.find_by_title('private') || Fabricate(:topic, :title => 'private')
+      @codemark = codemark
+      @codemark.topics = [@private]
+      @codemark.save
+    end
+
+    it 'marks itself as private if it includes the private tag' do
+      @codemark.should be_private
+    end
+
+    it 'marks itself as not private if it does not include the private tag' do
+      codemark.topics = []
+      @codemark.save
+      @codemark.should_not be_private
+    end
+  end
 end
