@@ -14,8 +14,6 @@ gem 'omniauth-github'
 gem 'omniauth-oauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-twitter'
-#gem 'therubyracer'
-#gem 'libv8', '~> 3.11.8' # You might need the native extentions for ruby racer
 gem 'newrelic_rpm'
 gem 'haml'
 gem 'pg'
@@ -54,8 +52,7 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem "webmock", "~> 1.9.0"
-  # used for Rack::SimpleEndpoint in test environment for
-  # PhantomJS crash workaround
+  # used for Rack::SimpleEndpoint in test environment for PhantomJS crash workaround
   gem 'rack-contrib'
 end
 
