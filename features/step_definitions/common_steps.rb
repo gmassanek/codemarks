@@ -40,6 +40,11 @@ Given /^I have (\d+) text codemarks$/ do |num|
   @codemarks
 end
 
+When /^I go to the second page$/ do
+  visit '/codemarks?page=2'
+  step 'I wait until all Ajax requests are complete'
+end
+
 When /^I select "(.*?)" from "(.*?)"$/ do |val, selector|
   page.execute_script("$('#{selector}').select2('data', {id: '#{val}', text: '#{val}'})")
 end
@@ -68,8 +73,13 @@ Then /^I should not see the copy icon$/ do
 end
 
 When /^I wait until all Ajax requests are complete$/ do
-  wait_until do
-    page.evaluate_script('$.active') == 0
+  start = Time.now
+  while true
+    break if page.evaluate_script('$.active') == 0
+    if Time.now > start + 5.seconds
+      fail "AJAX never finished"
+    end
+    sleep 0.1
   end
 end
 

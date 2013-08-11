@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def edit
     redirect_to root_path if current_user.to_param != params[:id]
     @user = current_user
-    @email_subscribed = MailchimpClient.subscribed?(@user.email)
+    @email_subscribed = @user ? MailchimpClient.subscribed?(@user.email) : false
   end
   
   def update
