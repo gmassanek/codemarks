@@ -112,7 +112,8 @@ describe FindCodemarks do
 
     it 'does not include other users private codemarks' do
       user = Fabricate(:user)
-      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
+      private = Topic.find_by_title('private') || Fabricate(:topic, :title => 'private')
+      private_codemark = Fabricate(:codemark_record, :topics => [private], :user => user)
       all_cms = FindCodemarks.new(:current_user => @user)
       all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end

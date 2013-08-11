@@ -40,6 +40,10 @@ Given /^I have (\d+) text codemarks$/ do |num|
   @codemarks
 end
 
+When /^I select "(.*?)" from "(.*?)"$/ do |val, selector|
+  page.execute_script("$('#{selector}').select2('data', {id: '#{val}', text: '#{val}'})")
+end
+
 When /^I am on the codemarks page$/ do
   visit '/codemarks'
   step 'I wait until all Ajax requests are complete'

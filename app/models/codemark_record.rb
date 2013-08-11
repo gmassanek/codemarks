@@ -14,6 +14,7 @@ class CodemarkRecord < ActiveRecord::Base
   scope :for, lambda { |links| includes(:resource).where(['resource_id in (?)', links]) }
 
   delegate :url, :to => :resource
+  before_save :mark_as_private
 
   def self.for_user_and_resource(user_id, resource_id)
     find(:first, :conditions => {:user_id => user_id, :resource_id => resource_id})
@@ -60,5 +61,10 @@ class CodemarkRecord < ActiveRecord::Base
     else
       []
     end
+  end
+
+  def mark_as_private
+    self.private = self.topics.map(&:id).include?(Topic.private_topic_id)
+    true
   end
 end
