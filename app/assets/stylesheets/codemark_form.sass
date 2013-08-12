@@ -1,8 +1,7 @@
 .codemark_form
-  height: $tile-header-height + $tile-main-height
-  margin-bottom: $tile-footer-height
-  padding: 10px
+  padding: 20px
   background: white
+  position: relative
 
   input:not([type=submit]), textarea
     width: 100%
@@ -17,16 +16,28 @@
     &.select2-container-multi .select2-choices .select2-search-field input
       height: auto
 
-  footer
-    .hover-icons
-      display: block
-      .cancel
-        display: block
-        margin-bottom: 10px
+  .cancel.icon-cancel-2
+    position: absolute
+    top: 0
+    right: 0
+    padding: 10px
+
+  .actions
+    margin-top: 15px
+
+    .cancel
+      float: right
+      margin-right: 10px
+      line-height: 30px
+
+    input[type=submit]
+      float: right
 
 .select2-results
   max-height: 120px
 
+a.select2-search-choice-close
+  @include transition(none)
 
 #main_content.codemarks
   &.edit, &.update

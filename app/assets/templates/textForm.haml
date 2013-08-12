@@ -1,4 +1,5 @@
 / BEGIN: Codemark Form Template.
+%a.cancel.icon-cancel-2
 %label Title
 %input(class='title' name='title' type='text' placeholder='Title')
 
@@ -8,9 +9,9 @@
 %label Tags
 %input(class='topics' name='topics')
 
-%button.submit Submit
+.actions
+  %input.btn-auth.btn-twitter(type='submit' value='Submit')
+  %a.cancel Cancel
 
-%footer
-  .hover-icons
-    %a.cancel.icon-cancel-2
+.clear
 / END: Codemark Form Template.
