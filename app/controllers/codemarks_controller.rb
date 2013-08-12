@@ -32,7 +32,6 @@ class CodemarksController < ApplicationController
     p params
     Rails.logger.info params.inspect
     head 200
-    render :json => { success: true }
   end
 
   def index
