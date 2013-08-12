@@ -108,8 +108,11 @@ class CodemarksController < ApplicationController
     payload["commits"].each do |commit|
       message = commit["message"]
       if message.include?("#cm")
-        url = commit["url"]
-        codemarks << Codemark.new(:link, {:url => url})
+        resource = Link.load(url: commit["url"])
+        codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), resource.try(:id))
+        codemark ||= CodemarkRecord.new(:resource => resource.link_record, :user => current_user)
+        codemark.topics = codemark.suggested_topics unless codemark.persisted?
+        codemarks << codemark
       end
     end
   end
