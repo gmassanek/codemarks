@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :topics, :through => :codemark_records
   has_many :clicks
 
-  has_many :nuggets, :class_name => 'LinkRecord', :foreign_key => :author_id
+  has_many :nuggets, :class_name => 'Link', :foreign_key => :author_id
 
   after_save :take_nickname_from_authentication
 

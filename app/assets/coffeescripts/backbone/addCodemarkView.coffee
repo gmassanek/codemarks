@@ -41,7 +41,7 @@ App.AddCodemarkView = Backbone.View.extend
     link = { url: url }
     @model = new App.Codemark
       resource: link
-      resource_type: 'LinkRecord'
+      resource_type: 'Link'
 
   registerCancelOnEscape: ->
     $(document).keyup (e) =>

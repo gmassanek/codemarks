@@ -1,5 +1,5 @@
 namespace :users  do
-  desc "save link_record.author_id based on first codemark.user"
+  desc "save link.author_id based on first codemark.user"
 
   task :merge_accounts_for_user, [:nickname] => :environment do |t, args|
     nickname = args[:nickname]
@@ -67,11 +67,11 @@ namespace :users  do
     p "Primary: #{primary.codemark_records.count}"
     p "Secondary: #{secondary.codemark_records.count}"
 
-    primary_link_ids = primary.codemark_records.map(&:link_record_id)
+    primary_link_ids = primary.codemark_records.map(&:link_id)
     p primary_link_ids
-    p secondary.codemark_records.map(&:link_record_id)
+    p secondary.codemark_records.map(&:link_id)
     secondary.codemark_records.each do |codemark|
-      if primary_link_ids.include?(codemark.link_record_id)
+      if primary_link_ids.include?(codemark.link_id)
         p "Deleting codemark #{codemark.id}"
         codemark.destroy if deleting[:codemarks]
       else
@@ -89,7 +89,7 @@ namespace :users  do
     p "Primary: #{primary.clicks.count}"
     p "Secondary: #{secondary.clicks.count}"
     secondary.clicks.each do |click|
-      p "Moving click for link #{click.link_record_id}"
+      p "Moving click for link #{click.link_id}"
       click.update_attributes(:user_id => primary.id) if moving[:clicks]
     end
     p "Primary: #{primary.clicks.count}"

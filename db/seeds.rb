@@ -72,7 +72,7 @@ carly_urls.each do |url|
 end
 
 VCR.use_cassette('seeds_snapshots') do
-  LinkRecord.all.each do |link|
+  Link.all.each do |link|
     SiteSnapshot.save_snapshot_for(link)
   end
 end

@@ -1,4 +1,4 @@
-describe 'LinkRecordCodemarkView', ->
+describe 'LinkCodemarkView', ->
   afterEach ->
     window.CURRENT_USER = null
 
@@ -8,7 +8,7 @@ describe 'LinkRecordCodemarkView', ->
         resource: {}
         topics: []
         author: { slug: 'gmassanek' }
-      view = new App.LinkRecordCodemarkView
+      view = new App.LinkCodemarkView
         model: codemark
       spyOn(view, 'render')
       codemark.trigger('change')
@@ -21,7 +21,7 @@ describe 'LinkRecordCodemarkView', ->
         resource: {}
         topics: []
         author: { slug: 'gmassanek' }
-      view = new App.LinkRecordCodemarkView
+      view = new App.LinkCodemarkView
         model: codemark
       view.render()
       expect(view.$el.hasClass('mine')).toBeTruthy()
@@ -32,7 +32,7 @@ describe 'LinkRecordCodemarkView', ->
         resource: {}
         topics: []
         author: { slug: 'gmassanek' }
-      view = new App.LinkRecordCodemarkView
+      view = new App.LinkCodemarkView
         model: codemark
       view.render()
       expect(view.$el.hasClass('mine')).toBeFalsy()
@@ -42,7 +42,7 @@ describe 'LinkRecordCodemarkView', ->
       window.CURRENT_USER = 'gmassanek'
       codemark = new App.Codemark
         author: { slug: 'gmassanek' }
-      view = new App.LinkRecordCodemarkView
+      view = new App.LinkCodemarkView
         model: codemark
       expect(view.editable()).toBeTruthy()
 
@@ -50,6 +50,6 @@ describe 'LinkRecordCodemarkView', ->
       window.CURRENT_USER = 'somebody_else'
       codemark = new App.Codemark
         author: { slug: 'gmassanek' }
-      view = new App.LinkRecordCodemarkView
+      view = new App.LinkCodemarkView
         model: codemark
       expect(view.editable()).toBeFalsy()

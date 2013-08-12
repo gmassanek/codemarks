@@ -83,8 +83,8 @@ class FindCodemarks
     <<-SQL
       (SELECT codemark_records.id, clicks_count as visit_count
       FROM codemark_records
-      LEFT JOIN link_records ON codemark_records.resource_id = link_records.id
-      WHERE codemark_records.resource_type = 'LinkRecord'
+      LEFT JOIN links ON codemark_records.resource_id = links.id
+      WHERE codemark_records.resource_type = 'Link'
 
       UNION
 

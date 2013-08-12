@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812030321) do
+ActiveRecord::Schema.define(:version => 20130812035015) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20130812030321) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "link_records", :force => true do |t|
+  create_table "links", :force => true do |t|
     t.string   "url"
     t.string   "title"
     t.datetime "created_at",                         :null => false
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20130812030321) do
     t.string   "snapshot_id"
   end
 
-  add_index "link_records", ["url"], :name => "index_link_records_on_url"
+  add_index "links", ["url"], :name => "index_link_records_on_url"
 
   create_table "text_records", :force => true do |t|
     t.text     "text"

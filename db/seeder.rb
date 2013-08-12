@@ -15,7 +15,7 @@ class Seeder
     end
 
     def create_codemark(url, user)
-      link = LinkRecord.for_url(url)
+      link = Link.for_url(url)
       link.update_attributes(:author_id => user.id)
       attributes = {
         :resource => link,
@@ -27,7 +27,7 @@ class Seeder
 
     def clear_database
       CodemarkRecord.destroy_all
-      LinkRecord.destroy_all
+      Link.destroy_all
       User.destroy_all
       Click.destroy_all
       Authentication.destroy_all

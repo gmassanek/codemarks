@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PresentCodemarks do
   let(:user) { Fabricate(:user) }
-  let(:link) { Fabricate(:link_record) }
+  let(:link) { Fabricate(:link) }
   let(:codemark) { Fabricate(:codemark_record, :resource => link, :user => user) }
 
   it 'presents everything it needs to' do

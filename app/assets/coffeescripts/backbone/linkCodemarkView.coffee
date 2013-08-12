@@ -1,9 +1,9 @@
-App.LinkRecordCodemarkView = App.CodemarkView.extend
+App.LinkCodemarkView = App.CodemarkView.extend
   extraEvents:
     'click .title': 'recordClick'
 
   template: ->
-    angelo('link_record_codemark.html')
+    angelo('link_codemark.html')
 
   presentedAttributes: ->
     resource = @model.get('resource')
@@ -24,7 +24,7 @@ App.LinkRecordCodemarkView = App.CodemarkView.extend
       type: 'POST'
       url: url
       data:
-        resource_type: 'LinkRecord'
+        resource_type: 'Link'
     $(e.currentTarget).unbind('click')
     if _gaq?
       _gaq.push(['_trackEvent', 'codemark', 'visit', @model.get('resource').url])

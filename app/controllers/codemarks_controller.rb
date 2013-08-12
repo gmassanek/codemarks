@@ -3,7 +3,7 @@ class CodemarksController < ApplicationController
     if params[:id]
       codemark = CodemarkRecord.find_by_id(params[:id])
     else
-      resource = LinkRecord.for_url(params[:url] || session[:url])
+      resource = Link.for_url(params[:url] || session[:url])
       codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), resource.try(:id))
       codemark ||= CodemarkRecord.new(:resource => resource, :user => current_user)
       codemark.topics = codemark.suggested_topics unless codemark.persisted?
@@ -108,7 +108,7 @@ class CodemarksController < ApplicationController
     payload["commits"].each do |commit|
       message = commit["message"]
       if message.include?("#cm")
-        resource = LinkRecord.for_url(params[:url] || session[:url])
+        resource = Link.for_url(params[:url] || session[:url])
         codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), resource.try(:id))
         codemark ||= CodemarkRecord.new(:resource => resource, :user => current_user)
         codemark.topics = codemark.suggested_topics unless codemark.persisted?

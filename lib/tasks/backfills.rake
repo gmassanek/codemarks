@@ -71,28 +71,28 @@ namespace :backfill  do
 
   desc 'normalize all link_record urls'
   task :normalize_urls => :environment do
-    LinkRecord.all.each do |link|
+    Link.all.each do |link|
       link.update_attributes(:url => Link.normalize(link.url))
     end
   end
 
-  desc 'set all existing codemark_records to LinkRecord type'
+  desc 'set all existing codemark_records to Link type'
   task :set_to_link_records => :environment do
     CodemarkRecord.all.each do |cm|
-      cm.update_attributes(:resource_type => 'LinkRecord')
+      cm.update_attributes(:resource_type => 'Link')
     end
   end
 
   desc 'get snapshots for every link'
   task :snapshot_links => :environment do
-    LinkRecord.all.each do |link|
+    Link.all.each do |link|
       Delayed::Job.enqueue(SnapLinkJob.new(link))
     end
   end
 
   desc 'verify link click count'
   task :verify_click_count => :environment do
-    LinkRecord.all.each do |link|
+    Link.all.each do |link|
       click_record_count = Click.where(:link_record_id => link.id).count
       next if link.clicks_count == click_record_count
       puts "Updating #{link.url} click count from #{link.clicks_count} to #{click_record_count}"
@@ -132,7 +132,7 @@ namespace :backfill  do
       url = snapshot_data[1]
       snapshot_url = snapshot_data[2]
       snapshot_id = snapshot_data[3]
-      link = LinkRecord.find(link_id)
+      link = Link.find(link_id)
       if link.snapshot_url
         puts "Skipping link #{link.id} because it has a snapshot already"
       end
@@ -146,10 +146,10 @@ namespace :backfill  do
 
   desc 'removed duplicate links'
   task :remove_dup_links => :environment do
-    links = LinkRecord.select('url, count(*) as count').group(:url)
+    links = Link.select('url, count(*) as count').group(:url)
     links.select! { |l| l.count.to_i > 1 }
     links.each do |link|
-      dup_links = LinkRecord.find_all_by_url(link.url)
+      dup_links = Link.find_all_by_url(link.url)
       first = dup_links.min_by(&:created_at)
       the_rest = dup_links.reject { |link| link.id == first.id }
 
@@ -169,7 +169,7 @@ namespace :backfill  do
 
   desc "save link_record.author_id based on first codemark.user"
   task :author_id => :environment do
-    target_link_records = LinkRecord.find(:all, :conditions => {:author_id => nil})
+    target_link_records = Link.find(:all, :conditions => {:author_id => nil})
     codemarks = CodemarkRecord.find(:all, :conditions => {:link_record_id => [target_link_records.collect(&:id)]})
 
     firsts = {}
@@ -189,7 +189,7 @@ namespace :backfill  do
     authors = {}
     firsts.each do |link_record_id, first_codemark|
       authors[link_record_id] = first_codemark.user
-      LinkRecord.find(link_record_id).update_attributes(:author => first_codemark.user)
+      Link.find(link_record_id).update_attributes(:author => first_codemark.user)
     end
 
     p authors

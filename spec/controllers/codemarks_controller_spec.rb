@@ -43,14 +43,14 @@ describe CodemarksController do
     end
 
     it "creates a new codemark for that resource" do
-      link = Fabricate(:link_record)
+      link = Fabricate(:link)
       get :new, :format => :json, :url => link.url
       JSON.parse(response.body)['resource_id'].should == link.id
     end
 
     it "fills new codemarks with suggested tags" do
       github = Topic.create!(:title => 'github')
-      link = Fabricate(:link_record, :title => 'Github')
+      link = Fabricate(:link, :title => 'Github')
       get :new, :format => :json, :url => link.url
       JSON.parse(response.body)['topics'].first['title'].should == 'github'
     end
@@ -60,8 +60,8 @@ describe CodemarksController do
     before do
       @user = Fabricate(:user)
       controller.stub(:current_user_id => @user.id)
-      @resource = Fabricate(:link_record)
-      @link = Fabricate(:link_record)
+      @resource = Fabricate(:link)
+      @link = Fabricate(:link)
       @topics = [Fabricate(:topic), Fabricate(:topic)]
 
       @params = {
@@ -70,7 +70,7 @@ describe CodemarksController do
           "title"=>"jQuery Knob demo",
           "description"=>"",
           "resource_id" => @link.id,
-          "resource_type" => 'LinkRecord',
+          "resource_type" => 'Link',
           "topic_ids"=>"#{@topics.first.slug},test-new-topic"
         }
       }

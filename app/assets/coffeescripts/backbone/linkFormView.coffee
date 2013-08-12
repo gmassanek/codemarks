@@ -1,4 +1,4 @@
-App.LinkRecordFormView = App.CodemarkFormView.extend
+App.LinkFormView = App.CodemarkFormView.extend
   fetchFullFormFor: (url) ->
     data = { url: url }
     $.ajax
@@ -14,7 +14,7 @@ App.LinkRecordFormView = App.CodemarkFormView.extend
         @cancel()
 
   template: ->
-    angelo('linkRecordForm.html')
+    angelo('linkForm.html')
 
   presentedAttributes: ->
     url: @model.get('resource').url

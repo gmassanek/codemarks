@@ -12,7 +12,7 @@ describe 'AddCodemarkView', ->
     it 'for a url', ->
       codemark = @tile.createCodemarkFor('some_url')
       expect(codemark.get('resource').url).toBe('some_url')
-      expect(codemark.get('resource_type')).toBe('LinkRecord')
+      expect(codemark.get('resource_type')).toBe('Link')
 
     it 'is undefined if there is no url', ->
       codemark = @tile.createCodemarkFor()

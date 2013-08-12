@@ -1,4 +1,4 @@
 Fabricator(:click) do
   user { Fabricate(:user) }
-  resource { Fabricate(:link_record) }
+  resource { Fabricate(:link) }
 end

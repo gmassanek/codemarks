@@ -13,4 +13,4 @@
 //= require backbone/topics
 //= require backbone/codemarkletView
 //= require backbone/codemarkFormView
-//= require backbone/linkRecordFormView
+//= require backbone/linkFormView

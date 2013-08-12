@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'postrank-uri'
 
-class LinkRecord < ActiveRecord::Base
+class Link < ActiveRecord::Base
   TAG_SUGGESTION_LIMIT = 3
 
   has_many :topics, :through => :codemark_records
@@ -16,28 +16,28 @@ class LinkRecord < ActiveRecord::Base
 
   def self.for_url(url)
     url = PostRank::URI.clean(url)
-    find_by_url(url) || create_link_record_from_internet(url)
+    find_by_url(url) || create_link_from_internet(url)
   end
 
-  def self.create_link_record_from_internet(url)
-    link_record = new
-    link_record.url = url
-    link_record.host = URI.parse(url).host
+  def self.create_link_from_internet(url)
+    link = new
+    link.url = url
+    link.host = URI.parse(url).host
 
     html_response = Nokogiri::HTML(open(url))
-    link_record.title = html_response.title.try(:strip)
-    link_record.site_data = html_response.content
-    link_record.save!
-    link_record
+    link.title = html_response.title.try(:strip)
+    link.site_data = html_response.content
+    link.save!
+    link
   rescue OpenURI::HTTPError => e
     p e
-    link_record.save!
-    link_record
+    link.save!
+    link
   rescue ActiveRecord::StatementInvalid => e
     p e
-    link_record.site_data = nil
-    link_record.save!
-    link_record
+    link.site_data = nil
+    link.save!
+    link
   end
 
   def orphan?

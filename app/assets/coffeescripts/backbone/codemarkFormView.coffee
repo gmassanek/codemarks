@@ -7,7 +7,7 @@ App.CodemarkFormView = Backbone.View.extend
     'submit': 'submit'
 
   render: ->
-    if @model.hasNewResource() && @model.get('resource_type') == 'LinkRecord'
+    if @model.hasNewResource() && @model.get('resource_type') == 'Link'
       @fetchFullFormFor(@model.get('resource').url)
       return
 

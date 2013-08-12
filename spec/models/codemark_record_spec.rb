@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CodemarkRecord do
   let(:user) { Fabricate(:user) }
-  let(:link) { Fabricate(:link_record) }
+  let(:link) { Fabricate(:link) }
   let(:codemark) do
     CodemarkRecord.new({
       :resource => link,
@@ -25,10 +25,10 @@ describe CodemarkRecord do
 
   describe ".update_or_create" do
     it 'creates a new codemark' do
-      new_link = Fabricate(:link_record)
+      new_link = Fabricate(:link)
       attributes = {
         :user_id => codemark.user_id,
-        :resource_type => 'LinkRecord',
+        :resource_type => 'Link',
         :resource_id => new_link.id,
         :title => 'Title'
       }
@@ -77,7 +77,7 @@ describe CodemarkRecord do
   end
 
   describe '#resource' do
-    it 'can be a link_record' do
+    it 'can be a link' do
       cm = CodemarkRecord.new(:resource => link, :user => user)
       cm.resource.should == link
     end
@@ -123,7 +123,7 @@ describe CodemarkRecord do
       codemark_record.suggested_topics.should == []
     end
 
-    it "delegates to LinkRecord" do
+    it "delegates to Link" do
       codemark_record = Fabricate(:codemark_record, :user => user)
       codemark_record.resource.stub(:suggested_topics => [@github, @rspec])
       codemark_record.suggested_topics.should == [@github, @rspec]

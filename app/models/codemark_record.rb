@@ -51,7 +51,7 @@ class CodemarkRecord < ActiveRecord::Base
     return [] unless resource
 
     case resource.class.to_s
-    when 'LinkRecord'
+    when 'Link'
       resource.suggested_topics
     when 'TextRecord'
       []

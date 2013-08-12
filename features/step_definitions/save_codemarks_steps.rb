@@ -30,12 +30,12 @@ Given /^I have (a|1) codemark$/ do |arg1|
 end
 
 Given /^there is (a|1) codemark$/ do |arg1|
-  link = Fabricate(:link_record, :url => 'http://www.google.com/')
+  link = Fabricate(:link, :url => 'http://www.google.com/')
   @codemark = Fabricate(:codemark_record, :resource => link)
 end
 
 Given /^tom_brady has codemarked Google$/ do
-  google = Fabricate(:link_record, :author => @tom_brady, :url => 'http://www.google.com')
+  google = Fabricate(:link, :author => @tom_brady, :url => 'http://www.google.com')
   topic = Fabricate(:topic, :title => 'Google')
   @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google, :topics => [topic])
 end
@@ -60,7 +60,7 @@ Then /^tom_brady should still be Google's author$/ do
 end
 
 Then /^I should be Google's author$/ do
-  google = LinkRecord.find_by_url('http://www.google.com/')
+  google = Link.find_by_url('http://www.google.com/')
   google.author.should == @current_user
 end
 
@@ -73,7 +73,7 @@ Then /^there should be (\d+) codemarks$/ do |codemark_count|
 end
 
 Then /^there should be (\d+) links/ do |link_count|
-  LinkRecord.count.should == link_count.to_i
+  Link.count.should == link_count.to_i
 end
 
 Then /^that codemark should have a note$/ do

@@ -7,8 +7,8 @@ describe Click do
   end
 
   it "increments the click_count when it's saved" do
-    link_record = Fabricate(:link_record, :clicks_count => 5)
-    click = Fabricate(:click, resource: link_record)
-    LinkRecord.find(link_record.id).clicks_count.should == 6
+    link = Fabricate(:link, :clicks_count => 5)
+    click = Fabricate(:click, resource: link)
+    Link.find(link.id).clicks_count.should == 6
   end
 end

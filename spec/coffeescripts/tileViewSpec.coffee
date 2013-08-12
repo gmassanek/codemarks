@@ -3,7 +3,7 @@ describe 'Tile View', ->
     @codemark = new App.Codemark
       id: 10
       author: { slug: 'gmassanek' }
-      resource_type: 'LinkRecord'
+      resource_type: 'Link'
       resource: {}
     @view = new App.TileView
       model: @codemark
@@ -16,12 +16,12 @@ describe 'Tile View', ->
 
   describe 'renders', ->
     it 'a %section.tile', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       @view.render()
       expect(@view.$el.hasClass('tile')).toBeTruthy()
       expect(@view.$el.prop('tagName')).toBe('SECTION')
 
-    it 'a LinkRecordCodemarkView if the codemark exists', ->
+    it 'a LinkCodemarkView if the codemark exists', ->
       spyOn(@view, 'renderCodemarkView')
       @view.render()
       expect(@view.renderCodemarkView).toHaveBeenCalled()
@@ -38,7 +38,7 @@ describe 'Tile View', ->
       expect(view.model).toBeDefined()
 
     it 'uses an existing one', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       @view.render()
       expect(@view.model).toBe(@codemark)
 
@@ -49,17 +49,17 @@ describe 'Tile View', ->
       expect(@view.view).toBeUndefined()
 
     it 'fills the tile with a view', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       @view.renderCodemarkView()
       expect(@view.view).toBeDefined()
 
     it 'renders a codemarkView', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       @view.renderCodemarkView()
       expect(renderSpy).toHaveBeenCalled()
 
     it 'inserts and binds to the view', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       insertSpy = spyOn(@view, 'replaceElWithView')
       bindSpy = spyOn(@view, 'bindToView')
       @view.renderCodemarkView()
@@ -76,7 +76,7 @@ describe 'Tile View', ->
       expect(@view.view).toBeUndefined()
 
     it 'fills the tile with a view', ->
-      renderSpy = spyOn(App.LinkRecordCodemarkView.prototype, 'render')
+      renderSpy = spyOn(App.LinkCodemarkView.prototype, 'render')
       @view.renderAddCodemarkView()
       expect(@view.view).toBeDefined()
 
@@ -97,29 +97,29 @@ describe 'Tile View', ->
       @newCodemark = new App.Codemark
         resource:
           url: 'http://www.google.com'
-        resource_type: 'LinkRecord'
+        resource_type: 'Link'
       @addView = new App.AddCodemarkView
         model: @newCodemark
       @view.view = @addView
 
     it 'replaces the tile with a view', ->
-      renderSpy = spyOn(App.LinkRecordFormView.prototype, 'render')
+      renderSpy = spyOn(App.LinkFormView.prototype, 'render')
       @view.turnViewIntoForm()
       expect(@view.view).not.toBe(@addView)
 
     it 'renders a codemarkFormView', ->
-      renderSpy = spyOn(App.LinkRecordFormView.prototype, 'render')
+      renderSpy = spyOn(App.LinkFormView.prototype, 'render')
       @view.turnViewIntoForm()
       expect(renderSpy).toHaveBeenCalled()
 
     it 'uses the model from the current view', ->
-      renderSpy = spyOn(App.LinkRecordFormView.prototype, 'render')
+      renderSpy = spyOn(App.LinkFormView.prototype, 'render')
       @view.turnViewIntoForm()
       expect(@view.model).toBe(@newCodemark)
 
   describe 'listens to the view it created', ->
     it 'for when it wants to turn into a form', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       @view.view = codemarkView
       @view.bindToView()
@@ -128,7 +128,7 @@ describe 'Tile View', ->
       expect(@view.turnViewIntoForm).toHaveBeenCalled()
 
     it 'for when it wants to cancel and just rerenders', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       @view.view = codemarkView
       @view.bindToView()
@@ -153,7 +153,7 @@ describe 'Tile View', ->
       expect(@view.codemarkCreated).toHaveBeenCalled()
 
     it 'for when it has been removed', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       @view.view = codemarkView
       @view.bindToView()
@@ -162,7 +162,7 @@ describe 'Tile View', ->
       expect(@view.remove).toHaveBeenCalled()
 
     it 'for when it is being copied to a new user', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       @view.view = codemarkView
       @view.bindToView()
@@ -185,7 +185,7 @@ describe 'Tile View', ->
 
   describe 'creates a codemark for a new user', ->
     it 'remembers the model to copy', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       spyOn(@view, 'turnViewIntoForm')
       @view.view = codemarkView
@@ -193,7 +193,7 @@ describe 'Tile View', ->
       expect(@view.modelToCopy).toBe(@codemark)
 
     it 'removes the user and id of the existing model', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       spyOn(@view, 'turnViewIntoForm')
       @view.view = codemarkView
@@ -203,7 +203,7 @@ describe 'Tile View', ->
       expect(@view.view.model.get('user_id')).toBeUndefined()
 
     it 'turns into a form', ->
-      codemarkView = new App.LinkRecordCodemarkView
+      codemarkView = new App.LinkCodemarkView
         model: @codemark
       @view.view = codemarkView
       spyOn(@view, 'turnViewIntoForm')
