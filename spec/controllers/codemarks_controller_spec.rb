@@ -83,14 +83,14 @@ describe CodemarksController do
     end
 
     it 'creates a text codemark' do
-      @params["codemark"]["resource_type"] = 'TextRecord'
+      @params["codemark"]["resource_type"] = 'Text'
       @params["codemark"]["resource_id"] = nil
       @params["resource"] = {'text' => 'Sample text codemark'}
 
       expect {
         post :create, @params
       }.to change(Codemark, :count).by 1
-      Codemark.last.resource.should be_a TextRecord
+      Codemark.last.resource.should be_a Text
     end
 
     it 'creates topics' do

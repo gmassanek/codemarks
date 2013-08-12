@@ -1,6 +1,6 @@
-App.TextRecordFormView = App.CodemarkFormView.extend
+App.TextFormView = App.CodemarkFormView.extend
   template: ->
-    angelo('textRecordForm.html')
+    angelo('textForm.html')
 
   presentedAttributes: ->
     title: @model.get('title') || ''

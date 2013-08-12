@@ -32,7 +32,7 @@ describe FindCodemarks do
 
       it "returns the save count for text" do
         user = Fabricate(:user)
-        text_cm = Fabricate(:codemark, :user => user, :resource => TextRecord.create!(:text => 'text'))
+        text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
         all_cms = FindCodemarks.new(:user => user)
         all_cms.codemarks.first.save_count.should == "1"
       end
@@ -174,7 +174,7 @@ describe FindCodemarks do
       end
 
       it "can be ordered by visit_count" do
-        text_cm = Fabricate(:codemark, :user => @user, :resource => TextRecord.create!(:text => 'text'))
+        text_cm = Fabricate(:codemark, :user => @user, :resource => Text.create!(:text => 'text'))
         user = Fabricate(:user)
         2.times { Fabricate(:click, :user => user, :resource => @cm2.resource) }
         3.times { Fabricate(:click, :user => user, :resource => text_cm.resource) }

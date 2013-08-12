@@ -34,7 +34,7 @@ Given /^I have (\d+) text codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact
-    textmark = TextRecord.create!(:text => 'wooooohooo')
+    textmark = Text.create!(:text => 'wooooohooo')
     @codemarks << Fabricate(:codemark, :resource => textmark, :user => @current_user, :topics => topics)
   end
   @codemarks

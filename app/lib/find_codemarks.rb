@@ -90,8 +90,8 @@ class FindCodemarks
 
       SELECT codemarks.id, clicks_count as visit_count
       FROM codemarks
-      LEFT JOIN text_records ON codemarks.resource_id = text_records.id
-      WHERE codemarks.resource_type = 'TextRecord')
+      LEFT JOIN texts ON codemarks.resource_id = texts.id
+      WHERE codemarks.resource_type = 'Text')
     SQL
   end
 

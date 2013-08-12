@@ -1,4 +1,4 @@
-class TextRecord < ActiveRecord::Base
+class Text < ActiveRecord::Base
   has_many :topics, :through => :codemarks
   has_many :codemarks, :as => :resource
   has_many :clicks, :as => :resource

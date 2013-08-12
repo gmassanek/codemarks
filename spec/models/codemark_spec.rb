@@ -83,7 +83,7 @@ describe Codemark do
     end
 
     it 'can be a note' do
-      note = TextRecord.new(:text => 'Some Note')
+      note = Text.new(:text => 'Some Note')
       cm = Codemark.new(:resource => note, :user => user)
       cm.resource.should == note
     end

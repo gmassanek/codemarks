@@ -53,7 +53,7 @@ class Codemark < ActiveRecord::Base
     case resource.class.to_s
     when 'Link'
       resource.suggested_topics
-    when 'TextRecord'
+    when 'Text'
       []
     else
       []

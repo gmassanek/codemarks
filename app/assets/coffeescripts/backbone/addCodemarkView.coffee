@@ -20,7 +20,7 @@ App.AddCodemarkView = Backbone.View.extend
     e.preventDefault()
     @model = new App.Codemark
       resource: {}
-      resource_type: 'TextRecord'
+      resource_type: 'Text'
     @trigger('turnIntoForm')
 
   showUrlForm: ->
