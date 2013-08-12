@@ -6,7 +6,7 @@ class Topic < ActiveRecord::Base
 
   has_many :codemark_topics
   has_many :codemarks, :through => :codemark_topics
-  has_many :links, :through => :codemarks
+  has_many :resources, :through => :codemarks
 
   validates_presence_of :title
 

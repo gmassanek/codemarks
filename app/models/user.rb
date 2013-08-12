@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy
   has_many :codemarks, :dependent => :destroy
-  has_many :links, :through => :codemarks
+  has_many :resources, :through => :codemarks
   has_many :topics, :through => :codemarks
   has_many :clicks
 
