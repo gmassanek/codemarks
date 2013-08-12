@@ -28,6 +28,11 @@ class CodemarksController < ApplicationController
     puts e.backtrace.first(10).join("\n")
   end
 
+  def sendgrid
+    p params
+    Rails.logger.info params.inspect
+  end
+
   def index
     @user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
 

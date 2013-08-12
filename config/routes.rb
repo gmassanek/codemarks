@@ -9,7 +9,12 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :codemarks
+  resources :codemarks do
+    collection do
+      post :sendgrid
+    end
+  end
+
   resources :topics
   resources :users do
     collection do
