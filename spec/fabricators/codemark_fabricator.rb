@@ -1,4 +1,4 @@
-Fabricator(:codemark_record) do
+Fabricator(:codemark) do
   resource { Fabricate(:link) }
   user
   title { Faker::Lorem.words(5).join(' ') }

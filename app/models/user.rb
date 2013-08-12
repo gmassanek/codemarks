@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
   friendly_id :nickname, :use => :slugged
 
   has_many :authentications, :dependent => :destroy
-  has_many :codemark_records, :dependent => :destroy
-  has_many :links, :through => :codemark_records
-  has_many :topics, :through => :codemark_records
+  has_many :codemarks, :dependent => :destroy
+  has_many :links, :through => :codemarks
+  has_many :topics, :through => :codemarks
   has_many :clicks
 
   has_many :nuggets, :class_name => 'Link', :foreign_key => :author_id

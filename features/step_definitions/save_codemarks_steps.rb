@@ -26,18 +26,18 @@ When /^I submit the codemark form$/ do
 end
 
 Given /^I have (a|1) codemark$/ do |arg1|
-  @codemark = Fabricate(:codemark_record, :user => @current_user)
+  @codemark = Fabricate(:codemark, :user => @current_user)
 end
 
 Given /^there is (a|1) codemark$/ do |arg1|
   link = Fabricate(:link, :url => 'http://www.google.com/')
-  @codemark = Fabricate(:codemark_record, :resource => link)
+  @codemark = Fabricate(:codemark, :resource => link)
 end
 
 Given /^tom_brady has codemarked Google$/ do
   google = Fabricate(:link, :author => @tom_brady, :url => 'http://www.google.com')
   topic = Fabricate(:topic, :title => 'Google')
-  @codemark = @google = Fabricate(:codemark_record, :user => @tom_brady, :resource => google, :topics => [topic])
+  @codemark = @google = Fabricate(:codemark, :user => @tom_brady, :resource => google, :topics => [topic])
 end
 
 Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note_text|
@@ -48,7 +48,7 @@ Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note
 end
 
 Then /^I should be that codemark's author$/ do
-  CodemarkRecord.last.resource.author.should == @current_user
+  Codemark.last.resource.author.should == @current_user
 end
 
 Then /^I should see a codemark form$/ do
@@ -65,11 +65,11 @@ Then /^I should be Google's author$/ do
 end
 
 Then /^I should have (\d+) codemark$/ do |num_codemarks|
-  @current_user.codemark_records.count.should == num_codemarks.to_i
+  @current_user.codemarks.count.should == num_codemarks.to_i
 end
 
 Then /^there should be (\d+) codemarks$/ do |codemark_count|
-  CodemarkRecord.count.should == codemark_count.to_i
+  Codemark.count.should == codemark_count.to_i
 end
 
 Then /^there should be (\d+) links/ do |link_count|

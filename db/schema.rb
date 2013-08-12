@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812035015) do
+ActiveRecord::Schema.define(:version => 20130812040138) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -35,7 +35,14 @@ ActiveRecord::Schema.define(:version => 20130812035015) do
     t.string   "resource_type"
   end
 
-  create_table "codemark_records", :force => true do |t|
+  create_table "codemark_topics", :force => true do |t|
+    t.integer  "codemark_id"
+    t.integer  "topic_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "codemarks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_id"
     t.datetime "created_at",                       :null => false
@@ -47,14 +54,7 @@ ActiveRecord::Schema.define(:version => 20130812035015) do
     t.string   "resource_type"
   end
 
-  add_index "codemark_records", ["search"], :name => "codemarks_search_index"
-
-  create_table "codemark_topics", :force => true do |t|
-    t.integer  "codemark_record_id"
-    t.integer  "topic_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
+  add_index "codemarks", ["search"], :name => "codemarks_search_index"
 
   create_table "comments", :force => true do |t|
     t.integer  "codemark_id"

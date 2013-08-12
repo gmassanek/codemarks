@@ -76,9 +76,9 @@ namespace :backfill  do
     end
   end
 
-  desc 'set all existing codemark_records to Link type'
+  desc 'set all existing codemarks to Link type'
   task :set_to_link_records => :environment do
-    CodemarkRecord.all.each do |cm|
+    Codemark.all.each do |cm|
       cm.update_attributes(:resource_type => 'Link')
     end
   end
@@ -111,11 +111,11 @@ namespace :backfill  do
       others.each do |user|
         user.authentications.each { |auth| auth.update_attributes(:user_id => first.id) }
         user.clicks.each { |click| click.update_attributes(:user_id => first.id) }
-        user.codemark_records.each { |cm| cm.update_attributes(:user_id => first.id) }
+        user.codemarks.each { |cm| cm.update_attributes(:user_id => first.id) }
         user.topics.each { |topic| topic.update_attributes(:user_id => first.id) }
         Comment.where(:author_id => user).each { |comment| comment.update_attributes(:author_id => first.id) }
         if user.authentications.count == 0 && user.clicks.count == 0 &&
-          user.codemark_records.count == 0 && user.topics.count == 0 &&
+          user.codemarks.count == 0 && user.topics.count == 0 &&
           Comment.where(:author_id => user).count == 0
           puts "Removing #{user.nickname}, user ##{user.id}"
           user.destroy
@@ -159,7 +159,7 @@ namespace :backfill  do
         clicks = Click.where(:link_record_id => link.id)
         clicks.each { |c| c.update_attributes(:link_record_id => first.id) }
 
-        codemarks = CodemarkRecord.where(:resource_id => link.id)
+        codemarks = Codemark.where(:resource_id => link.id)
         codemarks.each { |c| c.update_attributes(:resource_id => first.id) }
 
         link.destroy
@@ -170,7 +170,7 @@ namespace :backfill  do
   desc "save link_record.author_id based on first codemark.user"
   task :author_id => :environment do
     target_link_records = Link.find(:all, :conditions => {:author_id => nil})
-    codemarks = CodemarkRecord.find(:all, :conditions => {:link_record_id => [target_link_records.collect(&:id)]})
+    codemarks = Codemark.find(:all, :conditions => {:link_record_id => [target_link_records.collect(&:id)]})
 
     firsts = {}
     codemarks.each do |codemark|

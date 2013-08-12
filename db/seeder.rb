@@ -22,11 +22,11 @@ class Seeder
         :user_id => user.id,
         :topic_ids => link.suggested_topics
       }
-      CodemarkRecord.create!(attributes)
+      Codemark.create!(attributes)
     end
 
     def clear_database
-      CodemarkRecord.destroy_all
+      Codemark.destroy_all
       Link.destroy_all
       User.destroy_all
       Click.destroy_all

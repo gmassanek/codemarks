@@ -63,10 +63,10 @@ describe User do
   end
 
   it "should destroy it's codemarks" do
-    Fabricate(:codemark_record, :user => user)
+    Fabricate(:codemark, :user => user)
     expect {
       user.destroy
-    }.should change(CodemarkRecord, :count).by(-1)
+    }.should change(Codemark, :count).by(-1)
   end
 
   it "finds a user by authenticaion and username" do
@@ -89,29 +89,29 @@ describe User do
     end
 
     it 'is nil if none of the codemarks have topics' do
-      codemark = Fabricate(:codemark_record, :user => user)
+      codemark = Fabricate(:codemark, :user => user)
       user.favorite_topics.should be_nil
     end
 
     it 'includes topics from all codemarks' do
-      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic1])
-      codemark = Fabricate(:codemark_record, :user => user, :topics => [topic2])
+      codemark = Fabricate(:codemark, :user => user, :topics => [topic1])
+      codemark = Fabricate(:codemark, :user => user, :topics => [topic2])
       user.favorite_topics.count.should == 2
     end
 
     it 'counts the codemarks for each topic' do
-      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
-      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
-      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      Fabricate(:codemark, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark, :user => user, :topics => [topic2, topic3])
       user.favorite_topics[topic1].should == 2
       user.favorite_topics[topic2].should == 3
       user.favorite_topics[topic3].should == 1
     end
 
     it 'orders them by count' do
-      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
-      Fabricate(:codemark_record, :user => user, :topics => [topic1, topic2])
-      Fabricate(:codemark_record, :user => user, :topics => [topic2, topic3])
+      Fabricate(:codemark, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark, :user => user, :topics => [topic1, topic2])
+      Fabricate(:codemark, :user => user, :topics => [topic2, topic3])
       user.favorite_topics.keys[0].should == topic2
       user.favorite_topics.keys[1].should == topic1
       user.favorite_topics.keys[2].should == topic3
@@ -122,7 +122,7 @@ describe User do
       17.times do
         topics << Fabricate(:topic)
       end
-      Fabricate(:codemark_record, :user => user, :topics => topics)
+      Fabricate(:codemark, :user => user, :topics => topics)
       user.favorite_topics.length.should == 15
     end
   end

@@ -27,7 +27,7 @@ namespace :users  do
     user1 = User.find(args[:user_id1])
     user2 = User.find(args[:user_id2])
 
-    secondary, primary = [user1, user2].sort_by { |user| user.codemark_records.count }
+    secondary, primary = [user1, user2].sort_by { |user| user.codemarks.count }
     p "Moving items from from user #{secondary.id} to user #{primary.id}"
     
     p ""
@@ -64,13 +64,13 @@ namespace :users  do
     p ""
     p ""
     p 'Codemark Count'
-    p "Primary: #{primary.codemark_records.count}"
-    p "Secondary: #{secondary.codemark_records.count}"
+    p "Primary: #{primary.codemarks.count}"
+    p "Secondary: #{secondary.codemarks.count}"
 
-    primary_link_ids = primary.codemark_records.map(&:link_id)
+    primary_link_ids = primary.codemarks.map(&:link_id)
     p primary_link_ids
-    p secondary.codemark_records.map(&:link_id)
-    secondary.codemark_records.each do |codemark|
+    p secondary.codemarks.map(&:link_id)
+    secondary.codemarks.each do |codemark|
       if primary_link_ids.include?(codemark.link_id)
         p "Deleting codemark #{codemark.id}"
         codemark.destroy if deleting[:codemarks]
@@ -79,8 +79,8 @@ namespace :users  do
         codemark.update_attributes(:user_id => primary.id) if moving[:codemarks]
       end
     end
-    p "Primary: #{primary.codemark_records.count}"
-    p "Secondary: #{secondary.codemark_records.count}"
+    p "Primary: #{primary.codemarks.count}"
+    p "Secondary: #{secondary.codemarks.count}"
 
     p ""
     p ""

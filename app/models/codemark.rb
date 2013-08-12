@@ -1,4 +1,4 @@
-class CodemarkRecord < ActiveRecord::Base
+class Codemark < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
   belongs_to :user
 
@@ -18,14 +18,14 @@ class CodemarkRecord < ActiveRecord::Base
   end
 
   def self.update_or_create(attributes)
-    cm = for_user_and_resource(attributes[:user_id], attributes[:resource_id]) || CodemarkRecord.new
+    cm = for_user_and_resource(attributes[:user_id], attributes[:resource_id]) || Codemark.new
     cm.update_attributes(attributes)
     cm.resource.update_author(attributes[:user_id])
     cm
   end
 
   def self.most_popular_yesterday
-    candidates = CodemarkRecord.where(["DATE(created_at) = ?", Date.today-1])
+    candidates = Codemark.where(["DATE(created_at) = ?", Date.today-1])
     return unless candidates.present?
 
     candidates.max_by do |codemark|

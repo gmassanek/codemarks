@@ -4,42 +4,42 @@ describe FindCodemarks do
   context 'there are codemarks' do
     before do
       @user = Fabricate(:user)
-      @cm = Fabricate(:codemark_record, :user => @user, :topics => [Fabricate(:topic), Fabricate(:topic)])
-      @cm2 = Fabricate(:codemark_record, :user => @user)
+      @cm = Fabricate(:codemark, :user => @user, :topics => [Fabricate(:topic), Fabricate(:topic)])
+      @cm2 = Fabricate(:codemark, :user => @user)
     end
 
     context "general result rules" do
       it "doesn't return multiple cms for the same link" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         all_cms = FindCodemarks.new
         all_cms.codemarks.all.count.should == 2
       end
 
       it "returns my cm even if other people saved the same link" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         all_cms = FindCodemarks.new(:user => @user)
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
 
       it "returns the save count" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         all_cms = FindCodemarks.new
         all_cms.codemarks.first.save_count.should == "2"
       end
 
       it "returns the save count for text" do
         user = Fabricate(:user)
-        text_cm = Fabricate(:codemark_record, :user => user, :resource => TextRecord.create!(:text => 'text'))
+        text_cm = Fabricate(:codemark, :user => user, :resource => TextRecord.create!(:text => 'text'))
         all_cms = FindCodemarks.new(:user => user)
         all_cms.codemarks.first.save_count.should == "1"
       end
 
       it "returns the save count when scoped by user" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         all_cms = FindCodemarks.new(:user => user)
         all_cms.codemarks.first.save_count.should == "2"
       end
@@ -48,7 +48,7 @@ describe FindCodemarks do
         @cm.resource.update_attributes(:author => @user)
 
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         codemarks  = FindCodemarks.new.codemarks
         codemarks.first.resource_author.should == @user
       end
@@ -57,7 +57,7 @@ describe FindCodemarks do
         gmassanek = Fabricate(:user, :nickname => 'gmassanek')
         gravelGallery = Fabricate(:user, :nickname => 'GravelGallery')
         codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm = Fabricate(:codemark_record, :topics => [codemarks_topic])
+        cm = Fabricate(:codemark, :topics => [codemarks_topic])
 
         FindCodemarks.new.codemarks.should_not include cm
         FindCodemarks.new(:current_user => @user).codemarks.should_not include cm
@@ -66,16 +66,16 @@ describe FindCodemarks do
       end
 
       it 'shows old codemarks that I have marked with codemarks, just with other others' do
-        cm = Fabricate(:codemark_record)
+        cm = Fabricate(:codemark)
         gmassanek = Fabricate(:user, :nickname => 'gmassanek')
         codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm2 = Fabricate(:codemark_record, :resource => cm.resource, :user => gmassanek, :topics => [codemarks_topic])
+        cm2 = Fabricate(:codemark, :resource => cm.resource, :user => gmassanek, :topics => [codemarks_topic])
         FindCodemarks.new.codemarks.should include cm
       end
 
       it 'works if there are no codemarks tagged codemarks' do
         codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm = Fabricate(:codemark_record)
+        cm = Fabricate(:codemark)
         FindCodemarks.new.codemarks.should include cm
       end
     end
@@ -88,7 +88,7 @@ describe FindCodemarks do
       end
 
       it "returns the codemarks of the current_user" do
-        Fabricate(:codemark_record, :user => Fabricate(:user), :resource => @cm.resource)
+        Fabricate(:codemark, :user => Fabricate(:user), :resource => @cm.resource)
         FindCodemarks.new(:current_user => @user).codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
 
@@ -98,14 +98,14 @@ describe FindCodemarks do
     end
 
     it 'does include my private codemarks' do
-      private_codemark = Fabricate(:codemark_record, :private => true, :user => @user)
+      private_codemark = Fabricate(:codemark, :private => true, :user => @user)
       all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
       all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id, private_codemark.id]
     end
 
     it 'does not include other people\'s private codemarks' do
       user = Fabricate(:user)
-      private_codemark = Fabricate(:codemark_record, :private => true, :user => user)
+      private_codemark = Fabricate(:codemark, :private => true, :user => user)
       all_cms = FindCodemarks.new(:user => @user, :current_user => user)
       all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end
@@ -115,14 +115,14 @@ describe FindCodemarks do
       let(:private) { Topic.find_by_title('private') || Fabricate(:topic, :title => 'private') }
 
       it 'does not include other users private codemarks' do
-        private_codemark = Fabricate(:codemark_record, :topics => [private], :user => user)
+        private_codemark = Fabricate(:codemark, :topics => [private], :user => user)
         all_cms = FindCodemarks.new(:current_user => @user)
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
 
       it 'does not hide partially private codemarks' do
         user2 = Fabricate(:user)
-        private_codemark = Fabricate(:codemark_record, :topics => [private], :user => user2, :resource => @cm.resource)
+        private_codemark = Fabricate(:codemark, :topics => [private], :user => user2, :resource => @cm.resource)
         all_cms = FindCodemarks.new
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
@@ -133,14 +133,14 @@ describe FindCodemarks do
       let(:topic2_id) { @cm.topics.last.id }
 
       it "gets all the Codemarks" do
-        cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+        cm3 = Fabricate(:codemark, :topic_ids => [topic1_id])
         cms = FindCodemarks.new(:topic_ids => [topic1_id]).codemarks
         cms.collect(&:id).should =~ [@cm.id, cm3.id]
       end
 
       describe 'with multiple topics' do
         it 'does not find a codemark that only matches one of the topics' do
-          cm3 = Fabricate(:codemark_record, :topic_ids => [topic1_id])
+          cm3 = Fabricate(:codemark, :topic_ids => [topic1_id])
           cms = FindCodemarks.new(:topic_ids => [topic1_id, topic2_id]).codemarks
           cms.should == [@cm]
         end
@@ -150,7 +150,7 @@ describe FindCodemarks do
     context "public" do
       it "should find all codemarks regardless of user" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user)
+        @cm3 = Fabricate(:codemark, :user => user)
         all_cms = FindCodemarks.new
         all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
       end
@@ -160,21 +160,21 @@ describe FindCodemarks do
       it "defaults to ordering by most recently created" do
         @cm.update_attribute(:created_at, 9.days.ago)
         @cm2.update_attribute(:created_at, 3.days.ago)
-        @cm3 = Fabricate(:codemark_record, :created_at => 5.days.ago)
+        @cm3 = Fabricate(:codemark, :created_at => 5.days.ago)
         all_cms = FindCodemarks.new
         all_cms.codemarks.collect(&:id).should == [@cm2.id, @cm3.id, @cm.id]
       end
 
       it "can be ordered by save_count" do
         user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark_record, :user => user, :resource => @cm.resource)
-        @cm4= Fabricate(:codemark_record, :user => @user)
+        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+        @cm4= Fabricate(:codemark, :user => @user)
         all_cms = FindCodemarks.new(:by => :count)
         all_cms.codemarks.first.save_count.should == "2"
       end
 
       it "can be ordered by visit_count" do
-        text_cm = Fabricate(:codemark_record, :user => @user, :resource => TextRecord.create!(:text => 'text'))
+        text_cm = Fabricate(:codemark, :user => @user, :resource => TextRecord.create!(:text => 'text'))
         user = Fabricate(:user)
         2.times { Fabricate(:click, :user => user, :resource => @cm2.resource) }
         3.times { Fabricate(:click, :user => user, :resource => text_cm.resource) }
@@ -191,7 +191,7 @@ describe FindCodemarks do
 
       it "defaults to 25 per page" do
         25.times do
-          Fabricate(:codemark_record)
+          Fabricate(:codemark)
         end
         response = FindCodemarks.new
         response.codemarks.all.count.should == FindCodemarks::PAGE_SIZE
@@ -205,33 +205,33 @@ describe FindCodemarks do
 
     context 'with query', :search_indexes => true do
       it 'searches a codemarks title' do
-        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony')
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
       end
 
       it 'matches topics from search' do
         topic = Fabricate(:topic, :title => 'Github')
-        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :topics => [topic])
         FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
 
       it 'matches any topics from search' do
         topic = Fabricate(:topic, :title => 'Github')
         topic2 = Fabricate(:topic, :title => 'Github2')
-        cm = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony', :topics => [topic])
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :topics => [topic])
         FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
 
       it 'matches title even if no topics match' do
         topic = Fabricate(:topic, :title => 'Github')
-        cm = Fabricate(:codemark_record, :user => @user, :title => 'Github rocks')
+        cm = Fabricate(:codemark, :user => @user, :title => 'Github rocks')
         FindCodemarks.new(:search_term => 'github').codemarks.collect(&:id).should =~ [cm.id]
       end
 
       it "uses the sort passed in" do
-        cm1 = Fabricate(:codemark_record, :user => @user, :title => 'My pretty pony')
-        cm3 = Fabricate(:codemark_record, :user => @user, :title => 'My boring pony')
-        cm2 = Fabricate(:codemark_record, :user => @user, :title => 'My ugly pony')
+        cm1 = Fabricate(:codemark, :user => @user, :title => 'My pretty pony')
+        cm3 = Fabricate(:codemark, :user => @user, :title => 'My boring pony')
+        cm2 = Fabricate(:codemark, :user => @user, :title => 'My ugly pony')
         2.times { Fabricate(:click, :user => @user, :resource => cm2.resource) }
 
         all_cms = FindCodemarks.new(:by => :visits, :search_term => 'pony')

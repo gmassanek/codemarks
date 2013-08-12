@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.includes(:authentications).
-      joins("LEFT JOIN (#{CodemarkRecord.select('user_id, count(*)').group(:user_id).to_sql}) cm_count ON users.id = cm_count.user_id").
+      joins("LEFT JOIN (#{Codemark.select('user_id, count(*)').group(:user_id).to_sql}) cm_count ON users.id = cm_count.user_id").
       joins("LEFT JOIN (#{Click.select('user_id, count(*)').group(:user_id).to_sql}) click_count ON users.id = click_count.user_id").
       select('users.*, COALESCE(cm_count.count, 0) as cm_count, COALESCE(click_count.count, 0) as click_count')
       @users.sort_by! { |u| u.cm_count.to_i + u.click_count.to_i }.reverse!

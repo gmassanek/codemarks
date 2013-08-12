@@ -5,8 +5,8 @@ require 'postrank-uri'
 class Link < ActiveRecord::Base
   TAG_SUGGESTION_LIMIT = 3
 
-  has_many :topics, :through => :codemark_records
-  has_many :codemark_records, :as => :resource
+  has_many :topics, :through => :codemarks
+  has_many :codemarks, :as => :resource
   has_many :clicks, :as => :resource
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
 

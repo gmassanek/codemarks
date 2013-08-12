@@ -11,7 +11,7 @@ describe CodemarksController do
     end
 
     it "it assigns codemarks" do
-      Fabricate(:codemark_record)
+      Fabricate(:codemark)
       get :index, :format => :json
       assigns[:codemarks].should_not be_nil
     end
@@ -28,7 +28,7 @@ describe CodemarksController do
     let(:valid_url) { "http://www.example.com" }
 
     it "finds codemarks by id" do
-      cm = Fabricate(:codemark_record)
+      cm = Fabricate(:codemark)
       get :new, :format => :json, :id => cm.id
       JSON.parse(response.body)['id'].should == cm.id
     end
@@ -37,7 +37,7 @@ describe CodemarksController do
       user = Fabricate(:user)
       controller.stub(:current_user_id => user.id)
 
-      cm = Fabricate(:codemark_record, :user => user)
+      cm = Fabricate(:codemark, :user => user)
       get :new, :format => :json, :url => cm.resource.url
       JSON.parse(response.body)['id'].should == cm.id
     end
@@ -79,7 +79,7 @@ describe CodemarksController do
     it 'creates a codemark' do
       expect {
         post :create, @params
-      }.to change(CodemarkRecord, :count).by 1
+      }.to change(Codemark, :count).by 1
     end
 
     it 'creates a text codemark' do
@@ -89,8 +89,8 @@ describe CodemarksController do
 
       expect {
         post :create, @params
-      }.to change(CodemarkRecord, :count).by 1
-      CodemarkRecord.last.resource.should be_a TextRecord
+      }.to change(Codemark, :count).by 1
+      Codemark.last.resource.should be_a TextRecord
     end
 
     it 'creates topics' do

@@ -6,7 +6,7 @@ namespace :whenever do
     puts "Codemark of the Day"
     puts Time.now
 
-    codemark_of_the_day = CodemarkRecord.most_popular_yesterday
+    codemark_of_the_day = Codemark.most_popular_yesterday
     if codemark_of_the_day
       puts codemark_of_the_day
 

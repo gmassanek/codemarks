@@ -1,23 +1,23 @@
 Given /^someone else has codemarks$/ do
-  2.times { Fabricate(:codemark_record) }
+  2.times { Fabricate(:codemark) }
 end
 
 Given /^one of my codemarks has been save (\d+) other times$/ do |num|
   @codemark = @codemarks.first
   num.to_i.times do
-    Fabricate(:codemark_record, :resource => @codemark.resource)
+    Fabricate(:codemark, :resource => @codemark.resource)
   end
 end
 
 Given /^I have a codemarks called "([^"]*)"$/ do |title|
   link = Fabricate(:link, :title => title)
-  @codemark = Fabricate(:codemark_record, :title => title, :resource => link, :user => @current_user)
+  @codemark = Fabricate(:codemark, :title => title, :resource => link, :user => @current_user)
 end
 
 Given /^there are (\d+) codemarks for "([^"]*)"$/ do |num_codemarks, topic_title|
   @topic = Fabricate(:topic, :title => topic_title)
   num_codemarks.to_i.times do
-    Fabricate(:codemark_record, :topic_ids => [@topic.id])
+    Fabricate(:codemark, :topic_ids => [@topic.id])
   end
 end
 
@@ -25,14 +25,14 @@ Given /^([^"]*) is a user with a codemark$/ do |nickname|
   @user = Fabricate(:user, :nickname => nickname)
   topic = Fabricate(:topic)
   @topic = Fabricate(:topic)
-  @codemark = Fabricate(:codemark_record, :user => @user, :topics => [@topic, topic])
+  @codemark = Fabricate(:codemark, :user => @user, :topics => [@topic, topic])
 end
 
 Given /^there are (\d+) random codemarks$/ do |num|
   @codemarks = []
   while @codemarks.length < num.to_i do
     begin
-      @codemarks << Fabricate(:codemark_record)
+      @codemarks << Fabricate(:codemark)
     rescue ActiveRecord::RecordInvalid
       next
     end
@@ -41,7 +41,7 @@ end
 
 Given /^([^"]*) is a user with a codemark for that topic$/ do |nickname|
   @user = Fabricate(:user, :nickname => nickname)
-  @another_codemark = Fabricate(:codemark_record, :user => @user, :topic_ids => [@topic.id])
+  @another_codemark = Fabricate(:codemark, :user => @user, :topic_ids => [@topic.id])
 end
 
 Given /^the last codemark doesn't have a link$/ do

@@ -9,8 +9,8 @@ describe "User pages" do
 
       context "filters" do
         before do
-          @my_codemark = Fabricate(:codemark_record, :user => @user)
-          @his_codemark = Fabricate(:codemark_record)
+          @my_codemark = Fabricate(:codemark, :user => @user)
+          @his_codemark = Fabricate(:codemark)
         end
 
         context "mine" do

@@ -25,7 +25,7 @@ Given /^I have (\d+) codemarks$/ do |num|
   @codemarks = []
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact
-    @codemarks << Fabricate(:codemark_record, :user => @current_user, :topics => topics)
+    @codemarks << Fabricate(:codemark, :user => @current_user, :topics => topics)
   end
   @codemarks
 end
@@ -35,7 +35,7 @@ Given /^I have (\d+) text codemarks$/ do |num|
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact
     textmark = TextRecord.create!(:text => 'wooooohooo')
-    @codemarks << Fabricate(:codemark_record, :resource => textmark, :user => @current_user, :topics => topics)
+    @codemarks << Fabricate(:codemark, :resource => textmark, :user => @current_user, :topics => topics)
   end
   @codemarks
 end

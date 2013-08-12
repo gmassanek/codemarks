@@ -1,4 +1,4 @@
 Fabricator(:codemark_topic) do
-  codemark_record
+  codemark
   topic
 end

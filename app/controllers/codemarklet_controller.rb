@@ -11,8 +11,8 @@ class CodemarkletController < ApplicationController
     @topics = Topic.all
 
     resource = Link.for_url(params[:url] || session[:url])
-    codemark = CodemarkRecord.for_user_and_resource(current_user.try(:id), resource.try(:id))
-    codemark ||= CodemarkRecord.new(:resource => resource, :user => current_user)
+    codemark = Codemark.for_user_and_resource(current_user.try(:id), resource.try(:id))
+    codemark ||= Codemark.new(:resource => resource, :user => current_user)
     codemark.topics = codemark.suggested_topics unless codemark.persisted?
 
     @codemark = PresentCodemarks.present(codemark, current_user)

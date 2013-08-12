@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe CodemarkRecord do
+describe Codemark do
   let(:user) { Fabricate(:user) }
   let(:link) { Fabricate(:link) }
   let(:codemark) do
-    CodemarkRecord.new({
+    Codemark.new({
       :resource => link,
       :user => user,
       :topics => [Fabricate(:topic), Fabricate(:topic)]
@@ -34,8 +34,8 @@ describe CodemarkRecord do
       }
 
       expect {
-        CodemarkRecord.update_or_create(attributes)
-      }.to change(CodemarkRecord, :count).by(1)
+        Codemark.update_or_create(attributes)
+      }.to change(Codemark, :count).by(1)
     end
 
     it 'updates an existing codemark for that user/resource' do
@@ -48,50 +48,50 @@ describe CodemarkRecord do
       }
 
       expect {
-        CodemarkRecord.update_or_create(attributes)
-      }.not_to change(CodemarkRecord, :count)
+        Codemark.update_or_create(attributes)
+      }.not_to change(Codemark, :count)
     end
   end
 
   describe ".most_popular_yesterday" do
     it 'is nil if there were no codemarks yesterday' do
-      CodemarkRecord.most_popular_yesterday.should be_nil
+      Codemark.most_popular_yesterday.should be_nil
     end
 
     it 'only picks one' do
-      Fabricate(:codemark_record, :created_at => (Date.today-1) + 10.hours)
-      Fabricate(:codemark_record, :created_at => (Date.today-1) + 3.hours)
-      CodemarkRecord.most_popular_yesterday.should be_a CodemarkRecord
+      Fabricate(:codemark, :created_at => (Date.today-1) + 10.hours)
+      Fabricate(:codemark, :created_at => (Date.today-1) + 3.hours)
+      Codemark.most_popular_yesterday.should be_a Codemark
     end
 
     it 'picks the one first with the most clicks and saves' do
-      cm1 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 10.hours)
-      cm2 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 3.hours)
-      cm3 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 8.hours, :resource => cm2.resource)
-      cm4 = Fabricate(:codemark_record, :created_at => (Date.today-1) + 1.hours)
+      cm1 = Fabricate(:codemark, :created_at => (Date.today-1) + 10.hours)
+      cm2 = Fabricate(:codemark, :created_at => (Date.today-1) + 3.hours)
+      cm3 = Fabricate(:codemark, :created_at => (Date.today-1) + 8.hours, :resource => cm2.resource)
+      cm4 = Fabricate(:codemark, :created_at => (Date.today-1) + 1.hours)
 
       Fabricate(:click, :resource => cm3.resource)
       Fabricate(:click, :resource => cm3.resource)
-      CodemarkRecord.most_popular_yesterday.id.should == cm2.id
+      Codemark.most_popular_yesterday.id.should == cm2.id
     end
   end
 
   describe '#resource' do
     it 'can be a link' do
-      cm = CodemarkRecord.new(:resource => link, :user => user)
+      cm = Codemark.new(:resource => link, :user => user)
       cm.resource.should == link
     end
 
     it 'can be a note' do
       note = TextRecord.new(:text => 'Some Note')
-      cm = CodemarkRecord.new(:resource => note, :user => user)
+      cm = Codemark.new(:resource => note, :user => user)
       cm.resource.should == note
     end
   end
 
   describe '#resource_author' do
     it 'is the author of its resource' do
-      codemark = Fabricate.build(:codemark_record)
+      codemark = Fabricate.build(:codemark)
       resource = codemark.resource
       user = Fabricate(:user)
       resource.author = user
@@ -100,15 +100,15 @@ describe CodemarkRecord do
   end
 
   it "delegates url to it's link" do
-    codemark = Fabricate.build(:codemark_record)
+    codemark = Fabricate.build(:codemark)
     link = codemark.resource
     codemark.url.should == link.url
   end
 
   it "finds codemarks for a user and a link combination" do
     user = Fabricate(:user)
-    codemark_record = Fabricate(:codemark_record, :user => user)
-    CodemarkRecord.for_user_and_resource(user.id, codemark_record.resource.id).should == codemark_record
+    codemark = Fabricate(:codemark, :user => user)
+    Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
   end
 
   describe "#suggested_topics" do
@@ -118,15 +118,15 @@ describe CodemarkRecord do
     end
 
     it "has none without a resource" do
-      codemark_record = Fabricate(:codemark_record, :user => user)
-      codemark_record.resource = nil
-      codemark_record.suggested_topics.should == []
+      codemark = Fabricate(:codemark, :user => user)
+      codemark.resource = nil
+      codemark.suggested_topics.should == []
     end
 
     it "delegates to Link" do
-      codemark_record = Fabricate(:codemark_record, :user => user)
-      codemark_record.resource.stub(:suggested_topics => [@github, @rspec])
-      codemark_record.suggested_topics.should == [@github, @rspec]
+      codemark = Fabricate(:codemark, :user => user)
+      codemark.resource.stub(:suggested_topics => [@github, @rspec])
+      codemark.suggested_topics.should == [@github, @rspec]
     end
   end
 

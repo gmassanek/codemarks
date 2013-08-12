@@ -22,7 +22,7 @@ Then /^I should see some of my codemarks$/ do
 end
 
 Then /^I should see my top topics$/ do
-  topics = @current_user.codemark_records.map(&:topics).flatten.group_by(&:id)
+  topics = @current_user.codemarks.map(&:topics).flatten.group_by(&:id)
   topics.each do |_, list|
     topic = list.first
     page.should have_content "#{topic.title} (#{list.count})"
