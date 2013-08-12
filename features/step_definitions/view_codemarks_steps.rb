@@ -30,8 +30,12 @@ end
 
 Given /^there are (\d+) random codemarks$/ do |num|
   @codemarks = []
-  num.to_i.times do
-    @codemarks << Fabricate(:codemark_record)
+  while @codemarks.length < num.to_i do
+    begin
+      @codemarks << Fabricate(:codemark_record)
+    rescue ActiveRecord::RecordInvalid
+      next
+    end
   end
 end
 

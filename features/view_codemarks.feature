@@ -41,10 +41,10 @@ Feature: View Codemarks
     When I go to his codemarks page
     Then I should see his codemark
 
-  Scenario: Codemarks are paged
+  Scenario: Codemarks are paginated
     Given there are 30 random codemarks
-    And I am on the codemarks page
-    When I click "2"
+    When I go to the second page
+    And I wait until all Ajax requests are complete
     Then I should see 11 codemarks
 
   Scenario: Can view codemarks on topics
