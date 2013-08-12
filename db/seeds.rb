@@ -3,12 +3,18 @@ require 'webmock'
 include WebMock::API
 require Rails.root.join("spec/support/vcr.rb")
 
+module Pusher
+  def self.trigger(*args)
+  end
+end
+
 VCR.configure do |config|
   config.default_cassette_options = { :re_record_interval => 180.days }
 end
 
 Seeder.clear_database
 Seeder.create_topics(['commit', 'codemarks', 'rspec', 'capybara', 'jquery', 'css tricks'])
+
 gmassanek = Seeder.create_me
 jbeiber = Seeder.create_user('jbeiber')
 carlyraejepsen = Seeder.create_user('carlyraejepsen')
