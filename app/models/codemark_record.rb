@@ -4,14 +4,11 @@ class CodemarkRecord < ActiveRecord::Base
 
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
+
   has_many :comments, :foreign_key => 'codemark_id'
 
   validates_presence_of :resource_id
   validates_presence_of :user_id
-
-  scope :by_save_date, order('created_at DESC')
-  scope :by_popularity, joins(:resource).order('clicks_count DESC')
-  scope :for, lambda { |links| includes(:resource).where(['resource_id in (?)', links]) }
 
   delegate :url, :to => :resource
   before_save :mark_as_private
