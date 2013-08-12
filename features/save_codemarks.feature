@@ -11,6 +11,13 @@ Feature: Saving Codemarks
     Then I should see "Google"
     And I should be Google's author
 
+  @vcr
+  Scenario: Saving google via the codemarklet
+    When I open the codemarklet for Google
+    And I submit the codemark form
+    Then I should see "Codemark saved successfully"
+    And I should be Google's author
+
   Scenario: Saving a text codemark
     And I fill out and submit the add note codemark form with "Some text"
     Then I should see "Some text"

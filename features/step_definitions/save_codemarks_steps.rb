@@ -11,6 +11,11 @@ When /^I fill out and submit the add codemark form with Google$/ do
   step 'I submit the codemark form'
 end
 
+When /^I open the codemarklet for Google$/ do
+  Fabricate(:topic, :title => 'google')
+  visit new_codemarklet_path(:url => 'http://www.google.com')
+end
+
 When /^I fill out the codemark form with the existing one$/ do
   page.find('.add_link a').click
   page.fill_in('url', :with => @codemark.url)
@@ -52,7 +57,7 @@ Then /^I should be that codemark's author$/ do
 end
 
 Then /^I should see a codemark form$/ do
-  page.should have_selector('.tile form.codemark_form')
+  page.should have_selector('form.codemark_form')
 end
 
 Then /^tom_brady should still be Google's author$/ do

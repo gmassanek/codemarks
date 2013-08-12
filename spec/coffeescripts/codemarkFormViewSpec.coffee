@@ -8,6 +8,7 @@ describe 'LinkFormView', ->
         model: codemark
       view.render()
       expect(view.$("input.topics").val()).toBe('hello,github')
+      view.remove()
 
   describe 'fetches data for a new codemark', ->
     it 'if it is a new resource with a url', ->

@@ -15,7 +15,17 @@ App.CodemarkFormView = Backbone.View.extend
     @$('.topics').select2
       tags: App.topics.slugs()
 
-    @registerCancelOnEscape()
+    @openAsModal()
+
+  openAsModal: ->
+    if !@codemarklet()
+      @$el.dialog
+        modal: true
+        closeOnEscape: true
+        width: 610
+        height: 450
+      $('.ui-widget-header').hide()
+      $('.ui-widget-overlay').on 'click', => @cancel()
 
   toHtml: ->
     facile(@template(), @presentedAttributes())
@@ -66,7 +76,5 @@ App.CodemarkFormView = Backbone.View.extend
     data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data
 
-  registerCancelOnEscape: ->
-    $(document).keyup (e) =>
-      if (e.keyCode == 27)
-        @cancel()
+  codemarklet: ->
+    $('.codemarklet').length > 0

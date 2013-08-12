@@ -9,7 +9,6 @@ App.TileView = Backbone.View.extend
   render: ->
     @renderCodemarkView() if @model.exists()
     @renderAddCodemarkView() if @isTheAddCodemarkTile
-    @$el.removeClass('expanded')
     if CURRENT_USER == ''
       @$el.addClass('logged-out')
 
@@ -19,7 +18,7 @@ App.TileView = Backbone.View.extend
   bindToView: ->
     @view.bind 'turnIntoForm', => @turnViewIntoForm()
     @view.bind 'cancel', => @handleCancel()
-    @view.bind 'updated', => @render()
+    @view.bind 'updated', => @handleUpdated()
     @view.bind 'created', (data) => @codemarkCreated(data)
     @view.bind 'delete', => @delete()
     @view.bind 'createCopy', => @copyForNewUser()
@@ -29,8 +28,8 @@ App.TileView = Backbone.View.extend
       @remove()
 
   codemarkCreated: (data) ->
-    # would love to get knowledge of this out
     App.codemarks.add(data)
+    @view?.remove()
     if @modelToCopy?
       @remove()
     else
@@ -40,6 +39,11 @@ App.TileView = Backbone.View.extend
     if @modelToCopy?
       @model = @modelToCopy
       delete @modelToCopy
+    @view.remove()
+    @render()
+
+  handleUpdated: ->
+    @view.remove()
     @render()
 
   renderCodemarkView: ->
@@ -65,10 +69,8 @@ App.TileView = Backbone.View.extend
     @model = @view.model
     @view = new App["#{@model.get('resource_type')}FormView"]
       model: @model
+    $('body').append(@view.el)
     @view.render()
-
-    @$el.addClass('expanded')
-    @replaceElWithView()
     @bindToView()
 
   copyForNewUser: ->
