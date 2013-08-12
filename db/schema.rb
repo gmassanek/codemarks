@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713210309) do
+ActiveRecord::Schema.define(:version => 20130812025212) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20130713210309) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "private",         :default => false
-    t.integer  "popularity",      :default => 0
     t.integer  "clicks_count",    :default => 0
     t.integer  "codemarks_count", :default => 0
     t.string   "host"
