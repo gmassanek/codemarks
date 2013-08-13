@@ -209,6 +209,12 @@ describe FindCodemarks do
         FindCodemarks.new(:search_term => 'pony').codemarks.collect(&:id).should =~ [cm.id]
       end
 
+      it 'searchs a links content' do
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony')
+        cm.resource.update_attributes(:site_data => 'MacMahan Island')
+        FindCodemarks.new(:search_term => 'MacMahan').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
       it 'matches topics from search' do
         topic = Fabricate(:topic, :title => 'Github')
         cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :topics => [topic])

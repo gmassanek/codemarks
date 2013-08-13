@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812040922) do
+ActiveRecord::Schema.define(:version => 20130813183249) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -95,8 +95,10 @@ ActiveRecord::Schema.define(:version => 20130812040922) do
     t.integer  "author_id"
     t.string   "snapshot_url"
     t.string   "snapshot_id"
+    t.tsvector "search"
   end
 
+  add_index "links", ["search"], :name => "links_search_index"
   add_index "links", ["url"], :name => "index_link_records_on_url"
 
   create_table "texts", :force => true do |t|
@@ -106,7 +108,10 @@ ActiveRecord::Schema.define(:version => 20130812040922) do
     t.datetime "updated_at",                  :null => false
     t.integer  "author_id"
     t.integer  "clicks_count", :default => 0
+    t.tsvector "search"
   end
+
+  add_index "texts", ["search"], :name => "texts_search_index"
 
   create_table "topics", :force => true do |t|
     t.string   "title"

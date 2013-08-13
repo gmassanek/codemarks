@@ -127,12 +127,22 @@ class FindCodemarks
   end
 
   def full_text_searchify(query)
+    query = query.joins("LEFT JOIN (#{resource_search_query}) resource_search ON codemarks.resource_id = resource_search.id AND codemarks.resource_type = resource_search.type")
+
     if find_topic_ids_from_search_query.present?
       query = join_topics(query, find_topic_ids_from_search_query)
-      query = query.where("codemarks.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0")
+      query = query.where("codemarks.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0 OR resource_search.search @@ #{search_term_sql}")
     else
-      query = query.where("codemarks.search @@ #{search_term_sql}")
+      query = query.where("codemarks.search @@ #{search_term_sql} OR resource_search.search @@ #{search_term_sql}")
     end
+  end
+
+  def resource_search_query
+    <<-SQL
+      SELECT id, 'Link' AS type, search FROM links
+      UNION
+      SELECT id, 'Text' AS type, search FROM texts
+    SQL
   end
 
   def search_term_sql
