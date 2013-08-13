@@ -99,4 +99,54 @@ describe CodemarksController do
       }.to change(Topic, :count).by 1
     end
   end
+
+  describe '#sendgrid' do
+    before do
+      Fabricate(:link, :url => 'http://www.google.com/')
+      @user = Fabricate(:user, :email => 'test@example.com')
+      @body = eval(File.open('fixtures/sendgrid_email_post.txt').read)
+      @body['from'] = 'test <test@example.com>'
+    end
+
+    it 'does nothing for unknown senders' do
+      @body['from'] = 'somebody <someone-random@test.com>'
+      expect {
+        post :sendgrid, @body
+      }.to change(Codemark, :count).by(0)
+      response.code.should == '200'
+    end
+
+    it 'saves the first link from the body to the senders account' do
+      @body['text'] = 'This link was awesome! Save it. http://www.google.com'
+      expect {
+        post :sendgrid, @body
+      }.to change(Codemark, :count).by(1)
+      Codemark.last.user.should == @user
+      Codemark.last.resource.url.should == 'http://www.google.com/'
+      response.code.should == '200'
+    end
+
+    it 'does nothing if there are no links in the body' do
+      @body['text'] = 'This link was awesome! But I forgot to put it in!'
+      expect {
+        post :sendgrid, @body
+      }.to change(Codemark, :count).by(0)
+      response.code.should == '200'
+    end
+
+    it 'only saves one link' do
+      @body['text'] = 'This link was awesome! Save it. http://www.google.com \n\r http://www.mywebsite.com'
+      expect {
+        post :sendgrid, @body
+      }.to change(Codemark, :count).by(1)
+      Codemark.last.resource.url.should == 'http://www.google.com/'
+      response.code.should == '200'
+    end
+
+    it 'uses everthing before the first new line as a the description' do
+      @body['text'] = "Here is a link http://www.google.com And some more stuff\n\nGeoff\nSignature"
+      post :sendgrid, @body
+      Codemark.last.description.should == 'Here is a link And some more stuff'
+    end
+  end
 end

@@ -1,3 +1,5 @@
+require 'postrank-uri'
+
 class CodemarksController < ApplicationController
   def new
     if params[:id]
@@ -29,8 +31,19 @@ class CodemarksController < ApplicationController
   end
 
   def sendgrid
-    p params
-    Rails.logger.info params.inspect
+    email = find_email(params['from'])
+    user = User.find_by_email(email)
+    url = PostRank::URI.extract(params['text']).first
+    if user && url
+      resource = Link.for_url(url)
+      codemark = Codemark.for_user_and_resource(user.id, resource.try(:id))
+      codemark ||= Codemark.new(:resource => resource, :user => user)
+      codemark.description = params['text'].split(/\r?\n/).first.to_s.gsub(PostRank::URI::URIREGEX[:valid_url], '')
+      unless codemark.persisted?
+        codemark.topics = codemark.suggested_topics 
+        codemark.save!
+      end
+    end
     head 200
   end
 
@@ -131,5 +144,9 @@ class CodemarksController < ApplicationController
     topics, new_titles = topics.partition { |item| item.is_a? Topic }
     new_topics = new_titles.map { |title| Topic.create!(:title => title) }
     (topics | new_topics).map(&:id)
+  end
+
+  def find_email(string)
+    string[/<([^>]*)>$/, 1] || string
   end
 end
