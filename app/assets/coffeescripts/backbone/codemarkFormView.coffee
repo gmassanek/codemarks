@@ -15,7 +15,14 @@ App.CodemarkFormView = Backbone.View.extend
     @$('.topics').select2
       tags: App.topics.slugs()
 
+    @hideResourceEditsIfNotAuthor()
     @openAsModal()
+
+  hideResourceEditsIfNotAuthor: ->
+    if @resourceEditable()
+      @$('.read-only-resource').remove()
+    else
+      @$('.editable-resource').remove()
 
   openAsModal: ->
     if !@codemarklet()
@@ -43,6 +50,9 @@ App.CodemarkFormView = Backbone.View.extend
       'update'
     else
       'new'
+
+  resourceEditable: ->
+    @model.get('resource').author_id == CURRENT_USER_ID
 
   submit: (e) ->
     e.preventDefault()
