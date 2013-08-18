@@ -52,7 +52,7 @@ App.CodemarkFormView = Backbone.View.extend
       'new'
 
   resourceEditable: ->
-    @model.get('resource').author_id == CURRENT_USER_ID
+    !@model.get('resource').id? || parseInt(@model.get('resource').author_id) == parseInt(CURRENT_USER_ID)
 
   submit: (e) ->
     e.preventDefault()
