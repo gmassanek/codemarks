@@ -87,11 +87,7 @@
     position: absolute
     right: 0
     top: 0
-
-    input#search
-      float: left
-      padding: 5px 20px 5px 10px
-      width: 200px
+    .select2-container-multi .select2-choices
       border: 1px solid $border-color2
       font-size: 12px
       line-height: 14px
@@ -100,8 +96,12 @@
       &:focus
         @include box-shadow(0 0 20px 0px lighten($orange, 40%))
         border-color: lighten($orange, 25%)
+      .select2-search-field input
+        min-width: 200px
+        height: auto
 
-    a.search
-      float: right
+    .search
+      position: absolute
+      top: 8px
+      right: 8px
       font-size: 14px
-      margin: 7px 6px 0 -20px

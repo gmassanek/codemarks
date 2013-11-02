@@ -1,8 +1,8 @@
 describe 'ControlPanelView', ->
   beforeEach ->
     @codemarks = new App.Codemarks
+    App.codemarks = @codemarks
     @view = new App.ControlPanelView
-      codemarks: @codemarks
 
   describe 'render', ->
     it 'makes one filter object if filtering by user', ->
@@ -30,32 +30,26 @@ describe 'ControlPanelView', ->
       expect(@view.$('input#search').length).toBe(1)
 
   describe 'search', ->
-    describe 'gets triggered by', ->
-      it 'clicking the search link', ->
-        @view.render()
-        spyOn(@view, 'search')
-        @view.$('a.search').click()
-        expect(@view.search).toHaveBeenCalled()
-
-      it 'pressing enter in the search box', ->
-        @view.render()
-        spyOn(@view, 'search')
-        keypress = $.Event('keypress')
-        keypress.which = 13
-        @view.$('input#search').trigger(keypress)
-
-        expect(@view.search).toHaveBeenCalled()
-
-    it 'sets a search filter and fetches new codemarks', ->
+    beforeEach ->
       @view.render()
-      @view.$('#search').val('javascript')
       spyOn(@codemarks, 'fetch')
+
+    it 'fetches codemarks', ->
+      @view.$('#search').val('javascript')
       @view.search()
       expect(@codemarks.fetch).toHaveBeenCalled()
-      expect(@codemarks.filters.searchQuery()).toBe('javascript')
+
+    it 'sets a search filter', ->
+      @view.$('#search').val('foobar')
+      @view.search()
+      expect(@codemarks.filters.searchQuery()).toBe('foobar')
+
+    it 'sets a filter topic if one is picked', ->
+      App.topics.add({slug: 'test-topic'})
+      @view.$('#search').val('test-topic')
+      @view.search()
+      expect(@codemarks.filters.hasTopic('test-topic')).toBe(true)
 
     it 'does not search if nothing has been entered', ->
-      @view.render()
-      spyOn(@codemarks, 'fetch')
       @view.search()
       expect(@codemarks.fetch).not.toHaveBeenCalled()
