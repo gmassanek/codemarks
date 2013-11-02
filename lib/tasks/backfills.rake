@@ -195,5 +195,107 @@ namespace :backfill  do
     p authors
 
   end
+
+  desc 'removed duplicate topics'
+  task :remove_dup_topics => :environment do
+    topics = Topic.select('title, count(*) as count').group(:title)
+    topics.select! { |l| l.count.to_i > 1 }
+    topics.each do |topic|
+      dup_topics = Topic.find_all_by_title(topic.title)
+      first = dup_topics.min_by(&:created_at)
+      the_rest = dup_topics.reject { |topic| topic.id == first.id }
+
+      the_rest.each do |topic|
+        puts "De-duping #{topic.title}"
+
+        codemark_topics = CodemarkTopic.where(:topic_id => topic.id)
+        codemark_topics.each { |c| c.update_attributes(:topic_id => first.id) }
+
+        topic.destroy
+      end
+    end
+  end
+
+  desc 'clean topics'
+  task :clean_topics => :environment do
+    topics_to_delete = ['and', 'DELETE', 'or', 'ai', 'austin', 'beer', 'BlueCloth', 'Code Quarterly', 'Coderetreat', 'decent_exposure', 'ffaker', 'Hal Abelson', 'includes', 'migration', 'Socal Media', 'techstars', 'woof', 'XPath']
+    topics_to_delete.map { |t| Topic.find_by_title(t).try(:destroy) }
+
+    topics_to_combine = {
+      'angularjs' => ['angular'],
+      'backbone.js' => ['backbone'],
+      'beginner' => ['beginners'],
+      'book' => ['Book', 'books'],
+      'browsers' => ['browswer'],
+      'callbacks' => ['Callback'],
+      'Cheatsheet' => ['Cheat Sheet'],
+      'client ip' => ['client_ip'],
+      'conference-talk' => ['conference-talik'],
+      'couchdb' => ['couch-db'],
+      'design' => ['desgn', 'Design'],
+      'DOM' => ['dom'],
+      'elasticsearch' => ['Elastic Search'],
+      'emberjs' => ['Ember'],
+      'es6' => ['ES6'],
+      'examples' => ['Example'],
+      'front-end' => ['frontend'],
+      'generator' => ['generators '],
+      'howto' => ['how-to'],
+      'Modules' => ['Module'],
+      'MongoDB' => ['Mongo DB'],
+      'node.js' => ['nodejs', 'Node.js'],
+      'objects' => ['object'],
+      'optimizations' => ['Optimization'],
+      'R' => ['r '],
+      'rubygems' => ['rubygem'],
+      'scopes' => ['scope'],
+      'screencasts' => ['screencast'],
+      'sessions' => ['session'],
+      'Startups' => ['Startup'],
+      'Statistics' => ['stats'],
+      'sync' => ['SYNC'],
+      'tips' => ['tip'],
+      'Transitions' => ['transition'],
+      'tutorials' => ['Tutorial'],
+      'unicode' => ['Unicodes'],
+      'validations' => ['validation'],
+      'Web Server' => ['web-servers'],
+      'web developer' => ['web-developers'],
+      'developers' => ['developer'],
+      'zsh' => ['Zshell'],
+      'dry' => ['DRY'],
+      'html' => ['Html'],
+      'Ruby' => ['ruby'],
+      'Ruby on Rails' => ['ruby on rails'],
+      'sql' => ['SQL'],
+      'testing' => ['Testing'],
+      'i18n' => ['i18n']
+    }
+
+    topics_to_combine.each do |correct, topics|
+      correct_topic = Topic.find_by_title(correct)
+      next unless correct_topic
+
+      topics.each do |title|
+        topic = Topic.find_by_title(title)
+        next unless topic
+
+        puts "De-duping #{topic.title}"
+
+        codemark_topics = CodemarkTopic.where(:topic_id => topic.id)
+        codemark_topics.each { |c| c.update_attributes!(:topic_id => correct_topic.id) }
+
+        topic.destroy
+      end
+    end
+
+    Topic.all.each do |t|
+      t.update_attributes(:title => t.title.strip)
+    end
+
+    Topic.where('slug LIKE ?', "%--%").each do |t|
+      t.update_attributes(:slug => nil)
+    end
+  end
 end
 
