@@ -11,7 +11,6 @@
     = yield :header
 
     :javascript
-      window.RAILS_ENV = '#{ENV['RAILS_ENV']}'
       window.CURRENT_USER = "#{current_user.try(:slug)}"
       window.CURRENT_USER_ID = "#{current_user.try(:id)}"
 

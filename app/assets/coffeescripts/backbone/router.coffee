@@ -71,7 +71,5 @@ App.MainRouter = Backbone.Router.extend
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
 
   trackPageview: ->
-    return unless RAILS_ENV? && RAILS_ENV=='production'
-    return if CURRENT_USER == 'gmassanek'
-    query = $.param(@filters.data())
-    _gaq.push(['_trackPageview', "/codemarks?#{query}"])
+    return unless _gaq?
+    _gaq.push(['_trackPageview', "/codemarks?#{$.param(@filters.data())}"])
