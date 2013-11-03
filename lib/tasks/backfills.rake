@@ -297,5 +297,23 @@ namespace :backfill  do
       t.update_attributes(:slug => nil)
     end
   end
+
+  desc 'removed duplicate topic tags'
+  task :remove_dup_cm_topics => :environment do
+    cm_topics = CodemarkTopic.group('codemark_id, topic_id').select('count(codemark_topics.id), topic_id, codemark_id').having('count(codemark_topics.id) > 1').to_a
+ 
+    cm_topics.each do |cm_topic|
+      dup_tags = CodemarkTopic.where(:topic_id => cm_topic.topic_id, :codemark_id => cm_topic.codemark_id)
+      first = dup_tags.min_by(&:created_at)
+      the_rest = dup_tags.reject { |cm_topic| cm_topic.id == first.id }
+
+      the_rest.each do |cm_topic|
+        puts "De-duping #{cm_topic.id}"
+
+        cm_topic.destroy
+      end
+    end
+  end
+
 end
 
