@@ -35,9 +35,10 @@ describe 'ControlPanelView', ->
       spyOn(@codemarks, 'fetch')
 
     it 'fetches codemarks', ->
+      App.vent.bind('updateCodemarkRequest', => @called = true)
       @view.$('#search').val('javascript')
       @view.search()
-      expect(@codemarks.fetch).toHaveBeenCalled()
+      waitsFor -> @called == true
 
     it 'sets a search filter', ->
       @view.$('#search').val('foobar')

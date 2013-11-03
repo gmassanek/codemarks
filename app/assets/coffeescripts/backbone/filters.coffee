@@ -1,17 +1,12 @@
 App.Filters = Backbone.Model.extend
-  updateUrlWithFilters: ->
-    filterParams = $.param(@data())
-    if filterParams == ''
-      App.router.navigate("/codemarks", trigger: false, replace: true)
-    else
-      App.router.navigate("/codemarks?#{filterParams}", trigger: false, replace: true)
-
   loadFromCookie: (saved_filters) ->
     @attributes = @defaults()
+
     @setSort(saved_filters.by) if saved_filters.by
     @setUser(saved_filters.user) if saved_filters.user
     @setPage(saved_filters.page) if saved_filters.page
     @setSearchQuery(saved_filters.query) if saved_filters.query
+
     if saved_filters.topic_ids
       _.each saved_filters.topic_ids.split(','), (topicSlug) =>
         @addTopic(topicSlug)

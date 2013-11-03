@@ -16,6 +16,23 @@ App.MainRouter = Backbone.Router.extend
     @renderControlPanel()
     @renderCodemarkList()
     @codemarks.fetch()
+    @trackPageview()
+
+  updateUrlWithFilters: ->
+    filterParams = $.param(@codemarks.filters.data())
+    if filterParams == ''
+      url = "/codemarks?"
+    else
+      url = "/codemarks?#{filterParams}"
+
+    App.router.navigate(url, {trigger: true})
+    Backbone.history.stop(); Backbone.history.start({pushState: true})
+    #Backbone.history.loadUrl(url)
+    #Backbone.history.reload()
+
+  updateCodemarks: ->
+    console.log 'updating!'
+    @updateUrlWithFilters()
 
   showUser: (username) ->
     @codemarks = App.codemarks = new App.Codemarks
@@ -52,3 +69,9 @@ App.MainRouter = Backbone.Router.extend
 
   setActiveNav: (activeNavClass) ->
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
+
+  trackPageview: ->
+    return unless RAILS_ENV? && RAILS_ENV=='production'
+    return if CURRENT_USER == 'gmassanek'
+    query = $.param(@filters.data())
+    _gaq.push(['_trackPageview', "/codemarks?#{query}"])

@@ -67,14 +67,14 @@ App.CodemarkView = Backbone.View.extend
     e.preventDefault()
     App.codemarks.filters.setUser(@model.get('author').slug)
     App.codemarks.filters.setPage(1)
-    App.codemarks.fetch()
+    App.vent.trigger('updateCodemarkRequest')
 
   navigateToTopic: (e) ->
     e.preventDefault()
     slug = $(e.currentTarget).data('slug')
     App.codemarks.filters.addTopic(slug)
     App.codemarks.filters.setPage(1)
-    App.codemarks.fetch()
+    App.vent.trigger('updateCodemarkRequest')
 
   deleteCodemark: (e) ->
     e.preventDefault()

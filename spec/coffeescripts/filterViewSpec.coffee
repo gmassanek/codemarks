@@ -77,29 +77,29 @@ describe 'filterView', ->
       @view.type = 'user'
       @codemarks.filters.setUser('jbieber')
       @view.render()
-      spyOn(@codemarks, 'fetch')
+      App.vent.bind('updateCodemarkRequest', => @called = true)
       @view.$('.remove').click()
-      expect(@codemarks.fetch).toHaveBeenCalled()
       expect(@codemarks.filters.get('user')).toBeUndefined()
+      waitsFor -> @called == true
 
     it 'removes a topic', ->
       @view.type = 'topic'
       @view.dataId = 'rspec'
       @codemarks.filters.addTopic('rspec')
       @view.render()
-      spyOn(@codemarks, 'fetch')
+      App.vent.bind('updateCodemarkRequest', => @called = true)
       @view.$('.remove').click()
-      expect(@codemarks.fetch).toHaveBeenCalled()
       expect(@codemarks.filters.topicIds().length).toBe(0)
+      waitsFor -> @called == true
 
     it 'removes a search', ->
       @view.type = 'query'
       @codemarks.filters.setSearchQuery('This thing')
       @view.render()
-      spyOn(@codemarks, 'fetch')
+      App.vent.bind('updateCodemarkRequest', => @called = true)
       @view.$('.remove').click()
-      expect(@codemarks.fetch).toHaveBeenCalled()
       expect(@codemarks.filters.searchQuery()).toBeUndefined()
+      waitsFor -> @called == true
 
   describe 'sorts', ->
     beforeEach ->
@@ -147,8 +147,8 @@ describe 'filterView', ->
         dataId: 'date'
         codemarks: @codemarks
       view.render()
-      spyOn(@codemarks, 'fetch')
+      App.vent.bind('updateCodemarkRequest', => @called = true)
       $otherSort = $(view.$('.other_sort')[0])
       $otherSort.click()
-      expect(@codemarks.fetch).toHaveBeenCalled()
       expect(@codemarks.filters.get('sort')).toBe($otherSort.data('sort'))
+      waitsFor -> @called == true

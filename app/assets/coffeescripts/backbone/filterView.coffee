@@ -58,7 +58,7 @@ App.FilterView = Backbone.View.extend
     e.preventDefault
     sort = $(e.currentTarget).data('sort')
     @filters.setSort(sort)
-    @codemarks.fetch()
+    App.vent.trigger('updateCodemarkRequest')
 
   removeFilter: (e) ->
     e.preventDefault()
@@ -68,7 +68,7 @@ App.FilterView = Backbone.View.extend
       @filters.removeUser()
     if @type == 'query'
       @filters.clearSearchQuery()
-    @codemarks.fetch()
+    App.vent.trigger('updateCodemarkRequest')
 
   renderImageOrIcon: ->
     switch @type

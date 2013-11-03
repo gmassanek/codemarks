@@ -50,7 +50,7 @@ App.ControlPanelView = Backbone.View.extend
     else
       App.codemarks.filters.setSearchQuery(@_searchQuery())
 
-    App.codemarks.fetch()
+    App.vent.trigger('updateCodemarkRequest')
 
   _filterHtml: (desc, value, type, image = null) ->
     filterView = new App.FilterView
