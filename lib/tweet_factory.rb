@@ -54,11 +54,12 @@ class TweetFactory
 
   def via
     return @via if @via
-    twitter_auth = @codemark.user.authentication_by_provider(:twitter)
+    user = @codemark.resource_author || @codemark.user
+    twitter_auth = user.authentication_by_provider(:twitter)
     if twitter_auth
       @via = "via @#{twitter_auth.nickname}"
     else
-      @via = "via #{@codemark.user.nickname}"
+      @via = "via #{user.nickname}"
     end
   end
 

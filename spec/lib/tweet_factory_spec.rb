@@ -24,6 +24,14 @@ describe TweetFactory do
       TweetFactory.codemark_of_the_day(codemark).should include("via @#{user.nickname}")
     end
 
+    it 'uses the resource author as user if possible' do
+      user = Fabricate(:twitter_user)
+      author = Fabricate(:twitter_user)
+      codemark = Fabricate(:codemark, :user => user)
+      codemark.resource = Link.new(:author => author)
+      TweetFactory.codemark_of_the_day(codemark).should include("via @#{author.nickname}")
+    end
+
     it 'contains "via nickname" for github users' do
       user = Fabricate(:github_user)
       codemark = Fabricate(:codemark, :user => user)
