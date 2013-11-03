@@ -3,8 +3,10 @@ App.MainRouter = Backbone.Router.extend
     '': 'codemarks'
     'codemarks': 'codemarks'
     'users/:username': 'showUser'
+    'users/:username/edit': 'editUser'
     'users(?page=:page)': 'userIndex'
-    '*options': 'catchAll'
+    'about': 'about'
+    'topics': 'topics'
 
   codemarks: ->
     params = window.location.search.substring(1)
@@ -30,10 +32,14 @@ App.MainRouter = Backbone.Router.extend
     @codemarks.fetch()
     @setActiveNav('people')
 
+  editUser: (username) ->
+
   userIndex: ->
     @setActiveNav('people')
 
-  catchAll: ->
+  about: ->
+
+  topics: ->
 
   updateUrlWithFilters: ->
     filterParams = $.param(@codemarks.filters.data())
