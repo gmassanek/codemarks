@@ -1,6 +1,6 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-27809122-1']);
-_gaq.push(['_trackPageview']);
+_gaq.push(["_setCustomVar", 1, "Page View", window.CURRENT_USER])
 
 (function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

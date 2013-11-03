@@ -4,6 +4,7 @@ App.MainRouter = Backbone.Router.extend
     'codemarks': 'codemarks'
     'users/:username': 'showUser'
     'users(?page=:page)': 'userIndex'
+    '*options': 'catchAll'
 
   codemarks: ->
     params = window.location.search.substring(1)
@@ -32,6 +33,23 @@ App.MainRouter = Backbone.Router.extend
   userIndex: ->
     @setActiveNav('people')
 
+  catchAll: ->
+
+  updateUrlWithFilters: ->
+    filterParams = $.param(@codemarks.filters.data())
+    if filterParams == ''
+      url = "/codemarks?"
+    else
+      url = "/codemarks?#{filterParams}"
+
+    App.router.navigate(url, {trigger: true})
+    Backbone.history.stop(); Backbone.history.start({pushState: true})
+    #Backbone.history.loadUrl(url)
+    #Backbone.history.reload()
+
+  updateCodemarks: ->
+    @updateUrlWithFilters()
+
   renderControlPanel: ->
     controlPanel = new App.ControlPanelView
       codemarks: @codemarks
@@ -52,3 +70,8 @@ App.MainRouter = Backbone.Router.extend
 
   setActiveNav: (activeNavClass) ->
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
+
+  trackPageview: ->
+    return unless _gaq?
+    url = window.location.pathname + window.location.search
+    _gaq.push(['_trackPageview', url])

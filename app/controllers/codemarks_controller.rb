@@ -141,8 +141,8 @@ class CodemarksController < ApplicationController
   def process_topic_slugs(topic_slugs)
     return [] unless topic_slugs.present?
     topics = topic_slugs.split(',').map { |slug| Topic.find_by_slug(slug) || slug }
-    topics, new_titles = topics.partition { |item| item.is_a? Topic }
-    new_topics = new_titles.map { |title| Topic.create!(:title => title) }
+    topics, new_titles = topics.partition { |item| item.is_a?(Topic) }
+    new_topics = new_titles.map { |title| Topic.create!(:title => title.strip) }
     (topics | new_topics).map(&:id)
   end
 

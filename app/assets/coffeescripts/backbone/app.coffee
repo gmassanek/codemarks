@@ -6,6 +6,9 @@ window.App =
       cache: false
 
     App.router = new App.MainRouter
+    App.router.bind 'all', -> App.router.trackPageview()
+    App.vent = _.extend({}, Backbone.Events)
+    App.vent.bind('updateCodemarkRequest', => App.router.updateUrlWithFilters())
     App.socketListener = new App.SocketListener()
     Backbone.history.start
       pushState: true
