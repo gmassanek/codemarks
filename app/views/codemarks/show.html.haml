@@ -1,12 +1,12 @@
 %header
   .left
-    = user_image(@user)
+    = user_image(@author)
     %h1= @codemark.title
     %h6
-      - if @user.get(:name)
-        .name.inline= link_to @user.get(:name), @user
-      - if @user.get(:nickname)
-        .nickname.inline= link_to "@#{@user.get(:nickname)}", @user
+      - if @author.get(:name)
+        .name.inline= link_to @author.get(:name), @author
+      - if @author.get(:nickname)
+        .nickname.inline= link_to "@#{@author.get(:nickname)}", @author
       .time_ago #{time_ago_in_words(@codemark.created_at)} ago
 
   .right
