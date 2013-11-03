@@ -13,8 +13,7 @@ App.FilterView = Backbone.View.extend
     @dataId = @options.dataId
     @image = @options.image
 
-    @codemarks = @options.codemarks
-    @filters = @codemarks.filters
+    @filters = App.codemarks.filters
 
   render: ->
     @$el.html(@toHtml())

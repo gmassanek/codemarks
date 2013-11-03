@@ -2,9 +2,8 @@ App.CodemarksView = Backbone.View.extend
   className: 'codemarks'
 
   initialize: ->
-    @codemarks = @options.codemarks
-    @codemarks.bind 'reset', => @render()
-    @codemarks.bind 'add', (codemark) => @addCodemark(codemark)
+    App.codemarks.bind 'reset', => @render()
+    App.codemarks.bind 'add', (codemark) => @addCodemark(codemark)
 
   render: ->
     @$el.html('')
@@ -22,7 +21,7 @@ App.CodemarksView = Backbone.View.extend
     @$el.append(@newCodemarkTile.$el)
 
   appendCodemarks: ->
-    for codemark in @codemarks.models
+    for codemark in App.codemarks.models
       @$el.append(@codemarkHtml(codemark))
 
   codemarkHtml: (codemark) ->
@@ -33,7 +32,7 @@ App.CodemarksView = Backbone.View.extend
 
   paginationHtml: ->
     paginationView = new App.PaginationView
-      collection: @codemarks
+      collection: App.codemarks
     paginationView.render()
     paginationView.$el
 

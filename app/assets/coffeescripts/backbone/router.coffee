@@ -10,25 +10,24 @@ App.MainRouter = Backbone.Router.extend
 
   codemarks: ->
     params = window.location.search.substring(1)
-    @codemarks = App.codemarks = new App.Codemarks
-    @codemarks.filters.loadFromCookie($.deparam(params || ''))
+    App.codemarks ||= new App.Codemarks
+    App.codemarks.filters.loadFromCookie($.deparam(params || ''))
     @$container = $('#main_content')
-    @$container.html('')
     @setupTopics =>
       @renderControlPanel()
       @renderCodemarkList()
-      @codemarks.fetch()
+      App.codemarks.fetch()
 
   showUser: (username) ->
-    @codemarks = App.codemarks = new App.Codemarks
-    @codemarks.filters.setUser(username)
-    @codemarks.filters.setSort('visits')
+    App.codemarks ||= new App.Codemarks
+    App.codemarks.filters.setUser(username)
+    App.codemarks.filters.setSort('visits')
     @setActiveNav('people')
+    @$container = $('.content')
     @setupTopics =>
-      @$container = $('.content')
       @renderCodemarkList()
-      @codemarksView.noNewTile = true
-      @codemarks.fetch()
+      App.codemarksView.noNewTile = true
+      App.codemarks.fetch()
 
   editUser: (username) ->
 
@@ -40,7 +39,7 @@ App.MainRouter = Backbone.Router.extend
   topics: ->
 
   updateUrlWithFilters: ->
-    filterParams = $.param(@codemarks.filters.data())
+    filterParams = $.param(App.codemarks.filters.data())
     if filterParams == ''
       url = "/codemarks?"
     else
@@ -48,22 +47,21 @@ App.MainRouter = Backbone.Router.extend
 
     App.router.navigate(url, {trigger: true})
     Backbone.history.stop(); Backbone.history.start({pushState: true})
-    #Backbone.history.loadUrl(url)
-    #Backbone.history.reload()
 
   updateCodemarks: ->
     @updateUrlWithFilters()
 
   renderControlPanel: ->
-    controlPanel = new App.ControlPanelView
-      codemarks: @codemarks
-    controlPanel.render()
-    @$container.append(controlPanel.$el)
+    if !@controlPanel?
+      @controlPanel = new App.ControlPanelView
+      @$container.append(@controlPanel.$el)
+    else
+      @controlPanel.render()
 
   renderCodemarkList: ->
-    @codemarksView = new App.CodemarksView
-      codemarks: @codemarks
-    @$container.append(@codemarksView.$el)
+    if !@codemarksView?
+      @codemarksView = new App.CodemarksView
+      @$container.append(@codemarksView.$el)
 
   setupTopics: (callback) ->
     if App.topics?

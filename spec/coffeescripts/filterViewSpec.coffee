@@ -1,6 +1,6 @@
 describe 'filterView', ->
   beforeEach ->
-    @codemarks = new App.Codemarks
+    @codemarks = App.codemarks = new App.Codemarks
 
   describe 'options', ->
     beforeEach ->
@@ -8,7 +8,6 @@ describe 'filterView', ->
         type: 'topic'
         description: 'Jquery'
         dataId: 'jquery'
-        codemarks: @codemarks
 
     it 'has a type', ->
       expect(@view.type).toBe('topic')
@@ -22,56 +21,48 @@ describe 'filterView', ->
   describe '#render', ->
     it 'has a class of "filter"', ->
       view = new App.FilterView
-        codemarks: @codemarks
       view.render()
       expect(view.$el.hasClass('filter')).toBe(true)
 
     it 'has a class of type', ->
       view = new App.FilterView
         type: 'user'
-        codemarks: @codemarks
       view.render()
       expect(view.$el.hasClass('user')).toBe(true)
 
     it 'sets the description to description', ->
       view = new App.FilterView
         description: 'Jquery'
-        codemarks: @codemarks
       view.render()
       expect(view.$('.description').text()).toBe('Jquery')
 
     it 'sets the data-type to type', ->
       view = new App.FilterView
         type: 'user'
-        codemarks: @codemarks
       view.render()
       expect(view.$('.remove').data('type')).toBe('user')
 
     it 'sets the data-id to dataId', ->
       view = new App.FilterView
         dataId: 'jquery'
-        codemarks: @codemarks
       view.render()
       expect(view.$('.remove').data('id')).toBe('jquery')
 
     it 'does not have a .more icon', ->
       view = new App.FilterView
         type: 'topic'
-        codemarks: @codemarks
       view.render()
       expect(view.$('.more').length).toBe(0)
 
     it 'does not have other sorts', ->
       view = new App.FilterView
         type: 'topic'
-        codemarks: @codemarks
       view.render()
       expect(view.$('.other_sort').length).toBe(0)
 
   describe 'remove', ->
     beforeEach ->
       @view = new App.FilterView
-        codemarks: @codemarks
 
     it 'removes a user', ->
       @view.type = 'user'
@@ -106,7 +97,6 @@ describe 'filterView', ->
       @view = new App.FilterView
         type: 'sort'
         dataId: 'date'
-        codemarks: @codemarks
 
     it 'does not have a .remove link', ->
       @view.render()
@@ -125,7 +115,6 @@ describe 'filterView', ->
       @view = new App.FilterView
         type: 'sort'
         dataId: 'date'
-        codemarks: @codemarks
 
     it 'is null if type != sort', ->
       @view.type = 'user'
@@ -145,7 +134,6 @@ describe 'filterView', ->
       view = new App.FilterView
         type: 'sort'
         dataId: 'date'
-        codemarks: @codemarks
       view.render()
       App.vent.bind('updateCodemarkRequest', => @called = true)
       $otherSort = $(view.$('.other_sort')[0])
