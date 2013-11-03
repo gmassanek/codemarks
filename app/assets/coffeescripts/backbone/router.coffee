@@ -14,23 +14,21 @@ App.MainRouter = Backbone.Router.extend
     @codemarks.filters.loadFromCookie($.deparam(params || ''))
     @$container = $('#main_content')
     @$container.html('')
-    @setupTopics()
-
-    @renderControlPanel()
-    @renderCodemarkList()
-    @codemarks.fetch()
+    @setupTopics =>
+      @renderControlPanel()
+      @renderCodemarkList()
+      @codemarks.fetch()
 
   showUser: (username) ->
     @codemarks = App.codemarks = new App.Codemarks
     @codemarks.filters.setUser(username)
     @codemarks.filters.setSort('visits')
-    @setupTopics()
-
-    @$container = $('.content')
-    @renderCodemarkList()
-    @codemarksView.noNewTile = true
-    @codemarks.fetch()
     @setActiveNav('people')
+    @setupTopics =>
+      @$container = $('.content')
+      @renderCodemarkList()
+      @codemarksView.noNewTile = true
+      @codemarks.fetch()
 
   editUser: (username) ->
 
@@ -67,12 +65,12 @@ App.MainRouter = Backbone.Router.extend
       codemarks: @codemarks
     @$container.append(@codemarksView.$el)
 
-  setupTopics: ->
-    App.topics = new App.Topics
-    App.topics.fetch()
-
-  onCodemarksPage: ->
-    (Backbone.history.fragment.match(/^codemarks/) || Backbone.history.fragment.match(/^\/codemarks/))?
+  setupTopics: (callback) ->
+    if App.topics?
+      callback?()
+    else
+      App.topics = new App.Topics
+      App.topics.fetch( success: => callback?() )
 
   setActiveNav: (activeNavClass) ->
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')

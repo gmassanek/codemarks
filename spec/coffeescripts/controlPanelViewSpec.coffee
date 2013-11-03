@@ -1,7 +1,7 @@
 describe 'ControlPanelView', ->
   beforeEach ->
-    @codemarks = new App.Codemarks
-    App.codemarks = @codemarks
+    @codemarks = App.codemarks = new App.Codemarks
+    @codemarks.users = new Backbone.Collection
     @view = new App.ControlPanelView
 
   describe 'render', ->
