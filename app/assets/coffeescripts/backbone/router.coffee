@@ -55,7 +55,7 @@ App.MainRouter = Backbone.Router.extend
     if !@controlPanel?
       @controlPanel = new App.ControlPanelView
       @$container.append(@controlPanel.$el)
-      @controlPanel.render()
+    @controlPanel.render()
 
   renderCodemarkList: ->
     if !@codemarksView?
