@@ -26,7 +26,7 @@ App.MainRouter = Backbone.Router.extend
     @$container = $('.content')
     @setupTopics =>
       @renderCodemarkList()
-      App.codemarksView.noNewTile = true
+      @codemarksView.noNewTile = true
       App.codemarks.fetch()
 
   editUser: (username) ->
@@ -55,7 +55,6 @@ App.MainRouter = Backbone.Router.extend
     if !@controlPanel?
       @controlPanel = new App.ControlPanelView
       @$container.append(@controlPanel.$el)
-    else
       @controlPanel.render()
 
   renderCodemarkList: ->

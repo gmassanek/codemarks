@@ -1,0 +1,50 @@
+@-moz-keyframes spin
+  from
+    -moz-transform: rotate(0deg)
+    -o-transform: rotate(0deg)
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+  to
+    -moz-transform: rotate(360deg)
+    -o-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+@-webkit-keyframes spin
+  from
+    -moz-transform: rotate(0deg)
+    -o-transform: rotate(0deg)
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+  to
+    -moz-transform: rotate(360deg)
+    -o-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+@-o-keyframes spin
+  from
+    -moz-transform: rotate(0deg)
+    -o-transform: rotate(0deg)
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+  to
+    -moz-transform: rotate(360deg)
+    -o-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+@keyframes spin
+  from
+    -moz-transform: rotate(0deg)
+    -o-transform: rotate(0deg)
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+  to
+    -moz-transform: rotate(360deg)
+    -o-transform: rotate(360deg)
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+
+= spin($time)
+  -webkit-animation: spin $time infinite linear
+  -moz-animation: spin $time infinite linear
+  -o-animation: spin $time infinite linear
+  animation: spin $time infinite linear

@@ -1,9 +1,18 @@
-@import 'mixins/circle'
+@import 'mixins/spin'
 @import 'mixins/border_radius'
 @import 'bourbon/css3/transition'
 
 @mixin icon
   font-family: 'icomoon'
+
+.codemarks.index .codemarks
+  text-align: center
+  .loading-spinner
+    display: inline-block
+    font-family: 'icomoon'
+    margin-top: 50px
+    font-size: 60px
+    @include spin(1s)
 
 .tile
   float: left

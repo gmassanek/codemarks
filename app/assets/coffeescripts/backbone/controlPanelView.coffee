@@ -9,7 +9,6 @@ App.ControlPanelView = Backbone.View.extend
     @filters = App.codemarks.filters
 
   render: ->
-    return unless App.codemarks.users?
     @$el.html('')
     $filterDiv = $('<div class="filters"></div>')
     if @filters.get('user')

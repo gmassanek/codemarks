@@ -4,6 +4,11 @@ App.CodemarksView = Backbone.View.extend
   initialize: ->
     App.codemarks.bind 'reset', => @render()
     App.codemarks.bind 'add', (codemark) => @addCodemark(codemark)
+    App.vent.bind('updateCodemarkRequest', => @renderAsLoading())
+    @renderAsLoading()
+
+  renderAsLoading: ->
+    @$el.html(angelo('loading.html'))
 
   render: ->
     @$el.html('')
