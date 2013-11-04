@@ -2,6 +2,7 @@ App.MainRouter = Backbone.Router.extend
   routes:
     '': 'codemarks'
     'codemarks': 'codemarks'
+    'codemarks/:id': 'showCodemark'
     'users/:username': 'showUser'
     'users/:username/edit': 'editUser'
     'users(?page=:page)': 'userIndex'
@@ -17,6 +18,8 @@ App.MainRouter = Backbone.Router.extend
       @renderControlPanel()
       @renderCodemarkList()
       App.codemarks.fetch()
+
+  showCodemark: ->
 
   showUser: (username) ->
     App.codemarks ||= new App.Codemarks
@@ -73,6 +76,7 @@ App.MainRouter = Backbone.Router.extend
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
 
   trackPageview: ->
+    console.log 'hi'
     return unless _gaq?
     url = window.location.pathname + window.location.search
     _gaq.push(['_trackPageview', url])
