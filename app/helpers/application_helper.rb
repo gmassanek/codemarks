@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def title
-    "#{params[:controller].humanize.capitalize} | Codemarks"
+    "#{@title || params[:controller].humanize} | Codemarks"
   end
 
   def sign_in_path(provider)

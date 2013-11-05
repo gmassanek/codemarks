@@ -48,6 +48,7 @@ class CodemarksController < ApplicationController
   end
 
   def index
+    @title = "Browse"
     @user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
 
     if params[:topic_ids]

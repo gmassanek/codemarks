@@ -83,16 +83,17 @@ App.Filters = Backbone.Model.extend
     @unset('query')
 
   dataForTitle: ->
-    title = "Codemarks "
+    title = ""
     if @get('user')
-      title += "by #{@get('user')} "
-      #title += "codemarks "
-    if @topicCount() > 0
-      title += "tagged " + @topicIds().join(", ") + " "
+      title += "#{@get('user')}'s "
     if @get('query')
-      title += "mathching " + @get('query') + " "
+      title += @get('query') + " "
+    if @topicCount() > 0
+      title += @topicIds().join(", ") + " "
     if @get('currentPage') > 1
-      title += "(#{@get('currentPage')})"
+      title += " (#{@get('currentPage')})"
+    if title == ""
+      title = "Browse"
     title
 
   data: ->
