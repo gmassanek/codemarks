@@ -1,6 +1,6 @@
 class Authenticator
   class << self
-    def find_or_create_user_from_auth_hash provider, auth_hash
+    def find_or_create_user_from_auth_hash(provider, auth_hash)
       raise AuthHashRequiredError if auth_hash.nil? || auth_hash.empty?
       raise AuthProviderRequiredError if provider.nil? || provider.empty?
       uid = auth_uid(auth_hash)
