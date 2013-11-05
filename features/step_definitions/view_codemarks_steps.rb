@@ -68,6 +68,12 @@ When /^I click on that codemark$/ do
   click_on @codemarks.first.title
 end
 
+When /^I click on my name$/ do
+  within '.codemark.mine .author' do
+    click_on @current_user.nickname
+  end
+end
+
 Then /^I should be on the show page$/ do
   current_path.should == codemark_path(@codemarks.first)
 end
@@ -93,4 +99,11 @@ end
 Then /^I should see a twitter share link$/ do
   page.execute_script("$('.codemark .hover-icons').show()")
   page.should have_selector('.share')
+end
+
+Then /^the "(.*?)" tab should be active$/ do |tab_identifier|
+  page.should have_selector('.tabs li.active', :count => 1)
+  within '.tabs li.active' do
+    page.should have_content(tab_identifier)
+  end
 end

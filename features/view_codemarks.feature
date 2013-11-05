@@ -26,6 +26,13 @@ Feature: View Codemarks
     And I go to my codemarks page
     Then I should see 3 codemarks
 
+  Scenario: The top nav selects Mine when filtered by me
+    And I have 1 codemarks
+    And someone else has codemarks
+    And I am on the codemarks page
+    When I click on my name
+    Then the "Mine" tab should be active
+
   Scenario: Codemark titles should be links
     And I have a codemarks called "Some Title"
     And I am on the codemarks page

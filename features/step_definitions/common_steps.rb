@@ -21,7 +21,7 @@ Given /^I am not logged in anymore$/ do
   click_link 'Log Out'
 end
 
-Given /^I have (\d+) codemarks$/ do |num|
+Given /^I have (\d+) codemark(s)$/ do |num, _|
   @codemarks = []
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact
@@ -30,7 +30,7 @@ Given /^I have (\d+) codemarks$/ do |num|
   @codemarks
 end
 
-Given /^I have (\d+) text codemarks$/ do |num|
+Given /^I have (\d+) text codemark(s)$/ do |num, _|
   @codemarks = []
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact

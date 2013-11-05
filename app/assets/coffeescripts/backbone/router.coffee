@@ -16,6 +16,7 @@ App.MainRouter = Backbone.Router.extend
     App.codemarks ||= new App.Codemarks
     App.codemarks.filters.loadFromCookie($.deparam(params || ''))
     document.title = App.codemarks.filters.dataForTitle() + @siteTail
+    @setCodemarksTab()
     @$container = $('#main_content')
     @setupTopics =>
       @renderControlPanel()
@@ -23,8 +24,16 @@ App.MainRouter = Backbone.Router.extend
       App.codemarks.fetch()
 
   showCodemark: ->
+    @setCodemarksTab()
+
+  setCodemarksTab: ->
+    if App.codemarks.filters.hasUser(window.CURRENT_USER)
+      @setActiveNav('yours')
+    else
+      @setActiveNav('everyones')
 
   showUser: (username) ->
+    @setActiveNav('people')
     App.codemarks ||= new App.Codemarks
     App.codemarks.filters.setUser(username)
     App.codemarks.filters.setSort('visits')
@@ -39,10 +48,12 @@ App.MainRouter = Backbone.Router.extend
     @setActiveNav('people')
 
   editUser: (username) ->
+    @setActiveNav('people')
 
   about: ->
 
   topics: ->
+    @setActiveNav('topics')
 
   updateUrlWithFilters: ->
     filterParams = $.param(App.codemarks.filters.data())
@@ -74,6 +85,7 @@ App.MainRouter = Backbone.Router.extend
       App.topics.fetch( success: => callback?() )
 
   setActiveNav: (activeNavClass) ->
+    $(".tabs li").removeClass('active')
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
 
   trackPageview: ->
