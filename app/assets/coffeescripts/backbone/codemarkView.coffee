@@ -64,14 +64,17 @@ App.CodemarkView = Backbone.View.extend
         'data-slug': topic.slug
 
   navigateToAuthor: (e) ->
-    e.preventDefault()
-    App.codemarks.filters.setUser(@model.get('author').slug)
+    e?.preventDefault()
+    userSlug = @model.get('author').slug
+    return if App.codemarks.filters.hasUser(userSlug)
+    App.codemarks.filters.setUser(userSlug)
     App.codemarks.filters.setPage(1)
     App.vent.trigger('updateCodemarkRequest')
 
   navigateToTopic: (e) ->
-    e.preventDefault()
+    e?.preventDefault()
     slug = $(e.currentTarget).data('slug')
+    return if App.codemarks.filters.hasTopic(slug)
     App.codemarks.filters.addTopic(slug)
     App.codemarks.filters.setPage(1)
     App.vent.trigger('updateCodemarkRequest')

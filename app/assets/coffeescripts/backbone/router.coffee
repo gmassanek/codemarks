@@ -2,6 +2,7 @@ App.MainRouter = Backbone.Router.extend
   routes:
     '': 'codemarks'
     'codemarks': 'codemarks'
+    'codemarks?:query': 'codemarks'
     'codemarks/:id': 'showCodemark'
     'users/:username': 'showUser'
     'users/:username/edit': 'editUser'
@@ -32,10 +33,10 @@ App.MainRouter = Backbone.Router.extend
       @codemarksView.noNewTile = true
       App.codemarks.fetch()
 
-  editUser: (username) ->
-
   userIndex: ->
     @setActiveNav('people')
+
+  editUser: (username) ->
 
   about: ->
 
@@ -44,12 +45,11 @@ App.MainRouter = Backbone.Router.extend
   updateUrlWithFilters: ->
     filterParams = $.param(App.codemarks.filters.data())
     if filterParams == ''
-      url = "/codemarks?"
+      url = "/codemarks"
     else
       url = "/codemarks?#{filterParams}"
 
     App.router.navigate(url, {trigger: true})
-    Backbone.history.stop(); Backbone.history.start({pushState: true})
 
   updateCodemarks: ->
     @updateUrlWithFilters()
@@ -76,7 +76,6 @@ App.MainRouter = Backbone.Router.extend
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
 
   trackPageview: ->
-    console.log 'hi'
     return unless _gaq?
     url = window.location.pathname + window.location.search
     _gaq.push(['_trackPageview', url])

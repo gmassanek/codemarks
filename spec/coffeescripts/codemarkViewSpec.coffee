@@ -1,55 +1,23 @@
-describe 'LinkCodemarkView', ->
-  afterEach ->
-    window.CURRENT_USER = null
+describe 'CodemarkView', ->
+  beforeEach ->
+    @codemark = new App.Codemark
+      author: {slug: 'gmassanek'}
 
-  describe 'rerenders itself', ->
-    it 'when its model changes', ->
-      codemark = new App.Codemark
-        resource: {}
-        topics: []
-        author: { slug: 'gmassanek' }
-      view = new App.LinkCodemarkView
-        model: codemark
-      spyOn(view, 'render')
-      codemark.trigger('change')
-      expect(view.render).toHaveBeenCalled()
+    @view = new App.CodemarkView
+      model: @codemark
 
-  describe "renders it's own HTML", ->
-    it 'and adds the "mine" class if it belongs to the current user', ->
-      window.CURRENT_USER = 'gmassanek'
-      codemark = new App.Codemark
-        resource: {}
-        topics: []
-        author: { slug: 'gmassanek' }
-      view = new App.LinkCodemarkView
-        model: codemark
-      view.render()
-      expect(view.$el.hasClass('mine')).toBeTruthy()
+  describe 'navigateToAuthor', ->
+    it 'triggers an update', ->
+      triggerSpy = spyOn(App.vent, 'trigger')
+      @view.navigateToAuthor()
+      expect(triggerSpy).toHaveBeenCalled()
 
-    it 'and does not add the "mine" class if it does not belong to the current user', ->
-      window.CURRENT_USER = 'somebody_else'
-      codemark = new App.Codemark
-        resource: {}
-        topics: []
-        author: { slug: 'gmassanek' }
-      view = new App.LinkCodemarkView
-        model: codemark
-      view.render()
-      expect(view.$el.hasClass('mine')).toBeFalsy()
+    it 'adds that user', ->
+      @view.navigateToAuthor()
+      expect(App.codemarks.filters.get('user')).toBe('gmassanek')
 
-  describe 'is editable', ->
-    it 'if the author is the current user', ->
-      window.CURRENT_USER = 'gmassanek'
-      codemark = new App.Codemark
-        author: { slug: 'gmassanek' }
-      view = new App.LinkCodemarkView
-        model: codemark
-      expect(view.editable()).toBeTruthy()
-
-    it 'unless the auther is somebody else', ->
-      window.CURRENT_USER = 'somebody_else'
-      codemark = new App.Codemark
-        author: { slug: 'gmassanek' }
-      view = new App.LinkCodemarkView
-        model: codemark
-      expect(view.editable()).toBeFalsy()
+    it 'does nothing if that user is already added', ->
+      App.codemarks.filters.setUser('gmassanek')
+      triggerSpy = spyOn(App.vent, 'trigger')
+      @view.navigateToAuthor()
+      expect(triggerSpy).not.toHaveBeenCalled()
