@@ -47,4 +47,4 @@ App.PaginationView = Backbone.View.extend
     e.preventDefault()
     $pageLink = $(e.currentTarget)
     @collection.filters.setPage($pageLink.data('page'))
-    @collection.fetch()
+    App.vent.trigger('updateCodemarkRequest')

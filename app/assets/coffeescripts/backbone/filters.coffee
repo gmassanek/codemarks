@@ -67,6 +67,9 @@ App.Filters = Backbone.Model.extend
     @clearTopics()
     @addTopic(topic)
 
+  topicCount: ->
+    Object.keys(@get('topics')).length
+
   setPage: (page) ->
     @set('currentPage', page)
 
@@ -78,6 +81,19 @@ App.Filters = Backbone.Model.extend
 
   clearSearchQuery: ->
     @unset('query')
+
+  dataForTitle: ->
+    title = "Codemarks "
+    if @get('user')
+      title += "by #{@get('user')} "
+      #title += "codemarks "
+    if @topicCount() > 0
+      title += "tagged " + @topicIds().join(", ") + " "
+    if @get('query')
+      title += "mathching " + @get('query') + " "
+    if @get('currentPage') > 1
+      title += "(#{@get('currentPage')})"
+    title
 
   data: ->
     data = {}

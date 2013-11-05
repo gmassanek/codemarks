@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def title
+    "#{params[:controller].humanize.capitalize} | Codemarks"
+  end
+
   def sign_in_path(provider)
     "/auth/#{provider.to_s}"
   end

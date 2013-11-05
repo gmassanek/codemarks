@@ -1,4 +1,5 @@
 App.MainRouter = Backbone.Router.extend
+  siteTail: ' | Codemarks'
   routes:
     '': 'codemarks'
     'codemarks': 'codemarks'
@@ -14,6 +15,7 @@ App.MainRouter = Backbone.Router.extend
     params = window.location.search.substring(1)
     App.codemarks ||= new App.Codemarks
     App.codemarks.filters.loadFromCookie($.deparam(params || ''))
+    document.title = App.codemarks.filters.dataForTitle() + @siteTail
     @$container = $('#main_content')
     @setupTopics =>
       @renderControlPanel()
@@ -48,7 +50,6 @@ App.MainRouter = Backbone.Router.extend
       url = "/codemarks"
     else
       url = "/codemarks?#{filterParams}"
-
     App.router.navigate(url, {trigger: true})
 
   updateCodemarks: ->
