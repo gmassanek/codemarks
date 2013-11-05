@@ -23,8 +23,8 @@ App.MainRouter = Backbone.Router.extend
       @renderCodemarkList()
       App.codemarks.fetch()
 
-  showCodemark: ->
-    @setCodemarksTab()
+  showCodemark: (id) ->
+    @setActiveNav('everyones')
 
   setCodemarksTab: ->
     if App.codemarks.filters.hasUser(window.CURRENT_USER)
