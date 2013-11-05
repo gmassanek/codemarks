@@ -26,4 +26,7 @@
         #main_content{:class => page_class}
           = yield
       = render '/layouts/footer'
-    = javascript_include_tag 'http://js.pusher.com/1.12/pusher.min.js'
+
+    - if ENV['RAILS_ENV']=='production'
+      = javascript_include_tag 'socketListener'
+      = javascript_include_tag 'http://js.pusher.com/1.12/pusher.min.js'
