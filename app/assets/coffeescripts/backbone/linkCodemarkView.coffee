@@ -1,6 +1,7 @@
 App.LinkCodemarkView = App.CodemarkView.extend
   extraEvents:
-    'click .title': 'recordClick'
+    'click a.image_link': 'recordClick'
+    'click a.title_link': 'recordClick'
 
   template: ->
     angelo('link_codemark.html')
@@ -13,9 +14,8 @@ App.LinkCodemarkView = App.CodemarkView.extend
       content: ''
       src: if resource.snapshot_url then resource.snapshot_url else '/assets/loading.gif'
     data['host'] = resource.host
-    data['title_link'] =
-      content: @model.get('title'),
-      href: resource.url
+    data['image_link@href'] = resource.url
+    data['title_link@href'] = resource.url
     data
 
   recordClick: (e) ->

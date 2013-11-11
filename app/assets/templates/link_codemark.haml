@@ -1,26 +1,28 @@
 / BEGIN: Codemark Template.
 %header
-  .icon.icon-link-2
+  %ul.actions.overlay
+    %li.delete
+      %a.icon-remove
+    %li.edit
+      %a.icon-pencil
+    %li.add
+      %a.icon-plus
   .title
     %a.title_link{target: '_blank'}
 .main
-  %img.main-image
-  .image-container
-  .description
+  .main-image-container
+    %a.image_link{target: '_blank'}
+      %img.main-image
+%footer
   %ul.topics_list
     %li
       %a.topic
-%footer
-  .author.icon-user-2
-    %img.avatar
-    %a.name{:href => '#'}
-    %span.saves
   .hover-icons
-    %a.delete.icon-remove
-    %a.add.icon-plus
-    /%a.comments.icon-comments
     %a.share.icon-twitter{:target => '_blank'}
-  .views.icon-eye
-.clear
-
+    .views.icon-eye
+  %ul.data.overlay
+    %li.author.icon-user-2
+      %img.avatar
+      %a.name{:href => '#'}
+    %li.saves
 / END: Codemark Template.

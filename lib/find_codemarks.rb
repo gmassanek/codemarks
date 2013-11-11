@@ -1,5 +1,5 @@
 class FindCodemarks
-  PAGE_SIZE = 19
+  PAGE_SIZE = 24
 
   def initialize(options = {})
     options.each do |key, val|
@@ -40,6 +40,7 @@ class FindCodemarks
   end
 
   private
+
   def filter_query
     query = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     query = query.where(:user_id => @user_id) if @user_id
