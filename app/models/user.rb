@@ -3,12 +3,12 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
 
-  belongs_to :group
 
   has_many :authentications, :dependent => :destroy
   has_many :codemarks, :dependent => :destroy
   has_many :resources, :through => :codemarks
   has_many :topics, :through => :codemarks
+  has_and_belongs_to_many :groups
   has_many :clicks
 
   has_many :nuggets, :class_name => 'Link', :foreign_key => :author_id
@@ -83,6 +83,6 @@ class User < ActiveRecord::Base
   end
 
   def set_group
-    self.group ||= Group::DEFAULT
+    self.groups = [Group::DEFAULT] unless self.groups.present?
   end
 end

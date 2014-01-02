@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140102043331) do
+ActiveRecord::Schema.define(:version => 20140102045545) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -87,6 +87,11 @@ ActiveRecord::Schema.define(:version => 20140102043331) do
     t.string "name"
   end
 
+  create_table "groups_users", :force => true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
+
   create_table "links", :force => true do |t|
     t.string   "url"
     t.string   "title"
@@ -139,7 +144,6 @@ ActiveRecord::Schema.define(:version => 20140102043331) do
     t.string   "description"
     t.string   "nickname"
     t.string   "slug"
-    t.integer  "group_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

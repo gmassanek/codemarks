@@ -129,8 +129,8 @@ describe User do
 
   describe '#group' do
     it 'defaults to Group::DEFAULT' do
-      user
-      user.group.should == Group::DEFAULT
+      user.save!
+      user.groups.should == [Group::DEFAULT]
     end
   end
 end

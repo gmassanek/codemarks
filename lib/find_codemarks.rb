@@ -9,14 +9,14 @@ class FindCodemarks
     @user_id = options[:user].id if options[:user]
     @current_user_id = options[:current_user].id if options[:current_user]
     @topic_ids = options[:topic_ids]
-    @group_id = options[:group_id] || Group::DEFAULT.id
+    @group_ids = options[:group_ids] || [Group::DEFAULT.id]
   end
 
   def codemarks
     subq = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
     subq = subq.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, @current_user_id])
-    subq = subq.where(:group_id => @group_id)
+    subq = subq.where(:group_id => @group_ids)
     subq = filter_codemarks_project_out(subq)
 
     query = Codemark.scoped
