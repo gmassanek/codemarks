@@ -149,4 +149,34 @@ describe CodemarksController do
       Codemark.last.description.should == 'Here is a link And some more stuff'
     end
   end
+
+  describe '#show' do
+    let(:user) { Fabricate(:user) }
+    let(:codemark) { Fabricate(:codemark, :user => user) }
+
+    it 'renders a codemark successfully' do
+      controller.stub(:current_user_id => user.id)
+      get :show, :id => codemark.id
+      response.should be_success
+    end
+
+    describe 'authorization by group' do
+      it 'is successful when authorized' do
+        get :show, :id => codemark.id
+        response.should be_success
+      end
+
+      it 'redirects unauthorized web requests' do
+        UserCodemarkAuthorizer.any_instance.stub(:authorized? => false)
+        get :show, :id => codemark.id
+        response.should be_redirect
+      end
+
+      it '401s unauthorized json requests' do
+        UserCodemarkAuthorizer.any_instance.stub(:authorized? => false)
+        get :show, :id => codemark.id, :format => :json
+        response.code.should == '401'
+      end
+    end
+  end
 end
