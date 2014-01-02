@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :nickname, :use => :slugged
 
+  belongs_to :group
+
   has_many :authentications, :dependent => :destroy
   has_many :codemarks, :dependent => :destroy
   has_many :resources, :through => :codemarks
@@ -11,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :nuggets, :class_name => 'Link', :foreign_key => :author_id
 
+  before_create :set_group
   after_save :take_nickname_from_authentication
 
   validates_uniqueness_of :nickname
@@ -77,5 +80,9 @@ class User < ActiveRecord::Base
       favorites[topic] = topic_count.count.to_i
     end
     favorites
+  end
+
+  def set_group
+    self.group ||= Group::DEFAULT
   end
 end

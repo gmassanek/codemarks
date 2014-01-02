@@ -126,4 +126,11 @@ describe User do
       user.favorite_topics.length.should == 15
     end
   end
+
+  describe '#group' do
+    it 'defaults to Group::DEFAULT' do
+      user
+      user.group.should == Group::DEFAULT
+    end
+  end
 end
