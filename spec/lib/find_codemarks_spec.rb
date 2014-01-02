@@ -115,7 +115,6 @@ describe FindCodemarks do
       let(:group2) { Group.create!(:name => 'Group 2') }
 
       it 'does include codemarks in my group' do
-        @user.update_attributes(:groups => [group1])
         all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
@@ -124,7 +123,7 @@ describe FindCodemarks do
         user = Fabricate(:user, :groups => [group2])
         codemark = Fabricate(:codemark, :group => group2, :user => @user)
         all_cms = FindCodemarks.new(:user => @user, :current_user => user)
-        all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+        all_cms.codemarks.collect(&:id).should =~ [codemark.id]
       end
     end
 

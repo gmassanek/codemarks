@@ -9,7 +9,8 @@ class FindCodemarks
     @user_id = options[:user].id if options[:user]
     @current_user_id = options[:current_user].id if options[:current_user]
     @topic_ids = options[:topic_ids]
-    @group_ids = options[:group_ids] || [Group::DEFAULT.id]
+    @group_ids = options[:group_ids] || User.find_by_id(@current_user_id).try(:group_ids)
+    @group_ids = [Group::DEFAULT.id] unless @group_ids.present?
   end
 
   def codemarks
