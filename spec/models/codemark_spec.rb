@@ -99,18 +99,6 @@ describe Codemark do
     end
   end
 
-  it "delegates url to it's link" do
-    codemark = Fabricate.build(:codemark)
-    link = codemark.resource
-    codemark.url.should == link.url
-  end
-
-  it "finds codemarks for a user and a link combination" do
-    user = Fabricate(:user)
-    codemark = Fabricate(:codemark, :user => user)
-    Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
-  end
-
   describe "#suggested_topics" do
     before do
       @github = Topic.create!(:title => 'github')
@@ -146,6 +134,25 @@ describe Codemark do
       codemark.topics = []
       @codemark.save
       @codemark.should_not be_private
+    end
+  end
+
+  it "delegates url to it's link" do
+    codemark = Fabricate.build(:codemark)
+    link = codemark.resource
+    codemark.url.should == link.url
+  end
+
+  it "finds codemarks for a user and a link combination" do
+    user = Fabricate(:user)
+    codemark = Fabricate(:codemark, :user => user)
+    Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
+  end
+
+  describe '#group' do
+    it 'defaults to Group::DEFAULT' do
+      codemark.save!
+      codemark.group.should == Group::DEFAULT
     end
   end
 end

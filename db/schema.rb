@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813183249) do
+ActiveRecord::Schema.define(:version => 20140102035603) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130813183249) do
     t.tsvector "search"
     t.boolean  "private",       :default => false
     t.string   "resource_type"
+    t.integer  "group_id"
   end
 
   add_index "codemarks", ["search"], :name => "codemarks_search_index"
@@ -81,6 +82,10 @@ ActiveRecord::Schema.define(:version => 20130813183249) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "groups", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "links", :force => true do |t|
     t.string   "url"

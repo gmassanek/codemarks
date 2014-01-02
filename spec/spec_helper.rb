@@ -23,6 +23,7 @@ RSpec.configure do |config|
   if TEST_BROKEN == false
     config.filter_run_excluding :broken => true
   end
+
   if SKIP_JS == true
     config.filter_run_excluding :js => true
   end

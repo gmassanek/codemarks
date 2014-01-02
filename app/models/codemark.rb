@@ -1,6 +1,7 @@
 class Codemark < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
   belongs_to :user
+  belongs_to :group
 
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
@@ -12,6 +13,7 @@ class Codemark < ActiveRecord::Base
 
   delegate :url, :to => :resource
   before_save :mark_as_private
+  before_create :set_group
 
   def self.for_user_and_resource(user_id, resource_id)
     find(:first, :conditions => {:user_id => user_id, :resource_id => resource_id})
@@ -63,5 +65,9 @@ class Codemark < ActiveRecord::Base
   def mark_as_private
     self.private = self.topics.map(&:id).include?(Topic.private_topic_id)
     true
+  end
+
+  def set_group
+    self.group ||= Group::DEFAULT
   end
 end
