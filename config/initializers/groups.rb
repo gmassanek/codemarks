@@ -1,1 +1,4 @@
-Group::DEFAULT = Group.find_or_create_by_name('Codemarks')
+begin
+  Group::DEFAULT = Group.find_or_create_by_name('Codemarks')
+rescue
+end
