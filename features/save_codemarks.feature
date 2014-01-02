@@ -12,6 +12,14 @@ Feature: Saving Codemarks
     And I should be Google's author
 
   @vcr
+  Scenario: Saving google on the dashboard to a group
+    And I am in the "Foobar" group
+    And I am on the codemarks page
+    And I fill out and submit the add codemark form with Google in that group
+    Then I should see "Google"
+    And that codemark should be in that group
+
+  @vcr
   Scenario: Saving google via the codemarklet
     When I open the codemarklet for Google
     And I submit the codemark form

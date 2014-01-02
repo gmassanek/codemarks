@@ -10,5 +10,6 @@ window.App =
     App.vent = _.extend({}, Backbone.Events)
     App.vent.bind('updateCodemarkRequest', => App.router.updateUrlWithFilters())
     App.socketListener = new App.SocketListener() if App.SocketListener?
+    App.current_user = new Backbone.Model(JSON.parse(window.CURRENT_USER_DATA_JSON))
     Backbone.history.start
       pushState: true

@@ -30,6 +30,11 @@ Given /^I have (\d+) codemark(s)$/ do |num, _|
   @codemarks
 end
 
+Given /^I am in the "(.*?)" group$/ do |group_name|
+  @group = Group.find_or_create_by_name(group_name)
+  @current_user.update_attributes(:groups => Group.all)
+end
+
 Given /^I have (\d+) text codemark(s)$/ do |num, _|
   @codemarks = []
   num.to_i.times do

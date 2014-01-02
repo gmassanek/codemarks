@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find current_user_id if current_user_id
+    @current_user ||= User.includes(:groups).find(current_user_id) if current_user_id
   end
 end

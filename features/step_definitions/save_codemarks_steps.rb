@@ -52,6 +52,12 @@ Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note
   step 'I wait until all Ajax requests are complete'
 end
 
+Given /^I fill out and submit the add codemark form with Google in that group$/ do
+  step 'I fill out the add codemark form with Google'
+  page.select(@group.name, :from => 'group_id')
+  step 'I submit the codemark form'
+end
+
 Then /^I should be that codemark's author$/ do
   Codemark.last.resource.author.should == @current_user
 end
@@ -83,4 +89,8 @@ end
 
 Then /^that codemark should have a note$/ do
   FindCodemarks.new(:user => @current_user).codemarks.first.note.should_not be_nil
+end
+
+Then /^that codemark should be in that group$/ do
+  Codemark.last.group.should == @group
 end

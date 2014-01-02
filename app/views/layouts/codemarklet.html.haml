@@ -12,6 +12,7 @@
 
     :javascript
       window.CURRENT_USER = "#{current_user.try(:slug)}"
+      window.CURRENT_USER_DATA_JSON = '#{PresentUsers.present(current_user).to_json}'
 
   %body.codemarklet
     = yield

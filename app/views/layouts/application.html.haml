@@ -13,6 +13,7 @@
     :javascript
       window.CURRENT_USER = "#{current_user.try(:slug)}"
       window.CURRENT_USER_ID = "#{current_user.try(:id)}"
+      window.CURRENT_USER_DATA_JSON = '#{PresentUsers.present(current_user).to_json}'
 
     - if ENV['RAILS_ENV']=='production'
       = javascript_include_tag 'google_analytics'

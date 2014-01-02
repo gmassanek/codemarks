@@ -17,6 +17,20 @@ App.CodemarkFormView = Backbone.View.extend
 
     @hideResourceEditsIfNotAuthor()
     @openAsModal()
+    @renderGroups()
+
+  renderGroups: ->
+    groups = App.current_user.get('groups')
+    _.each groups, (group) =>
+      optionHtml = "<option value='#{group.id}'>#{group.name}</option>"
+      @$('.group_id').append(optionHtml)
+
+    if groups.length == 1
+      @$('.group_id').hide()
+      @$('.group_label').remove()
+
+    val = @model.get('group_id') || App.current_user.get('groups')[0].id
+    @$('.group_id').val(val)
 
   hideResourceEditsIfNotAuthor: ->
     if @resourceEditable()
@@ -83,6 +97,7 @@ App.CodemarkFormView = Backbone.View.extend
       description: @$('.description').val()
       resource_type: @model.get('resource_type')
       resource_id: @model.get('resource').id
+    data.codemark.group_id = @$('.group_id').val()
     data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data
 
