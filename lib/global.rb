@@ -14,7 +14,7 @@ class Global
 
   def self.track(*args)
     return unless Rails.env == 'production'
-    Analytics.track(args)
+    Analytics.track(*args)
   end
 
   def initialize
