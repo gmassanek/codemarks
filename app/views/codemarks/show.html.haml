@@ -19,7 +19,6 @@
     %li= link_to topic.title, codemarks_path(:topic_ids => topic.slug)
   .clear
 
-%article
-  = render "show_#{@codemark.resource_type_underscore}", :codemark => @codemark, :user => @user
+= render "show_#{@codemark.resource_type_underscore}", :codemark => @codemark, :user => @user
 
 %aside
