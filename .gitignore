@@ -1,6 +1,7 @@
 .bundle
 /bundler/**/*
 db/*.sqlite3
+db/backups/*
 log/*.log
 tmp/
 .sass-cache/
