@@ -157,14 +157,12 @@ class FindCodemarks
   def search_params
     topics = Topic.find_all_by_id(@topic_ids).map(&:slug) if @topic_ids.present?
     groups = Group.find_all_by_id(@group_ids)
-    group_names = groups.map(&:name) if groups
-    params = {
-      :page => @page,
-      :user => User.find_by_id(@user_id).try(:slug),
-      :topic_ids => topics,
-      :search_term => @search_term,
-      :groups => group_names
-    }
+
+    params = { }
+    params[:page] = @page if @page
+    params[:search_term] = @search_term if @search_term
+    params[:topic_ids] = topics if topics
+    params[:groups] = groups.map(&:name) if groups
     params
   end
 
