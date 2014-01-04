@@ -30,8 +30,7 @@ App.CodemarkFormView = Backbone.View.extend
       @$('.group_id').hide()
       @$('.group_label').remove()
 
-    val = @model.get('group_id') || App.current_user.get('groups')[0].id
-    @$('.group_id').val(val)
+    @$('.group_id').val(@model.get('group_id'))
 
   hideResourceEditsIfNotAuthor: ->
     if @resourceEditable()
