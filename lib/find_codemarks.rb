@@ -12,7 +12,6 @@ class FindCodemarks
     @group_ids = options[:group_ids] || User.find_by_id(@current_user_id).try(:group_ids)
     @group_ids = [Group::DEFAULT.id] unless @group_ids.present?
 
-    set_search_params(options)
     record_lookup
   end
 
@@ -155,21 +154,23 @@ class FindCodemarks
     @search_term_sql ||= ActiveRecord::Base.send(:sanitize_sql_array, ["plainto_tsquery('english', ?)", @search_term])
   end
 
-  def set_search_params(options)
-    @search_params = {}
-    options.each do |key, val|
-      @search_params[key.to_s] = val.to_param
-    end
-
-    @search_params[:user_id] = options[:user].id if options[:user]
-    @search_params[:current_user_id] = options[:current_user].id if options[:current_user]
-    @search_params[:topic_ids] = options[:topic_ids]
-    @search_params[:group_ids] = options[:group_ids] || User.find_by_id(@current_user_id).try(:group_ids)
-    @search_params
+  def search_params
+    topics = Topic.find_all_by_id(@topic_ids).map(&:slug) if @topic_ids.present?
+    groups = Group.find_by_id(@group_ids)
+    group_names = groups.map(&:name) if groups
+    params = {
+      :page => @page,
+      :by => @by,
+      :user => User.find_by_id(@user_id).try(:slug),
+      :topic_ids => topics,
+      :search_term => @search_term,
+      :groups => group_names
+    }
+    params
   end
 
   def record_lookup
-    user_id = @current_user_id || 'unknown'
-    Global.track(:user_id => user_id, :event => 'codemark_lookup', :properties => @search_params)
+    user_id = @current_user_id || 'logged-out'
+    Global.track(:user_id => user_id, :event => 'codemark_lookup', :properties => search_params)
   end
 end
