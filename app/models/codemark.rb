@@ -76,6 +76,6 @@ class Codemark < ActiveRecord::Base
     params = {
       :topics => self.topics.map(&:slug)
     }
-    Global.track(:user_id => self.user_id, :event => 'codemark_created', :properties => params)
+    Global.track(:user_id => self.user.nickname, :event => 'codemark_created', :properties => params)
   end
 end

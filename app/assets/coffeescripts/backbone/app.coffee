@@ -15,7 +15,7 @@ window.App =
       pushState: true
 
     if analytics?
-      userId = App.current_user.get('id') || 'logged-out'
+      userId = App.current_user.get('slug') || 'logged-out'
       analytics.identify userId,
         userId  : App.current_user.get('id') || 'logged-out',
         name    : App.current_user.get('name') || 'logged-out',
