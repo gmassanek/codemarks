@@ -12,6 +12,11 @@ class Global
     markdown.render(text)
   end
 
+  def self.track(*args)
+    return unless Rails.env == 'production'
+    Analytics.track(args)
+  end
+
   def initialize
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:escape_html => true),
                                         :autolink => true,

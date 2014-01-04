@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_user_id, :current_user
 
+  before_filter :identify_user
+
+  def identify_user
+    if current_user
+      Analytics.identify(:user_id => current_user.id, :traits => { :nickname => current_user.nickname })
+    else
+      Analytics.identify(:user_id => 'logged-out', :traits => {})
+    end
+  end
+
   def require_user
     redirect_to root_path unless logged_in?
   end
