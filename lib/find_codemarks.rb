@@ -165,6 +165,7 @@ class FindCodemarks
     params[:topic_ids] = topics if topics
     params[:groups] = groups.map(&:name) if groups
     params[:user_filter] = User.find_by_id(@user_id).try(:slug) if @user_id
+    params[:sort_by] = @by
     params
   end
 
