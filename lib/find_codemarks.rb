@@ -11,6 +11,7 @@ class FindCodemarks
     @topic_ids = options[:topic_ids]
     @group_ids = options[:group_ids] || User.find_by_id(@current_user_id).try(:group_ids)
     @group_ids = [Group::DEFAULT.id] unless @group_ids.present?
+    @group_ids
 
     record_lookup
   end
@@ -163,6 +164,7 @@ class FindCodemarks
     params[:search_term] = @search_term if @search_term
     params[:topic_ids] = topics if topics
     params[:groups] = groups.map(&:name) if groups
+    params[:user_filter] = User.find_by_id(@user_id).try(:slug) if @user_id
     params
   end
 
