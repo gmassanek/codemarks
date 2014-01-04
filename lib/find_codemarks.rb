@@ -160,7 +160,6 @@ class FindCodemarks
     group_names = groups.map(&:name) if groups
     params = {
       :page => @page,
-      :by => @by,
       :user => User.find_by_id(@user_id).try(:slug),
       :topic_ids => topics,
       :search_term => @search_term,
