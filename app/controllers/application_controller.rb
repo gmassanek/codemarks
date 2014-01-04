@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
 
   def identify_user
     if current_user
-      Analytics.identify(:user_id => current_user.id, :traits => { :nickname => current_user.nickname })
+      Analytics.identify(:user_id => current_user.id, :traits => {
+        :username => current_user.nickname,
+        :name => current_user.name,
+        :created => current_user.created_at
+      })
     else
       Analytics.identify(:user_id => 'logged-out', :traits => {})
     end

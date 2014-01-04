@@ -8,3 +8,10 @@ window.App =
         model: App.codemark
       view.render()
       $('body').html(view.$el)
+
+      if analytics?
+        userId = App.current_user.get('id') || 'logged-out'
+        analytics.identify userId,
+          userId  : App.current_user.get('id') || 'logged-out',
+          name    : App.current_user.get('name') || 'logged-out',
+          username: App.current_user.get('slug') || 'logged-out'
