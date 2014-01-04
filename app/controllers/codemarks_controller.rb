@@ -60,6 +60,7 @@ class CodemarksController < ApplicationController
       format.json do
         search_attributes = {
           :page => params[:page],
+          :by => params[:by],
           :current_user => current_user,
           :user => @user,
           :topic_ids => @topic_ids,
