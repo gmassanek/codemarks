@@ -5,10 +5,14 @@ class UserCodemarkAuthorizer
   end
 
   def authorized?
-    if @user
-      (@user.group_ids + [Group::DEFAULT.id]).include?(@codemark.group_id)
+    if @codemark.group
+      if @user
+        @user.groups.include?(@codemark.group)
+      else
+        false
+      end
     else
-      [Group::DEFAULT.id].include?(@codemark.group_id)
+      true
     end
   end
 end

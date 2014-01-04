@@ -150,9 +150,5 @@ describe Codemark do
   end
 
   describe '#group' do
-    it 'defaults to Group::DEFAULT' do
-      codemark.save!
-      codemark.group.should == Group::DEFAULT
-    end
   end
 end

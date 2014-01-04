@@ -111,19 +111,27 @@ describe FindCodemarks do
     end
 
     context '#groups' do
-      let(:group1) { Group::DEFAULT }
-      let(:group2) { Group.create!(:name => 'Group 2') }
+      let(:group) { Group.create!(:name => 'Foobars') }
+      let(:group2) { Group.create!(:name => 'Boohoobars') }
+
+      it 'does include codemarks in no group' do
+        codemark = Fabricate(:codemark)
+        all_cms = FindCodemarks.new(:current_user => @user)
+        all_cms.codemarks.collect(&:id).should include codemark.id
+      end
 
       it 'does include codemarks in my group' do
-        all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
-        all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+        @user.groups << group
+        codemark = Fabricate(:codemark, :group => group)
+        all_cms = FindCodemarks.new(:current_user => @user)
+        all_cms.codemarks.collect(&:id).should include codemark.id
       end
 
       it 'does not include codemarks in other people\'s groups' do
         user = Fabricate(:user, :groups => [group2])
-        codemark = Fabricate(:codemark, :group => group2, :user => @user)
-        all_cms = FindCodemarks.new(:user => @user, :current_user => user)
-        all_cms.codemarks.collect(&:id).should =~ [codemark.id]
+        codemark = Fabricate(:codemark, :group => group2, :user => user)
+        all_cms = FindCodemarks.new(:current_user => @user)
+        all_cms.codemarks.collect(&:id).should_not include codemark.id
       end
     end
 

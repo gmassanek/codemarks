@@ -13,7 +13,6 @@ class Codemark < ActiveRecord::Base
 
   delegate :url, :to => :resource
   before_save :mark_as_private
-  before_create :set_group
   after_create :track
 
   def self.for_user_and_resource(user_id, resource_id)
@@ -66,10 +65,6 @@ class Codemark < ActiveRecord::Base
   def mark_as_private
     self.private = self.topics.map(&:id).include?(Topic.private_topic_id)
     true
-  end
-
-  def set_group
-    self.group ||= Group::DEFAULT
   end
 
   def track
