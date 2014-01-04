@@ -169,7 +169,7 @@ class FindCodemarks
   end
 
   def record_lookup
-    user_id = @current_user_id || 'logged-out'
+    user_id = User.find_by_id(@current_user_id).try(:nickname) || 'logged-out'
     Global.track(:user_id => user_id, :event => 'codemark_lookup', :properties => search_params)
   end
 end
