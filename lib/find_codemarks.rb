@@ -21,7 +21,7 @@ class FindCodemarks
     subq = if @group_ids
       subq.where(:group_id => @groups_ids)
     else
-      subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', User.find_by_id(@current_user_id).try(:group_ids))
+      subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(@current_user_id).try(:group_ids)))
     end
     subq = filter_codemarks_project_out(subq)
 

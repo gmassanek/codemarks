@@ -20,7 +20,8 @@ App.CodemarkFormView = Backbone.View.extend
     @renderGroups()
 
   renderGroups: ->
-    groups = App.current_user.get('groups')
+    groups = App.current_user.get('groups').slice(0)
+    groups.unshift ( { id: '', name: 'None' } )
     _.each groups, (group) =>
       optionHtml = "<option value='#{group.id}'>#{group.name}</option>"
       @$('.group_id').append(optionHtml)
