@@ -22,6 +22,12 @@ describe UserCodemarkAuthorizer do
       UserCodemarkAuthorizer.new(user, codemark).should be_authorized
     end
 
+    it 'is true for users in no group and the codemark in no group' do
+      user.groups = []
+      codemark = Fabricate(:codemark, :user => author, :group => nil)
+      UserCodemarkAuthorizer.new(user, codemark).should be_authorized
+    end
+
     it 'is false for users with access to the group the codemark is in' do
       user.groups = []
       codemark = Fabricate(:codemark, :user => author, :group => group)
