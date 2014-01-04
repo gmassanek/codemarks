@@ -14,6 +14,7 @@ class Codemark < ActiveRecord::Base
   delegate :url, :to => :resource
   before_save :mark_as_private
   before_create :set_group
+  after_create :track
 
   def self.for_user_and_resource(user_id, resource_id)
     find(:first, :conditions => {:user_id => user_id, :resource_id => resource_id})
@@ -69,5 +70,12 @@ class Codemark < ActiveRecord::Base
 
   def set_group
     self.group ||= Group::DEFAULT
+  end
+
+  def track
+    params = {
+      :topics => self.topics.map(&:slug)
+    }
+    Global.track(:user_id => self.user_id, :event => 'codemark_created', :properties => params)
   end
 end
