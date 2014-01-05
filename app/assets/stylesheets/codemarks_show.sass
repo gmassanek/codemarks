@@ -3,23 +3,14 @@
     margin-top: 20px
 
     header
-      padding-bottom: 15px
-      .left
+      border-top: 1px solid #000
+      padding-top: 10px
+      .user_image
         float: left
-        min-width: 600px
-        .user_image
-          float: left
-          border: 1px solid $border-color2
-          margin-right: 10px
-          height: 80px
-          width: 80px
-        h1
-        h6
-          margin-top: 10px
-          .name
-            margin-right: 5px
-      .right
-        float: right
+        border: 1px solid $border-color2
+        margin-right: 10px
+        height: 20px
+        width: 20px
 
     .topics_list
       li
@@ -30,8 +21,15 @@
       padding: 0 20px
       border: 1px solid $grey
       @include box-shadow(0px 2px 6px rgba(0, 0, 0, 0.2))
+      position: relative
       p
         font-family: Helvetica
         color: #333
         font-size: 12px
         line-height: 20px
+
+    .options
+      position: absolute
+      top: 0
+      right: 0
+

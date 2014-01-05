@@ -1,4 +1,22 @@
 - textmark = codemark.resource
 
 .textmark.markdown_html
+  %h1= @codemark.title
+  .options
+    = link_to 'edit', edit_codemark_path(@codemark) if @author && @author == current_user
   = Global.render_markdown(textmark.text).html_safe
+
+  %header
+    - if @author
+      %h6
+        = user_image(@author)
+        - if @author.get(:name)
+          .name.inline= link_to @author.get(:name), @author
+        - if @author.get(:nickname)
+          .nickname.inline= link_to "@#{@author.get(:nickname)}", @author
+        .time_ago #{time_ago_in_words(@codemark.created_at)} ago
+
+  %ul.topics_list
+    - @codemark.topics.each do |topic|
+      %li= link_to topic.title, codemarks_path(:topic_ids => topic.slug)
+    .clear
