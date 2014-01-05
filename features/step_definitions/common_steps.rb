@@ -21,6 +21,10 @@ Given /^I am not logged in anymore$/ do
   click_link 'Log Out'
 end
 
+Given /^I am not logged in$/ do
+  step 'I am not logged in anymore'
+end
+
 Given /^I have (\d+) codemark(s)$/ do |num, _|
   @codemarks = []
   num.to_i.times do
@@ -104,11 +108,24 @@ Then /^I should not see "([^"]*)"$/ do |content|
   page.should_not have_content(content)
 end
 
+Then /^I can see (my|that) codemark$/ do |_|
+  step "I am on the codemarks page"
+  codemark = @codemark || @codemarks.first
+  page.should have_content(codemark.title)
+end
+
+Then /^I can not see (my|that) codemark$/ do |_|
+  step "I am on the codemarks page"
+  codemark = @codemark || @codemarks.first
+  page.should_not have_content(codemark.title)
+end
+
 Then /^I should see (my|that) codemark$/ do |_|
   codemark = @codemark || @codemarks.first
   page.should have_content(codemark.title)
 end
 
 Then /^I should not see that codemark$/ do
+  step 'I wait until all Ajax requests are complete'
   page.should_not have_content(@codemark.title)
 end

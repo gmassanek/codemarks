@@ -5,6 +5,7 @@ App.Filters = Backbone.Model.extend
     @setSort(saved_filters.by) if saved_filters.by
     @setUser(saved_filters.user) if saved_filters.user
     @setPage(saved_filters.page) if saved_filters.page
+    @setGroup(saved_filters.group_id) if saved_filters.group_id
     @setSearchQuery(saved_filters.query) if saved_filters.query
 
     if saved_filters.topic_ids
@@ -32,6 +33,9 @@ App.Filters = Backbone.Model.extend
 
   addUser: (username) ->
     @setUser(username)
+
+  setGroup: (groupId) ->
+    @set('group', groupId)
 
   removeUser: ->
     @setUser(undefined)
@@ -101,6 +105,7 @@ App.Filters = Backbone.Model.extend
     data['by'] = @get('sort') if @get('sort') != @defaults().sort
     data['user'] = @get('user') if @get('user')
     data['topic_ids'] = @topicIds().join() if @topicIds().length > 0
+    data['group_id'] = @get('group') if @get('group')
     data['page'] = @get('currentPage') if @get('currentPage')? && @get('currentPage') != 1
     data['query'] = @searchQuery() if @searchQuery()
     data

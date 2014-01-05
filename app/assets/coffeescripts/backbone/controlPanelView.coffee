@@ -10,34 +10,53 @@ App.ControlPanelView = Backbone.View.extend
 
   render: ->
     @$el.html('')
-    $filterDiv = $('<div class="filters"></div>')
+    @$filterDiv = $('<div class="filters"></div>')
+    @addUserFilter()
+    @addTopicFilters()
+    @addSearchFilters()
+    @addSortFilters()
+    @addGroupFilters()
+
+    @$filterDiv.append('<div class="clear"></div>')
+    @$el.append(@$filterDiv)
+    @$el.append(@_searchHtml())
+    @$('#search').select2
+      tags: App.topics.slugs()
+
+  addUserFilter: ->
     if @filters.get('user')
       user = App.codemarks.users?.where(slug: @filters.get('user'))[0]
       desc = user?.get('nickname')
       val = user?.get('slug')
       img = user?.get('image')
       userHtml = @_filterHtml(desc, val, 'user', img)
-      $filterDiv.append(userHtml)
+      @$filterDiv.append(userHtml)
 
+  addTopicFilters: ->
     _.each @filters.topicIds(), (topicId) =>
       topic = App.topics.where(slug: topicId)[0]
       desc = topic?.get('title')
       val = topic?.get('slug')
       topicHtml = @_filterHtml(desc, val, 'topic')
-      $filterDiv.append(topicHtml)
+      @$filterDiv.append(topicHtml)
 
+  addSearchFilters: ->
     if @filters.searchQuery()
       filterHtml = @_filterHtml(@filters.searchQuery(), @filters.searchQuery(), 'query')
-      $filterDiv.append(filterHtml)
+      @$filterDiv.append(filterHtml)
 
+  addSortFilters: ->
     sortHtml = @_filterHtml(@filters.get('sort'), @filters.get('sort'), 'sort')
-    $filterDiv.append(sortHtml)
+    @$filterDiv.append(sortHtml)
 
-    $filterDiv.append('<div class="clear"></div>')
-    @$el.append($filterDiv)
-    @$el.append(@_searchHtml())
-    @$('#search').select2
-      tags: App.topics.slugs()
+  addGroupFilters: ->
+    return unless App.current_user.get('groups')?.length > 0
+    if @filters.get('group')
+      group = _.find App.current_user.get('groups'), (group) =>
+        group.id == parseInt(@filters.get('group'))
+      groupDesc = group.name
+    groupHtml = @_filterHtml(groupDesc || 'No Group', @filters.get('group'), 'group')
+    @$filterDiv.append(groupHtml)
 
   search: (e) ->
     e?.preventDefault()

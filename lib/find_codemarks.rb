@@ -9,7 +9,7 @@ class FindCodemarks
     @user_id = options[:user].id if options[:user]
     @current_user_id = options[:current_user].id if options[:current_user]
     @topic_ids = options[:topic_ids]
-    @group_ids = options[:group_ids]
+    @group_ids = options[:group_ids].map(&:to_i) if options[:group_ids]
 
     record_lookup
   end
@@ -19,7 +19,7 @@ class FindCodemarks
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
     subq = subq.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, @current_user_id])
     subq = if @group_ids
-      subq.where('codemarks.group_id IN (?)', @groups_ids)
+      subq.where('codemarks.group_id IN (?)', @group_ids)
     else
       subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(@current_user_id).try(:group_ids)))
     end

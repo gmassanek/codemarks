@@ -171,4 +171,74 @@ http_interactions:
         </script></body></html>'
     http_version: 
   recorded_at: Thu, 02 Jan 2014 03:09:38 GMT
+- request:
+    method: post
+    uri: https://api.segment.io/v1/import
+    body:
+      encoding: US-ASCII
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-01-05T16:40:28-06:00","action":"identify","requestId":"074af1dabc74477c7"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 05 Jan 2014 22:40:09 GMT
+      X-Powered-By:
+      - Express
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true}'
+    http_version: 
+  recorded_at: Sun, 05 Jan 2014 22:40:29 GMT
+- request:
+    method: post
+    uri: https://api.segment.io/v1/import
+    body:
+      encoding: US-ASCII
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-01-05T16:40:33-06:00","action":"identify","requestId":"30f148a62dcecfc8d"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 05 Jan 2014 22:39:50 GMT
+      X-Powered-By:
+      - Express
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true}'
+    http_version: 
+  recorded_at: Sun, 05 Jan 2014 22:40:34 GMT
 recorded_with: VCR 2.3.0

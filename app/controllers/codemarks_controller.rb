@@ -49,25 +49,26 @@ class CodemarksController < ApplicationController
 
   def index
     @title = "Browse"
-    @user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
-
-    if params[:topic_ids]
-      @topic_ids = Topic.where(:slug => params[:topic_ids].split(',')).pluck(:id)
-    end
 
     respond_to do |format|
       format.html
       format.json do
+        user = User.find_by_slug(params[:user]) || User.find_by_id(params[:user])
+        topic_ids = Topic.where(:slug => params[:topic_ids].split(',')).pluck(:id) if params[:topic_ids]
+        group_ids = [params[:group_id]] if params[:group_id]
+
         search_attributes = {
           :page => params[:page],
           :by => params[:by],
           :current_user => current_user,
-          :user => @user,
-          :topic_ids => @topic_ids,
-          :search_term => params[:query]
+          :user => user,
+          :topic_ids => topic_ids,
+          :search_term => params[:query],
+          :group_ids => group_ids
         }
+
         @codemarks = FindCodemarks.new(search_attributes).try(:codemarks)
-        render :json => PresentCodemarks.for(@codemarks, current_user, @user)
+        render :json => PresentCodemarks.for(@codemarks, current_user, user)
       end
     end
   end

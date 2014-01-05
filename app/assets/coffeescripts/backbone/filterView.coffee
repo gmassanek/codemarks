@@ -17,7 +17,7 @@ App.FilterView = Backbone.View.extend
 
   render: ->
     @$el.html(@toHtml())
-    if @type != 'sort'
+    if @type != 'sort' && @type != 'group'
       @$('.remove').data('type', @type)
       @$('.remove').data('id', @dataId)
       @$('.more').remove()
@@ -38,7 +38,7 @@ App.FilterView = Backbone.View.extend
       description:
         href: "/users/#{@dataId}"
         content: @description
-      other_sorts: @otherSorts()
+      other_sorts: @otherSorts() || @otherGroups()
     facile(template, data)
 
   otherSorts: ->
@@ -49,14 +49,27 @@ App.FilterView = Backbone.View.extend
         content: sort
         'data-sort': sort
 
+  otherGroups: ->
+    return unless @type == 'group'
+    groups = App.current_user.get('groups').slice(0)
+    groups.unshift {id: '', name: 'No Group'}
+    _.map groups, (group) ->
+      other_sort:
+        content: group.name
+        'data-group': group.id
+
   toggleOtherSorts: (e) ->
     e.preventDefault
     @$('.other_sorts').toggleClass('hide')
 
   otherSortClicked: (e) ->
     e.preventDefault
-    sort = $(e.currentTarget).data('sort')
-    @filters.setSort(sort)
+    if @type == 'sort'
+      sort = $(e.currentTarget).data('sort')
+      @filters.setSort(sort)
+    else
+      group = $(e.currentTarget).data('group')
+      @filters.setGroup(group)
     App.vent.trigger('updateCodemarkRequest')
 
   removeFilter: (e) ->
