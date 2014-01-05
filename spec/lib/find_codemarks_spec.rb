@@ -120,6 +120,13 @@ describe FindCodemarks do
         all_cms.codemarks.collect(&:id).should include codemark.id
       end
 
+      it 'does not include codemarks in no group if a group is specified' do
+        @user.groups = [group]
+        codemark = Fabricate(:codemark)
+        all_cms = FindCodemarks.new(:current_user => @user, :group_ids => [group.id])
+        all_cms.codemarks.collect(&:id).should_not include codemark.id
+      end
+
       it 'does include codemarks in my group' do
         @user.groups << group
         codemark = Fabricate(:codemark, :group => group)
@@ -132,6 +139,13 @@ describe FindCodemarks do
         codemark = Fabricate(:codemark, :group => group2, :user => user)
         all_cms = FindCodemarks.new(:current_user => @user)
         all_cms.codemarks.collect(&:id).should_not include codemark.id
+      end
+
+      it 'only selects from a specific group if specified' do
+        user = Fabricate(:user, :groups => [group2])
+        codemark = Fabricate(:codemark, :group => group2, :user => user)
+        all_cms = FindCodemarks.new(:current_user => user, :group => group2)
+        all_cms.codemarks.collect(&:id).should include codemark.id
       end
     end
 
