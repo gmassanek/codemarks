@@ -71,7 +71,9 @@ class Codemark < ActiveRecord::Base
     {
       :topics => self.topics.map(&:slug),
       :resource_id => self.resource_id,
-      :resource_type => self.resource_type
+      :resource_type => self.resource_type,
+      :group_id => self.group_id,
+      :group => self.group.try(:name)
     }
   end
 
