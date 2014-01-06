@@ -5,14 +5,16 @@ class CodemarkMarkdownRenderer < Redcarpet::Render::HTML
     matches.each do |match|
       id, title = match.first.match(/(\d+)[ ]*([ \w]*)/).captures
       return unless cm = Codemark.find_by_id(id)
-      if cm.resource.is_a?(Link)
-        link = cm.resource.url
-      else
-        link = "/codemarks/#{cm.id}"
-      end
 
       title = cm.title if title.blank?
-      cm_link = "<a href='#{link}' class='embedded_cm' target='_blank'>#{title}</a>"
+      if cm.resource.is_a?(Link)
+        link = cm.resource.url
+        cm_link = "<a href='#{link}' class='embedded_cm' target='_blank'>#{title}</a>"
+      else
+        link = "/codemarks/#{cm.id}"
+        cm_link = "<a href='#{link}' class='embedded_cm'>#{title}</a>"
+      end
+
       text = text.gsub(/\[CM#{match.first}\]/, cm_link)
     end
     text
