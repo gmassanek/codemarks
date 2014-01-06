@@ -18,7 +18,7 @@ class Global
   end
 
   def initialize
-    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:escape_html => true),
+    @markdown = Redcarpet::Markdown.new(CodemarkMarkdownRenderer.new(:escape_html => true),
                                         :autolink => true,
                                         :space_after_headers => true,
                                         :hard_wrap => true,
