@@ -15,7 +15,7 @@ class CodemarkletController < ApplicationController
     codemark ||= Codemark.new(:resource => resource, :user => current_user)
     codemark.topics = codemark.suggested_topics unless codemark.persisted?
 
-    Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => @codemark.tracking_data)
+    Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => codemark.tracking_data)
     @codemark = PresentCodemarks.present(codemark, current_user)
   end
 
