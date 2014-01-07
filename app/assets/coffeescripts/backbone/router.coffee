@@ -22,10 +22,11 @@ App.MainRouter = Backbone.Router.extend
       return
     @setCodemarksTab()
     @$container = $('#main_content')
-    @setupTopics =>
-      @renderControlPanel()
-      @renderCodemarkList()
-      App.codemarks.fetch()
+
+    @setupTopics()
+    @renderControlPanel()
+    @renderCodemarkList()
+    App.codemarks.fetch()
 
   showCodemark: (id) ->
     @setActiveNav('everyones')
