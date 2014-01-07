@@ -6,21 +6,30 @@ describe PresentCodemarks do
   let(:codemark) { Fabricate(:codemark, :resource => link, :user => user) }
 
   it 'presents everything it needs to' do
-    codemark.title = nil
-    presented = PresentCodemarks.present(codemark)
-    data = codemark.resource.attributes
-    data.delete('site_data')
-    presented[:resource].should == data
-    presented['title'].should == codemark.title
+    data = PresentCodemarks.present(codemark)
+    data['id'].should == codemark.id
+    data['user_id'].should == codemark.user_id
+    data['resource_id'].should == codemark.resource_id
+    data['resource_type'].should == codemark.resource_type
+    data['created_at'].should == codemark.created_at
+    data['updated_at'].should == codemark.updated_at
+    data['description'].should == codemark.description
+    data['title'].should == codemark.title
+    data['group_id'].should == codemark.group_id
+  end
+
+  it 'presents its resource' do
+    data = PresentCodemarks.present(codemark)[:resource]
+    data['url'].should == codemark.resource.url
   end
 
   it 'presents pagination' do
-    presented = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
-    presented[:pagination].should be_present
+    data = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    data[:pagination].should be_present
   end
 
   it 'presents users' do
-    presented = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
-    presented[:users].should be_present
+    data = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    data[:users].should be_present
   end
 end

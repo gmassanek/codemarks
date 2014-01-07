@@ -17,8 +17,9 @@ class PresentCodemarks
       user = codemark.resource_author || codemark.user
     end
 
-    data = codemark.attributes.merge({
-      resource: codemark.resource.attributes.reject { |k, _| k == 'site_data'},
+    data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'resource_type', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
+    data.merge!({
+      resource: codemark.resource.attributes.except('site_data', 'search', 'snapshot_id'),
       author: present_user(user),
       topics: codemark.topics.map(&:attributes)
     })
