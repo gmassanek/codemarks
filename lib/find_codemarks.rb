@@ -25,7 +25,6 @@ class FindCodemarks
     else
       subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(current_user_id).try(:group_ids)))
     end
-    subq = filter_codemarks_project_out(subq)
 
     query = Codemark.scoped
     query = query.select('"codemarks".*, save_count, visit_count')
@@ -69,17 +68,6 @@ class FindCodemarks
     query = "PARTITION BY codemarks.resource_id, codemarks.resource_type ORDER BY "
     query = query + "codemarks.user_id=#{current_user_id} DESC, " if current_user_id
     query = query + "codemarks.created_at DESC"
-    query
-  end
-
-  def filter_codemarks_project_out(query)
-    allowed_users = User.find(:all, :conditions => {:nickname => ['gmassanek', 'GravelGallery']})
-    unless allowed_users.map(&:id).include?(current_user_id)
-      topic = Topic.find_by_title('codemarks')
-      if topic && topic.codemarks.present?
-        query = query.where(['"codemarks".id not in (?)', topic.codemarks.map(&:id) ])
-      end
-    end
     query
   end
 
