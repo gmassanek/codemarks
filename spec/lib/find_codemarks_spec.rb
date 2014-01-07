@@ -1,83 +1,92 @@
 require 'spec_helper'
 
 describe FindCodemarks do
-  context 'there are codemarks' do
+  context '#codemarks' do
     before do
       @user = Fabricate(:user)
       @cm = Fabricate(:codemark, :user => @user, :topics => [Fabricate(:topic), Fabricate(:topic)])
       @cm2 = Fabricate(:codemark, :user => @user)
     end
 
-    context "general result rules" do
-      it "doesn't return multiple cms for the same link" do
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
-        all_cms = FindCodemarks.new
-        all_cms.codemarks.all.count.should == 2
-      end
+    it 'can be empty' do
+      FindCodemarks.new.should_not be_nil
+    end
 
-      it "returns my cm even if other people saved the same link" do
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
-        all_cms = FindCodemarks.new(:user => @user)
-        all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
-      end
+    it "should find all codemarks regardless of user" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user)
+      all_cms = FindCodemarks.new
+      all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
+    end
 
-      it "returns the save count" do
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
-        all_cms = FindCodemarks.new
-        all_cms.codemarks.first.save_count.should == "2"
-      end
+    it "doesn't return multiple cms for the same link" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+      all_cms = FindCodemarks.new
+      all_cms.codemarks.all.count.should == 2
+    end
 
-      it "returns the save count for text" do
-        user = Fabricate(:user)
-        text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
-        all_cms = FindCodemarks.new(:user => user)
-        all_cms.codemarks.first.save_count.should == "1"
-      end
+    it "returns my cm even if other people saved the same link" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+      all_cms = FindCodemarks.new(:user => @user)
+      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+    end
 
-      it "returns the save count when scoped by user" do
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
-        all_cms = FindCodemarks.new(:user => user)
-        all_cms.codemarks.first.save_count.should == "2"
-      end
+    it "returns the save count" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+      all_cms = FindCodemarks.new
+      all_cms.codemarks.first.save_count.should == "2"
+    end
 
-      it "returns the resource author" do
-        @cm.resource.update_attributes(:author => @user)
+    it "returns the save count for text" do
+      user = Fabricate(:user)
+      text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
+      all_cms = FindCodemarks.new(:user => user)
+      all_cms.codemarks.first.save_count.should == "1"
+    end
 
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
-        codemarks  = FindCodemarks.new.codemarks
-        codemarks.first.resource_author.should == @user
-      end
+    it "returns the save count when scoped by user" do
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+      all_cms = FindCodemarks.new(:user => user)
+      all_cms.codemarks.first.save_count.should == "2"
+    end
 
-      it 'only shows codemarks tagged "codemarks" to gmassanek and GravelGallery' do
-        gmassanek = Fabricate(:user, :nickname => 'gmassanek')
-        gravelGallery = Fabricate(:user, :nickname => 'GravelGallery')
-        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm = Fabricate(:codemark, :topics => [codemarks_topic])
+    it "returns the resource author" do
+      @cm.resource.update_attributes(:author => @user)
 
-        FindCodemarks.new.codemarks.should_not include cm
-        FindCodemarks.new(:current_user => @user).codemarks.should_not include cm
-        FindCodemarks.new(:current_user => gmassanek).codemarks.should include cm
-        FindCodemarks.new(:current_user => gravelGallery).codemarks.should include cm
-      end
+      user = Fabricate(:user)
+      @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
+      codemarks  = FindCodemarks.new.codemarks
+      codemarks.first.resource_author.should == @user
+    end
 
-      it 'shows old codemarks that I have marked with codemarks, just with other others' do
-        cm = Fabricate(:codemark)
-        gmassanek = Fabricate(:user, :nickname => 'gmassanek')
-        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm2 = Fabricate(:codemark, :resource => cm.resource, :user => gmassanek, :topics => [codemarks_topic])
-        FindCodemarks.new.codemarks.should include cm
-      end
+    it 'only shows codemarks tagged "codemarks" to gmassanek and GravelGallery' do
+      gmassanek = Fabricate(:user, :nickname => 'gmassanek')
+      gravelGallery = Fabricate(:user, :nickname => 'GravelGallery')
+      codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+      cm = Fabricate(:codemark, :topics => [codemarks_topic])
 
-      it 'works if there are no codemarks tagged codemarks' do
-        codemarks_topic = Fabricate(:topic, :title => 'codemarks')
-        cm = Fabricate(:codemark)
-        FindCodemarks.new.codemarks.should include cm
-      end
+      FindCodemarks.new.codemarks.should_not include cm
+      FindCodemarks.new(:current_user => @user).codemarks.should_not include cm
+      FindCodemarks.new(:current_user => gmassanek).codemarks.should include cm
+      FindCodemarks.new(:current_user => gravelGallery).codemarks.should include cm
+    end
+
+    it 'shows old codemarks that I have marked with codemarks, just with other others' do
+      cm = Fabricate(:codemark)
+      gmassanek = Fabricate(:user, :nickname => 'gmassanek')
+      codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+      cm2 = Fabricate(:codemark, :resource => cm.resource, :user => gmassanek, :topics => [codemarks_topic])
+      FindCodemarks.new.codemarks.should include cm
+    end
+
+    it 'works if there are no codemarks tagged codemarks' do
+      codemarks_topic = Fabricate(:topic, :title => 'codemarks')
+      cm = Fabricate(:codemark)
+      FindCodemarks.new.codemarks.should include cm
     end
 
     context "for a user" do
@@ -95,19 +104,6 @@ describe FindCodemarks do
       it "returns an ActiveRecord::Relation" do
         find_by_user.codemarks.should be_a ActiveRecord::Relation
       end
-    end
-
-    it 'does include my private codemarks' do
-      private_codemark = Fabricate(:codemark, :private => true, :user => @user)
-      all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
-      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id, private_codemark.id]
-    end
-
-    it 'does not include other people\'s private codemarks' do
-      user = Fabricate(:user)
-      private_codemark = Fabricate(:codemark, :private => true, :user => user)
-      all_cms = FindCodemarks.new(:user => @user, :current_user => user)
-      all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
     end
 
     context '#groups' do
@@ -174,11 +170,24 @@ describe FindCodemarks do
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
       end
 
+      it 'does not include other users private codemarks' do
+        user = Fabricate(:user)
+        private_codemark = Fabricate(:codemark, :private => true, :user => user)
+        all_cms = FindCodemarks.new(:user => @user, :current_user => user)
+        all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+      end
+
       it 'does not hide partially private codemarks' do
         user2 = Fabricate(:user)
         private_codemark = Fabricate(:codemark, :topics => [private], :user => user2, :resource => @cm.resource)
         all_cms = FindCodemarks.new
         all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id]
+      end
+
+      it 'does include my private codemarks' do
+        private_codemark = Fabricate(:codemark, :private => true, :user => @user)
+        all_cms = FindCodemarks.new(:user => @user, :current_user => @user)
+        all_cms.codemarks.collect(&:id).should =~ [@cm.id, @cm2.id, private_codemark.id]
       end
     end
 
@@ -198,15 +207,6 @@ describe FindCodemarks do
           cms = FindCodemarks.new(:topic_ids => [topic1_id, topic2_id]).codemarks
           cms.should == [@cm]
         end
-      end
-    end
-
-    context "public" do
-      it "should find all codemarks regardless of user" do
-        user = Fabricate(:user)
-        @cm3 = Fabricate(:codemark, :user => user)
-        all_cms = FindCodemarks.new
-        all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
       end
     end
 
@@ -297,12 +297,6 @@ describe FindCodemarks do
         all_cms = FindCodemarks.new(:by => :visits, :search_term => 'pony')
         all_cms.codemarks.first.visit_count.should == "2"
       end
-    end
-  end
-
-  context 'there are no codemarks' do
-    it 'should not be nil' do
-      FindCodemarks.new.should_not be_nil
     end
   end
 
