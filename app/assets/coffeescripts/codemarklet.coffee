@@ -8,6 +8,7 @@
 //= require select2
 
 //= require codemarklet_application
+//= require backbone/user
 //= require backbone/codemark
 //= require backbone/topic
 //= require backbone/topics
