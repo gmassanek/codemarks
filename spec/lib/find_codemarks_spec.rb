@@ -143,9 +143,24 @@ describe FindCodemarks do
 
       it 'only selects from a specific group if specified' do
         user = Fabricate(:user, :groups => [group2])
-        codemark = Fabricate(:codemark, :group => group2, :user => user)
-        all_cms = FindCodemarks.new(:current_user => user, :group => group2)
-        all_cms.codemarks.collect(&:id).should include codemark.id
+        codemark1 = Fabricate(:codemark, :group => group, :user => user)
+        codemark2 = Fabricate(:codemark, :group => group2, :user => user)
+        all_cms = FindCodemarks.new(:current_user => user, :group_ids => [group2.id])
+        all_cms.codemarks.collect(&:id).should include codemark2.id
+        all_cms.codemarks.collect(&:id).should_not include codemark1.id
+      end
+
+      it 'never selects groups I cannot see' do
+        user = Fabricate(:user, :groups => [group])
+        codemark = Fabricate(:codemark, :group => group2)
+        all_cms = FindCodemarks.new(:current_user => user, :group_ids => [group2.id])
+        all_cms.codemarks.collect(&:id).should_not include codemark.id
+      end
+
+      it 'never selects anything from a groups for anonymous users' do
+        codemark = Fabricate(:codemark, :group => group2)
+        all_cms = FindCodemarks.new(:group_ids => [group2.id])
+        all_cms.codemarks.collect(&:id).should_not include codemark.id
       end
     end
 

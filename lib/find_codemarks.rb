@@ -7,9 +7,11 @@ class FindCodemarks
     end
 
     @user_id = options[:user].id if options[:user]
-    @current_user_id = options[:current_user].id if options[:current_user]
+    @current_user = options[:current_user] if options[:current_user]
     @topic_ids = options[:topic_ids]
-    @group_ids = options[:group_ids].map(&:to_i) if options[:group_ids]
+    if options[:group_ids]
+      @group_ids = options[:group_ids].map(&:to_i) & (@current_user.try(:group_ids) || [])
+    end
 
     record_lookup
   end
@@ -17,11 +19,11 @@ class FindCodemarks
   def codemarks
     subq = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     subq = subq.where(['user_id = ?', @user_id]) if @user_id
-    subq = subq.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, @current_user_id])
+    subq = subq.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
     subq = if @group_ids
       subq.where('codemarks.group_id IN (?)', @group_ids)
     else
-      subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(@current_user_id).try(:group_ids)))
+      subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(current_user_id).try(:group_ids)))
     end
     subq = filter_codemarks_project_out(subq)
 
@@ -32,7 +34,7 @@ class FindCodemarks
     query = query.joins("LEFT JOIN (#{visits_query}) visits on codemarks.id = visits.id")
 
     query = query.where("summary.rk = 1")
-    query = query.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, @current_user_id])
+    query = query.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
 
     query = full_text_searchify(query) if @search_term
 
@@ -65,14 +67,14 @@ class FindCodemarks
   private
   def partition_string
     query = "PARTITION BY codemarks.resource_id, codemarks.resource_type ORDER BY "
-    query = query + "codemarks.user_id=#{@current_user_id} DESC, " if @current_user_id
+    query = query + "codemarks.user_id=#{current_user_id} DESC, " if current_user_id
     query = query + "codemarks.created_at DESC"
     query
   end
 
   def filter_codemarks_project_out(query)
     allowed_users = User.find(:all, :conditions => {:nickname => ['gmassanek', 'GravelGallery']})
-    unless allowed_users.map(&:id).include?(@current_user_id)
+    unless allowed_users.map(&:id).include?(current_user_id)
       topic = Topic.find_by_title('codemarks')
       if topic && topic.codemarks.present?
         query = query.where(['"codemarks".id not in (?)', topic.codemarks.map(&:id) ])
@@ -172,7 +174,11 @@ class FindCodemarks
   end
 
   def record_lookup
-    user_id = User.find_by_id(@current_user_id).try(:nickname) || 'logged-out'
+    user_id = @current_user.try(:nickname) || 'logged-out'
     Global.track(:user_id => user_id, :event => 'codemark_lookup', :properties => search_params)
+  end
+
+  def current_user_id
+    @current_user.try(:id)
   end
 end
