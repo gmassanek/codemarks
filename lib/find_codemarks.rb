@@ -27,7 +27,7 @@ class FindCodemarks
     end
 
     query = Codemark.scoped
-    query = query.select('"codemarks".*, save_count, visit_count')
+    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.resource_type, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, save_count, visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemarks.id = summary.id")
     query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts ON codemarks.resource_id = counts.resource_id AND codemarks.resource_type = counts.resource_type")
     query = query.joins("LEFT JOIN (#{visits_query}) visits on codemarks.id = visits.id")
