@@ -34,14 +34,17 @@ App.Filters = Backbone.Model.extend
   addUser: (username) ->
     @setUser(username)
 
-  setGroup: (groupId) ->
-    @set('group', groupId)
-
   removeUser: ->
     @setUser(undefined)
 
   clearUsers: ->
     @removeUser()
+
+  setGroup: (groupId) ->
+    @set('group', groupId)
+
+  removeGroup: (groupId) ->
+    @setGroup(undefined)
 
   addTopic: (id) ->
     @get('topics')[id] = true

@@ -50,12 +50,11 @@ App.ControlPanelView = Backbone.View.extend
     @$filterDiv.append(sortHtml)
 
   addGroupFilters: ->
-    return unless App.current_user.get('groups')?.length > 0
+    return unless App.current_user.groups().length > 0
     if @filters.get('group')
-      group = _.find App.current_user.get('groups'), (group) =>
-        group.id == parseInt(@filters.get('group'))
+      group = App.current_user.groupFor(@filters.get('group'))
       groupDesc = group.name
-    groupHtml = @_filterHtml(groupDesc || 'No Group', @filters.get('group'), 'group')
+    groupHtml = @_filterHtml(groupDesc || 'All Groups', @filters.get('group'), 'group')
     @$filterDiv.append(groupHtml)
 
   search: (e) ->

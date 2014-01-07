@@ -56,3 +56,9 @@ Feature: Group Codemarks
     And I have a codemark in no group
     When I am not logged in
     Then I can see that codemark
+
+  Scenario: Users not in a group get redirected away from that group
+    And I have a codemark in group1
+    When I am not logged in
+    And I am on the codemarks page with "group1" group_id filter
+    Then I should not have the "group1" group_id filter

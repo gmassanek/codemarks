@@ -92,6 +92,14 @@ When /^I wait until all Ajax requests are complete$/ do
   end
 end
 
+When /^I am on the codemarks page with "(\w*\d*?)" (\w*\d*?) filter$/ do |filter_val, filter_type|
+  visit codemarks_path(:group_id => filter_val)
+end
+
+Then /^I should not have the "(\w*\d*?)" (\w*\d*?) filter$/ do |filter_val, filter_type|
+  current_url.should_not match "#{filter_type}=#{filter_val}"
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

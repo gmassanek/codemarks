@@ -16,6 +16,10 @@ App.MainRouter = Backbone.Router.extend
     App.codemarks ||= new App.Codemarks
     App.codemarks.filters.loadFromCookie($.deparam(params || ''))
     document.title = App.codemarks.filters.dataForTitle() + @siteTail
+    if !App.current_user.authorizedForGroup(App.codemarks.filters.get('group'))
+      App.codemarks.filters.removeGroup()
+      App.vent.trigger('updateCodemarkRequest')
+      return
     @setCodemarksTab()
     @$container = $('#main_content')
     @setupTopics =>

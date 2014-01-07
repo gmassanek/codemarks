@@ -51,8 +51,8 @@ App.FilterView = Backbone.View.extend
 
   otherGroups: ->
     return unless @type == 'group'
-    groups = App.current_user.get('groups').slice(0)
-    groups.unshift {id: '', name: 'No Group'}
+    groups = App.current_user.groups()
+    groups.unshift {id: '', name: 'All Groups'}
     _.map groups, (group) ->
       other_sort:
         content: group.name
