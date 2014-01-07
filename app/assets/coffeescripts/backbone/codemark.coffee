@@ -4,7 +4,7 @@ App.Codemark = Backbone.Model.extend
   initialize: ->
 
   mine: ->
-    @get('author').slug == CURRENT_USER
+    @author().get('slug') == CURRENT_USER
 
   new: ->
     !@get('id')?
@@ -14,3 +14,6 @@ App.Codemark = Backbone.Model.extend
 
   hasNewResource: ->
     @get('resource')? && !@get('resource').id?
+
+  author: ->
+    App.codemarks.users.where({id: @get('user_id')})[0]

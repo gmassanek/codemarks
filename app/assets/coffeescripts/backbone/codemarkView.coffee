@@ -12,7 +12,7 @@ App.CodemarkView = Backbone.View.extend
     @$el.html(@toHTML())
     @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
-    if @model.get('author').image?
+    if @model.author().get('image')?
       @$('.author').removeClass('icon-user-2')
     if @model.get('description') == '' || @model.get('description') == null
       @$('.main').addClass('no-description')
@@ -30,7 +30,7 @@ App.CodemarkView = Backbone.View.extend
     @trigger('turnIntoForm')
 
   editable: ->
-    CURRENT_USER == @model.get('author').slug
+    @model.mine()
 
   presentedAttributes: ->
     resource = @model.get('resource')
@@ -42,19 +42,16 @@ App.CodemarkView = Backbone.View.extend
       title: @model.get('created_at')
     'share@href': @tweetShareUrl()
     author:
-      avatar: if @model.get('author').image then {content: '', src: @model.get('author').image} else null
-      name: @model.get('author').nickname
+      avatar: if @model.author().get('image') then {content: '', src: @model.author().get('image')} else null
+      name: @model.author().get('nickname')
     topics_list: @presentTopics()
     views: @model.get('resource').clicks_count
     saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
-    delete: if @model.mine() then '' else null
+    delete: if @editable() then '' else null
     add: if @model.mine() || CURRENT_USER == '' then null else ''
 
   editText: ->
-    if @mine() then 'Edit' else 'Save'
-
-  mine: ->
-    @model.get('author').slug == CURRENT_USER
+    if @editable() then 'Edit' else 'Save'
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
@@ -65,7 +62,7 @@ App.CodemarkView = Backbone.View.extend
 
   navigateToAuthor: (e) ->
     e?.preventDefault()
-    userSlug = @model.get('author').slug
+    userSlug = @model.author().get('slug')
     return if App.codemarks.filters.hasUser(userSlug)
     App.codemarks.filters.setUser(userSlug)
     App.codemarks.filters.setPage(1)
@@ -90,7 +87,7 @@ App.CodemarkView = Backbone.View.extend
   tweetShareUrl: ->
     data =
       url: ''
-      via: "#{@model.get('author').nickname} on @codemarks"
+      via: "#{@model.author().get('nickname')} on @codemarks"
       text: @tweetText()
     "http://twitter.com/share?#{$.param(data)}"
 
