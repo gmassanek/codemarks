@@ -38,6 +38,11 @@ class Link < ActiveRecord::Base
     link.site_data = nil
     link.save!
     link
+  rescue RuntimeError
+    p e
+    link.site_data = nil
+    link.save!
+    link
   end
 
   def orphan?

@@ -35,6 +35,7 @@ gem "lograge"
 gem "bitly"
 gem "redcarpet", "~> 3.0.0"
 gem 'analytics-ruby', '<1.0'
+gem 'open_uri_redirections', "~> 0.1.4"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
