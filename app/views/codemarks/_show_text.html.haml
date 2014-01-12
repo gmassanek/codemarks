@@ -3,7 +3,7 @@
 .textmark.markdown_html
   %h1= @codemark.title
   .options
-    = link_to 'edit', edit_codemark_path(@codemark) if @author && @author == current_user
+    = link_to 'edit', edit_codemark_path(@codemark), :class => 'edit-codemark' if UserCodemarkAuthorizer.new(current_user, @codemark, :edit).authorized?
   = Global.render_markdown(textmark.text).html_safe
 
   %header

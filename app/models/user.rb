@@ -80,4 +80,8 @@ class User < ActiveRecord::Base
     end
     favorites
   end
+
+  def can_edit?(codemark)
+    true
+  end
 end

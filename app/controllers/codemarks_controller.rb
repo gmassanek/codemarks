@@ -78,14 +78,14 @@ class CodemarksController < ApplicationController
 
     respond_to do |format|
       format.html do
-        (redirect_to codemarks_path and return) if !UserCodemarkAuthorizer.new(current_user, @codemark).authorized?
+        (redirect_to codemarks_path and return) if !UserCodemarkAuthorizer.new(current_user, @codemark, :view).authorized?
         @user = @codemark.user
         @author = @codemark.resource.author
         Click.create(:resource => @codemark.resource, :user => current_user)
       end
 
       format.json do
-        (head 401 and return) if !UserCodemarkAuthorizer.new(current_user, @codemark).authorized?
+        (head 401 and return) if !UserCodemarkAuthorizer.new(current_user, @codemark, :view).authorized?
         render :json => PresentCodemarks.present(@codemark, current_user)
       end
     end
