@@ -4,8 +4,6 @@ class Text < ActiveRecord::Base
   has_many :clicks, :as => :resource
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
 
-  validates :text, :presence => true
-
   def orphan?
     author_id.blank?
   end
