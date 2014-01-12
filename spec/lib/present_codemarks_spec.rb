@@ -18,9 +18,17 @@ describe PresentCodemarks do
     data['group_id'].should == codemark.group_id
   end
 
-  it 'presents its resource' do
+  it 'presents a link codemarks' do
     data = PresentCodemarks.present(codemark)[:resource]
     data['url'].should == codemark.resource.url
+  end
+
+  it 'presents a text codemarks' do
+    text = Text.create(:text => '## text')
+    codemark = Fabricate(:codemark, :resource => text, :user => user)
+    data = PresentCodemarks.present(codemark)[:resource]
+    data['text'].should == '## text'
+    data['html'].should == "<h2>text</h2>\n"
   end
 
   it 'presents pagination' do

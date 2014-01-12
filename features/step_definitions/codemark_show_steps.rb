@@ -10,12 +10,21 @@ Given /^there is a text codemark$/ do
   @codemark = Fabricate(:codemark, :resource => Text.create!(:text => 'foo text'))
 end
 
-Then /^I can edit that text codemark$/ do
+When /^I view that codemark$/ do
   visit codemark_path(@codemark)
+end
+
+Then /^I can see that text codemark's details$/ do
+  page.should have_content @codemark.title
+  page.should have_content @codemark.title
+end
+
+Then /^I can edit that text codemark$/ do
+  step 'I view that codemark'
   page.should have_selector('.edit-codemark')
 end
 
 Then /^I cannot edit that text codemark$/ do
-  visit codemark_path(@codemark)
+  step 'I view that codemark'
   page.should_not have_selector('.edit-codemark')
 end

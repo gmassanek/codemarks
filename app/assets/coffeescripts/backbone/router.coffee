@@ -29,7 +29,15 @@ App.MainRouter = Backbone.Router.extend
     App.codemarks.fetch()
 
   showCodemark: (id) ->
-    @setActiveNav('everyones')
+    @clearNav()
+    codemark = new App.Codemark
+      id: id
+    codemark.fetch
+      success: =>
+        @view = new App.CodemarkShowView
+          model: codemark
+          el: $('.codemark')
+        @view.render()
 
   setCodemarksTab: ->
     if App.codemarks.filters.hasUser(window.CURRENT_USER)
@@ -92,6 +100,9 @@ App.MainRouter = Backbone.Router.extend
   setActiveNav: (activeNavClass) ->
     $(".tabs li").removeClass('active')
     $(".tabs .#{activeNavClass}").closest('li').addClass('active')
+
+  clearNav: ->
+    $(".tabs li").removeClass('active')
 
   trackPageview: ->
     return unless _gaq?

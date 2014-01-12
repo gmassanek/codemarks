@@ -19,8 +19,10 @@ class PresentCodemarks
 
     data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'resource_type', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
     data.merge!({
-      resource: codemark.resource.attributes.except('site_data', 'search', 'snapshot_id'),
-      topics: codemark.topics.map(&:attributes)
+      resource: present_resource(codemark.resource),
+      topics: codemark.topics.map(&:attributes),
+      editable: UserCodemarkAuthorizer.new(current_user, codemark, :edit).authorized?,
+      user: present_user(codemark.user)
     })
     data['title'] = codemark.title || 'No title'
     data
@@ -50,5 +52,15 @@ class PresentCodemarks
       slug: user.slug,
       image: user.get('image')
     }
+  end
+
+  def self.present_resource(resource)
+    if resource.is_a?(Text)
+      attrs = resource.attributes.except('site_data', 'search', 'snapshot_id')
+      attrs['html'] = Global.render_markdown(resource.text)
+    else
+      attrs = resource.attributes.except('site_data', 'search', 'snapshot_id')
+    end
+    attrs
   end
 end

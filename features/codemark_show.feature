@@ -7,6 +7,11 @@ Feature: Viewing Codemarks
     Given I am logged in
     And I am in group1
 
+  Scenario: I can view a text codemark
+    Given there is a text codemark
+    When I view that codemark
+    Then I can see that text codemark's details
+
   Scenario: I can edit codemarks in my group
     Given there is a text codemark in group1
     Then I can edit that text codemark
