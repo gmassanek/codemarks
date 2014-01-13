@@ -197,6 +197,7 @@ describe FindCodemarks do
         user = Fabricate(:user)
         @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
         @cm4= Fabricate(:codemark, :user => @user)
+
         all_cms = FindCodemarks.new(:by => :count)
         all_cms.codemarks.first.save_count.should == "2"
       end
@@ -206,8 +207,33 @@ describe FindCodemarks do
         user = Fabricate(:user)
         2.times { Fabricate(:click, :user => user, :resource => @cm2.resource) }
         3.times { Fabricate(:click, :user => user, :resource => text_cm.resource) }
+
         all_cms = FindCodemarks.new(:by => :visits)
         all_cms.codemarks.first.visit_count.should == "3"
+      end
+
+      describe 'by popularity' do
+        before do
+          Codemark.destroy_all
+        end
+
+        it "includes visits and saves" do
+          resource1 = Fabricate(:codemark).resource
+          resource2 = Fabricate(:codemark).resource
+          resource3 = Fabricate(:codemark).resource
+          3.times { Fabricate(:click, :resource => resource1) }
+          1.times { Fabricate(:click, :resource => resource2) }
+          2.times { Fabricate(:click, :resource => resource3) }
+
+          2.times { Fabricate(:codemark, :resource => resource1) } # 5
+          2.times { Fabricate(:codemark, :resource => resource2) } # 3
+          5.times { Fabricate(:codemark, :resource => resource3) } # 7
+
+          all_cms = FindCodemarks.new(:by => :popularity)
+          all_cms.codemarks[0].resource.id.should == resource3.id
+          all_cms.codemarks[1].resource.id.should == resource1.id
+          all_cms.codemarks[2].resource.id.should == resource2.id
+        end
       end
     end
 

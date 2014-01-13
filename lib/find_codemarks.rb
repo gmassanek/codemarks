@@ -121,6 +121,7 @@ class FindCodemarks
       "default" => '"codemarks".created_at DESC',
       "count" => 'save_count DESC',
       "visits" => 'visit_count DESC',
+      "popularity" => '(visit_count + save_count) DESC',
     }
   end
 

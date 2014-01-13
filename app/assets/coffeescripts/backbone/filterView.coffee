@@ -1,6 +1,6 @@
 App.FilterView = Backbone.View.extend
   className: 'filter'
-  possibleSorts: ['date', 'visits', 'count']
+  possibleSorts: ['date', 'visits', 'count', 'popularity']
 
   events:
     'click .remove': 'removeFilter'

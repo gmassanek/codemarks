@@ -61,6 +61,7 @@ class PresentCodemarks
     else
       attrs = resource.attributes.except('site_data', 'search', 'snapshot_id')
     end
+    attrs['user'] = present_user(resource.author) if resource.author
     attrs
   end
 end
