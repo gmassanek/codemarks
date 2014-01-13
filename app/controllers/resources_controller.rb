@@ -5,7 +5,7 @@ class ResourcesController < ApplicationController
     data = {
       :resource_id => resource.id
     }
-    Global.track(:user_id => current_user.nickname, :event => 'codemark_visit', :properties => data)
+    Global.track(:user_id => current_user.try(:nickname) || 'logged-out', :event => 'codemark_visit', :properties => data)
     render :nothing => true, :status => :ok
   end
 end
