@@ -34,6 +34,13 @@ App.CodemarkView = Backbone.View.extend
 
   presentedAttributes: ->
     resource = @model.get('resource')
+    if @model.author().id = App.current_user.get('id')
+      user = @model.author()
+    else if resource.user
+      user = new App.User(resource.user)
+    else
+      user = @model.author()
+
     edit:
       content: @editText()
     save_date:
@@ -42,8 +49,8 @@ App.CodemarkView = Backbone.View.extend
       title: @model.get('created_at')
     'share@href': @tweetShareUrl()
     author:
-      avatar: if @model.author().get('image') then {content: '', src: @model.author().get('image')} else null
-      name: @model.author().get('nickname')
+      avatar: if user.get('image') then {content: '', src: user.get('image')} else null
+      name: user.get('nickname')
     topics_list: @presentTopics()
     views: @model.get('resource').clicks_count
     saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
@@ -74,6 +81,7 @@ App.CodemarkView = Backbone.View.extend
     return if App.codemarks.filters.hasTopic(slug)
     App.codemarks.filters.addTopic(slug)
     App.codemarks.filters.setPage(1)
+    App.codemarks.filters.setSort('popularity')
     App.vent.trigger('updateCodemarkRequest')
 
   deleteCodemark: (e) ->

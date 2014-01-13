@@ -107,3 +107,7 @@ Then /^the "(.*?)" tab should be active$/ do |tab_identifier|
     page.should have_content(tab_identifier)
   end
 end
+
+Then /^I should see popularity as the default sort$/ do
+  page.should have_selector('.filter.sort .description', :text => 'popularity')
+end

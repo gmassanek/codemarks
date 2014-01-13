@@ -28,7 +28,7 @@ class TopicsController < ApplicationController
 
   def show
     cookies[:'server-set'] = true
-    redirect_to codemarks_path(:topic_ids => params[:id])
+    redirect_to codemarks_path(:topic_ids => params[:id], :by => 'popularity')
   end
 
   def index

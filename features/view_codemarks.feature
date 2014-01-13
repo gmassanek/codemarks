@@ -59,6 +59,7 @@ Feature: View Codemarks
     And I am on the codemarks page
     When I go to the "rspec" topic page
     Then I should see 2 codemarks
+    And I should see popularity as the default sort
 
   Scenario: Can filter between mine and public on topics show
     And superman is a user with a codemark

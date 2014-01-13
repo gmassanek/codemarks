@@ -49,7 +49,7 @@ App.MainRouter = Backbone.Router.extend
     @setActiveNav('people')
     App.codemarks ||= new App.Codemarks
     App.codemarks.filters.setUser(username)
-    App.codemarks.filters.setSort('visits')
+    App.codemarks.filters.setSort('popularity')
     @setActiveNav('people')
     @$container = $('.content')
     @setupTopics =>
