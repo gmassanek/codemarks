@@ -254,11 +254,10 @@ describe FindCodemarks do
         end
 
         it "does not require much to bump up a few days" do
-          resource1 = Fabricate(:codemark, :created_at => 3.days.ago).resource
+          resource1 = Fabricate(:codemark, :created_at => 5.days.ago).resource
           resource2 = Fabricate(:codemark, :created_at => 8.hours.ago).resource
           resource3 = Fabricate(:codemark, :created_at => 10.minutes.ago).resource
-          2.times { Fabricate(:click, :resource => resource1) }
-          2.times { Fabricate(:click, :resource => resource1) }
+          4.times { Fabricate(:click, :resource => resource1) }
 
           all_cms = FindCodemarks.new(:by => :buzzing)
           all_cms.codemarks[0].resource.id.should == resource3.id
