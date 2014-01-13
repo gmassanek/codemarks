@@ -61,6 +61,7 @@ App.ControlPanelView = Backbone.View.extend
     e?.preventDefault()
     return unless @_searchQuery()
 
+    App.codemarks.filters.setSort('popularity')
     if _.include(App.topics.slugs(), @_searchQuery())
       App.codemarks.filters.addTopic(@_searchQuery())
       App.codemarks.filters.setPage(1)
