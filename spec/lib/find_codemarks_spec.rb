@@ -235,6 +235,48 @@ describe FindCodemarks do
           all_cms.codemarks[2].resource.id.should == resource2.id
         end
       end
+
+      describe 'by buzzing' do
+        before do
+          Codemark.destroy_all
+        end
+
+        it "values recently visited codemarks" do
+          resource1 = Fabricate(:codemark, :created_at => 3.days.ago).resource
+          resource2 = Fabricate(:codemark, :created_at => 3.hours.ago).resource
+          resource3 = Fabricate(:codemark, :created_at => 10.minutes.ago).resource
+          2.times { Fabricate(:click, :resource => resource2) }
+
+          all_cms = FindCodemarks.new(:by => :buzzing)
+          all_cms.codemarks[0].resource.id.should == resource2.id
+          all_cms.codemarks[1].resource.id.should == resource3.id
+          all_cms.codemarks[2].resource.id.should == resource1.id
+        end
+
+        it "does not require much to bump up a few days" do
+          resource1 = Fabricate(:codemark, :created_at => 3.days.ago).resource
+          resource2 = Fabricate(:codemark, :created_at => 8.hours.ago).resource
+          resource3 = Fabricate(:codemark, :created_at => 10.minutes.ago).resource
+          2.times { Fabricate(:click, :resource => resource1) }
+          2.times { Fabricate(:click, :resource => resource1) }
+
+          all_cms = FindCodemarks.new(:by => :buzzing)
+          all_cms.codemarks[0].resource.id.should == resource3.id
+          all_cms.codemarks[1].resource.id.should == resource1.id
+          all_cms.codemarks[2].resource.id.should == resource2.id
+        end
+
+        it "does not overload crazy ones" do
+          resource1 = Fabricate(:codemark, :created_at => 3.months.ago).resource
+          resource2 = Fabricate(:codemark, :created_at => 1.month.ago).resource
+          50.times { Fabricate(:click, :resource => resource1) }
+          5.times { Fabricate(:click, :resource => resource2) }
+
+          all_cms = FindCodemarks.new(:by => :buzzing)
+          all_cms.codemarks[0].resource.id.should == resource2.id
+          all_cms.codemarks[1].resource.id.should == resource1.id
+        end
+      end
     end
 
     context "with paging" do

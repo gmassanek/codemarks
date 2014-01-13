@@ -122,7 +122,7 @@ class FindCodemarks
       "count" => 'save_count DESC',
       "visits" => 'visit_count DESC',
       "popularity" => '(visit_count + save_count) DESC',
-      "buzzing" => '500 * log(visit_count + save_count) + EXTRACT(EPOCH FROM codemarks.created_at) DESC'
+      "buzzing" => '350000 * log(visit_count + save_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
     }
   end
 
