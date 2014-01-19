@@ -17,14 +17,16 @@ class PresentCodemarks
       user = codemark.resource_author || codemark.user
     end
 
-    data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'resource_type', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
+    data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
+    data['title'] = codemark.title || 'No title'
+    data['resource_type'] = codemark.resource_type
+
     data.merge!({
       resource: present_resource(codemark.resource),
       topics: codemark.topics.map(&:attributes),
       editable: UserCodemarkAuthorizer.new(current_user, codemark, :edit).authorized?,
       user: present_user(codemark.user)
     })
-    data['title'] = codemark.title || 'No title'
     data
   end
 
@@ -55,11 +57,20 @@ class PresentCodemarks
   end
 
   def self.present_resource(resource)
+    attrs = {
+      'id' => resource.id,
+      'clicks_count' => resource.clicks_count,
+      'codemarks_count' => resource.codemarks_count,
+      'type' => resource.type,
+      'author_id' => resource.author_id
+    }
     if resource.is_a?(Text)
-      attrs = resource.attributes.except('site_data', 'search', 'snapshot_id')
+      attrs['text'] = resource.text
       attrs['html'] = Global.render_markdown(resource.text)
-    else
-      attrs = resource.attributes.except('site_data', 'search', 'snapshot_id')
+    elsif resource.is_a?(Link)
+      attrs['url'] = resource.url
+      attrs['host'] = resource.host
+      attrs['snapshot_url'] = resource.snapshot_url
     end
     attrs['user'] = present_user(resource.author) if resource.author
     attrs

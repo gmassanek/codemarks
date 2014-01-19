@@ -315,5 +315,42 @@ namespace :backfill  do
     end
   end
 
+  desc 'convert to resources'
+  task :convert_to_resources => :environment do
+    OldText.all.each do |text|
+      p "TEXT CODEMARK"
+      p text.id
+
+      new_text = Text.create!(:title => text.title, :author_id => text.author_id, :text => text.text, :created_at => text.created_at, :updated_at => text.updated_at)
+      Click.where(:resource_id => text.id, :resource_type => 'Text').update_all(:resource_id => new_text.id, :resource_type => nil)
+      Codemark.where(:resource_id => text.id, :resource_type => 'Text').update_all(:resource_id => new_text.id, :resource_type => nil)
+    end
+
+    link_count = OldLink.count
+    OldLink.all.each_with_index do |link, i|
+      p "LINK CODEMARK (#{i} / #{link_count})"
+      p link.id
+
+      new_link = Link.create!(
+        :url => link.url,
+        :title => link.title,
+        :host => link.host,
+        :site_data => link.site_data,
+        :snapshot_url => link.snapshot_url,
+        :snapshot_id => link.snapshot_id,
+        :author_id => link.author_id,
+        :created_at => link.created_at,
+        :updated_at => link.updated_at
+      )
+      Click.where(:resource_id => link.id, :resource_type => 'Link').update_all(:resource_id => new_link.id, :resource_type => nil)
+      Codemark.where(:resource_id => link.id, :resource_type => 'Link').update_all(:resource_id => new_link.id, :resource_type => nil)
+    end
+
+    Resource.includes(:codemarks, :clicks).find_each do |r|
+      p r.id
+      r.type.constantize.reset_counters(r.id, :codemarks)
+      r.type.constantize.reset_counters(r.id, :clicks)
+    end
+  end
 end
 

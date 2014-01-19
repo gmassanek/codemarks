@@ -71,7 +71,7 @@ Then /^tom_brady should still be Google's author$/ do
 end
 
 Then /^I should be Google's author$/ do
-  google = Link.find_by_url('http://www.google.com/')
+  google = Link.has_url('http://www.google.com/').first
   google.author.should == @current_user
 end
 

@@ -27,13 +27,11 @@ class FindCodemarks
     end
 
     query = Codemark.scoped
-    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.resource_type, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, save_count, visit_count')
+    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, counts.save_count, counts.visit_count')
     query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemarks.id = summary.id")
-    query = query.joins("LEFT JOIN (#{count_query.to_sql}) counts ON codemarks.resource_id = counts.resource_id AND codemarks.resource_type = counts.resource_type")
-    query = query.joins("LEFT JOIN (#{visits_query}) visits on codemarks.id = visits.id")
+    query = query.joins("LEFT JOIN (#{counts_query}) counts on codemarks.id = counts.id")
 
     query = query.where("summary.rk = 1")
-    query = query.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
 
     query = full_text_searchify(query) if @search_term
 
@@ -45,7 +43,6 @@ class FindCodemarks
     query = query.includes(:resource => {:author => :authentications})
     query = query.includes(:topics)
     query = query.includes(:user => :authentications)
-    #query = query.includes(:comments)
 
     query = order(query)
     query = page_query(query)
@@ -65,31 +62,17 @@ class FindCodemarks
 
   private
   def partition_string
-    query = "PARTITION BY codemarks.resource_id, codemarks.resource_type ORDER BY "
+    query = "PARTITION BY codemarks.resource_id ORDER BY "
     query = query + "codemarks.user_id=#{current_user_id} DESC, " if current_user_id
     query = query + "codemarks.created_at DESC"
     query
   end
 
-  def count_query
-    count_query = Codemark.select('codemarks.resource_id, codemarks.resource_type, count(*) as save_count')
-    count_query = count_query.group('codemarks.resource_id, codemarks.resource_type')
-    count_query
-  end
-
-  def visits_query
+  def counts_query
     <<-SQL
-      (SELECT codemarks.id, clicks_count as visit_count
+      (SELECT codemarks.id, coalesce(clicks_count, 0) as visit_count, coalesce(codemarks_count, 0) as save_count
       FROM codemarks
-      LEFT JOIN links ON codemarks.resource_id = links.id
-      WHERE codemarks.resource_type = 'Link'
-
-      UNION
-
-      SELECT codemarks.id, clicks_count as visit_count
-      FROM codemarks
-      LEFT JOIN texts ON codemarks.resource_id = texts.id
-      WHERE codemarks.resource_type = 'Text')
+      LEFT JOIN resources ON codemarks.resource_id = resources.id)
     SQL
   end
 
@@ -119,30 +102,22 @@ class FindCodemarks
   def order_texts
     {
       "default" => '"codemarks".created_at DESC',
-      "count" => 'save_count DESC',
-      "visits" => 'visit_count DESC',
-      "popularity" => '(visit_count + save_count) DESC',
+      "count" => 'counts.save_count DESC NULLS LAST',
+      "visits" => 'counts.visit_count DESC NULLS LAST',
+      "popularity" => '(visit_count + save_count) DESC NULLS LAST',
       "buzzing" => '600000 * log(visit_count + save_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
     }
   end
 
   def full_text_searchify(query)
-    query = query.joins("LEFT JOIN (#{resource_search_query}) resource_search ON codemarks.resource_id = resource_search.id AND codemarks.resource_type = resource_search.type")
+    query = query.joins("LEFT JOIN resources ON codemarks.resource_id = resources.id")
 
     if find_topic_ids_from_search_query.present?
       query = join_topics(query, find_topic_ids_from_search_query)
-      query = query.where("codemarks.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0 OR resource_search.search @@ #{search_term_sql}")
+      query = query.where("codemarks.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0 OR resources.search @@ #{search_term_sql}")
     else
-      query = query.where("codemarks.search @@ #{search_term_sql} OR resource_search.search @@ #{search_term_sql}")
+      query = query.where("codemarks.search @@ #{search_term_sql} OR resources.search @@ #{search_term_sql}")
     end
-  end
-
-  def resource_search_query
-    <<-SQL
-      SELECT id, 'Link' AS type, search FROM links
-      UNION
-      SELECT id, 'Text' AS type, search FROM texts
-    SQL
   end
 
   def search_term_sql

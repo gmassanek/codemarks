@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Link do
   let(:valid_url) { "http://www.example.com" }
+  let(:link) { Link.create!(:url => valid_url) }
 
-  required_attributes = [:url, :host]
+  required_attributes = [:url]
   required_attributes.each do |attr|
     it "requires a #{attr}" do
       link = Fabricate.build(:link, attr => nil)
@@ -11,8 +12,11 @@ describe Link do
     end
   end
 
-  it 'coerces title to an empty string' do
-    link = Link.create(:url => 'http://www.google.com', :host => 'google.com')
+  it 'accepts attrs' do
+    link.url.should == valid_url
+  end
+
+  it 'defaults the title' do
     link.title.should == '(No title)'
   end
 

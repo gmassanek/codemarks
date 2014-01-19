@@ -2,21 +2,19 @@ require 'nokogiri'
 require 'open-uri'
 require 'postrank-uri'
 
-class Link < ActiveRecord::Base
+class Link < Resource
+  hstore_attr :site_data, :snapshot_url, :snapshot_id
+  hstore_indexed_attr :title, :url, :host
+
   TAG_SUGGESTION_LIMIT = 3
 
-  has_many :topics, :through => :codemarks
-  has_many :codemarks, :as => :resource
-  has_many :clicks, :as => :resource
-  belongs_to :author, :class_name => 'User', :foreign_key => :author_id
-
-  before_validation :default_title
+  before_validation :default_title, :default_host
   after_create :trigger_snapshot
   validates_presence_of :url, :host
 
   def self.for_url(url)
     url = PostRank::URI.clean(url)
-    find_by_url(url) || create_link_from_internet(url)
+    has_url(url).first || create_link_from_internet(url)
   end
 
   def self.create_link_from_internet(url)
@@ -29,36 +27,24 @@ class Link < ActiveRecord::Base
     link.site_data = html_response.content
     link.save!
     link
-  rescue OpenURI::HTTPError => e
+  rescue OpenURI::HTTPError, ActiveRecord::StatementInvalid, RuntimeError => e
     p e
-    link.save!
+    link.update_attributes(:site_data => nil)
     link
-  rescue ActiveRecord::StatementInvalid => e
-    p e
-    link.site_data = nil
-    link.save!
-    link
-  rescue RuntimeError
-    p e
-    link.site_data = nil
-    link.save!
-    link
-  end
-
-  def orphan?
-    author_id.blank?
-  end
-
-  def update_author(author_id = nil)
-    update_attributes(:author_id => author_id) if orphan?
   end
 
   def default_title
     self.title ||= '(No title)'
   end
 
+  def default_host
+    self.host = URI.parse(url).host unless self.host.present?
+  end
+
   def trigger_snapshot
     return unless url && id
+    return if snapshot_id
+
     Delayed::Job.enqueue(SnapLinkJob.new(self))
   end
 

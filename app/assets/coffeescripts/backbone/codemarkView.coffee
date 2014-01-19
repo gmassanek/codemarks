@@ -53,7 +53,7 @@ App.CodemarkView = Backbone.View.extend
       name: user.get('nickname')
     topics_list: @presentTopics()
     views: @model.get('resource').clicks_count
-    saves: if @model.get('save_count') - 1 then "+#{@model.get('save_count') - 1}" else null
+    saves: if @model.get('resource').save_count - 1 > 0 then "+#{@model.get('resource').save_count}" else null
     delete: if @editable() then '' else null
     add: if @model.mine() || CURRENT_USER == '' then null else ''
 

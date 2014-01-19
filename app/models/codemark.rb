@@ -1,5 +1,5 @@
 class Codemark < ActiveRecord::Base
-  belongs_to :resource, :polymorphic => true
+  belongs_to :resource, :counter_cache => true
   belongs_to :user
   belongs_to :group
 
@@ -43,6 +43,10 @@ class Codemark < ActiveRecord::Base
 
   def title
     attributes['title'] || resource.try(:title)
+  end
+
+  def resource_type
+    resource.try(:type)
   end
 
   def resource_type_underscore

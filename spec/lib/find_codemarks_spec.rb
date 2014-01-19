@@ -210,6 +210,7 @@ describe FindCodemarks do
 
         all_cms = FindCodemarks.new(:by => :visits)
         all_cms.codemarks.first.visit_count.should == "3"
+        all_cms.codemarks.first.visit_count.should == "3"
       end
 
       describe 'by popularity' do
