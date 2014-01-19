@@ -34,7 +34,7 @@ App.CodemarkView = Backbone.View.extend
 
   presentedAttributes: ->
     resource = @model.get('resource')
-    if @model.author().id = App.current_user.get('id')
+    if @model.author().id == App.current_user.get('id')
       user = @model.author()
     else if resource.user
       user = new App.User(resource.user)
