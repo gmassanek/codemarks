@@ -104,8 +104,8 @@ class FindCodemarks
       "default" => '"codemarks".created_at DESC',
       "count" => 'counts.save_count DESC NULLS LAST',
       "visits" => 'counts.visit_count DESC NULLS LAST',
-      "popularity" => '(visit_count + save_count) DESC NULLS LAST',
-      "buzzing" => '600000 * log(visit_count + save_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
+      "popularity" => '(log(2, visit_count + 1) + save_count) DESC NULLS LAST',
+      "buzzing" => '650000 * log(log(2, visit_count + 1) + save_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
     }
   end
 
