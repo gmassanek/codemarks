@@ -52,8 +52,8 @@ App.CodemarkView = Backbone.View.extend
       avatar: if user.get('image') then {content: '', src: user.get('image')} else null
       name: user.get('nickname')
     topics_list: @presentTopics()
-    views: @model.get('resource').clicks_count
-    saves: if @model.get('resource').save_count - 1 > 0 then "+#{@model.get('resource').save_count}" else null
+    views: resource.clicks_count
+    saves: if resource.save_count - 1 > 0 then "+#{resource.save_count - 1}" else null
     delete: if @editable() then '' else null
     add: if @model.mine() || CURRENT_USER == '' then null else ''
 
