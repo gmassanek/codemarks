@@ -13,8 +13,14 @@ class Topic < ActiveRecord::Base
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
   scope :for_user, lambda { |user| joins(:codemarks).where(["codemarks.user_id = ?",user]) }
 
+  after_create :clear_topic_cache
+
   def self.private_topic_id
     Topic.where(:title => 'private').pluck(:id).first
+  end
+
+  def clear_topic_cache
+    Rails.cache.delete('topics-json')
   end
 end
 
