@@ -47,6 +47,14 @@ describe FindCodemarks do
       all_cms.codemarks.first.save_count.should == "1"
     end
 
+    it "textmarks for anonymous users" do
+      user = Fabricate(:user)
+      text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
+      Fabricate(:codemark, :user => user, :resource => text_cm.resource)
+      all_cms = FindCodemarks.new(:by => 'popularity')
+      all_cms.codemarks.first.save_count.should == "2"
+    end
+
     it "returns the save count when scoped by user" do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
@@ -287,7 +295,11 @@ describe FindCodemarks do
 
       it "defaults to 25 per page" do
         25.times do
-          Fabricate(:codemark)
+          begin
+            Fabricate(:codemark)
+          rescue ActiveRecord::RecordInvalid
+            retry
+          end
         end
         response = FindCodemarks.new
         response.codemarks.all.count.should == FindCodemarks::PAGE_SIZE

@@ -17,28 +17,13 @@ class FindCodemarks
   end
 
   def codemarks
-    subq = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
-    subq = subq.where(['user_id = ?', @user_id]) if @user_id
-    subq = subq.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
-    subq = if @group_ids
-      subq.where('codemarks.group_id IN (?)', @group_ids)
-    else
-      subq.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(current_user_id).try(:group_ids)))
-    end
-
     query = Codemark.scoped
-    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, counts.save_count, counts.visit_count')
-    query = query.joins("RIGHT JOIN (#{subq.to_sql}) summary ON codemarks.id = summary.id")
-    query = query.joins("LEFT JOIN (#{counts_query}) counts on codemarks.id = counts.id")
+    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, resources.codemarks_count AS save_count, resources.clicks_count AS visit_count')
+    query = query.joins("RIGHT JOIN (#{filter_query.to_sql}) summary ON codemarks.id = summary.id")
+    query = query.joins(:resource)
 
     query = query.where("summary.rk = 1")
-
     query = full_text_searchify(query) if @search_term
-
-    if @topic_ids.present?
-      query = join_topics(query, @topic_ids)
-      query = query.where(["cm_topics_#{@topic_join_count}.count = ?", @topic_ids.count])
-    end
 
     query = query.includes(:resource => {:author => :authentications})
     query = query.includes(:topics)
@@ -49,31 +34,39 @@ class FindCodemarks
     query
   end
 
-  def join_topics(query, topic_ids)
-    @topic_join_count ||= 0
-    @topic_join_count += 1
-    query.joins("LEFT JOIN (#{CodemarkTopic.group('codemark_id').select('codemark_id, count(*)').where(:topic_id => topic_ids).to_sql}) cm_topics_#{@topic_join_count} on codemarks.id = cm_topics_#{@topic_join_count}.codemark_id")
-  end
-
   def find_topic_ids_from_search_query
     return [] unless @search_term
     Topic.where("topics.search @@ #{search_term_sql}").pluck(:id)
   end
 
   private
+  def filter_query
+    query = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
+    query = query.where(:user_id => @user_id) if @user_id
+    query = query.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
+    if @group_ids
+      query = query.where(:group_id => @group_ids)
+    else
+      query = query.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(current_user_id).try(:group_ids)))
+    end
+    if @topic_ids.present?
+      query = join_topics(query, @topic_ids)
+      query = query.where(["cm_topics_#{@topic_join_count}.count = ?", @topic_ids.count])
+    end
+    query
+  end
+
+  def join_topics(query, topic_ids)
+    @topic_join_count ||= 0
+    @topic_join_count += 1
+    query.joins("LEFT JOIN (#{CodemarkTopic.group('codemark_id').select('codemark_id, count(*)').where(:topic_id => topic_ids).to_sql}) cm_topics_#{@topic_join_count} on codemarks.id = cm_topics_#{@topic_join_count}.codemark_id")
+  end
+
   def partition_string
     query = "PARTITION BY codemarks.resource_id ORDER BY "
     query = query + "codemarks.user_id=#{current_user_id} DESC, " if current_user_id
     query = query + "codemarks.created_at DESC"
     query
-  end
-
-  def counts_query
-    <<-SQL
-      (SELECT codemarks.id, coalesce(clicks_count, 0) as visit_count, coalesce(codemarks_count, 0) as save_count
-      FROM codemarks
-      LEFT JOIN resources ON codemarks.resource_id = resources.id)
-    SQL
   end
 
   def page_query(scope)
@@ -102,16 +95,14 @@ class FindCodemarks
   def order_texts
     {
       "default" => '"codemarks".created_at DESC',
-      "count" => 'counts.save_count DESC NULLS LAST',
-      "visits" => 'counts.visit_count DESC NULLS LAST',
-      "popularity" => '(log(2, visit_count + 1) + save_count) DESC NULLS LAST',
-      "buzzing" => '650000 * log(log(2, visit_count + 1) + save_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
+      "count" => 'codemarks_count DESC NULLS LAST',
+      "visits" => 'clicks_count DESC NULLS LAST',
+      "popularity" => '(log(2, clicks_count + 1) + codemarks_count) DESC NULLS LAST',
+      "buzzing" => '650000 * log(log(2, clicks_count + 1) + codemarks_count) + (EXTRACT(EPOCH FROM codemarks.created_at) - 1324234724.26583) DESC'
     }
   end
 
   def full_text_searchify(query)
-    query = query.joins("LEFT JOIN resources ON codemarks.resource_id = resources.id")
-
     if find_topic_ids_from_search_query.present?
       query = join_topics(query, find_topic_ids_from_search_query)
       query = query.where("codemarks.search @@ #{search_term_sql} OR cm_topics_#{@topic_join_count}.count > 0 OR resources.search @@ #{search_term_sql}")
