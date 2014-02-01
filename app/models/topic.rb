@@ -7,16 +7,20 @@ class Topic < ActiveRecord::Base
   has_many :codemark_topics
   has_many :codemarks, :through => :codemark_topics
   has_many :resources, :through => :codemarks
+  belongs_to :group
 
   validates_presence_of :title
 
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
-  scope :for_user, lambda { |user| joins(:codemarks).where(["codemarks.user_id = ?",user]) }
 
   after_create :clear_topic_cache
 
   def self.private_topic_id
-    Topic.where(:title => 'private').pluck(:id).first
+    where(:title => 'private').pluck(:id).first
+  end
+
+  def self.for_user(user)
+    where('group_id IS NULL OR group_id IN (?)', user.try(:group_ids))
   end
 
   def clear_topic_cache
