@@ -32,15 +32,16 @@ App.CodemarkView = Backbone.View.extend
   editable: ->
     @model.mine()
 
+  user: ->
+    if @model.author().id == App.current_user.get('id')
+      @model.author()
+    else if @model.get('resource').user
+      new App.User(@model.get('resource').user)
+    else
+      @model.author()
+
   presentedAttributes: ->
     resource = @model.get('resource')
-    if @model.author().id == App.current_user.get('id')
-      user = @model.author()
-    else if resource.user
-      user = new App.User(resource.user)
-    else
-      user = @model.author()
-
     edit:
       content: @editText()
     save_date:
@@ -49,8 +50,8 @@ App.CodemarkView = Backbone.View.extend
       title: @model.get('created_at')
     'share@href': @tweetShareUrl()
     author:
-      avatar: if user.get('image') then {content: '', src: user.get('image')} else null
-      name: user.get('nickname')
+      avatar: if @user().get('image') then {content: '', src: @user().get('image')} else null
+      name: @user().get('nickname')
     topics_list: @presentTopics()
     views: resource.clicks_count
     saves: if resource.codemarks_count - 1 > 0 then "+#{resource.codemarks_count - 1}" else null
@@ -69,7 +70,7 @@ App.CodemarkView = Backbone.View.extend
 
   navigateToAuthor: (e) ->
     e?.preventDefault()
-    userSlug = @model.author().get('slug')
+    userSlug = @user().get('slug')
     return if App.codemarks.filters.hasUser(userSlug)
     App.codemarks.filters.setUser(userSlug)
     App.codemarks.filters.setPage(1)
