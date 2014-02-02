@@ -54,25 +54,34 @@ describe Codemark do
   end
 
   describe ".most_popular_yesterday" do
+    before do
+      @cm1 = Fabricate(:codemark, :created_at => (Date.today-1) + 1.hours)
+      @cm2 = Fabricate(:codemark, :created_at => (Date.today-1) + 3.hours)
+      @cm3 = Fabricate(:codemark, :created_at => (Date.today-1) + 10.hours, :resource => @cm2.resource)
+      @cm4 = Fabricate(:codemark, :created_at => (Date.today-1) + 12.hours)
+    end
+
     it 'is nil if there were no codemarks yesterday' do
+      Codemark.destroy_all
       Codemark.most_popular_yesterday.should be_nil
     end
 
     it 'only picks one' do
-      Fabricate(:codemark, :created_at => (Date.today-1) + 10.hours)
-      Fabricate(:codemark, :created_at => (Date.today-1) + 3.hours)
       Codemark.most_popular_yesterday.should be_a Codemark
     end
 
-    it 'picks the one first with the most clicks and saves' do
-      cm1 = Fabricate(:codemark, :created_at => (Date.today-1) + 10.hours)
-      cm2 = Fabricate(:codemark, :created_at => (Date.today-1) + 3.hours)
-      cm3 = Fabricate(:codemark, :created_at => (Date.today-1) + 8.hours, :resource => cm2.resource)
-      cm4 = Fabricate(:codemark, :created_at => (Date.today-1) + 1.hours)
+    it 'picks the first popular one' do
+      Codemark.most_popular_yesterday.should == @cm2
+    end
 
-      Fabricate(:click, :resource => cm3.resource)
-      Fabricate(:click, :resource => cm3.resource)
-      Codemark.most_popular_yesterday.id.should == cm2.id
+    it 'does not pick private codemarks' do
+      @cm2.update_attributes(:topics => [Topic.create!(:title => 'private')])
+      Codemark.most_popular_yesterday.should_not == @cm2
+    end
+
+    it 'does not pick codemarks in a group' do
+      @cm2.update_attributes(:group => Group.create!(:name => 'foo'))
+      Codemark.most_popular_yesterday.should_not == @cm2
     end
   end
 
@@ -147,8 +156,5 @@ describe Codemark do
     user = Fabricate(:user)
     codemark = Fabricate(:codemark, :user => user)
     Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
-  end
-
-  describe '#group' do
   end
 end

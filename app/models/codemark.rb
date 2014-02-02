@@ -27,14 +27,12 @@ class Codemark < ActiveRecord::Base
   end
 
   def self.most_popular_yesterday
-    candidates = Codemark.where(["DATE(created_at) = ?", Date.today-1])
-    return unless candidates.present?
-
-    candidates.max_by do |codemark|
-      clicks = codemark.resource.clicks_count
-      saves = candidates.select { |cm| cm.resource == codemark.resource }.count
-      saves + count
-    end
+    Codemark.where("DATE(codemarks.created_at) = ?", Date.today - 1).
+      joins(:resource).
+      where(:private => false).
+      where(:group_id => nil).
+      order('(resources.codemarks_count + resources.clicks_count) DESC, codemarks.created_at ASC').
+      first
   end
 
   def resource_author
