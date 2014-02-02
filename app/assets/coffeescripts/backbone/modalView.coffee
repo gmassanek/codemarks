@@ -12,6 +12,6 @@ App.ModalView = Backbone.View.extend
     @$el.closest('.ui-dialog').focus()
 
   close: ->
-    @view?.remove()
     if @options.modal
+      @view?.remove()
       @$el.dialog('close')

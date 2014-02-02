@@ -2,17 +2,15 @@ App.CodemarkletView = Backbone.View.extend
   className: 'codemarklet'
 
   render: ->
-    @formView = new App.LinkFormView
-      model: App.codemark
-    @formView.render()
-    @$el.html(@formView.$el)
-
+    @view = new App.AddCodemarkParentView
+    @view.render()
+    @$el.html(@view.el)
     @bindToView()
     @registerCloseOnEscape()
 
   bindToView: ->
-    @formView.bind 'updated', => @success()
-    @formView.bind 'created', => @success()
+    @view.bind 'updated', => @success()
+    @view.bind 'created', => @success()
 
   success: ->
     @$('.message').remove()

@@ -11,6 +11,11 @@ When /^I get to the new link form$/ do
   page.find('.add_link a').click()
 end
 
+When /^I get to the new link form from the codemarklet$/ do
+  page.find('.add_link a').click()
+  page.click_button('Add')
+end
+
 When /^I get to the new text form$/ do
   page.find('.add_codemark a').trigger('click')
   page.find('.add_note a').click()
@@ -24,6 +29,7 @@ end
 When /^I open the codemarklet for Google$/ do
   Fabricate(:topic, :title => 'google')
   visit new_codemarklet_path(:url => 'http://www.google.com')
+  save_and_open_page
 end
 
 When /^I fill out the codemark form with the existing one$/ do

@@ -30,8 +30,9 @@ App.AddCodemarkView = Backbone.View.extend
     @trigger('swapView', view)
 
   showUrlForm: ->
-    template = '<form><input name="url" placeholder="Paste Link"/><button>Add</button></form>'
+    template = "<form><input name='url' placeholder='Paste Link''/><button>Add</button></form>"
     @$('.add_link').html(template)
+    @$('input[name=url]').val(window.incomingUrl) if window.incomingUrl
 
   newLinkFormSubmitted: (e) ->
     e.preventDefault()

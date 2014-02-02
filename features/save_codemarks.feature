@@ -22,6 +22,7 @@ Feature: Saving Codemarks
   @vcr
   Scenario: Saving google via the codemarklet
     When I open the codemarklet for Google
+    And I get to the new link form from the codemarklet
     And I submit the codemark form
     Then I should see "Codemark saved successfully"
     And I should be Google's author

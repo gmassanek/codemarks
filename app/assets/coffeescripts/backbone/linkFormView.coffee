@@ -6,7 +6,7 @@ App.LinkFormView = App.CodemarkFormView.extend
       url: '/codemarks/new'
       data: { url: url }
       success: (response) =>
-        existingModel = App.codemarks.where({ id: response.id })[0]
+        existingModel = App.codemarks?.where({ id: response.id })[0]
         @model = existingModel || new App.Codemark(response)
         @render()
       error: (response) =>

@@ -13,3 +13,5 @@ App.EditCodemarkParentView = App.ModalView.extend
   bindToView: ->
     @view.bind('cancel', => @close())
     @view.bind('cancel', => @trigger('cancel'))
+    @view.bind('updated', => @trigger('updated'))
+    @view.bind('created', => @trigger('created'))
