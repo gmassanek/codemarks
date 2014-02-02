@@ -3,7 +3,7 @@ App.ControlPanelView = Backbone.View.extend
 
   events:
     'change input#search': 'search'
-    'click .add_codemark a': 'openNewCodemarkModal'
+    'click .add_codemark a': 'addCodemarkClicked'
 
   initialize: ->
     App.codemarks.bind 'reset', => @render()
@@ -58,6 +58,13 @@ App.ControlPanelView = Backbone.View.extend
       groupDesc = group.name
     groupHtml = @_filterHtml(groupDesc || 'All Groups', @filters.get('group'), 'group')
     @$filterDiv.append(groupHtml)
+
+  addCodemarkClicked: (e) ->
+    e?.preventDefault()
+    if App.current_user.get('id')?
+      @openNewCodemarkModal()
+    else
+      window.location = '/sessions/new'
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()
