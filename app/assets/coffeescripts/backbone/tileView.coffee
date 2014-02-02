@@ -4,11 +4,9 @@ App.TileView = Backbone.View.extend
 
   initialize: ->
     @model = new App.Codemark unless @model?
-    @isTheAddCodemarkTile = @options.add
 
   render: ->
     @renderCodemarkView() if @model.exists()
-    @renderAddCodemarkView() if @isTheAddCodemarkTile
     if CURRENT_USER == ''
       @$el.addClass('logged-out')
 
@@ -19,7 +17,6 @@ App.TileView = Backbone.View.extend
     @view.bind 'turnIntoForm', => @turnViewIntoForm()
     @view.bind 'cancel', => @handleCancel()
     @view.bind 'updated', => @handleUpdated()
-    @view.bind 'created', (data) => @codemarkCreated(data)
     @view.bind 'delete', => @delete()
     @view.bind 'createCopy', => @copyForNewUser()
 
@@ -27,19 +24,10 @@ App.TileView = Backbone.View.extend
     @$el.fadeOut 500, =>
       @remove()
 
-  codemarkCreated: (data) ->
-    App.codemarks.add(data)
-    @view?.remove()
-    if @modelToCopy?
-      @remove()
-    else
-      @render()
-
   handleCancel: ->
     if @modelToCopy?
       @model = @modelToCopy
       delete @modelToCopy
-    @view.remove()
     @render()
 
   handleUpdated: ->
@@ -47,18 +35,7 @@ App.TileView = Backbone.View.extend
     @render()
 
   renderCodemarkView: ->
-    return if @isTheAddCodemarkTile
-
     @view = new App["#{@model.get('resource_type')}CodemarkView"]
-      model: @model
-    @view.render()
-
-    @replaceElWithView()
-    @bindToView()
-
-  renderAddCodemarkView: ->
-    return unless @isTheAddCodemarkTile
-    @view = new App.AddCodemarkView
       model: @model
     @view.render()
 
@@ -67,9 +44,9 @@ App.TileView = Backbone.View.extend
 
   turnViewIntoForm: ->
     @model = @view.model
-    @view = new App["#{@model.get('resource_type')}FormView"]
+    @view = new App.EditCodemarkParentView
       model: @model
-    $('body').append(@view.el)
+      modal: true
     @view.render()
     @bindToView()
 

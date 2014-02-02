@@ -1,9 +1,19 @@
 When /^I fill out the add codemark form with Google$/ do
   Fabricate(:topic, :title => 'google')
-  page.find('.add_link a').click()
+  step 'I get to the new link form'
   page.fill_in('url', :with => 'http://www.google.com')
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
+end
+
+When /^I get to the new link form$/ do
+  page.find('.add_codemark a').trigger('click')
+  page.find('.add_link a').click()
+end
+
+When /^I get to the new text form$/ do
+  page.find('.add_codemark a').trigger('click')
+  page.find('.add_note a').click()
 end
 
 When /^I fill out and submit the add codemark form with Google$/ do
@@ -17,7 +27,7 @@ When /^I open the codemarklet for Google$/ do
 end
 
 When /^I fill out the codemark form with the existing one$/ do
-  page.find('.add_link a').click
+  step 'I get to the new link form'
   page.fill_in('url', :with => @codemark.url)
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
@@ -46,7 +56,7 @@ Given /^tom_brady has codemarked Google$/ do
 end
 
 Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note_text|
-  page.find('.add_note a').click
+  step 'I get to the new text form'
   page.fill_in('text', :with => note_text)
   page.click_button('Submit')
   step 'I wait until all Ajax requests are complete'

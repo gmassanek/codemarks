@@ -16,7 +16,6 @@ App.CodemarkFormView = Backbone.View.extend
       tags: App.topics.slugs()
 
     @hideResourceEditsIfNotAuthor()
-    @openAsModal()
     @renderGroups()
 
   renderGroups: ->
@@ -37,16 +36,6 @@ App.CodemarkFormView = Backbone.View.extend
       @$('.read-only-resource').remove()
     else
       @$('.editable-resource').remove()
-
-  openAsModal: ->
-    if !@codemarklet()
-      @$el.dialog
-        modal: true
-        closeOnEscape: true
-        width: 610
-        height: 450
-      $('.ui-widget-header').hide()
-      $('.ui-widget-overlay').on 'click', => @cancel()
 
   toHtml: ->
     facile(@template(), @presentedAttributes())
@@ -83,13 +72,16 @@ App.CodemarkFormView = Backbone.View.extend
           @model.attributes = JSON.parse(response.codemark)
           @model.trigger('change')
           @trigger('updated')
+          @trigger('cancel')
     else
       $.ajax
         type: 'POST'
         url: '/codemarks'
         data: @data()
         success: (response) =>
-          @trigger('created', JSON.parse(response.codemark))
+          App.codemarks?.add(JSON.parse(response.codemark))
+          @trigger('created')
+          @trigger('cancel')
 
   data: ->
     data = codemark:

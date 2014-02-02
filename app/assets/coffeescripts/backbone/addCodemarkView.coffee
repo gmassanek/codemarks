@@ -21,7 +21,13 @@ App.AddCodemarkView = Backbone.View.extend
     @model = new App.Codemark
       resource: {}
       resource_type: 'Text'
-    @trigger('turnIntoForm')
+    @turnIntoForm()
+
+  turnIntoForm: ->
+    view = new App.EditCodemarkParentView
+      model: @model
+    view.render()
+    @trigger('swapView', view)
 
   showUrlForm: ->
     template = '<form><input name="url" placeholder="Paste Link"/><button>Add</button></form>'
@@ -31,7 +37,7 @@ App.AddCodemarkView = Backbone.View.extend
     e.preventDefault()
     url = $(e.currentTarget).find('input').val()
     if @createCodemarkFor(url)
-      @trigger('turnIntoForm')
+      @turnIntoForm()
     else
       @showUrlForm()
       @$('.add_link').find('form').append('<br><label>Need a URL</label>')

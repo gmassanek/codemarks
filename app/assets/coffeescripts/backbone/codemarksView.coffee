@@ -12,18 +12,9 @@ App.CodemarksView = Backbone.View.extend
 
   render: ->
     @$el.html('')
-    @appendNewCodemarkTile()
     @appendCodemarks()
     @$el.append(@paginationHtml())
     $("html, body").animate({ scrollTop: '0px'}, 200)
-
-  appendNewCodemarkTile: ->
-    if @noNewTile
-      return
-    @newCodemarkTile = new App.TileView
-      add: true
-    @newCodemarkTile.render()
-    @$el.append(@newCodemarkTile.$el)
 
   appendCodemarks: ->
     for codemark in App.codemarks.models

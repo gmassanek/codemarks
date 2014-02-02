@@ -59,7 +59,6 @@ App.MainRouter = Backbone.Router.extend
     @$container = $('.content')
     @setupTopics =>
       @renderCodemarkList()
-      @codemarksView.noNewTile = true
       App.codemarks.fetch()
 
   userIndex: ->

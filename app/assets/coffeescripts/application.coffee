@@ -13,6 +13,7 @@
 //= require util
 
 //= require backbone/app
+//= require backbone/modalView
 //= require_tree ./backbone
 //= require user_show
 //= require user_edit
