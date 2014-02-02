@@ -5,7 +5,6 @@ VCR.configure do |config|
   config.stub_with :webmock
   config.ignore_localhost = true
   config.default_cassette_options = {
-    :record => :new_episodes,
-    :re_record_interval => 7.days
+    :record => :none
   }
 end
