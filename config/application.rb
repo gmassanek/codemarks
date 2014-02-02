@@ -56,11 +56,6 @@ module Codemarks
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-    config.lograge.enabled = true
-    config.lograge.custom_options = lambda do |event|
-      {:time => event.time}
-    end
-
     config.generators do |g|
       g.test_framework :rspec
       g.template_engine :haml
