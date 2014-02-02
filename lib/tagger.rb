@@ -1,15 +1,13 @@
 class Tagger
   def self.tag(text, user = nil)
     return [] if text.blank?
-    text = sanitize(text)
-    tag_matches = {}
-    Topic.for_user(user).each do |topic|
-      term = sanitize(topic.title)
-      matches = text.scan(/\b#{term}\b/)
-      next unless matches.present?
-      tag_matches[topic] = matches.count
-    end
-    tag_matches.keys.sort { |x, y| tag_matches[y] <=> tag_matches[x] }
+    words = sanitize(text).scan(/\w+/).each_with_object(Hash.new{ |i| 0 }){ |w,h| h[w] += 1}
+
+    Topic.for_user(user).select('title, slug').group_by { |t| sanitize(t.title) }.
+      select { |k, v| words.include?(k) }.
+      sort_by { |k, v| words[k] }.
+      map { |(k, v)| v[0].slug }.
+      reverse
   end
 
   private

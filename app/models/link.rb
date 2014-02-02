@@ -49,10 +49,11 @@ class Link < Resource
   end
 
   def suggested_topics
-    topics = Tagger.tag(self.title, self.author)
-    return topics.first(TAG_SUGGESTION_LIMIT) if topics.length >= TAG_SUGGESTION_LIMIT
-
-    topics += Tagger.tag(self.site_data, self.author)
-    topics.uniq.first(TAG_SUGGESTION_LIMIT)
+    topic_ids = Tagger.tag(self.title, self.author)
+    if topic_ids.length < TAG_SUGGESTION_LIMIT
+      topic_ids += Tagger.tag(self.site_data, self.author)
+    end
+    topic_ids = topic_ids.uniq.first(TAG_SUGGESTION_LIMIT)
+    Topic.where(:slug => topic_ids)
   end
 end

@@ -14,7 +14,7 @@ describe Tagger do
 
     it 'returns all the topics that are in the text' do
       text = 'rspec stuff'
-      Tagger.tag(text).should == [@rspec]
+      Tagger.tag(text).should == [@rspec.slug]
     end
 
     it 'returns an empty array if the text is blank' do
@@ -29,7 +29,7 @@ describe Tagger do
 
     it 'matches regardless of case' do
       text = @rspec.title.upcase
-      Tagger.tag(text).should == [@rspec]
+      Tagger.tag(text).should == [@rspec.slug]
     end
 
     it 'does not match sub words' do
@@ -38,7 +38,7 @@ describe Tagger do
 
     it 'orders them by their frequency' do
       text = ['rspec', 'jquery', 'jquery', 'jquery', 'github', 'github'].join(' ')
-      Tagger.tag(text).map(&:title).should == ['jquery', 'github', 'rspec']
+      Tagger.tag(text).should == [@jquery.slug, @github.slug, @rspec.slug]
     end
   end
 end

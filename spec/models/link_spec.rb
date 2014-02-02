@@ -31,27 +31,27 @@ describe Link do
 
     it "could get all #{Link::TAG_SUGGESTION_LIMIT} from the title" do
       @link.assign_attributes(:title => 'Github rspec google')
-      @link.suggested_topics.should =~ [@github, @rspec, @google]
+      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @google.slug]
     end
 
     it "could get some from the title and some from site_data" do
       @link.assign_attributes(:title => 'Github rspec', :site_data => 'book')
-      @link.suggested_topics.should =~ [@github, @rspec, @book]
+      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @book.slug]
     end
 
     it "could all from site_data" do
       @link.assign_attributes(:site_data => 'Github rspec book')
-      @link.suggested_topics.should =~ [@github, @rspec, @book]
+      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @book.slug]
     end
 
     it "never duplicates topics" do
       @link.assign_attributes(:title => 'Github rspec', :site_data => 'Github book')
-      @link.suggested_topics.should =~ [@github, @rspec, @book]
+      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @book.slug]
     end
 
     it "limits to #{Link::TAG_SUGGESTION_LIMIT} topics" do
-      @link.assign_attributes(:title => 'Github rspec google book')
-      @link.suggested_topics.should =~ [@github, @rspec, @google]
+      @link.assign_attributes(:title => 'Github github rspec rspec google book')
+      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @google.slug]
     end
   end
 end
