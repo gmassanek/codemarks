@@ -45,10 +45,12 @@ App.AddCodemarkView = Backbone.View.extend
 
   createCodemarkFor: (url) ->
     return unless url
-    link = { url: url }
-    @model = new App.Codemark
-      resource: link
-      resource_type: 'Link'
+    if window.App.codemark? && url == window.App.codemark?.get('resource').url
+      @model = window.App.codemark
+    else
+      @model = new App.Codemark
+        resource: { url: url }
+        resource_type: 'Link'
 
   registerCancelOnEscape: ->
     $(document).keyup (e) =>

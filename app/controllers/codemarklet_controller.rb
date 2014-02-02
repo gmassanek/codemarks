@@ -17,6 +17,7 @@ class CodemarkletController < ApplicationController
     codemark.topics = codemark.suggested_topics unless codemark.persisted?
 
     Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => codemark.tracking_data)
+    @codemark = PresentCodemarks.present(codemark, current_user)
   end
 
   def chrome_extension
