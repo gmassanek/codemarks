@@ -8,7 +8,7 @@ class CodemarkletController < ApplicationController
       return
     end
 
-    @topics = Topic.all
+    @topics = Topic.for_user(current_user).order(:title)
 
     resource = Link.for_url(params[:url] || session[:url])
     codemark = Codemark.for_user_and_resource(current_user.try(:id), resource.try(:id))

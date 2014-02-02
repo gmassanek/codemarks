@@ -49,10 +49,10 @@ class Link < Resource
   end
 
   def suggested_topics
-    topics = Tagger.tag(self.title)
+    topics = Tagger.tag(self.title, self.author)
     return topics.first(TAG_SUGGESTION_LIMIT) if topics.length >= TAG_SUGGESTION_LIMIT
 
-    topics += Tagger.tag(self.site_data)
+    topics += Tagger.tag(self.site_data, self.author)
     topics.uniq.first(TAG_SUGGESTION_LIMIT)
   end
 end

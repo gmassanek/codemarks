@@ -20,3 +20,24 @@ describe 'App.User', ->
       user = new App.User
         groups: []
       expect(user.authorizedForGroup(1)).toBe(false)
+
+  describe '#authorizedForTopics', ->
+    beforeEach ->
+      @user = new App.User
+      App.topics = new App.Topics([{slug: "test", title: "Test"}])
+
+    it 'is true if the topic exists', ->
+      expect(@user.authorizedForTopics(['test'])).toBe(true)
+
+    it 'is true if there are no topics', ->
+      expect(@user.authorizedForTopics()).toBe(true)
+
+    it 'is true if there are no topics', ->
+      expect(@user.authorizedForTopics([])).toBe(true)
+
+    it 'is false if the topic is missing', ->
+      App.codemarks = new App.Codemarks
+      App.codemarks.filters.addTopic('foo')
+
+      expect(@user.authorizedForTopics(['foo'])).toBe(false)
+      expect(App.codemarks.filters.hasTopic('foo')).toBe(false)

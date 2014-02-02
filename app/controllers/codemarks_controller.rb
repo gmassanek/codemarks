@@ -16,7 +16,7 @@ class CodemarksController < ApplicationController
   def create
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
-    attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"])
+    attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"], params['codemark']['group_id'])
     attributes[:resource] = attributes[:resource_type].constantize.create(params[:resource]) unless attributes[:resource_id]
 
     @codemark = Codemark.update_or_create(attributes)
@@ -102,7 +102,7 @@ class CodemarksController < ApplicationController
 
   def update
     @codemark = Codemark.find(params[:id])
-    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"])
+    params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"], params['codemark']['group_id'])
     success = @codemark.update_attributes(params['codemark']) && @codemark.resource.update_attributes(params['resource'])
     respond_to do |format|
       format.html do
@@ -140,11 +140,11 @@ class CodemarksController < ApplicationController
 
   private
 
-  def process_topic_slugs(topic_slugs)
+  def process_topic_slugs(topic_slugs, group_id)
     return [] unless topic_slugs.present?
     topics = topic_slugs.split(',').map { |slug| Topic.find_by_slug(slug) || slug }
     topics, new_titles = topics.partition { |item| item.is_a?(Topic) }
-    new_topics = new_titles.map { |title| Topic.create!(:title => title.strip) }
+    new_topics = new_titles.map { |title| Topic.create!(:title => title.strip, :group_id => group_id) }
     (topics | new_topics).map(&:id)
   end
 

@@ -20,7 +20,11 @@ class Topic < ActiveRecord::Base
   end
 
   def self.for_user(user)
-    where('group_id IS NULL OR group_id IN (?)', user.try(:group_ids))
+    if user.present?
+      where('group_id IS NULL OR group_id IN (?)', user.group_ids)
+    else
+      where(:group_id => nil)
+    end
   end
 
   def clear_topic_cache

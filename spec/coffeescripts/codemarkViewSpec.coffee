@@ -1,7 +1,8 @@
 describe 'CodemarkView', ->
   beforeEach ->
+    App.codemarks.users = new Backbone.Collection({id: 3, slug: 'gmassanek'})
     @codemark = new App.Codemark
-      author: {slug: 'gmassanek'}
+      user_id: 3
 
     @view = new App.CodemarkView
       model: @codemark

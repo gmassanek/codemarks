@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Tagger do
   describe '#tag' do
     let(:titles) { ['rspec', 'git', 'github', 'google', 'cucumber', 'jquery', 'another item'] }
-    let(:topics) { titles.map { |title| stub(:title => title) } }
 
     before do
-      Topic.stub!(:all => topics)
-      @rspec = topics.find { |t| t.title == 'rspec' }
-      @github = topics.find { |t| t.title == 'github' }
-      @jquery = topics.find { |t| t.title == 'jquery' }
+      Topic.destroy_all
+      @topics = titles.map { |title| Topic.create!(:title => title) }
+      @rspec = @topics.find { |t| t.title == 'rspec' }
+      @github = @topics.find { |t| t.title == 'github' }
+      @jquery = @topics.find { |t| t.title == 'jquery' }
     end
 
     it 'returns all the topics that are in the text' do

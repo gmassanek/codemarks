@@ -1,9 +1,9 @@
 class Tagger
-  def self.tag(text)
+  def self.tag(text, user = nil)
     return [] if text.blank?
     text = sanitize(text)
     tag_matches = {}
-    Topic.all.each do |topic|
+    Topic.for_user(user).each do |topic|
       term = sanitize(topic.title)
       matches = text.scan(/\b#{term}\b/)
       next unless matches.present?

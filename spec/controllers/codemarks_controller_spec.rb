@@ -98,6 +98,14 @@ describe CodemarksController do
         post :create, @params
       }.to change(Topic, :count).by 1
     end
+
+    it 'creates codemarks in a group' do
+      group = Group.create!(:name => 'group1')
+      @params['codemark']['group_id'] = group.id
+      post :create, @params
+      Codemark.last.group.should == group
+      Topic.last.group.should == group
+    end
   end
 
   describe '#sendgrid' do

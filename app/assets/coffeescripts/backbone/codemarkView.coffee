@@ -35,7 +35,7 @@ App.CodemarkView = Backbone.View.extend
   user: ->
     if @model.author().id == App.current_user.get('id')
       @model.author()
-    else if @model.get('resource').user
+    else if @model.get('resource')?.user
       new App.User(@model.get('resource').user)
     else
       @model.author()

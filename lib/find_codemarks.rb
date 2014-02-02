@@ -36,7 +36,7 @@ class FindCodemarks
 
   def find_topic_ids_from_search_query
     return [] unless @search_term
-    Topic.where("topics.search @@ #{search_term_sql}").pluck(:id)
+    Topic.for_user(@current_user).where("topics.search @@ #{search_term_sql}").pluck(:id)
   end
 
   private
@@ -116,7 +116,7 @@ class FindCodemarks
   end
 
   def search_params
-    topics = Topic.find_all_by_id(@topic_ids).map(&:slug) if @topic_ids.present?
+    topics = Topic.for_user(@current_user).find_all_by_id(@topic_ids).map(&:slug) if @topic_ids.present?
     groups = Group.find_all_by_id(@group_ids)
 
     params = { }

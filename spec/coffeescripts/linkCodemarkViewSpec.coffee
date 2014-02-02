@@ -1,5 +1,6 @@
 describe 'LinkCodemarkView', ->
   afterEach ->
+    App.codemarks.users = new Backbone.Collection({id: 3, slug: 'gmassanek'})
     window.CURRENT_USER = null
 
   describe 'rerenders itself', ->
@@ -7,7 +8,7 @@ describe 'LinkCodemarkView', ->
       codemark = new App.Codemark
         resource: {}
         topics: []
-        author: { slug: 'gmassanek' }
+        user_id: 3
       view = new App.LinkCodemarkView
         model: codemark
       spyOn(view, 'render')
@@ -20,7 +21,7 @@ describe 'LinkCodemarkView', ->
       codemark = new App.Codemark
         resource: {}
         topics: []
-        author: { slug: 'gmassanek' }
+        user_id: 3
       view = new App.LinkCodemarkView
         model: codemark
       view.render()
@@ -31,7 +32,7 @@ describe 'LinkCodemarkView', ->
       codemark = new App.Codemark
         resource: {}
         topics: []
-        author: { slug: 'gmassanek' }
+        user_id: 3
       view = new App.LinkCodemarkView
         model: codemark
       view.render()
@@ -41,7 +42,7 @@ describe 'LinkCodemarkView', ->
     it 'if the author is the current user', ->
       window.CURRENT_USER = 'gmassanek'
       codemark = new App.Codemark
-        author: { slug: 'gmassanek' }
+        user_id: 3
       view = new App.LinkCodemarkView
         model: codemark
       expect(view.editable()).toBeTruthy()
@@ -49,7 +50,7 @@ describe 'LinkCodemarkView', ->
     it 'unless the auther is somebody else', ->
       window.CURRENT_USER = 'somebody_else'
       codemark = new App.Codemark
-        author: { slug: 'gmassanek' }
+        user_id: 3
       view = new App.LinkCodemarkView
         model: codemark
       expect(view.editable()).toBeFalsy()

@@ -32,16 +32,14 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.order(:title)
     respond_to do |format|
       format.json do
-        response = Rails.cache.fetch('topics-json', :expires_in => 10) do
-          PresentTopics.for(@topics)
-        end
-        render :json => response
+        @topics = Topic.for_user(current_user).order(:title)
+        render :json => PresentTopics.for(@topics)
       end
 
       format.html do
+        @topics = Topic.for_user(current_user).order(:title)
         @topics = @topics.joins("LEFT JOIN (#{CodemarkTopic.select('topic_id, count(*)').group(:topic_id).to_sql}) cm_count ON topics.id = cm_count.topic_id").select('topics.*, COALESCE(cm_count.count, 0) as cm_count')
         @topics.shuffle!
         @max = @topics.max_by { |t| t.cm_count.to_i }.cm_count.to_f
