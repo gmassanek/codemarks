@@ -29,7 +29,6 @@ end
 When /^I open the codemarklet for Google$/ do
   Fabricate(:topic, :title => 'google')
   visit new_codemarklet_path(:url => 'http://www.google.com')
-  save_and_open_page
 end
 
 When /^I fill out the codemark form with the existing one$/ do
