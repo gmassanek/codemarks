@@ -52,7 +52,7 @@ Feature: View Codemarks
     Given there are 30 random codemarks
     When I go to the second page
     And I wait until all Ajax requests are complete
-    Then I should see 11 codemarks
+    Then I should see 6 codemarks
 
   Scenario: Can view codemarks on topics
     Given there are 2 codemarks for "rspec"

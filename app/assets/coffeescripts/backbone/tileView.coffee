@@ -51,10 +51,13 @@ App.TileView = Backbone.View.extend
     @bindToView()
 
   copyForNewUser: ->
-    @modelToCopy = @view.model
-    @view.model = new App.Codemark
-      resource_type: @model.get('resource_type')
-      resource: @model.get('resource')
-      topics: @model.get('topics')
-      title: @model.get('title')
-    @turnViewIntoForm()
+    if App.current_user.get('id')?
+      @modelToCopy = @view.model
+      @view.model = new App.Codemark
+        resource_type: @model.get('resource_type')
+        resource: @model.get('resource')
+        topics: @model.get('topics')
+        title: @model.get('title')
+      @turnViewIntoForm()
+    else
+      window.location = '/sessions/new'

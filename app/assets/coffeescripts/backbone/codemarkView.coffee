@@ -4,18 +4,23 @@ App.CodemarkView = Backbone.View.extend
   events:
     'click .delete': 'deleteCodemark'
     'click .add': 'createCopy'
+    'click .edit': 'iconClick'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
-    'click .icon': 'iconClick'
 
   render: ->
     @$el.html(@toHTML())
-    @$el.addClass('mine') if @editable()
+    if @editable()
+      @$el.addClass('mine')
+    else
+      @$('.edit').remove()
+      @$('.delete').remove()
+    @$('.add').remove() if @model.mine()
+
     @$('.timeago').timeago()
-    if @model.author().get('image')?
+    if @user().get('image')?
       @$('.author').removeClass('icon-user-2')
-    if @model.get('description') == '' || @model.get('description') == null
-      @$('.main').addClass('no-description')
+    @$el.addClass("type-" + @model.get('resource').type.toLowerCase())
 
   initialize: ->
     @model.bind 'change', => @render()
@@ -42,8 +47,6 @@ App.CodemarkView = Backbone.View.extend
 
   presentedAttributes: ->
     resource = @model.get('resource')
-    edit:
-      content: @editText()
     save_date:
       content: ''
       class: 'timeago'
@@ -55,11 +58,9 @@ App.CodemarkView = Backbone.View.extend
     topics_list: @presentTopics()
     views: resource.clicks_count
     saves: if resource.codemarks_count - 1 > 0 then "+#{resource.codemarks_count - 1}" else null
-    delete: if @editable() then '' else null
-    add: if @model.mine() || CURRENT_USER == '' then null else ''
-
-  editText: ->
-    if @editable() then 'Edit' else 'Save'
+    title_link:
+      content: @model.get('title'),
+      href: "/codemarks/#{@model.get('id')}"
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->

@@ -1,113 +1,110 @@
+$z-base: 400
 .codemarks.index, .users.show
   .codemark
+    position: relative
     background: white
-    text-align: left
+    height: 100%
+    width: 100%
+
+    a
+      color: #777
+      &:hover
+        color: $orange
 
     header
-      display: block
-      width: 100%
-      height: $tile-header-height
-      padding: 10px
-
-      .icon
-        display: block
+      .actions
         float: left
-        font-size: 25px
-        line-height: 25px
-        margin-right: 10px
-
-      .title
-        display: block
-        float: left
-        width: 172px
-        height: 32px
-        overflow: hidden
-
+        height: 35px
+        font-size: 18px
+        line-height: 15px
         a
-          color: #777
-          font-size: 13px
-          line-height: 13px
-          &:hover
-            color: $orange
+          display: block
+          padding: 10px
+      .title
+        padding: 5px 10px
+        margin-bottom: 5px
+        a
+          font-size: 14px
+          line-height: 20px
 
     .main
       width: 100%
+      overflow: hidden
       padding: 0 10px
-      height: $tile-main-height
-      margin: 0 auto
-      margin-bottom: $tile-footer-height
-      position: relative
+      height: $image-height
 
-      $image-width: $tile-width - 20px
-      .image-container
-        position: absolute
-        top: 0
+      .main-image-container
+        height: $image-height
         width: $image-width
-        height: 100%
-        @include box_shadow(inset 0 0 25px -3px #ddd)
-        border: 1px solid rgba(32, 32, 32, 0.2)
-
-      img
-        width: $image-width
-        height: 100%
-
-      .text
-        height: $tile-main-height
         overflow: hidden
+        img.main-image
+          height: $image-height
+          width: $image-width
+          opacity: 1
 
-      .topics_list
-        display: none
-        position: absolute
-        right: 0
-        bottom: 0
-        li
-          float: right
-
-      .description
-        display: none
-        padding-top: 10px
-
-      &:not(.no-description):hover
-        img, .image-container
-          display: none
-        .description
-          display: block
+    ul.topics_list
+      position: absolute
+      bottom: $tile-footer-height
+      right: 5px
+      height: 22px
+      font-size: 11px
+      li
+        float: right
+        margin: 0 5px
+        background: white
+        @include border-radius(3px)
+        @include box-shadow(0px 0px 4px 1px rgba($faded, 0.5))
+        a
+          display: inline-block
+          padding: 2px 4px
 
     footer
-      .author
-        float: left
-        .avatar
-          height: 20px
-          width: 20px
-          margin-bottom: -5px
-          @include border-radius(3px)
-        .saves:before
-          position: relative
-          margin-right: 5px
-
-      .views
+      position: absolute
+      bottom: 0
+      left: 0
+      background: white
+      .hover-icons
         float: right
-        &:before
-          position: relative
-          top: 2px
-          margin-right: 5px
+        > *
+          float: right
+          margin-left: 5px
+          line-height: 20px
+          height: 20px
+        > a
+          @include icon
 
-    &:hover
-      .main
-        .topics_list
-          display: block
-      footer
-        .views
-          display: none
-        .hover-icons
-          display: inherit
+      .user-info
+        float: left
+        background: white
+        height: 100%
+        .author, .saves
+          display: inline
+          height: 100%
+          line-height: 20px
 
-    &.mine:hover
-      header
-        .icon
+          a
+            height: 25px
+            line-height: 20px
+
+          .avatar
+            height: 20px
+            width: 20px
+            margin-bottom: -5px
+            margin-right: 3px
+            border: 1px solid white
+            @include border-radius(3px)
+            float: left
+
+        li.author:hover
           cursor: pointer
-          &:before
-            color: $orange
-            content: "\25"
-          &:hover:before
-            color: lighten($orange, 20%)
+
+
+    $overlay-color: $faded
+    ul.overlay
+      li
+        float: left
+        height: 100%
+        border-left: 1px solid white
+        &:first-child
+          border-left: none
+          color: $orange
