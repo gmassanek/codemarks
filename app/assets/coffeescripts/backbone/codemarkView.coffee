@@ -13,9 +13,9 @@ App.CodemarkView = Backbone.View.extend
     if @editable()
       @$el.addClass('mine')
     else
-      @$('.delete').remove()
       @$('.edit').remove()
-    @$('.add').remove() if @model.mine() || CURRENT_USER == ''
+      @$('.delete').remove()
+    @$('.add').remove() if @model.mine()
 
     @$('.timeago').timeago()
     if @user().get('image')?
@@ -61,9 +61,6 @@ App.CodemarkView = Backbone.View.extend
     title_link:
       content: @model.get('title'),
       href: "/codemarks/#{@model.get('id')}"
-
-  editText: ->
-    if @editable() then 'Edit' else 'Save'
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->

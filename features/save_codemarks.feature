@@ -54,10 +54,3 @@ Feature: Saving Codemarks
     And I am on the codemarks page
     When I click the edit icon
     Then I should see a codemark form
-
-  Scenario: Can't steal if not logged in
-    Given Tom Brady is a user
-    And tom_brady has codemarked Google
-    And I am not logged in anymore
-    And I am on the codemarks page
-    Then I should not see the copy icon

@@ -24,11 +24,11 @@
 
   background: white
   @include transition (all, 0.15s, ease-in-out)
-  @include box-shadow(0px 1px 5px 1px rgba($faded, 0.2))
+  @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
   border: 1px solid rgba($faded, 0.4)
 
   &:hover
-    @include box-shadow(0px 3px 10px 1px rgba($faded, 0.7))
+    @include box-shadow(0px 3px 10px 1px rgba($faded, 0.6))
 
   footer
     position: absolute
@@ -40,31 +40,9 @@
     font-size: 12px
     line-height: 20px
 
-  .hover-icons
-    float: right
-    width: 70px
-    > *
-      float: right
-      margin-left: 5px
-    > a
-      @include icon
-
 @import codemark
 @import add_codemark
 @import codemark_form
 @import pagination
 @import tabs
 @import control_panel
-
-.topics_list
-  font-size: 11px
-  height: 22px
-  float: left
-  width: $tile-width - 80px
-  li
-    float: left
-    margin-right: 10px
-    a
-      display: inline-block
-      padding: 3px
-

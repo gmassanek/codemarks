@@ -6,13 +6,19 @@ $z-base: 400
     height: 100%
     width: 100%
 
+    a
+      color: #777
+      &:hover
+        color: $orange
+
     header
       .actions
-        float: right
+        float: left
         height: 35px
-        font-size: 15px
+        font-size: 18px
         line-height: 15px
         a
+          display: block
           padding: 10px
       .title
         padding: 5px 10px
@@ -25,81 +31,80 @@ $z-base: 400
       width: 100%
       overflow: hidden
       padding: 0 10px
-      height: $tile-height - $tile-footer-height - 35px
+      height: $image-height
+
+      .main-image-container
+        height: $image-height
+        width: $image-width
+        overflow: hidden
+        img.main-image
+          height: $image-height
+          width: $image-width
+          opacity: 1
+
+    ul.topics_list
+      position: absolute
+      bottom: $tile-footer-height
+      right: 5px
+      height: 22px
+      font-size: 11px
+      li
+        float: right
+        margin: 0 5px
+        background: white
+        @include border-radius(3px)
+        @include box-shadow(0px 0px 4px 1px rgba($faded, 0.5))
+        a
+          display: inline-block
+          padding: 2px 4px
 
     footer
       position: absolute
       bottom: 0
       left: 0
       background: white
-      a
-        color: #777
-        &:hover
-          color: $orange
       .hover-icons
         float: right
+        > *
+          float: right
+          margin-left: 5px
+          line-height: 20px
+          height: 20px
+        > a
+          @include icon
 
-      ul.topics_list
-        position: absolute
-        left: 5px
-        li
-          float: left
+      .user-info
+        float: left
+        background: white
+        height: 100%
+        .author, .saves
+          display: inline
+          height: 100%
+          line-height: 20px
 
-    .main-image-container
-      height: $image-height
-      width: $tile-width - 20px
-      overflow: hidden
-      img.main-image
-        width: $tile-width - 20px
-        height: $image-height
-        opacity: 0.8
+          a
+            height: 25px
+            line-height: 20px
 
-      .views
-        float: right
+          .avatar
+            height: 20px
+            width: 20px
+            margin-bottom: -5px
+            margin-right: 3px
+            border: 1px solid white
+            @include border-radius(3px)
+            float: left
 
-    &:hover .main-image-container
-      img.main-image
-        opacity: 1
+        li.author:hover
+          cursor: pointer
+
 
     $overlay-color: $faded
     ul.overlay
-      color: $overlay-color
       li
         float: left
         height: 100%
         border-left: 1px solid white
         &:first-child
           border-left: none
-      a
-        color: $overlay-color
-        display: inline-block
-        height: 100%
-        &:hover
           color: $orange
-
-    .data
-      position: absolute
-      bottom: $tile-footer-height
-      right: 0
-      background: white
-      li.author, li.saves
-        float: left
-        padding: 3px 5px
-        height: 25px
-        line-height: 20px
-
-        a
-          height: 25px
-          line-height: 20px
-
-        .avatar
-          height: 20px
-          width: 20px
-          margin-bottom: -5px
-          margin-right: 5px
-          border: 1px solid white
-          @include border-radius(3px)
-          float: left
-
-      li.author:hover
-        cursor: pointer
