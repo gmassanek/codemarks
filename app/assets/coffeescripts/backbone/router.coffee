@@ -29,9 +29,9 @@ App.MainRouter = Backbone.Router.extend
       if !App.current_user.authorizedForTopics(App.codemarks.filters.topicIds())
         App.vent.trigger('updateCodemarkRequest')
 
-    @renderControlPanel()
-    @renderCodemarkList()
-    App.codemarks.fetch()
+      @renderControlPanel()
+      @renderCodemarkList()
+      App.codemarks.fetch()
 
   showCodemark: (id) ->
     @clearNav()
@@ -95,7 +95,7 @@ App.MainRouter = Backbone.Router.extend
       @$container.append(@codemarksView.$el)
 
   setupTopics: (callback) ->
-    if App.topics?
+    if App.topics? && App.topics.models.legth > 0
       callback?()
     else
       App.topics = new App.Topics
