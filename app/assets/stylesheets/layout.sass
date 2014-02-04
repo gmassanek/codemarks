@@ -11,11 +11,36 @@ body
 
 .site_content
   margin: 0 auto
-  @media screen and (min-width: 1441px)
-    width: 1200px
-  @media screen and (min-width: 1201px) and (max-width: 1440px)
-    width: 960px
+  //@media screen and (min-width: 1401px)
+  //  $tile-count: 5
+  //  $total-width: 1400px
+
+  //  width: $total-width
+  //  $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
+  //  .tile
+  //    margin: 0px $tile-margin 20px
+  //@media screen and (min-width: 1201px) and (max-width: 1441px)
+  @media screen and (min-width: 1201px)
+    $tile-count: 4
+    $total-width: 1200px
+
+    width: $total-width
+    $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
+    .tile
+      margin: 0px $tile-margin 20px
   @media screen and (min-width: 961px) and (max-width: 1200px)
-    width: 720px
+    $tile-count: 3
+    $total-width: 960px
+
+    width: $total-width
+    $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
+    .tile
+      margin: 0px $tile-margin 20px
   @media screen and (min-width: 0px) and (max-width: 960px)
-    width: 480px
+    $tile-count: 2
+    $total-width: 720px
+
+    width: $total-width
+    $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
+    .tile
+      margin: 0px $tile-margin 20px

@@ -20,16 +20,13 @@
   position: relative
   height: $tile-height
   width: $tile-width
-  margin: 0 $tile-gutter $tile-gutter 0
 
-  background: #fefefe
-  border: 1px solid #ccc
-  background: white
-  @include border-radius(5px)
-  @include transition (all, 0.5s, ease-in-out)
+  @include transition (all, 0.15s, ease-in-out)
+  @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
+  border: 1px solid rgba($faded, 0.4)
 
   &:hover
-    @include box-shadow(0 0 20px 0px lighten($orange, 40%))
+    @include box-shadow(0px 3px 10px 1px rgba($faded, 0.6))
 
   footer
     position: absolute
@@ -40,30 +37,9 @@
     padding: 5px
     font-size: 12px
 
-  .hover-icons
-    float: right
-    display: none
-    > *
-      float: right
-    > a
-      @include icon
-      margin-left: 5px
-
 @import codemark
 @import add_codemark
 @import codemark_form
 @import pagination
 @import tabs
 @import control_panel
-
-
-.topics_list
-  li
-    margin: 5px
-    border: 1px solid #ccc
-    background: white
-    @include border-radius(5px)
-    a
-      display: inline-block
-      padding: 3px
-

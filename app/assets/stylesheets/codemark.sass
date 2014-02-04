@@ -3,6 +3,11 @@
     background: white
     text-align: left
 
+    a
+      color: #777
+      &:hover
+        color: $orange
+
     header
       display: block
       width: 100%
@@ -22,30 +27,27 @@
         width: 172px
         height: 32px
         overflow: hidden
+        line-height: 16px
+        font-size: 10px
 
         a
-          color: #777
           font-size: 13px
           line-height: 13px
-          &:hover
-            color: $orange
 
     .main
       width: 100%
-      padding: 0 10px
+      padding: 0
       height: $tile-main-height
       margin: 0 auto
       margin-bottom: $tile-footer-height
       position: relative
 
-      $image-width: $tile-width - 20px
+      $image-width: $tile-width
       .image-container
         position: absolute
         top: 0
         width: $image-width
         height: 100%
-        @include box_shadow(inset 0 0 25px -3px #ddd)
-        border: 1px solid rgba(32, 32, 32, 0.2)
 
       img
         width: $image-width
@@ -56,24 +58,28 @@
         overflow: hidden
 
       .topics_list
-        display: none
         position: absolute
         right: 0
-        bottom: 0
+        bottom: 5px
         li
           float: right
+          background: #FBFBFB
+          @include box-shadow(0 0 2px 1px rgba($faded, 0.4))
+          @include border-radius(2px)
+          margin: 0 3px
+          a
+            padding: 5px 7px
+            display: inline-block
 
-      .description
-        display: none
-        padding-top: 10px
-
-      &:not(.no-description):hover
-        img, .image-container
-          display: none
-        .description
-          display: block
-
+    header
+      background: #FBFBFB
+      position: relative
+      z-index: 100
+      @include box-shadow(0px -10px 20px 5px rgba($faded, 0.4))
+      //border-bottom: 1px solid rgba($faded, 0.3)
     footer
+      background: #D4D3D2
+      border-top: 1px solid rgba($faded, 0.3)
       .author
         float: left
         .avatar
@@ -85,29 +91,17 @@
           position: relative
           margin-right: 5px
 
-      .views
+      .hover-icons
         float: right
-        &:before
-          position: relative
-          top: 2px
-          margin-right: 5px
+        > *
+          float: right
+          margin-left: 10px
+        > a
+          @include icon
 
-    &:hover
-      .main
-        .topics_list
-          display: block
-      footer
         .views
-          display: none
-        .hover-icons
-          display: inherit
-
-    &.mine:hover
-      header
-        .icon
-          cursor: pointer
+          float: right
           &:before
-            color: $orange
-            content: "\25"
-          &:hover:before
-            color: lighten($orange, 20%)
+            position: relative
+            top: 2px
+            margin-right: 3px

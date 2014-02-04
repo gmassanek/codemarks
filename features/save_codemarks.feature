@@ -60,4 +60,5 @@ Feature: Saving Codemarks
     And tom_brady has codemarked Google
     And I am not logged in anymore
     And I am on the codemarks page
-    Then I should not see the copy icon
+    And I copy that codemark
+    Then I should be on the login page

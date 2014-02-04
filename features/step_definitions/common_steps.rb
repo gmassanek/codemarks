@@ -68,17 +68,19 @@ When /^I click "([^"]*)"$/ do |arg1|
 end
 
 When /^I copy that codemark/ do
-  page.execute_script("$('.codemark .hover-icons').show()")
   find('.add').click()
 end
 
 When /^I click the edit icon$/ do
-  find('.codemark .icon').click()
+  find('.codemark .edit').click()
 end
 
 Then /^I should not see the copy icon$/ do
-  page.execute_script("$('.codemark .hover-icons').show()")
   page.should_not have_selector('.add')
+end
+
+Then /^I should be on the login page$/ do
+  page.current_path.should == "/sessions/new"
 end
 
 When /^I wait until all Ajax requests are complete$/ do

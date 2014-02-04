@@ -6,11 +6,10 @@ App.CodemarkView = Backbone.View.extend
     'click .add': 'createCopy'
     'click .author': 'navigateToAuthor'
     'click .topic': 'navigateToTopic'
-    'click .icon': 'iconClick'
+    'click .edit': 'editClick'
 
   render: ->
     @$el.html(@toHTML())
-    @$el.addClass('mine') if @editable()
     @$('.timeago').timeago()
     if @model.author().get('image')?
       @$('.author').removeClass('icon-user-2')
@@ -24,7 +23,7 @@ App.CodemarkView = Backbone.View.extend
   toHTML: ->
     facile(@template(), @presentedAttributes())
 
-  iconClick: (e) ->
+  editClick: (e) ->
     e.preventDefault()
     return unless @editable()
     @trigger('turnIntoForm')
@@ -42,8 +41,6 @@ App.CodemarkView = Backbone.View.extend
 
   presentedAttributes: ->
     resource = @model.get('resource')
-    edit:
-      content: @editText()
     save_date:
       content: ''
       class: 'timeago'
@@ -56,10 +53,8 @@ App.CodemarkView = Backbone.View.extend
     views: resource.clicks_count
     saves: if resource.codemarks_count - 1 > 0 then "+#{resource.codemarks_count - 1}" else null
     delete: if @editable() then '' else null
-    add: if @model.mine() || CURRENT_USER == '' then null else ''
-
-  editText: ->
-    if @editable() then 'Edit' else 'Save'
+    edit: if @editable() then '' else null
+    add: if @model.mine() then null else ''
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->

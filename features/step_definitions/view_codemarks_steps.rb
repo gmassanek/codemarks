@@ -69,7 +69,7 @@ When /^I click on that codemark$/ do
 end
 
 When /^I click on my name$/ do
-  within '.codemark.mine .author' do
+  within '.codemarks.index' do
     click_on @current_user.nickname
   end
 end

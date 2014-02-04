@@ -4,9 +4,9 @@
   .title
     %a.title_link{target: '_blank'}
 .main
-  %img.main-image
-  .image-container
-  .description
+  %a.image-link{target: '_blank'}
+    %img.main-image
+    .image-container
   %ul.topics_list
     %li
       %a.topic
@@ -16,11 +16,12 @@
     %a.name{:href => '#'}
     %span.saves
   .hover-icons
-    %a.delete.icon-remove
-    %a.add.icon-plus
     /%a.comments.icon-comments
     %a.share.icon-twitter{:target => '_blank'}
-  .views.icon-eye
+    .views.icon-eye
+    %a.delete.icon-remove
+    %a.edit.icon-pencil
+    %a.add.icon-plus
 .clear
 
 / END: Codemark Template.
