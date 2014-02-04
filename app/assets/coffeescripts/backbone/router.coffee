@@ -95,7 +95,7 @@ App.MainRouter = Backbone.Router.extend
       @$container.append(@codemarksView.$el)
 
   setupTopics: (callback) ->
-    if App.topics? && App.topics.models.legth > 0
+    if App.topics? && App.topics.models.length > 0
       callback?()
     else
       App.topics = new App.Topics
