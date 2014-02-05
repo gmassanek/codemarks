@@ -13,8 +13,7 @@ App.CodemarkView = Backbone.View.extend
     @$('.timeago').timeago()
     if @model.author().get('image')?
       @$('.author').removeClass('icon-user-2')
-    if @model.get('description') == '' || @model.get('description') == null
-      @$('.main').addClass('no-description')
+    @$('.show-description').remove() if @model.get('description') == '' || @model.get('description') == null
 
   initialize: ->
     @model.bind 'change', => @render()

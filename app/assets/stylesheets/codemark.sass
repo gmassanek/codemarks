@@ -12,7 +12,18 @@
       display: block
       width: 100%
       height: $tile-header-height
-      padding: 10px
+      overflow: hidden
+      background: #FBFBFB
+
+      .header-container
+        background: #FBFBFB
+        height: 100%
+        width: 100%
+        padding: 10px
+        position: relative
+        z-index: 100
+        border-bottom: 1px solid rgba($faded, 0.2)
+        //@include box-shadow(0px -10px 20px 5px rgba($faded, 0.4))
 
       .icon
         display: block
@@ -42,7 +53,7 @@
       margin-bottom: $tile-footer-height
       position: relative
 
-      $image-width: $tile-width
+      $image-width: $tile-width - 2px
       .image-container
         position: absolute
         top: 0
@@ -71,12 +82,6 @@
             padding: 5px 7px
             display: inline-block
 
-    header
-      background: #FBFBFB
-      position: relative
-      z-index: 100
-      @include box-shadow(0px -10px 20px 5px rgba($faded, 0.4))
-      //border-bottom: 1px solid rgba($faded, 0.3)
     footer
       background: #D4D3D2
       border-top: 1px solid rgba($faded, 0.3)
@@ -96,6 +101,7 @@
         > *
           float: right
           margin-left: 10px
+          position: relative
         > a
           @include icon
 
@@ -105,3 +111,21 @@
             position: relative
             top: 2px
             margin-right: 3px
+
+        .show-description
+          .description
+            display: none
+            position: absolute
+            font-family: $base-font-family
+            color: #777
+            width: ($tile-width + 30px)
+            z-index: 1000
+            position: absolute
+            margin-left: -200px
+            background: white
+            padding: 10px
+            @include box-shadow(0px 3px 10px 1px rgba($faded, 0.6))
+            border: 1px solid rgba($faded, 0.2)
+          &:hover
+            .description
+              display: block
