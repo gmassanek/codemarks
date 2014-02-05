@@ -1,1 +1,1 @@
-= link_to topic.title, codemarks_path(:topic_ids => topic.slug), :class => "title", :style => "font-size: #{Math.log2(topic.cm_count.to_i) * 4 + 12}px"
+= link_to topic.title, codemarks_path(:topic_ids => topic.slug, :by => 'popularity'), :class => "title", :style => "font-size: #{Math.log2(topic.cm_count.to_i) * 4 + 12}px"
