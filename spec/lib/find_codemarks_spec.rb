@@ -257,9 +257,7 @@ describe FindCodemarks do
           2.times { Fabricate(:click, :resource => resource2) }
 
           all_cms = FindCodemarks.new(:by => :buzzing)
-          all_cms.codemarks[0].resource.id.should == resource2.id
-          all_cms.codemarks[1].resource.id.should == resource3.id
-          all_cms.codemarks[2].resource.id.should == resource1.id
+          all_cms.codemarks.map(&:resource_id).should == [resource2.id, resource3.id, resource1.id]
         end
 
         it "does not require much to bump up a few days" do
@@ -269,9 +267,7 @@ describe FindCodemarks do
           4.times { Fabricate(:click, :resource => resource1) }
 
           all_cms = FindCodemarks.new(:by => :buzzing)
-          all_cms.codemarks[0].resource.id.should == resource3.id
-          all_cms.codemarks[1].resource.id.should == resource1.id
-          all_cms.codemarks[2].resource.id.should == resource2.id
+          all_cms.codemarks.map(&:resource_id).should == [resource3.id, resource2.id, resource1.id]
         end
 
         it "does not overload crazy ones" do
@@ -281,8 +277,7 @@ describe FindCodemarks do
           5.times { Fabricate(:click, :resource => resource2) }
 
           all_cms = FindCodemarks.new(:by => :buzzing)
-          all_cms.codemarks[0].resource.id.should == resource2.id
-          all_cms.codemarks[1].resource.id.should == resource1.id
+          all_cms.codemarks.map(&:resource_id).should == [resource2.id, resource1.id]
         end
       end
     end
