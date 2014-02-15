@@ -1,3 +1,3 @@
-server "50.116.33.227", :web, :app, :db, primary: true
+server "162.242.240.243", :web, :app, :db, primary: true
 set :rails_env, "production"
 set :rack_env, "production"
