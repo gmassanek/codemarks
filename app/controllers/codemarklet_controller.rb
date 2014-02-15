@@ -12,12 +12,8 @@ class CodemarkletController < ApplicationController
 
     @url = params[:url] || session[:url]
     resource = Link.for_url(@url) if @url
-    codemark = Codemark.for_user_and_resource(current_user.try(:id), resource.try(:id))
-    codemark ||= Codemark.new(:resource => resource, :user => current_user)
-    codemark.topics = codemark.suggested_topics unless codemark.persisted?
 
-    Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => codemark.tracking_data)
-    @codemark = PresentCodemarks.present(codemark, current_user)
+    Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => {:url => @url})
   end
 
   def chrome_extension

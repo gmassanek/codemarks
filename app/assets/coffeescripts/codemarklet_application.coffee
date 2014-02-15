@@ -5,7 +5,6 @@ window.App =
     $ ->
       App.current_user = new App.User(JSON.parse(window.CURRENT_USER_DATA_JSON))
       view = new App.CodemarkletView
-        model: App.codemark
       view.render()
       $('body').html(view.$el)
 
