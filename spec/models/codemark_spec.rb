@@ -85,6 +85,14 @@ describe Codemark do
     end
   end
 
+  describe ".for_user_and_resource" do
+    it "finds codemarks for a user and a link combination" do
+      user = Fabricate(:user)
+      codemark = Fabricate(:codemark, :user => user)
+      Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
+    end
+  end
+
   describe '#resource' do
     it 'can be a link' do
       cm = Codemark.new(:resource => link, :user => user)
@@ -144,11 +152,5 @@ describe Codemark do
       @codemark.save
       @codemark.should_not be_private
     end
-  end
-
-  it "finds codemarks for a user and a link combination" do
-    user = Fabricate(:user)
-    codemark = Fabricate(:codemark, :user => user)
-    Codemark.for_user_and_resource(user.id, codemark.resource.id).should == codemark
   end
 end
