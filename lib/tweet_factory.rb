@@ -8,7 +8,7 @@ class TweetFactory
 
   def initialize(codemark, options = {})
     @tagline = options[:tagline]
-    @hashtags = options[:hashtags]
+    @hashtags = options[:hashtags] || []
     @codemark = codemark
   end
 
@@ -20,11 +20,11 @@ class TweetFactory
     @parts << @url = bitly.shorten(@codemark.resource.url).short_url
 
     while(there_is_room_for_topics?)
-      topics_being_tweeted << topics.pop
+      @hashtags << topics.pop
     end
 
-    @parts << topic_text
     @parts << via
+    @parts << topic_text
     tweet_text.sub('  ', ' ')
   end
 
@@ -46,11 +46,7 @@ class TweetFactory
   end
 
   def topic_text
-    topics_being_tweeted.map { |topic| "##{topic}" }.join(' ')
-  end
-
-  def topics_being_tweeted
-    @topics_being_tweeted ||= []
+    @hashtags.reverse.map { |topic| "##{topic}" }.join(' ')
   end
 
   def topics

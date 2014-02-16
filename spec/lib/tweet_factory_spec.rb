@@ -48,9 +48,9 @@ describe TweetFactory do
 
     it 'includes topics if there is room' do
       topic = Fabricate(:topic, :title => 'github')
-      codemark = Fabricate(:codemark, :title => 'Check this out')
+      codemark = Fabricate(:codemark, :title => 'Check out github', :topics => [topic])
       p TweetFactory.codemark_of_the_day(codemark)
-      TweetFactory.codemark_of_the_day(codemark).should_not include '#github'
+      TweetFactory.codemark_of_the_day(codemark).should include '#github'
     end
   end
 end
