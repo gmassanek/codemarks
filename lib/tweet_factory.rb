@@ -3,23 +3,28 @@ class TweetFactory
   SHORTENED_URL_LENGTH = 20
 
   def self.codemark_of_the_day(codemark)
-    self.new(codemark, 'Codemark of the Day!').tweet
+    self.new(codemark, :hashtags => ['cmoftheday']).tweet
   end
 
-  def initialize(codemark, tagline = nil)
-    @tagline = tagline
+  def initialize(codemark, options = {})
+    @tagline = options[:tagline]
+    @hashtags = options[:hashtags]
     @codemark = codemark
   end
 
   def tweet
-    @main_text = "#{@tagline} #{@codemark.title}"
+    @parts = []
+    @parts << @tagline if @tagline.present?
+    @parts << @codemark.title
 
-    @url = bitly.shorten(@codemark.resource.url).short_url
+    @parts << @url = bitly.shorten(@codemark.resource.url).short_url
 
     while(there_is_room_for_topics?)
       topics_being_tweeted << topics.pop
     end
 
+    @parts << topic_text
+    @parts << via
     tweet_text.sub('  ', ' ')
   end
 
@@ -33,7 +38,7 @@ class TweetFactory
   end
 
   def tweet_text
-    "#{@main_text} #{@url} #{topic_text} #{via}"
+    @parts.join(' ')
   end
 
   def current_length
