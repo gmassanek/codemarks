@@ -74,7 +74,8 @@ class Codemark < ActiveRecord::Base
       :resource_id => self.resource_id,
       :resource_type => self.resource_type,
       :group_id => self.group_id,
-      :group => self.group.try(:name)
+      :group => self.group.try(:name),
+      :source => self.source
     }
   end
 
