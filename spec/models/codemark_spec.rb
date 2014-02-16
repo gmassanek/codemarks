@@ -146,12 +146,6 @@ describe Codemark do
     end
   end
 
-  it "delegates url to it's link" do
-    codemark = Fabricate.build(:codemark)
-    link = codemark.resource
-    codemark.url.should == link.url
-  end
-
   it "finds codemarks for a user and a link combination" do
     user = Fabricate(:user)
     codemark = Fabricate(:codemark, :user => user)

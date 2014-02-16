@@ -33,7 +33,7 @@ end
 
 When /^I fill out the codemark form with the existing one$/ do
   step 'I get to the new link form'
-  page.fill_in('url', :with => @codemark.url)
+  page.fill_in('url', :with => @codemark.resource.url)
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
   page.click_button('Submit')

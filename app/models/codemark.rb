@@ -11,7 +11,6 @@ class Codemark < ActiveRecord::Base
   validates_presence_of :resource_id
   validates_presence_of :user_id
 
-  delegate :url, :to => :resource
   before_save :mark_as_private
   after_create :track
 
