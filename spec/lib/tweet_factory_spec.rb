@@ -10,20 +10,17 @@ describe TweetFactory do
 
     it 'includes "Codemark of the Day!' do
       codemark = Fabricate(:codemark)
-      p TweetFactory.codemark_of_the_day(codemark)
       TweetFactory.codemark_of_the_day(codemark).should include('#cmoftheday')
     end
 
     it 'contains a link' do
       codemark = Fabricate(:codemark)
-      p TweetFactory.codemark_of_the_day(codemark)
       TweetFactory.codemark_of_the_day(codemark).should include('http')
     end
 
     it 'contains "via @nickname" for twitter users' do
       user = Fabricate(:twitter_user)
       codemark = Fabricate(:codemark, :user => user)
-      p TweetFactory.codemark_of_the_day(codemark)
       TweetFactory.codemark_of_the_day(codemark).should include("via @#{user.nickname}")
     end
 
@@ -49,8 +46,13 @@ describe TweetFactory do
     it 'includes topics if there is room' do
       topic = Fabricate(:topic, :title => 'github')
       codemark = Fabricate(:codemark, :title => 'Check out github', :topics => [topic])
-      p TweetFactory.codemark_of_the_day(codemark)
       TweetFactory.codemark_of_the_day(codemark).should include '#github'
+    end
+
+    it 'includes as many topics as there is room' do
+      topics = 15.times.map { Fabricate(:topic) }
+      codemark = Fabricate(:codemark, :title => '', :topics => topics)
+      TweetFactory.codemark_of_the_day(codemark).length.should < TweetFactory::TWEET_LENGTH
     end
   end
 end

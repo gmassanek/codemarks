@@ -8,49 +8,51 @@ class TweetFactory
 
   def initialize(codemark, options = {})
     @tagline = options[:tagline]
-    @hashtags = options[:hashtags] || []
+    @hashtags = options[:hashtags].map { |t| sanitize_tag(t) } || []
     @codemark = codemark
   end
 
   def tweet
-    @parts = []
-    @parts << @tagline if @tagline.present?
-    @parts << @codemark.title
-
-    @parts << @url = bitly.shorten(@codemark.resource.url).short_url
-
-    while(there_is_room_for_topics?)
-      @hashtags << topics.pop
+    while tag_fits?(tag = topics.pop)
+      @hashtags << tag
     end
 
-    @parts << via
-    @parts << topic_text
-    tweet_text.sub('  ', ' ')
+    tweet_text
   end
 
   private
 
-  def there_is_room_for_topics?
-    return false unless topics.present?
+  def tag_fits?(tag)
+    return false unless tag
 
-    new_length = current_length + topics.last.length + 2
-    new_length < TWEET_LENGTH
+    current_length + tag.length + 2 <= TWEET_LENGTH
+  end
+
+  def url
+    @url ||= bitly.shorten(@codemark.resource.url).short_url
   end
 
   def tweet_text
-    @parts.join(' ')
+    parts = []
+    parts << @tagline if @tagline.present?
+    parts << @codemark.title if @codemark.title.present?
+    parts << url
+    parts << via
+    parts += @hashtags.reverse
+    parts.join(' ')
   end
 
   def current_length
-    tweet_text.sub(@url, 'a' * SHORTENED_URL_LENGTH).length
-  end
-
-  def topic_text
-    @hashtags.reverse.map { |topic| "##{topic}" }.join(' ')
+    tweet_text.gsub(url, 'a' * SHORTENED_URL_LENGTH).length
   end
 
   def topics
-    @topics ||= @codemark.topics.map(&:slug).sort_by(&:length).reverse
+    @topics ||= @codemark.topics.map(&:slug).map { |t| sanitize_tag(t) }.sort_by(&:length).reverse
+  end
+
+  def sanitize_tag(tag)
+    tag = tag.gsub("-", "_").gsub(" ", "_")
+    "##{tag}" unless tag[0] == '#'
   end
 
   def via
