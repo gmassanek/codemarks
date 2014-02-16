@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140201233201) do
+ActiveRecord::Schema.define(:version => 20140216003730) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20140201233201) do
     t.boolean  "private",       :default => false
     t.string   "resource_type"
     t.integer  "group_id"
+    t.text     "source"
   end
 
   add_index "codemarks", ["created_at"], :name => "index_codemarks_on_created_at"

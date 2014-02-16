@@ -106,6 +106,14 @@ describe CodemarksController do
       Codemark.last.group.should == group
       Topic.last.group.should == group
     end
+
+    describe 'source' do
+      it 'uses the incoming source' do
+        @params['codemark']['source'] = 'web'
+        post :create, @params
+        Codemark.last.source.should == 'web'
+      end
+    end
   end
 
   describe '#sendgrid' do
