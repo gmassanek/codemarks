@@ -26,6 +26,7 @@ App.AddCodemarkView = Backbone.View.extend
   turnIntoForm: ->
     view = new App.EditCodemarkParentView
       model: @model
+      source: @options.source
     view.render()
     @trigger('swapView', view)
 

@@ -10,6 +10,7 @@ Feature: Saving Codemarks
     And I fill out and submit the add codemark form with Google
     Then I should see "Google"
     And I should be Google's author
+    And that codemark's source should be "web"
 
   @vcr
   Scenario: Saving google on the dashboard to a group
@@ -26,6 +27,7 @@ Feature: Saving Codemarks
     And I submit the codemark form
     Then I should see "Codemark saved successfully"
     And I should be Google's author
+    And that codemark's source should be "codemarklet"
 
   Scenario: Saving a text codemark
     And I fill out and submit the add note codemark form with "Some text"

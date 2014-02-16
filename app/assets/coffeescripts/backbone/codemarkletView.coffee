@@ -3,6 +3,7 @@ App.CodemarkletView = Backbone.View.extend
 
   render: ->
     @view = new App.AddCodemarkParentView
+      source: 'codemarklet'
     @view.render()
     @$el.html(@view.el)
     @bindToView()

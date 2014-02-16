@@ -1,6 +1,7 @@
 App.AddCodemarkParentView = App.ModalView.extend
   initialize: ->
     @view = new App.AddCodemarkView
+      source: @options.source
     @bindToView()
 
   render: ->

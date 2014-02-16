@@ -2,6 +2,7 @@ App.EditCodemarkParentView = App.ModalView.extend
   initialize: ->
     @view = new App["#{@model.get('resource_type')}FormView"]
       model: @model
+      source: @options.source
     @bindToView()
 
   render: ->

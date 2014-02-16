@@ -89,6 +89,7 @@ App.CodemarkFormView = Backbone.View.extend
       description: @$('.description').val()
       resource_type: @model.get('resource_type')
       resource_id: @model.get('resource').id
+      source: @options.source
     data.codemark.group_id = @$('.group_id').val()
     data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data

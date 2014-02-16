@@ -70,6 +70,7 @@ App.ControlPanelView = Backbone.View.extend
     e?.preventDefault()
     @addCodemarkParentView = new App.AddCodemarkParentView
       modal: true
+      source: 'web'
     @addCodemarkParentView.render()
 
   search: (e) ->

@@ -109,3 +109,7 @@ end
 Then /^that codemark should be in that group$/ do
   Codemark.last.group.should == @group
 end
+
+Then /^that codemark's source should be "(.*?)"$/ do |source|
+  Codemark.last.source.should == source
+end
