@@ -37,7 +37,7 @@ class CodemarksController < ApplicationController
     if user && url
       resource = Link.for_url(url)
       codemark = Codemark.for_user_and_resource(user.id, resource.try(:id))
-      codemark ||= Codemark.new(:resource => resource, :user => user)
+      codemark ||= Codemark.new(:resource => resource, :user => user, :source => 'sendgrid')
       codemark.description = params['text'].split(/\r?\n/).first.to_s.gsub(PostRank::URI::URIREGEX[:valid_url], '')
       unless codemark.persisted?
         codemark.topics = codemark.suggested_topics 
