@@ -16,6 +16,7 @@ Codemarks::Application.routes.draw do
   end
 
   resources :topics
+  resources :comments, :only => [:create, :destroy]
   resources :users do
     collection do
       post :subscribe
@@ -23,7 +24,7 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :resources, :only => [] do
+  resources :resources, :only => [:create] do
     member do
       post :click
       resources :comments

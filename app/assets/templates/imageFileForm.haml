@@ -1,0 +1,20 @@
+/ BEGIN: Codemark Form Template.
+%a.cancel.icon-cancel-2
+%label Title
+%input(class='title' name='title' type='text' placeholder='Title')
+
+%label File
+%input(id="attachment" name="attachment" type="file" data-url='resources?type=ImageFile' multiple="multiple")
+
+%label Tags
+%input(class='topics' name='topics')
+
+%label.group_label Group
+%select(class='group_id' name='group_id')
+
+.actions
+  %input.btn-auth.btn-twitter(type='submit' value='Submit')
+  %a.cancel Cancel
+
+.clear
+/ END: Codemark Form Template.

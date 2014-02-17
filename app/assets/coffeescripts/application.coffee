@@ -8,6 +8,8 @@
 //= require angelo
 //= require jquery.ba-bbq
 //= require jquery.timeago
+//= require jquery.fileupload
+//= require jquery.iframe-transport
 //= require select2
 
 //= require util

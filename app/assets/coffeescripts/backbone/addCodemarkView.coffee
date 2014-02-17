@@ -5,6 +5,8 @@ App.AddCodemarkView = Backbone.View.extend
   events:
     'click .add_link a': 'addLink'
     'click .add_note a': 'addNote'
+    'click .add_file a': 'addFile'
+    'click .add_image a': 'addImage'
     'submit .add_link form': 'newLinkFormSubmitted'
 
   render: ->
@@ -21,6 +23,20 @@ App.AddCodemarkView = Backbone.View.extend
     @model = new App.Codemark
       resource: {}
       resource_type: 'Text'
+    @turnIntoForm()
+
+  addFile: (e) ->
+    e.preventDefault()
+    @model = new App.Codemark
+      resource: {}
+      resource_type: 'Filemark'
+    @turnIntoForm()
+
+  addImage: (e) ->
+    e.preventDefault()
+    @model = new App.Codemark
+      resource: {}
+      resource_type: 'ImageFile'
     @turnIntoForm()
 
   turnIntoForm: ->
