@@ -23,11 +23,10 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  resources :comments, :only => [:create, :destroy]
-
   resources :resources, :only => [] do
     member do
       post :click
+      resources :comments
     end
   end
 

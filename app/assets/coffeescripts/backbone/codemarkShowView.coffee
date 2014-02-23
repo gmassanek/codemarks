@@ -4,12 +4,26 @@ App.CodemarkShowView = Backbone.View.extend
   render: ->
     App.codemark = @model
     @$el.html(@toHtml())
+    @prepare()
+    @renderComments()
+
+  toHtml: ->
+    facile(@template(), @data())
+
+  prepare: ->
     unless @model.get('editable')
       @$('.edit-codemark').remove()
     @$('.timeago').timeago()
 
-  toHtml: ->
-    facile(@template(), @data())
+  renderComments: ->
+    App.comments = new App.Comments
+    App.comments.resourceId = @model.get('resource').id
+    App.comments.fetch
+      success: =>
+        @commentsView = new App.CommentsView
+          collection: App.comments
+        @$('.comments_container').append(@commentsView.$el)
+        @commentsView.render()
 
   data: ->
     markdown_html: @model.get('resource').html

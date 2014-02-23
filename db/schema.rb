@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223180004) do
+ActiveRecord::Schema.define(:version => 20140223180837) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -72,6 +72,26 @@ ActiveRecord::Schema.define(:version => 20140223180004) do
   add_index "codemarks", ["resource_type"], :name => "index_codemarks_on_resource_type"
   add_index "codemarks", ["search"], :name => "codemarks_search_index"
   add_index "codemarks", ["user_id"], :name => "index_codemarks_on_user_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",   :default => 0
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",          :default => 0, :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["lft"], :name => "index_comments_on_lft"
+  add_index "comments", ["parent_id"], :name => "index_comments_on_parent_id"
+  add_index "comments", ["rgt"], :name => "index_comments_on_rgt"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

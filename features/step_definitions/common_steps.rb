@@ -49,6 +49,22 @@ Given /^I have (\d+) text codemark(s)$/ do |num, _|
   @codemarks
 end
 
+Given /^(t|T)here (is|are) (\d+) text codemark$/ do |_, _, num|
+  @codemarks = []
+  num.to_i.times do
+    topics = [Fabricate(:topic), Topic.last].compact
+    textmark = Text.create!(:text => Faker::HipsterIpsum.paragraph)
+    @codemarks << Fabricate(:codemark, :resource => textmark, :topics => topics)
+  end
+  @codemark = @codemarks.first
+  @codemarks
+end
+
+When /^I go to that codemark$/ do
+  visit codemark_path(@codemark)
+  step 'I wait until all Ajax requests are complete'
+end
+
 When /^I go to the second page$/ do
   visit '/codemarks?page=2'
   step 'I wait until all Ajax requests are complete'

@@ -36,6 +36,7 @@ gem "redcarpet", "~> 3.0.0"
 gem 'analytics-ruby', '<1.0'
 gem 'open_uri_redirections', "~> 0.1.4"
 gem "activerecord-postgres-hstore", "~> 0.7.7"
+gem "acts_as_commentable_with_threading", "~> 1.2.0"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'

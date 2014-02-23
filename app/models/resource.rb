@@ -10,6 +10,8 @@ class Resource < ActiveRecord::Base
   has_many :clicks
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
 
+  acts_as_commentable
+
   def orphan?
     author_id.blank?
   end

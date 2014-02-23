@@ -6,8 +6,6 @@ class Codemark < ActiveRecord::Base
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
 
-  has_many :comments, :foreign_key => 'codemark_id'
-
   validates_presence_of :resource_id
   validates_presence_of :user_id
 
@@ -32,6 +30,10 @@ class Codemark < ActiveRecord::Base
       where(:group_id => nil).
       order('(resources.codemarks_count + resources.clicks_count) DESC, codemarks.created_at ASC').
       first
+  end
+
+  def comments
+    Comment.find_comments_for_commentable(self.class, self.id)
   end
 
   def resource_author
