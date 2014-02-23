@@ -3,7 +3,7 @@ class PresentComments
     new(comments).present_all
   end
 
-  def initialize(comments)
+  def initialize(comments = nil)
     @comments = comments
   end
 

@@ -11,3 +11,11 @@ Then /^I should see those comments$/ do
     page.should have_content(comment.body)
   end
 end
+
+Then /^I should be able to comment on that codemark's resoure$/ do
+  page.fill_in "comment[body]", :with => 'Some new comment'
+  page.find('.save_comment').click
+  step 'I wait until all Ajax requests are complete'
+
+  page.should have_content(@codemark.resource.comment_threads.last.body)
+end
