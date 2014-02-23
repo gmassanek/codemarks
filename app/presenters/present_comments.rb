@@ -19,7 +19,7 @@ class PresentComments
       :parent_id => comment.parent_id,
       :created_at => comment.created_at,
       :updated_at => comment.updated_at,
-      :user => PresentCodemarks.present_user(comment.user)
+      :user => PresentUsers.present(comment.user)
     }
   end
 end

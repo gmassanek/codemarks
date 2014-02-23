@@ -25,7 +25,7 @@ class PresentCodemarks
       resource: present_resource(codemark.resource),
       topics: codemark.topics.map(&:attributes),
       editable: UserCodemarkAuthorizer.new(current_user, codemark, :edit).authorized?,
-      user: present_user(codemark.user)
+      user: PresentUsers.present(codemark.user)
     })
     data
   end
@@ -41,19 +41,8 @@ class PresentCodemarks
     users << current_user
     users << searched_user
     users.compact.uniq.map do |user|
-      present_user(user)
+      PresentUsers.present(user)
     end
-  end
-
-  def self.present_user(user)
-    return unless user
-    {
-      id: user.id,
-      name: user.get('name'),
-      nickname: user.get('nickname'),
-      slug: user.slug,
-      image: user.get('image')
-    }
   end
 
   def self.present_resource(resource)
@@ -72,7 +61,7 @@ class PresentCodemarks
       attrs['host'] = resource.host
       attrs['snapshot_url'] = resource.snapshot_url
     end
-    attrs['user'] = present_user(resource.author) if resource.author
+    attrs['user'] = PresentUsers.present(resource.author) if resource.author
     attrs
   end
 end
