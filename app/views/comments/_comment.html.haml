@@ -1,6 +1,0 @@
-%li
-  - if current_user && current_user.id == comment.author.id
-    .delete= link_to 'X', "/comments/#{comment.id}", :class => 'delete_comment'
-  .text= comment.text
-  .author
-    = comment.author.nickname
