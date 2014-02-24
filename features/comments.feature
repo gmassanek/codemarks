@@ -46,3 +46,10 @@ Feature: Comments
     And there are 1 comments for that codemark's resource
     When I go to that codemark
     Then I should not be able to edit that comment
+
+  Scenario: Saving a new comment on another comment
+    Given there is 1 text codemark
+    And I am logged in
+    And there are 1 comments for that codemark's resource
+    When I go to that codemark
+    Then I should be able to comment on that comment

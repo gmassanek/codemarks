@@ -56,3 +56,17 @@ end
 Then /^I should not be able to edit that comment$/ do
   page.should_not have_selector('.edit-comment')
 end
+
+Then /^I should be able to comment on that comment$/ do
+  within ".comment-#{@comments.first.id}" do
+    page.find('.add-reply').trigger('click')
+    step 'I wait until all Ajax requests are complete'
+
+    #page.find(:css, ".body")
+    #page.fill_in "comment[body]", :with => 'Some new comment'
+    #page.find('.save_comment').click
+    #step 'I wait until all Ajax requests are complete'
+
+    #page.should have_content(@codemark.resource.comment_threads.last.body)
+  end
+end

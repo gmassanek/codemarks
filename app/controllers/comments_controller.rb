@@ -6,8 +6,8 @@ class CommentsController < ApplicationController
 
   def create
     resource = Resource.find(params[:id])
-    comment = Comment.build_from(resource, current_user.id, params[:body])
-    comment.parent_id = params[:parent_id] if params[:parent_id]
+    comment = Comment.build_from(resource, current_user.id, params[:comment][:body])
+    comment.parent_id = params[:comment][:parent_id] if params[:comment][:parent_id]
     comment.save
 
     render :json => PresentComments.new.present(comment), :status => 201

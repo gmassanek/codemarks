@@ -5,6 +5,7 @@ App.CommentView = Backbone.View.extend
   events:
     'click .delete-comment': 'deleteComment'
     'click .edit-comment': 'editComment'
+    'click .add-reply': 'addReply'
 
   initialize: ->
     @user = new App.User(@model.get('user'))
@@ -24,7 +25,7 @@ App.CommentView = Backbone.View.extend
     _.each @childComments(), (model) =>
       commentView = new App.CommentView
         model: model
-      @$('.child_comments').append(commentView.$el)
+      @childElementsContainer().append(commentView.$el)
       commentView.render()
 
   toHtml: ->
@@ -48,17 +49,30 @@ App.CommentView = Backbone.View.extend
 
   deleteComment: (e) ->
     e.preventDefault()
+    e.stopPropagation()
     if(confirm("Are you sure you want to delete your comment?"))
       @model.destroy
         success: => @remove()
 
   editComment: (e) ->
     e.preventDefault()
+    e.stopPropagation()
     codemarkForm = new App.CommentFormView
       model: @model
     codemarkForm.render()
     @$el.replaceWith(codemarkForm.$el)
 
+  addReply: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    codemarkForm = new App.CommentFormView
+      parent_id: @model.get('id')
+    codemarkForm.render()
+    @childElementsContainer().append(codemarkForm.$el)
+    codemarkForm.bind 'cancel', => @render()
+
+  childElementsContainer: ->
+    $(@$('.child_comments')[0])
+
   editable: ->
-    @model.get('user').id == App.current_user?.get('id')
-    @model.get('user').id == App.current_user?.get('id')
+    @model.get('user')?.id == App.current_user?.get('id')

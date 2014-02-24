@@ -1,6 +1,7 @@
 .new_comment
-  .sidebar
+  %aside
     %img.avatar
-  %form.create_comment
-    %textarea.body(name='comment[body]' placeholder='Something on your mind?')
-    %input.save_comment.btn-auth.btn-twitter(type='submit')
+  .main
+    %form.create_comment
+      %textarea.body(name='comment[body]' placeholder='Something on your mind?')
+      %input.save_comment.btn-auth.btn-twitter(type='submit')

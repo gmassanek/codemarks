@@ -1,5 +1,21 @@
 #main_content.codemarks
   &.show
+    .codemark
+      > aside
+        float: right
+        width: 300px
+        margin-left: 10px
+        background: red
+        padding: 10px
+        background: white
+        @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
+        border: 1px solid rgba($faded, 0.4)
+
+
+      > .main
+        display: block
+        margin-right: 310px
+
     .user_image
       float: left
       border: 1px solid $border-color2
@@ -15,7 +31,7 @@
       background: white
       margin-top: 20px
       @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
-      border: 1px solid $grey
+      border: 1px solid rgba($faded, 0.4)
       p
         font-family: Helvetica
         color: #333
@@ -24,7 +40,6 @@
       .markdown_html
         padding: 0 20px
         margin-top: 20px
-        border-bottom: 1px solid #000
 
     header
       margin: 10px
@@ -40,6 +55,3 @@
       &:before
         content: url('cm_before_tag_transparent.png')
         margin-right: 2px
-
-    .comments_container
-      width: 700px

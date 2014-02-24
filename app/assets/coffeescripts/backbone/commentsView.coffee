@@ -7,12 +7,12 @@ App.CommentsView = Backbone.View.extend
 
   render: ->
     @$el.html('')
-    @renderNewCommentForm()
     _.each @collection.where(parent_id: null), (model) =>
       commentView = new App.CommentView
         model: model
       @$el.append(commentView.$el)
       commentView.render()
+    @renderNewCommentForm()
 
   renderNewCommentForm: ->
     renderNewCommentForm = new App.CommentFormView

@@ -1,4 +1,4 @@
-.sidebar
+%aside
   %img.avatar
 .main
   %a.nickname
@@ -6,7 +6,8 @@
   .body.markdown_html
   %ul.options
     %li
-      %a.delete-comment.icon-remove Delete
-      %a.edit-comment.icon-pencil Edit
+      %a.delete-comment.icon-remove(title='Delete')
+      %a.edit-comment.icon-pencil(title='Edit')
+      %a.add-reply.icon-reply(title='Reply')
   %ul.child_comments
 .clear
