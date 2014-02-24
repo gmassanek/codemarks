@@ -55,6 +55,7 @@
 
     input[type=submit]
       margin-left: 10px
+      margin-bottom: 10px
 
   .add-comment
     float: right
@@ -74,3 +75,23 @@
       margin-left: 40px
       padding-right: 0
       padding-bottom: 0
+
+  .show-more
+    display: none
+
+  .child_comments
+    .child_comments, .show-less
+      display: none
+    .show-more
+      display: inline
+  li.comment.show-all-replies
+    .child_comments, .show-less
+      display: inline
+    .show-more
+      display: none
+
+  li.comment.hide-all-replies
+    .child_comments, .show-less
+      display: none
+    .show-more
+      display: inline

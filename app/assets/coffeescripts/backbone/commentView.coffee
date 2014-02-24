@@ -6,6 +6,8 @@ App.CommentView = Backbone.View.extend
     'click .delete-comment': 'deleteComment'
     'click .edit-comment': 'editComment'
     'click .add-reply': 'addReply'
+    'click .show-more': 'showReplies'
+    'click .show-less': 'hideReplies'
 
   initialize: ->
     @user = new App.User(@model.get('user'))
@@ -20,6 +22,8 @@ App.CommentView = Backbone.View.extend
     @$('.timeago').timeago()
     @$('.delete-comment').remove() unless @editable()
     @$('.edit-comment').remove() unless @editable()
+    @$('.show-more').remove() unless @model.get('num_children') > 0
+    @$('.show-less').remove() unless @model.get('num_children') > 0
 
   renderChildren: ->
     _.each @childComments(), (model) =>
@@ -40,6 +44,7 @@ App.CommentView = Backbone.View.extend
     created_at:
       content: @model.get('created_at')
       title: @model.get('created_at')
+    'show-more': @model.get('num_children')
 
   template: ->
     angelo('commentView.html')
@@ -65,6 +70,7 @@ App.CommentView = Backbone.View.extend
   addReply: (e) ->
     e.preventDefault()
     e.stopPropagation()
+    @showReplies()
     codemarkForm = new App.CommentFormView
       parent_id: @model.get('id')
     codemarkForm.render()
@@ -76,3 +82,16 @@ App.CommentView = Backbone.View.extend
 
   editable: ->
     @model.get('user')?.id == App.current_user?.get('id')
+
+  showReplies: (e) ->
+    e?.preventDefault()
+    e?.stopPropagation()
+    @$el.addClass('show-all-replies')
+    @$el.removeClass('hide-all-replies')
+
+  hideReplies: (e) ->
+    console.log 'hi hide'
+    e.preventDefault()
+    e.stopPropagation()
+    @$el.removeClass('show-all-replies')
+    @$el.addClass('hide-all-replies')

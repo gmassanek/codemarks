@@ -19,6 +19,9 @@ class PresentComments
       :parent_id => comment.parent_id,
       :created_at => comment.created_at,
       :updated_at => comment.updated_at,
+      :lft => comment.lft,
+      :rgt => comment.rgt,
+      :num_children => comment.num_children,
       :user => PresentUsers.present(comment.user)
     }
   end

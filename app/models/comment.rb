@@ -22,6 +22,10 @@ class Comment < ActiveRecord::Base
     self.children.any?
   end
 
+  def num_children
+    (self.rgt - self.lft - 1) / 2
+  end
+
   scope :find_comments_by_user, lambda { |user|
     where(:user_id => user.id).order('created_at DESC')
   }

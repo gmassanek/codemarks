@@ -41,6 +41,9 @@ App.CommentFormView = Backbone.View.extend
     e.preventDefault()
     @model.set('body', @$('.body').val())
     @model.set('parent_id', @options.parent_id, silent: true) if @options.parent_id?
+    @model.bind 'sync', =>
+      $(".comment-#{@model.get('id')}").parents('.comment').addClass('show-all-replies')
+      $(".comment-#{@model.get('id')}").parents('.comment').removeClass('hide-all-replies')
     @model.save()
 
   loggedOutTemplate: ->
