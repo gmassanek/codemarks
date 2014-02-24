@@ -3,6 +3,10 @@
 .main
   %a.nickname
   %span.created_at.timeago
-  .body
+  .body.markdown_html
+  %ul.options
+    %li
+      %a.delete-comment.icon-remove Delete
+      %a.edit-comment.icon-pencil Edit
   %ul.child_comments
 .clear

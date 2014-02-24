@@ -2,13 +2,20 @@ App.CommentView = Backbone.View.extend
   className: 'comment'
   tagName: 'li'
 
+  events:
+    'click .delete-comment': 'deleteComment'
+
   initialize: ->
     @user = new App.User(@model.get('user'))
 
   render: ->
     @$el.html(@toHtml())
-    @$('.timeago').timeago()
+    @prepare()
     @renderChildren()
+
+  prepare: ->
+    @$('.timeago').timeago()
+    @$('.delete-comment').remove() unless @editable()
 
   renderChildren: ->
     _.each @childComments(), (model) =>
@@ -35,3 +42,13 @@ App.CommentView = Backbone.View.extend
 
   childComments: ->
     App.comments.where(parent_id: @model.get('id'))
+
+  deleteComment: (e) ->
+    e.preventDefault()
+    if(confirm("Are you sure you want to delete your comment?"))
+      @model.destroy
+        success: => @remove()
+
+  editable: ->
+    @model.get('user').id == App.current_user?.get('id')
+    @model.get('user').id == App.current_user?.get('id')
