@@ -13,6 +13,13 @@ class CommentsController < ApplicationController
     render :json => PresentComments.new.present(comment), :status => 201
   end
 
+  def update
+    comment = Comment.find(params[:id])
+    comment.update_attributes(:body => params[:body])
+
+    render :json => PresentComments.new.present(comment), :status => 200
+  end
+
   def destroy
     comment = Comment.find(params[:id])
 

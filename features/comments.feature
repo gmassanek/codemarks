@@ -32,3 +32,17 @@ Feature: Comments
     And there are 1 comments for that codemark's resource
     When I go to that codemark
     Then I should not be able to delete that comment
+
+  Scenario: Editing my comment
+    Given there is 1 text codemark
+    And I am logged in
+    And I made 1 comment for that codemark's resource
+    When I go to that codemark
+    Then I should be able to edit my comment
+
+  Scenario: Cannot edit other people's comments
+    Given there is 1 text codemark
+    And I am logged in
+    And there are 1 comments for that codemark's resource
+    When I go to that codemark
+    Then I should not be able to edit that comment

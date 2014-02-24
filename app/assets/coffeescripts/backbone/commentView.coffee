@@ -4,6 +4,7 @@ App.CommentView = Backbone.View.extend
 
   events:
     'click .delete-comment': 'deleteComment'
+    'click .edit-comment': 'editComment'
 
   initialize: ->
     @user = new App.User(@model.get('user'))
@@ -14,8 +15,10 @@ App.CommentView = Backbone.View.extend
     @renderChildren()
 
   prepare: ->
+    @$el.addClass("comment-#{@model.get('id')}")
     @$('.timeago').timeago()
     @$('.delete-comment').remove() unless @editable()
+    @$('.edit-comment').remove() unless @editable()
 
   renderChildren: ->
     _.each @childComments(), (model) =>
@@ -48,6 +51,13 @@ App.CommentView = Backbone.View.extend
     if(confirm("Are you sure you want to delete your comment?"))
       @model.destroy
         success: => @remove()
+
+  editComment: (e) ->
+    e.preventDefault()
+    codemarkForm = new App.CommentFormView
+      model: @model
+    codemarkForm.render()
+    @$el.replaceWith(codemarkForm.$el)
 
   editable: ->
     @model.get('user').id == App.current_user?.get('id')
