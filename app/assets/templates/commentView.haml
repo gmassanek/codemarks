@@ -3,13 +3,13 @@
 .main
   %a.nickname
   %span.created_at.timeago
+  %a.show-more.icon-arrow-up(title='Show Replies')
+  %a.show-less.icon-arrow-down(title='Hide Replies')
   .body.markdown_html
   %ul.options
     %li
       %a.delete-comment.icon-remove(title='Delete')
       %a.edit-comment.icon-pencil(title='Edit')
       %a.add-reply.icon-reply(title='Reply')
-      %a.show-more.icon-arrow-up(title='Show Replies')
-      %a.show-less.icon-arrow-down(title='Hide Replies')
   %ul.child_comments
 .clear
