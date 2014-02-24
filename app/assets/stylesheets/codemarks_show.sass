@@ -1,15 +1,20 @@
 #main_content.codemarks
   &.show
-    .codemark
+    > .codemark
+      position: relative
       > aside
-        float: right
+        position: absolute
+        top: 0
+        right: 0
         width: 300px
         margin-left: 10px
-        background: red
-        padding: 10px
-        background: white
-        @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
-        border: 1px solid rgba($faded, 0.4)
+
+        .user, .add_codemark
+          background: white
+          @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
+          border: 1px solid rgba($faded, 0.4)
+          margin-bottom: 10px
+          padding: 10px
 
         .user_image
           float: left
@@ -18,51 +23,56 @@
           height: 50px
           width: 50px
 
+        .add_codemark
+          a:before
+            margin-right: 10px
+
+        .codemarks
+          .tile
+            margin: 0
+            width: 100%
+
       > .main
         display: block
         margin-right: 310px
 
-    .topics_list
-      li
-        float: left
+        .textmark
+          background: white
+          margin-top: 20px
+          @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
+          border: 1px solid rgba($faded, 0.4)
+          p
+            font-family: Helvetica
+            color: #333
+            font-size: 12px
+            line-height: 20px
+          .markdown_html
+            padding: 0 20px
+            margin-top: 20px
 
-    .textmark
-      background: white
-      margin-top: 20px
-      @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
-      border: 1px solid rgba($faded, 0.4)
-      p
-        font-family: Helvetica
-        color: #333
-        font-size: 12px
-        line-height: 20px
-      .markdown_html
-        padding: 0 20px
-        margin-top: 20px
-
-    footer
-      float: right
-      margin: 10px
-      .timeago, span, .nickname, .user_image, .user_link
-        display: inline
-        height: 20px
-      .user_image
-        border: 1px solid $border-color2
-        width: 20px
-        vertical-align: middle
+        footer
+          float: right
+          margin: 10px
+          .timeago, span, .nickname, .user_image, .user_link
+            display: inline
+            height: 20px
+          .user_image
+            border: 1px solid $border-color2
+            width: 20px
+            vertical-align: middle
 
 
-    header
-      margin: 10px
-      position: relative
-      .options
-        position: absolute
-        top: 0
-        right: 0
-        font-size: 160%
-        line-height: 1.5em
+        header
+          margin: 10px
+          position: relative
+          .options
+            position: absolute
+            top: 0
+            right: 0
+            font-size: 160%
+            line-height: 1.5em
 
-    .embedded_cm
-      &:before
-        content: url('cm_before_tag_transparent.png')
-        margin-right: 2px
+        .embedded_cm
+          &:before
+            content: url('cm_before_tag_transparent.png')
+            margin-right: 2px

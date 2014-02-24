@@ -37,6 +37,7 @@ App.TileView = Backbone.View.extend
   renderCodemarkView: ->
     @view = new App["#{@model.get('resource_type')}CodemarkView"]
       model: @model
+      navigable: @options.navigable
     @view.render()
 
     @replaceElWithView()

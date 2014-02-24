@@ -64,6 +64,7 @@ App.CodemarkView = Backbone.View.extend
 
   navigateToAuthor: (e) ->
     e?.preventDefault()
+    return unless @options.navigable
     userSlug = @user().get('slug')
     return if App.codemarks.filters.hasUser(userSlug)
     App.codemarks.filters.setUser(userSlug)
@@ -72,6 +73,7 @@ App.CodemarkView = Backbone.View.extend
 
   navigateToTopic: (e) ->
     e?.preventDefault()
+    return unless @options.navigable
     slug = $(e.currentTarget).data('slug')
     return if App.codemarks.filters.hasTopic(slug)
     App.codemarks.filters.addTopic(slug)

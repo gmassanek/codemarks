@@ -37,12 +37,15 @@ App.MainRouter = Backbone.Router.extend
     @clearNav()
     codemark = new App.Codemark
       id: id
+    @setupTopics()
+    App.codemarks = new App.Codemarks
     codemark.fetch
       success: =>
         @view = new App.CodemarkShowView
           model: codemark
           el: $('.codemark')
         @view.render()
+
 
   setCodemarksTab: ->
     if App.codemarks.filters.hasUser(window.CURRENT_USER)
@@ -58,7 +61,7 @@ App.MainRouter = Backbone.Router.extend
     @setActiveNav('people')
     @$container = $('.content')
     @setupTopics =>
-      @renderCodemarkList()
+      @renderCodemarkList(navigable: false)
       App.codemarks.fetch()
 
   userIndex: ->
@@ -89,9 +92,9 @@ App.MainRouter = Backbone.Router.extend
       @$container.append(@controlPanel.$el)
     @controlPanel.render()
 
-  renderCodemarkList: ->
+  renderCodemarkList: (options = {})->
     if !@codemarksView?
-      @codemarksView = new App.CodemarksView
+      @codemarksView = new App.CodemarksView(options)
       @$container.append(@codemarksView.$el)
 
   setupTopics: (callback) ->

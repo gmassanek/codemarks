@@ -23,6 +23,7 @@ App.CodemarksView = Backbone.View.extend
   codemarkHtml: (codemark) ->
     tile = new App.TileView
       model: codemark
+      navigable: @options.navigable? || true
     tile.render()
     tile.$el
 

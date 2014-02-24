@@ -16,4 +16,4 @@ App.Codemark = Backbone.Model.extend
     @get('resource')? && !@get('resource').id?
 
   author: ->
-    App.codemarks.users.where({id: @get('user_id')})[0]
+    App.codemarks.users?.where({id: @get('user_id')})[0] || new App.User(@get('user'))

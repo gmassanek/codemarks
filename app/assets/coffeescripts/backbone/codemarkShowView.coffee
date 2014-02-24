@@ -1,14 +1,27 @@
 App.CodemarkShowView = Backbone.View.extend
+  events:
+    'click .add_codemark a': 'addCodemarkClicked'
+
   initialize: ->
+    App.codemarks.bind 'add', (model) =>
+      @appendCodemarks()
 
   render: ->
     App.codemark = @model
     @$el.html(@toHtml())
     @prepare()
     @renderComments()
+    @$('aside .codemarks').html(@_addCodemarkHtml())
 
-  toHtml: ->
-    facile(@template(), @data())
+  appendCodemarks: ->
+    for codemark in App.codemarks.models
+      @$('aside .codemarks').append(@codemarkHtml(codemark))
+
+  codemarkHtml: (codemark) ->
+    tile = new App.TileView
+      model: codemark
+    tile.render()
+    tile.$el
 
   prepare: ->
     unless @model.get('editable')
@@ -30,10 +43,30 @@ App.CodemarkShowView = Backbone.View.extend
     title: @model.get('title')
     'edit-codemark@href': "/codemarks/#{@model.get('id')}/edit"
     'user_image@src': @model.get('user')?.image || ''
-    'user_link@href': "/users/#{@model.get('user')?.id}"
+    'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
     'nickname': @model.get('user')?.nickname
     'timeago': new Date(@model.get('created_at')).toLocaleDateString()
 
   template: ->
     angelo('showTextCodemark.html')
+
+  addCodemarkClicked: (e) ->
+    e?.preventDefault()
+    if App.current_user.get('id')?
+      @openNewCodemarkModal()
+    else
+      window.location = '/sessions/new'
+
+  openNewCodemarkModal: (e) ->
+    e?.preventDefault()
+    @addCodemarkParentView = new App.AddCodemarkParentView
+      modal: true
+      source: 'web'
+    @addCodemarkParentView.render()
+
+  toHtml: ->
+    facile(@template(), @data())
+
+  _addCodemarkHtml: ->
+    angelo('add_codemark.html')
