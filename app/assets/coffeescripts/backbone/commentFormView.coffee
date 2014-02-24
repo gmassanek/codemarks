@@ -1,4 +1,7 @@
 App.CommentFormView = Backbone.View.extend
+  tagName: 'li'
+  className: 'new_comment'
+
   events:
     'submit .create_comment': 'submitForm'
 
