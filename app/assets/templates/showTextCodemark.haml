@@ -3,9 +3,7 @@
   %h3
     %a.user_link
       %img.user_image
-      .name
       .nickname
-  .timeago
   .topics
 .main
   .textmark
@@ -14,6 +12,13 @@
         %a.edit-codemark.icon-pencil
       %h1.title
     .markdown_html
+    %footer
+      %span.created Created
+      .timeago
+      %span.created by
+      %a.user_link
+        %img.user_image
+        .nickname
     .clear
   .comments_container
 / END: Text Codemark Show Template.

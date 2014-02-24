@@ -14,6 +14,7 @@ App.CommentFormView = Backbone.View.extend
   bodyClicked: (e) ->
     if e.keyCode == 27
       e.stopPropagation()
+      @render()
       @trigger('cancel')
       $('body').die 'keyup'
 
