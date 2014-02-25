@@ -36,7 +36,8 @@ App.CodemarkShowView = Backbone.View.extend
       success: =>
         @commentsView = new App.CommentsView
           collection: App.comments
-        @$('.comments_container').html(@commentsView.$el)
+        @$('.comments_container').html('<h3>Comments</h3>')
+        @$('.comments_container').append(@commentsView.$el)
         @commentsView.render()
 
   data: ->

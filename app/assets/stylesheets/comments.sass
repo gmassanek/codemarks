@@ -3,9 +3,9 @@
   @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
   border: 1px solid rgba($faded, 0.4)
   margin-top: 10px
+  padding: 10px 20px
   ul.comments
     h3
-      margin: 10px
       margin-bottom: 0
     li
       position: relative
@@ -26,16 +26,24 @@
     height: 40px
     width: 40px
 
-  .new_comment, .logged_out, .comment
+  .new_comment
+    border-top: 1px solid rgba($faded, 0.4)
+    &:first-child
+      border-top: none
 
   .logged_out
     padding: 10px
 
   .comment
-    .created_at
+    .created_at, .show-more, .show-less
       font-size: 11px
       font-family: "Helvetica", "arial"
       margin-left: 5px
+
+    .show-more, .show-less
+      color: $c1
+      &:hover
+        color: $c2
 
     .options
       position: absolute
@@ -50,10 +58,6 @@
     textarea.body
       height: 70px
       width: 100%
-
-    input[type=submit]
-      margin-left: 10px
-      margin-bottom: 10px
 
   .add-comment
     float: right
@@ -76,6 +80,9 @@
       margin-left: 40px
       padding-right: 0
       padding-bottom: 0
+
+      .options
+        right: 0px
 
   .show-more
     display: none

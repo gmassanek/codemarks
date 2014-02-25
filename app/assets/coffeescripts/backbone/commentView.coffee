@@ -44,7 +44,8 @@ App.CommentView = Backbone.View.extend
     created_at:
       content: @model.get('created_at')
       title: @model.get('created_at')
-    'show-more': @model.get('num_children')
+    'show-more': "#{@model.get('num_children')} replies"
+    'show-less': "collapse"
 
   template: ->
     angelo('commentView.html')
@@ -90,7 +91,6 @@ App.CommentView = Backbone.View.extend
     @$el.removeClass('hide-all-replies')
 
   hideReplies: (e) ->
-    console.log 'hi hide'
     e.preventDefault()
     e.stopPropagation()
     @$el.removeClass('show-all-replies')

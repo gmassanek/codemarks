@@ -6,7 +6,6 @@ App.CommentsView = Backbone.View.extend
     @collection.bind 'change', => @render()
 
   render: ->
-    @$el.html('<h3>Comments</h3>')
     _.each @collection.where(parent_id: null), (model) =>
       commentView = new App.CommentView
         model: model
