@@ -9,8 +9,6 @@
       margin-bottom: 0
     li
       position: relative
-    > li
-      margin-left: 10px
 
   aside
     float: left
@@ -60,6 +58,9 @@
   .add-comment
     float: right
 
+  .comment + .comment
+    margin-top: 10px
+
   .child_comments
     width: 100%
 
@@ -79,19 +80,20 @@
   .show-more
     display: none
 
-  .child_comments .child_comments
+  .child_comments
     .child_comments, .show-less
       display: none
     .show-more
       display: inline
+
   li.comment.show-all-replies
-    .child_comments, .show-less
+    > .main > .child_comments, > .main > .show-less
       display: inline
-    .show-more
+    > .main > .show-more
       display: none
 
   li.comment.hide-all-replies
-    .child_comments, .show-less
+    > .main > .child_comments, > .main > .show-less
       display: none
-    .show-more
+    > .main > .show-more
       display: inline
