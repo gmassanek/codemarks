@@ -2,7 +2,6 @@ App.CodemarkShowView = Backbone.View.extend
   events:
     'click .add_codemark a': 'addCodemarkClicked'
     'click .edit-codemark': 'editCodemarkClicked'
-    'keyup .codemark_form textarea': 'textareaChanged'
 
   initialize: ->
     App.codemarks.bind 'add', (model) =>
@@ -66,22 +65,8 @@ App.CodemarkShowView = Backbone.View.extend
     editView.render()
     @$('.main-codemark').html(editView.$el)
 
-    $hiddenDiv = $("<div class='hide text-height-container'></div>")
-    @$('.codemark_form').append($hiddenDiv)
-
-    @resizeTexArea(@$('textarea.text'))
-
     editView.bind 'cancel', => @render()
     editView.bind 'updated', => @render()
-
-  textareaChanged: (e) ->
-    @resizeTexArea($(e.currentTarget))
-
-  resizeTexArea: ($textarea) =>
-    val = $textarea.val()
-    $hiddenDiv = $('.text-height-container')
-    $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br>")
-    @$('.codemark_form textarea.text').css('height', $hiddenDiv.height())
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()
