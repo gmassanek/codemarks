@@ -44,13 +44,16 @@ App.CodemarkShowView = Backbone.View.extend
     markdown_html: @model.get('resource').html
     title: @model.get('title')
     'user_image@src': @model.get('user')?.image || ''
+    linkmark:
+      content: ''
+      src: @model.get('resource')?.url
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
     'nickname': @model.get('user')?.nickname
     'timeago': new Date(@model.get('created_at')).toLocaleDateString()
 
   template: ->
-    angelo('showTextCodemark.html')
+    angelo("show#{@model.get('resource_type')}Codemark.html")
 
   addCodemarkClicked: (e) ->
     e?.preventDefault()
