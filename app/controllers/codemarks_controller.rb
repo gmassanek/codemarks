@@ -79,6 +79,7 @@ class CodemarksController < ApplicationController
     respond_to do |format|
       format.html do
         (redirect_to codemarks_path and return) if !UserCodemarkAuthorizer.new(current_user, @codemark, :view).authorized?
+        (redirect_to @codemark.resource.url and return) if @codemark.resource.is_a?(Link)
         Click.create(:resource => @codemark.resource, :user => current_user)
       end
 

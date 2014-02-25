@@ -54,6 +54,7 @@ App.CodemarkView = Backbone.View.extend
     delete: if @editable() then '' else null
     edit: if @editable() then '' else null
     add: if @model.mine() then null else ''
+    'permalink@href': "/codemarks/#{@model.get('id')}"
 
   presentTopics: ->
     $.map @model.get('topics'), (topic) ->
