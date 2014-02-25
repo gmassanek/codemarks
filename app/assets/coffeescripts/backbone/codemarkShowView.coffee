@@ -1,6 +1,8 @@
 App.CodemarkShowView = Backbone.View.extend
   events:
     'click .add_codemark a': 'addCodemarkClicked'
+    'click .edit-codemark': 'editCodemarkClicked'
+    'keyup .codemark_form textarea': 'textareaChanged'
 
   initialize: ->
     App.codemarks.bind 'add', (model) =>
@@ -35,13 +37,12 @@ App.CodemarkShowView = Backbone.View.extend
       success: =>
         @commentsView = new App.CommentsView
           collection: App.comments
-        @$('.comments_container').append(@commentsView.$el)
+        @$('.comments_container').html(@commentsView.$el)
         @commentsView.render()
 
   data: ->
     markdown_html: @model.get('resource').html
     title: @model.get('title')
-    'edit-codemark@href': "/codemarks/#{@model.get('id')}/edit"
     'user_image@src': @model.get('user')?.image || ''
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
@@ -57,6 +58,30 @@ App.CodemarkShowView = Backbone.View.extend
       @openNewCodemarkModal()
     else
       window.location = '/sessions/new'
+
+  editCodemarkClicked: (e) ->
+    e?.preventDefault()
+    editView = new App.EditCodemarkParentView
+      model: @model
+    editView.render()
+    @$('.main-codemark').html(editView.$el)
+
+    $hiddenDiv = $("<div class='hide text-height-container'></div>")
+    @$('.codemark_form').append($hiddenDiv)
+
+    @resizeTexArea(@$('textarea.text'))
+
+    editView.bind 'cancel', => @render()
+    editView.bind 'updated', => @render()
+
+  textareaChanged: (e) ->
+    @resizeTexArea($(e.currentTarget))
+
+  resizeTexArea: ($textarea) =>
+    val = $textarea.val()
+    $hiddenDiv = $('.text-height-container')
+    $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br>")
+    @$('.codemark_form textarea.text').css('height', $hiddenDiv.height())
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()
