@@ -168,7 +168,7 @@ describe CodemarksController do
 
   describe '#show' do
     let(:user) { Fabricate(:user) }
-    let(:codemark) { Fabricate(:codemark, :user => user) }
+    let(:codemark) { Fabricate(:codemark, :user => user, :resource => Text.create(:text => 'Foo')) }
 
     it 'renders a codemark successfully' do
       controller.stub(:current_user_id => user.id)
