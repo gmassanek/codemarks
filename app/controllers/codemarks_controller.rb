@@ -115,7 +115,7 @@ class CodemarksController < ApplicationController
         end
       end
       format.json do
-        render :json => { :codemark => PresentCodemarks.present(@codemark, current_user).to_json, :success => true }
+        render :json => { :codemark => PresentCodemarks.present(@codemark.reload, current_user).to_json, :success => true }
       end
     end
   end
