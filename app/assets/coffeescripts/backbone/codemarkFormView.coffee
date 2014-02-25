@@ -5,6 +5,7 @@ App.CodemarkFormView = Backbone.View.extend
   events:
     'click .cancel': 'cancel'
     'submit': 'submit'
+    'keyup textarea.autosize': 'autoSize'
 
   render: ->
     if @model.hasNewResource() && @model.get('resource_type') == 'Link'
@@ -17,6 +18,7 @@ App.CodemarkFormView = Backbone.View.extend
 
     @hideResourceEditsIfNotAuthor()
     @renderGroups()
+    @_render?()
 
   renderGroups: ->
     groups = App.current_user.groups()
@@ -96,3 +98,16 @@ App.CodemarkFormView = Backbone.View.extend
 
   codemarklet: ->
     $('.codemarklet').length > 0
+
+  modal: ->
+    @$el.closest('.ui-dialog-content').length > 0
+
+  autoSize: (e) ->
+    @resizeTextArea($(e.currentTarget))
+
+  resizeTextArea: ($textarea) ->
+    return if @codemarklet() || @modal()
+    val = $textarea.val()
+    $hiddenDiv = @$('.text-height-container')
+    $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
+    @$('textarea.text').css('height', $hiddenDiv.height())

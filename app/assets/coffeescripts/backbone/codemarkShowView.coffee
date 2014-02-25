@@ -62,8 +62,8 @@ App.CodemarkShowView = Backbone.View.extend
     e?.preventDefault()
     editView = new App.EditCodemarkParentView
       model: @model
-    editView.render()
     @$('.main-codemark').html(editView.$el)
+    editView.render()
 
     editView.bind 'cancel', => @render()
     editView.bind 'updated', => @render()

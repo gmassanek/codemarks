@@ -6,10 +6,10 @@ App.EditCodemarkParentView = App.ModalView.extend
     @bindToView()
 
   render: ->
-    @view.render()
     @$el.html(@view.el)
     if @options.modal
       @openAsModal()
+    @view.render()
 
   bindToView: ->
     @view.bind('cancel', => @close())
