@@ -13,25 +13,34 @@ class CodemarkMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   def normal_text(text)
-    matches = text.scan(/\[CM(\d+[ \w]*)\]/)
+    matches = text.scan(/\[CM(\d+[ ,\w\d]*)\]/)
 
     matches.each do |match|
-      id, title = match.first.match(/(\d+)[ ]*([ \w]*)/).captures
+      id, data = match.first.match(/(\d+)[ ]*([ ,\w\d]*)/).captures
       return unless cm = Codemark.find_by_id(id)
 
-      embedded_cm = embeded_codemark(cm, title)
+      embedded_cm = embeded_codemark(cm, data)
       text = text.gsub(/\[CM#{match.first}\]/, embedded_cm)
     end
     text
   end
 
-  def embeded_codemark(cm, title = nil)
-    title = cm.title if title.blank?
+  def embeded_codemark(cm, data = nil)
     if cm.resource.is_a?(Link)
+      title = data.present? ? data : cm.title
       link_to title, cm.resource.url, :class => 'embedded_cm', :target => '_blank'
     elsif cm.resource.is_a?(ImageFile)
-      image_tag cm.resource.attachment.url
+      if data.present?
+        width, height = data.split(",")
+        params = {}
+        params[:width] = width if width.present?
+        params[:height] = height if height.present?
+        image_tag cm.resource.attachment.url, params
+      else
+        image_tag cm.resource.attachment.url
+      end
     else
+      title = data.present? ? data : cm.title
       link_to title, Rails.application.routes.url_helpers.codemark_path(cm), :class => 'embedded_cm'
     end
   end
