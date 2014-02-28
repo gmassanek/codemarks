@@ -21,6 +21,15 @@ describe CodemarkMarkdownRenderer do
     @markdown.render("paragraph referencing [CM#{codemark.id}]").should == "<p>paragraph referencing <a href=\"/codemarks/#{codemark.id}\" class=\"embedded_cm\">Foobar</a></p>\n"
   end
 
+  it 'embeds links to CM ImageFile' do
+    image = ImageFile.new(:attachment => Rails.root.join("spec/fixtures/images/test.png").open)
+    VCR.use_cassette 'paperclip', :match_requests_on => [:method, :host] do
+      image.save
+    end
+    codemark = Fabricate(:codemark, :title => 'Foobar', :resource => image)
+    @markdown.render("paragraph referencing [CM#{codemark.id}]").should == "<p>paragraph referencing <img alt=\"Test\" src=\"#{image.attachment.url}\" /></p>\n"
+  end
+
   it 'lets you override embeded CM titles' do
     textmark = Text.create!(:text => 'Woohoo')
     codemark = Fabricate(:codemark, :title => 'Foobar', :resource => textmark)
