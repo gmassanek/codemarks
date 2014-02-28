@@ -61,14 +61,6 @@
         width: $image-width
         height: 100%
 
-      img
-        width: $image-width
-        height: $image-height
-
-      .text
-        height: $tile-main-height
-        overflow: scroll
-
       .topics_list
         position: absolute
         right: 0
@@ -95,6 +87,23 @@
         a
           color: #777
           border-bottom: 1px #777 dotted
+
+    &.link
+      img
+        width: $image-width
+        height: $image-height
+
+    &.imagefile
+      img
+        width: $image-width
+        height: auto
+
+    &.imagefile
+      .text
+        height: $tile-main-height
+        overflow: scroll
+
+
 
     footer
       background: #D4D3D2

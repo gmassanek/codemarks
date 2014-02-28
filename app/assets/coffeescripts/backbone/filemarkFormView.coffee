@@ -6,7 +6,6 @@ App.FilemarkFormView = App.CodemarkFormView.extend
 
       success: (data) =>
         @model.set('resource', data)
-        console.log @model.attributes
         @$('#attachment').replaceWith("<div>#{data.attachment_file_name}</div>")
 
       error: (data) =>

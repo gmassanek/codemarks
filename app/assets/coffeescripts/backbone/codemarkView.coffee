@@ -14,6 +14,7 @@ App.CodemarkView = Backbone.View.extend
     if @model.author().get('image')?
       @$('.author').removeClass('icon-user-2')
     @$('.show-description').remove() if @model.get('description') == '' || @model.get('description') == null
+    @$el.addClass(@model.get('resource_type').toLowerCase())
 
   initialize: ->
     @model.bind 'change', => @render()
