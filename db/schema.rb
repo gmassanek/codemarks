@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223180837) do
+ActiveRecord::Schema.define(:version => 20140302202027) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
     t.string   "provider"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.string   "email"
     t.string   "location"
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20140223180837) do
   create_table "clicks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "resource_type"
   end
 
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20140223180837) do
   create_table "codemark_topics", :force => true do |t|
     t.integer  "codemark_id"
     t.integer  "topic_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "codemark_topics", ["codemark_id"], :name => "index_codemark_topics_on_codemark_id"
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20140223180837) do
   create_table "codemarks", :force => true do |t|
     t.integer  "user_id"
     t.integer  "resource_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "description"
     t.text     "title"
     t.tsvector "search"
@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(:version => 20140223180837) do
 
   create_table "topics", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "description"
     t.string   "slug"
     t.tsvector "search"
@@ -156,12 +156,12 @@ ActiveRecord::Schema.define(:version => 20140223180837) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.string   "location"
     t.string   "image"
-    t.string   "description"
+    t.text     "description"
     t.string   "nickname"
     t.string   "slug"
   end
