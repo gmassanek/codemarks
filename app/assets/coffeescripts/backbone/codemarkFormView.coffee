@@ -108,6 +108,7 @@ App.CodemarkFormView = Backbone.View.extend
   resizeTextArea: ($textarea) ->
     return if @codemarklet() || @modal()
     val = $textarea.val()
-    $hiddenDiv = @$('.text-height-container')
-    $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
-    @$('textarea.text').css('height', $hiddenDiv.height())
+    if val && val.length > 0
+      $hiddenDiv = @$('.text-height-container')
+      $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
+      @$('textarea.text').css('height', $hiddenDiv.height())
