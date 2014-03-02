@@ -4,25 +4,27 @@ App.CodemarkShowView = Backbone.View.extend
     'click .edit-codemark': 'editCodemarkClicked'
 
   initialize: ->
-    App.codemarks.bind 'add', (model) =>
-      @appendCodemarks()
+    App.codemark = @model
 
   render: ->
-    App.codemark = @model
-    @$el.html(@toHtml())
+    @renderFrameHTML()
+    @renderCodemark()
     @prepare()
     @renderComments()
-    @$('aside .codemarks').html(@_addCodemarkHtml())
+    @$('aside').append(@_addCodemarkHtml())
+    @renderCodemarksList()
 
-  appendCodemarks: ->
-    for codemark in App.codemarks.models
-      @$('aside .codemarks').append(@codemarkHtml(codemark))
+  renderFrameHTML: ->
+    @$el.html(facile(@_frameTemplate(), @data()))
 
-  codemarkHtml: (codemark) ->
-    tile = new App.TileView
-      model: codemark
-    tile.render()
-    tile.$el
+  renderCodemark: ->
+    @$('.main-codemark').html(@_codemarkHtml())
+
+  renderCodemarksList: ->
+    @codemarksView = new App.CodemarksView
+      paginated: false
+    @codemarksView.render()
+    @$('aside').append(@codemarksView.$el)
 
   prepare: ->
     unless @model.get('editable')
@@ -52,9 +54,6 @@ App.CodemarkShowView = Backbone.View.extend
     'nickname': @model.get('user')?.nickname
     'timeago': new Date(@model.get('created_at')).toLocaleDateString()
 
-  template: ->
-    angelo("show#{@model.get('resource_type')}Codemark.html")
-
   addCodemarkClicked: (e) ->
     e?.preventDefault()
     if App.current_user.get('id')?
@@ -69,8 +68,8 @@ App.CodemarkShowView = Backbone.View.extend
     @$('.main-codemark').html(editView.$el)
     editView.render()
 
-    editView.bind 'cancel', => @render()
-    editView.bind 'updated', => @render()
+    editView.bind 'cancel', => @renderCodemark()
+    editView.bind 'updated', => @renderCodemark()
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()
@@ -79,8 +78,14 @@ App.CodemarkShowView = Backbone.View.extend
       source: 'web'
     @addCodemarkParentView.render()
 
-  toHtml: ->
-    facile(@template(), @data())
+  _codemarkHtml: ->
+    facile(@_codemarkTemplate(), @data())
 
   _addCodemarkHtml: ->
     angelo('add_codemark.html')
+
+  _codemarkTemplate: ->
+    angelo("show#{@model.get('resource_type')}Codemark.html")
+
+  _frameTemplate: ->
+    angelo("showCodemark.html")
