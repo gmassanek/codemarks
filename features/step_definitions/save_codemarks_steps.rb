@@ -7,18 +7,16 @@ When /^I fill out the add codemark form with Google$/ do
 end
 
 When /^I get to the new link form$/ do
-  page.find('.add_codemark a').trigger('click')
-  page.find('.add_link a').click()
+  page.find('.add-link').click()
 end
 
 When /^I get to the new link form from the codemarklet$/ do
-  page.find('.add_link a').click()
+  page.find('.add-link').click()
   page.click_button('Add')
 end
 
 When /^I get to the new text form$/ do
-  page.find('.add_codemark a').trigger('click')
-  page.find('.add_note a').click()
+  page.find('.add-note').click()
 end
 
 When /^I fill out and submit the add codemark form with Google$/ do

@@ -5,6 +5,7 @@ App.CodemarksView = Backbone.View.extend
     App.codemarks.bind 'reset', => @render()
     App.codemarks.bind 'add', (codemark) => @addCodemark(codemark)
     App.vent.bind('updateCodemarkRequest', => @renderAsLoading())
+    @paginated = if @options.paginated? then @options.paginated else true
     @renderAsLoading()
 
   renderAsLoading: ->
@@ -13,7 +14,7 @@ App.CodemarksView = Backbone.View.extend
   render: ->
     @$el.html('')
     @appendCodemarks()
-    @$el.append(@paginationHtml())
+    @$el.append(@paginationHtml()) if @paginated
     $("html, body").animate({ scrollTop: '0px'}, 200)
 
   appendCodemarks: ->
@@ -34,7 +35,4 @@ App.CodemarksView = Backbone.View.extend
     paginationView.$el
 
   addCodemark: (codemark) ->
-    if @newCodemarkTile?
-      @newCodemarkTile.$el.after(@codemarkHtml(codemark))
-    else
-      @$el.prepend(@codemarkHtml(codemark))
+    @$el.prepend(@codemarkHtml(codemark))

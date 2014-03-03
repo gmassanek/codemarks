@@ -1,16 +1,19 @@
 / BEGIN: Link Codemark Show Template.
-%aside
-  .user
-    %h3
-      %a.user_link
-        %img.user_image
-        .nickname
-    .clear
-  .topics
-  .codemarks
+.linkmark
+  %header
+    .options
+      %a.edit-codemark.icon-pencil
+      %a.external_link.icon-forward(target='_blank')
+    %h1.title.icon-link-2
+  %iframe.resource_url
+  .description
   .clear
-.main
-  .main-codemark
-    %iframe.linkmark
-  .comments_container
+  %footer
+    %span.created Created
+    .timeago
+    %span.created by
+    %a.user_link
+      %img.user_image
+      .nickname
+.clear
 / END: Link Codemark Show Template.

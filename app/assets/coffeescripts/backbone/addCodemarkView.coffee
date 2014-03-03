@@ -1,38 +1,67 @@
 App.AddCodemarkView = Backbone.View.extend
-  className: 'new_options'
+  className: 'add_codemark'
   tagName: 'ul'
 
   events:
-    'click .add_link a': 'addLink'
-    'click .add_note a': 'addNote'
-    'submit .add_link form': 'newLinkFormSubmitted'
+    'click .add-link a': 'addLink'
+    'click .add-note a': 'addNote'
+    'click .add-file a': 'addFile'
+    'click .add-image a': 'addImage'
+    'submit form': 'newLinkFormSubmitted'
 
   render: ->
-    template = angelo('addCodemark.html')
+    template = angelo('add_codemark.html')
     @$el.html(template)
     @registerCancelOnEscape()
 
+  addCodemarkClicked: (e) ->
+    e?.preventDefault()
+    if App.current_user.get('id')?
+      @openNewCodemarkModal()
+    else
+      window.location = '/sessions/new'
+
   addLink: (e) ->
     e.preventDefault()
+    window.location = '/sessions/new' unless App.current_user.get('id')?
     @showUrlForm()
 
   addNote: (e) ->
     e.preventDefault()
+    window.location = '/sessions/new' unless App.current_user.get('id')?
     @model = new App.Codemark
       resource: {}
       resource_type: 'Text'
+    @turnIntoForm()
+
+  addFile: (e) ->
+    e.preventDefault()
+    window.location = '/sessions/new' unless App.current_user.get('id')?
+    @model = new App.Codemark
+      resource: {}
+      resource_type: 'Filemark'
+    @turnIntoForm()
+
+  addImage: (e) ->
+    e.preventDefault()
+    window.location = '/sessions/new' unless App.current_user.get('id')?
+    @model = new App.Codemark
+      resource: {}
+      resource_type: 'ImageFile'
     @turnIntoForm()
 
   turnIntoForm: ->
     view = new App.EditCodemarkParentView
       model: @model
       source: @options.source
+      modal: @options.modal
     view.render()
     @trigger('swapView', view)
+    @render()
 
   showUrlForm: ->
-    template = "<form><input name='url' placeholder='Paste Link''/><button>Add</button></form>"
-    @$('.add_link').html(template)
+    template = angelo('new_link_url_form.html')
+    @$el.html(template)
     @$('input[name=url]').val(window.incomingUrl) if window.incomingUrl
 
   newLinkFormSubmitted: (e) ->
@@ -42,7 +71,7 @@ App.AddCodemarkView = Backbone.View.extend
       @turnIntoForm()
     else
       @showUrlForm()
-      @$('.add_link').find('form').append('<br><label>Need a URL</label>')
+      @$('.add-link').find('form').append('<br><label>Need a URL</label>')
 
   createCodemarkFor: (url) ->
     return unless url

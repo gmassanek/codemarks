@@ -1,4 +1,5 @@
 @import 'mixins/spin'
+@import 'mixins/whitebox'
 @import 'mixins/border_radius'
 @import 'bourbon/css3/transition'
 
@@ -21,8 +22,7 @@
   width: $tile-width
 
   @include transition (all, 0.15s, ease-in-out)
-  @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
-  border: 1px solid rgba($faded, 0.4)
+  @include whitebox
 
   &:hover
     @include box-shadow(0px 3px 10px 1px rgba($faded, 0.6))
@@ -37,7 +37,6 @@
     font-size: 12px
 
 @import codemark
-@import add_codemark
 @import codemark_form
 @import pagination
 @import tabs

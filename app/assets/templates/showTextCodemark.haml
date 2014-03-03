@@ -1,29 +1,17 @@
 / BEGIN: Text Codemark Show Template.
-%aside
-  .user
-    %h3
-      %a.user_link
-        %img.user_image
-        .nickname
-    .clear
-  .topics
-  .codemarks
+.textmark
+  %header
+    .options
+      %a.edit-codemark.icon-pencil
+    %h1.title.icon-paper-2
+  .markdown_html
   .clear
-.main
-  .main-codemark
-    .textmark
-      %header
-        .options
-          %a.edit-codemark.icon-pencil
-        %h1.title
-      .markdown_html
-      %footer
-        %span.created Created
-        .timeago
-        %span.created by
-        %a.user_link
-          %img.user_image
-          .nickname
-      .clear
-  .comments_container
+  %footer
+    %span.created Created
+    .timeago
+    %span.created by
+    %a.user_link
+      %img.user_image
+      .nickname
+.clear
 / END: Text Codemark Show Template.
