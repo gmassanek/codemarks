@@ -104,20 +104,26 @@
       top: 8px
       right: 8px
 
-  .add_codemark
-    display: inline
+  ul.add_codemark
+    margin-right: 10px
+    margin-bottom: 10px
+    display: inline-block
     background: white
     border: 1px solid #ccc
     @include border-radius(3px)
-    margin-right: 10px
-    margin-bottom: 10px
-    line-height: 26px
-    height: 30px
-    display: inline-block
-    padding: 0px 5px
-    a
-      color: #7a7373
-      &:hover
-        color: $orange
-      &:before
-        margin-right: 5px
+
+    li
+      float: left
+      margin-left: 10px
+      &:first-child
+        margin-left: 0
+
+    form
+      padding: 3px
+      input
+        line-height: 15px
+        font-size: 12px
+        margin: 0
+        padding: 2px 5px
+        min-width: 200px
+      button

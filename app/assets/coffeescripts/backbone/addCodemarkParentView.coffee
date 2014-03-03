@@ -7,7 +7,7 @@ App.AddCodemarkParentView = App.ModalView.extend
   render: ->
     @view.render()
     @$el.html(@view.el)
-    if @options.modal
+    if @options.modal || @modal
       @openAsModal()
 
   swapView: (view) ->

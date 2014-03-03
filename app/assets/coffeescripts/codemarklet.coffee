@@ -1,5 +1,7 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.10.3.custom.min
+//= require jquery.fileupload
 
 //= require underscore
 //= require backbone
@@ -20,3 +22,5 @@
 //= require backbone/codemarkFormView
 //= require backbone/linkFormView
 //= require backbone/textFormView
+//= require backbone/filemarkFormView
+//= require backbone/imageFileFormView

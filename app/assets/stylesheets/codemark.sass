@@ -3,11 +3,6 @@
     background: white
     text-align: left
 
-    a
-      color: #777
-      &:hover
-        color: $orange
-
     header
       display: block
       width: 100%
@@ -98,12 +93,24 @@
         width: $image-width
         height: auto
 
-    &.imagefile
+    &.filemark
+      .main
+        padding: 10px
+        overflow: auto
+        word-wrap: break-word
+        label
+          font-size: 14px
+        label + div
+          margin-bottom: 10px
+          font-family: Helvetica
+        .download
+          font-size: 14px
+          line-height: 14px
+          height: 16px
+          margin-top: 10px
       .text
-        height: $tile-main-height
+        height: $tile-main-height - 20px
         overflow: scroll
-
-
 
     footer
       background: #D4D3D2

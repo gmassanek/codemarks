@@ -1,3 +1,5 @@
+@import 'mixins/whitebox'
+
 #main_content.codemarks
   &.show
     > .codemark
@@ -24,8 +26,21 @@
           width: 50px
 
         .add_codemark
-          a:before
-            margin-right: 10px
+          text-align: right
+          @include whitebox
+          li
+            float: left
+            margin-left: 10px
+            &:first-child
+              margin-left: 0
+
+          form
+            input
+              line-height: 12px
+              font-size: 12px
+              margin: 0
+              min-width: 200px
+            button
 
         .codemarks
           .tile

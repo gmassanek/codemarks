@@ -6,7 +6,8 @@ App.FilemarkCodemarkView = App.CodemarkView.extend
     resource = @model.get('resource')
     data = App.CodemarkView.prototype.presentedAttributes.call(this)
     data['attachment_name'] = @model.get('resource').attachment_file_name
-    data['attachment_url'] = @model.get('resource').attachment_url
+    data['attachment_size'] = @model.get('resource').attachment_size
+    data['download@href'] = @model.get('resource').attachment_url
     data['title_link'] =
       content: @model.get('title'),
       href: "/codemarks/#{@model.get('id')}"

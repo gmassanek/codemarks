@@ -5,9 +5,24 @@ class Filemark < Resource
     :storage => :s3,
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
-  validates_attachment_content_type :attachment, :content_type => %w(image/jpeg image/jpg image/png text/html)
+  do_not_validate_attachment_file_type :attachment
+  validate :attachment_size
+
+  def attachment_size
+    if attachment_file_size && attachment_file_size.to_i > 2.megabytes
+      @errors.add(:attachment, "must be less than 2MB")
+    end
+  end
 
   def s3_credentials
-    { access_key_id: 'AKIAJCMCZ4JDCPNNUE7Q', secret_access_key: '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', bucket: 'codemarks_user_uploads' }
+    { 
+      access_key_id: 'AKIAJCMCZ4JDCPNNUE7Q',
+      secret_access_key: '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',
+      bucket: 'codemarks_user_uploads'
+    }
+  end
+
+  def kilabytes_in_words
+    "#{(attachment_file_size.to_i / 1.kilobyte)}kb"
   end
 end

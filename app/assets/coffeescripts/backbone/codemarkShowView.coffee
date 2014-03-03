@@ -11,7 +11,7 @@ App.CodemarkShowView = Backbone.View.extend
     @renderCodemark()
     @prepare()
     @renderComments()
-    @$('aside').append(@_addCodemarkHtml())
+    @renderAddCodemarkView()
     @renderCodemarksList()
 
   renderFrameHTML: ->
@@ -19,6 +19,13 @@ App.CodemarkShowView = Backbone.View.extend
 
   renderCodemark: ->
     @$('.main-codemark').html(@_codemarkHtml())
+
+  renderAddCodemarkView: ->
+    @addCodemarkView = new App.AddCodemarkView
+      modal: true
+      source: 'web-codemarkShow'
+    @addCodemarkView.render()
+    @$('aside').append(@addCodemarkView.$el)
 
   renderCodemarksList: ->
     @codemarksView = new App.CodemarksView

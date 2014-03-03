@@ -1,23 +1,33 @@
 App.FilemarkFormView = App.CodemarkFormView.extend
   _render: ->
+    @setupFileUpload()
+    if @model.get('resource').attachment_file_name?
+      @$('#attachment').remove()
+
+  setupFileUpload: ->
     @$('#attachment').fileupload
       add: (e, data) =>
         data.submit()
 
       success: (data) =>
         @model.set('resource', data)
-        @$('#attachment').replaceWith("<div class='filename'>#{data.attachment_file_name}</div>")
+        @$('#attachment').remove()
+        @$('.file_name').text(data.attachment_file_name)
 
       error: (data) =>
-        @$el.prepend("<div class='filename'>#{data.responseText}</div>")
+        $errors = @$('ul.errors')
+        $errors.html('')
+        _.each JSON.parse(data.responseText), (error) =>
+          $errors.append("<li>#{error}</li>")
 
       progress: (e, data) =>
-        console.log data.loaded
-        console.log data.total
+        console.log data.loaded / data.total
 
   template: ->
     angelo('filemarkForm.html')
 
   presentedAttributes: ->
-    title: @model.get('title') || ''
-    topics: @presentedTopics()
+    data =
+      title: @model.get('title') || ''
+      topics: @presentedTopics()
+    data['file_name'] = @model.get('resource').attachment_file_name if @model.get('resource').attachment_file_name?
