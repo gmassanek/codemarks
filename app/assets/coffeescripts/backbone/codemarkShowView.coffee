@@ -57,7 +57,7 @@ App.CodemarkShowView = Backbone.View.extend
       content: ''
       src: @model.get('resource')?.url
     external_link:
-      content: ''
+      content: 'New Tab'
       href: @model.get('resource')?.url
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
