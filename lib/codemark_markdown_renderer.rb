@@ -26,10 +26,7 @@ class CodemarkMarkdownRenderer < Redcarpet::Render::HTML
   end
 
   def embeded_codemark(cm, data = nil)
-    if cm.resource.is_a?(Link)
-      title = data.present? ? data : cm.title
-      link_to title, cm.resource.url, :class => 'embedded_cm', :target => '_blank'
-    elsif cm.resource.is_a?(ImageFile)
+    if cm.resource.is_a?(ImageFile)
       if data.present?
         width, height = data.split(",")
         params = {}

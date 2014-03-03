@@ -14,7 +14,7 @@ describe CodemarkMarkdownRenderer do
       link = Fabricate(:link)
       codemark = Fabricate(:codemark, :title => 'Foobar', :resource => link)
       @markdown.render("paragraph referencing http://codemarks.com/codemarks/#{codemark.id}").should ==
-        "<p>paragraph referencing <a href=\"#{link.url}\" class=\"embedded_cm\" target=\"_blank\">Foobar</a></p>\n"
+        "<p>paragraph referencing <a href=\"/codemarks/#{codemark.id}\" class=\"embedded_cm\">Foobar</a></p>\n"
     end
 
     describe 'links' do
@@ -22,14 +22,14 @@ describe CodemarkMarkdownRenderer do
         link = Fabricate(:link)
         codemark = Fabricate(:codemark, :title => 'Foobar', :resource => link)
         @markdown.render("paragraph referencing [CM#{codemark.id}]").should ==
-          "<p>paragraph referencing <a href=\"#{link.url}\" class=\"embedded_cm\" target=\"_blank\">Foobar</a></p>\n"
+          "<p>paragraph referencing <a href=\"/codemarks/#{codemark.id}\" class=\"embedded_cm\">Foobar</a></p>\n"
       end
 
       it 'lets you override embeded CM titles' do
         link = Fabricate(:link)
         codemark = Fabricate(:codemark, :title => 'Foobar', :resource => link)
         @markdown.render("paragraph referencing [CM#{codemark.id} Title Override 2]").should ==
-          "<p>paragraph referencing <a href=\"#{link.url}\" class=\"embedded_cm\" target=\"_blank\">Title Override 2</a></p>\n"
+          "<p>paragraph referencing <a href=\"/codemarks/#{codemark.id}\" class=\"embedded_cm\">Title Override 2</a></p>\n"
       end
     end
 

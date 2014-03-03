@@ -66,12 +66,12 @@ namespace:deploy do
   namespace:delayed_job do
     desc "Start delayed_job"
     task :start, roles: :web do
-      run "cd #{release_path} && RAILS_ENV=#{stage} script/delayed_job stop && RAILS_ENV=#{stage} script/delayed_job -n 1 start"
+      run "cd #{current_path} && RAILS_ENV=#{stage} script/delayed_job stop && RAILS_ENV=#{stage} script/delayed_job -n 1 start"
     end
 
     desc "Stop delayed_job"
     task :stop, roles: :web do
-      run "cd #{release_path} && RAILS_ENV=#{stage} script/delayed_job stop"
+      run "cd #{current_path} && RAILS_ENV=#{stage} script/delayed_job stop"
     end
   end
   after "deploy", "deploy:delayed_job:start"
