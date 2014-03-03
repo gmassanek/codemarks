@@ -7,7 +7,7 @@ class RemoteStorage
   end
 
   def self.s3
-    AWS.config({ access_key_id: 'AKIAJCMCZ4JDCPNNUE7Q', secret_access_key: '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' })
+    AWS.config({ access_key_id: ENV['CODEMARK_S3_KEY'], secret_access_key: ENV['CODEMARK_S3_SECRET'] })
     AWS::S3.new
   end
 end
