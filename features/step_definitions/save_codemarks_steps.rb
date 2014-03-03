@@ -11,7 +11,7 @@ When /^I get to the new link form$/ do
 end
 
 When /^I get to the new link form from the codemarklet$/ do
-  page.find('.add-link').click()
+  page.find('.add-link a').click()
   page.click_button('Add')
 end
 
