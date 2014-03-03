@@ -60,6 +60,10 @@ class PresentCodemarks
       attrs['url'] = resource.url
       attrs['host'] = resource.host
       attrs['snapshot_url'] = resource.snapshot_url
+    elsif resource.is_a?(Filemark)
+      attrs['attachment_file_name'] = resource.attachment_file_name
+      attrs['attachment_url'] = resource.attachment.url
+      attrs['attachment_size'] = resource.kilabytes_in_words
     end
     attrs['user'] = PresentUsers.present(resource.author) if resource.author
     attrs

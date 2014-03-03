@@ -91,7 +91,7 @@ App.CodemarkFormView = Backbone.View.extend
       description: @$('.description').val()
       resource_type: @model.get('resource_type')
       resource_id: @model.get('resource').id
-      source: @options.source
+      source: @options.source || @source
     data.codemark.group_id = @$('.group_id').val()
     data.codemark['topic_ids'] = @$('input.topics').val() if @$('input.topics').val()?
     data
@@ -108,6 +108,7 @@ App.CodemarkFormView = Backbone.View.extend
   resizeTextArea: ($textarea) ->
     return if @codemarklet() || @modal()
     val = $textarea.val()
-    $hiddenDiv = @$('.text-height-container')
-    $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
-    @$('textarea.text').css('height', $hiddenDiv.height())
+    if val && val.length > 0
+      $hiddenDiv = @$('.text-height-container')
+      $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
+      @$('textarea.text').css('height', $hiddenDiv.height())

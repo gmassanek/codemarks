@@ -4,25 +4,34 @@ App.CodemarkShowView = Backbone.View.extend
     'click .edit-codemark': 'editCodemarkClicked'
 
   initialize: ->
-    App.codemarks.bind 'add', (model) =>
-      @appendCodemarks()
+    App.codemark = @model
 
   render: ->
-    App.codemark = @model
-    @$el.html(@toHtml())
+    @renderFrameHTML()
+    @renderCodemark()
     @prepare()
     @renderComments()
-    @$('aside .codemarks').html(@_addCodemarkHtml())
+    @renderAddCodemarkView()
+    @renderCodemarksList()
 
-  appendCodemarks: ->
-    for codemark in App.codemarks.models
-      @$('aside .codemarks').append(@codemarkHtml(codemark))
+  renderFrameHTML: ->
+    @$el.html(facile(@_frameTemplate(), @data()))
 
-  codemarkHtml: (codemark) ->
-    tile = new App.TileView
-      model: codemark
-    tile.render()
-    tile.$el
+  renderCodemark: ->
+    @$('.main-codemark').html(@_codemarkHtml())
+
+  renderAddCodemarkView: ->
+    @addCodemarkView = new App.AddCodemarkView
+      modal: true
+      source: 'web-codemarkShow'
+    @addCodemarkView.render()
+    @$('aside').append(@addCodemarkView.$el)
+
+  renderCodemarksList: ->
+    @codemarksView = new App.CodemarksView
+      paginated: false
+    @codemarksView.render()
+    @$('aside').append(@codemarksView.$el)
 
   prepare: ->
     unless @model.get('editable')
@@ -44,16 +53,25 @@ App.CodemarkShowView = Backbone.View.extend
     markdown_html: @model.get('resource').html
     title: @model.get('title')
     'user_image@src': @model.get('user')?.image || ''
-    linkmark:
+    resource_url:
       content: ''
       src: @model.get('resource')?.url
+    external_link:
+      content: 'New Tab'
+      href: @model.get('resource')?.url
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
     'nickname': @model.get('user')?.nickname
     'timeago': new Date(@model.get('created_at')).toLocaleDateString()
-
-  template: ->
-    angelo("show#{@model.get('resource_type')}Codemark.html")
+    description: @model.get('description')
+    'main-image':
+      content: ''
+      src: @model.get('resource').attachment_url
+    attachment_name: @model.get('resource').attachment_file_name
+    attachment_size: @model.get('resource').attachment_size
+    download:
+      content: 'Download'
+      href: @model.get('resource').attachment_url
 
   addCodemarkClicked: (e) ->
     e?.preventDefault()
@@ -69,8 +87,8 @@ App.CodemarkShowView = Backbone.View.extend
     @$('.main-codemark').html(editView.$el)
     editView.render()
 
-    editView.bind 'cancel', => @render()
-    editView.bind 'updated', => @render()
+    editView.bind 'cancel', => @renderCodemark()
+    editView.bind 'updated', => @renderCodemark()
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()
@@ -79,8 +97,14 @@ App.CodemarkShowView = Backbone.View.extend
       source: 'web'
     @addCodemarkParentView.render()
 
-  toHtml: ->
-    facile(@template(), @data())
+  _codemarkHtml: ->
+    facile(@_codemarkTemplate(), @data())
 
   _addCodemarkHtml: ->
     angelo('add_codemark.html')
+
+  _codemarkTemplate: ->
+    angelo("show#{@model.get('resource_type')}Codemark.html")
+
+  _frameTemplate: ->
+    angelo("showCodemark.html")

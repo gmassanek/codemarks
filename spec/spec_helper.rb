@@ -52,3 +52,16 @@ def simulate_github_signed_in
   page.click_link("sign in with github")
   @user = User.last
 end
+
+# We stub some Paperclip methods - so it won't call shell slow commands
+# This allows us to speedup paperclip tests 3-5x times.
+module Paperclip
+  def self.run cmd, params = "", expected_outcodes = 0
+    cmd == 'convert' ? nil : super
+  end
+end
+
+class Paperclip::Attachment
+  def post_process
+  end
+end

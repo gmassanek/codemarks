@@ -3,7 +3,6 @@ App.ControlPanelView = Backbone.View.extend
 
   events:
     'change input#search': 'search'
-    'click .add_codemark a': 'addCodemarkClicked'
 
   initialize: ->
     App.codemarks.bind 'reset', => @render()
@@ -21,7 +20,7 @@ App.ControlPanelView = Backbone.View.extend
     @$filterDiv.append('<div class="clear"></div>')
     @$el.append(@$filterDiv)
     @$el.append(@_searchHtml())
-    @$('.search-container').prepend(@_addCodemarkHtml())
+    @renderAddCodemarkView()
     @$('#search').select2
       tags: App.topics.slugs()
 
@@ -59,12 +58,12 @@ App.ControlPanelView = Backbone.View.extend
     groupHtml = @_filterHtml(groupDesc || 'All Groups', @filters.get('group'), 'group')
     @$filterDiv.append(groupHtml)
 
-  addCodemarkClicked: (e) ->
-    e?.preventDefault()
-    if App.current_user.get('id')?
-      @openNewCodemarkModal()
-    else
-      window.location = '/sessions/new'
+  renderAddCodemarkView: ->
+    @addCodemarkView = new App.AddCodemarkView
+      modal: true
+      source: 'web-browse'
+    @addCodemarkView.render()
+    @$('.search-container').prepend(@addCodemarkView.$el)
 
   openNewCodemarkModal: (e) ->
     e?.preventDefault()

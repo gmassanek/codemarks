@@ -37,13 +37,14 @@ gem 'analytics-ruby', '<1.0'
 gem 'open_uri_redirections', "~> 0.1.4"
 gem "activerecord-postgres-hstore", "~> 0.7.7"
 gem "acts_as_commentable_with_threading", "~> 1.2.0"
+gem "paperclip", "~> 4.1.0"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.8.0'
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'capybara', '~> 2.1.0'
-  gem 'poltergeist', '~> 1.3.0'
+  gem 'poltergeist', '~> 1.5.0'
   gem 'jasmine', '~> 1.2.0'
   gem 'watchr'
   gem 'foreman'
