@@ -31,3 +31,4 @@ App.FilemarkFormView = App.CodemarkFormView.extend
       title: @model.get('title') || ''
       topics: @presentedTopics()
     data['file_name'] = @model.get('resource').attachment_file_name if @model.get('resource').attachment_file_name?
+    data

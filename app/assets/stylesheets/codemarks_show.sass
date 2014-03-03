@@ -16,7 +16,12 @@
           @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
           border: 1px solid rgba($faded, 0.4)
           margin-bottom: 10px
+
+        .user
           padding: 10px
+
+        .add_codemark
+          padding: 5px
 
         .user_image
           float: left
@@ -53,45 +58,64 @@
         margin-right: 310px
 
         .main-codemark
-          background: white
           margin-top: 20px
-          @include box-shadow(0px 1px 3px 1px rgba($faded, 0.2))
-          border: 1px solid rgba($faded, 0.4)
-          width: 100%
+          @include whitebox
 
-        .linkmark
+          header
+            position: relative
+            border-bottom: 1px solid rgba($faded, 0.8)
+            padding-bottom: 10px
+            .options
+              position: absolute
+              top: 0
+              right: 0
+              font-size: 160%
+              line-height: 1.5em
+
+            h1
+              color: $c2
+              &:before
+                padding-right: 10px
+
+        iframe
           width: 100%
-          min-height: 600px
+          min-height: 700px
+          border: 1px solid rgba($faded, 0.6)
+          border-top: none
+
+        .imagefile, .filemark, .textmark, .linkmark
+          padding: 10px 20px
 
         .textmark
-          padding: 10px 20px
           p
             font-family: Helvetica
             color: #333
             font-size: 12px
             line-height: 20px
 
-          .markdown_html
-            padding: 0 20px
-            margin-top: 20px
+        .imagefile
+          .main-image
+            margin: 10px
 
-        header
-          position: relative
-          border-bottom: 1px solid rgba($faded, 0.8)
-          padding-bottom: 10px
-          .options
-            position: absolute
-            top: 0
-            right: 0
-            font-size: 160%
-            line-height: 1.5em
+        .filemark
+          .file-details
+            padding: 10px
 
-          h1
-            color: $c2
+          label
+            font-size: 14px
+          label + div
+            margin-bottom: 10px
+            font-family: Helvetica
+          .download
+            font-size: 14px
+            line-height: 14px
+            height: 16px
+            margin-top: 10px
 
         footer
           float: right
           margin: 10px
+          margin-right: 0
           .timeago, span, .nickname, .user_image, .user_link
             display: inline
             height: 20px

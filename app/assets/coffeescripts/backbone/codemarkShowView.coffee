@@ -53,13 +53,25 @@ App.CodemarkShowView = Backbone.View.extend
     markdown_html: @model.get('resource').html
     title: @model.get('title')
     'user_image@src': @model.get('user')?.image || ''
-    linkmark:
+    resource_url:
       content: ''
       src: @model.get('resource')?.url
+    external_link:
+      content: ''
+      href: @model.get('resource')?.url
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
     'nickname': @model.get('user')?.nickname
     'timeago': new Date(@model.get('created_at')).toLocaleDateString()
+    description: @model.get('description')
+    'main-image':
+      content: ''
+      src: @model.get('resource').attachment_url
+    attachment_name: @model.get('resource').attachment_file_name
+    attachment_size: @model.get('resource').attachment_size
+    download:
+      content: 'Download'
+      href: @model.get('resource').attachment_url
 
   addCodemarkClicked: (e) ->
     e?.preventDefault()
