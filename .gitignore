@@ -12,3 +12,4 @@ public/templates/*.html
 public/system/*
 **/.DS_Store
 **/*/.DS_Store
+.ruby-version
