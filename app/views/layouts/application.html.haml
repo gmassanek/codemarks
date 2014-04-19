@@ -20,7 +20,7 @@
       = javascript_include_tag 'segment_io'
       = javascript_include_tag 'uservoice'
 
-  %body
+  %body{:class => page_class}
     .content-wrapper
       = render '/layouts/header'
       = render '/layouts/flash', :flash => flash

@@ -55,6 +55,7 @@ App.CodemarkShowView = Backbone.View.extend
     resource_url:
       content: ''
       src: @model.get('resource')?.url
+    title: @model.get('title')
     external_link:
       content: @model.get('title')
       href: @model.get('resource')?.url

@@ -1,30 +1,99 @@
 #about
-  #banner_text.clearfix
-    %h2 What is Codemarks?
-    %p.explanation Codemarks is the best way to save, organize, and discover code-related resources online
-    %ul#site_explanation
-      %li
-        %h4 Codemarklet
-        %p
-          Drag this
-          %br
-          = link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'
-          %br
-          to your bookmark bar to save Codemarks from anywhere
-      %li
-        %h4 Chrome Extension
-        %p
-          Download the official
-          %br
-          = link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank'
-          %br
-          to save Codemarks from Google Chrome
+  #banner_text
+    %h1 Codemarks
+    %p.tagline Bookmarks for Social Coders
 
-      %li
-        %h4 @codemarks
-        %p
-          Follow
-          %br
-          = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank'
-          %br
-          for the latest features, updates, and more
+    .sign_up
+      = link_to "sign in with twitter", sign_in_path(:twitter), :class => "btn-auth btn-twitter"
+      = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
+
+    #site_explanation.clearfix
+      %p= "Ever find yourself wondering \"Where can I get an #{link_to("icon set", codemarks_path(:topic_ids => 'icon-set', :by => 'popularity'), :class => 'bold')} for my site?\" or \"What is this #{link_to("AngularJS", codemarks_path(:topic_ids => 'angularjs', :by => 'popularity'), :class => 'bold')} thing everyone's talking about?\" Enter: Codemarks.".html_safe
+      %p
+        = link_to "Codemarks", root_path, :class => 'bold'
+        = "is a community of tech folks interested in learning, sharing, and discovering the latest, best tech resources online. Write a tutorial, share your favorite Github project, or brainstorm for your next project.".html_safe
+
+      = image_tag asset_path('screenshot_on_macbook.jpg')
+      %ul
+        %li
+          %h2.icon-bookmark Save
+          %p
+            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank', :class => 'bold'}, drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet', :class => 'bold'} to your bookmark bar, or visit the site to save Codemarks.".html_safe
+        %li
+          %h2.icon-search Search
+          %p
+            Browse codemarks filtering by users, searches, topics, and more. Find resources you've saved or discover new ones.
+
+        %li
+          %h2.icon-twitter Share
+          %p
+            Follow
+            = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank'
+            for the latest features, updates, and more
+
+    #how_to
+      %h2 How to save?
+      %ul.clearfix
+        %li
+          %h4.icon-home-3 on codemarks.com
+          %p
+            = "Most pages on #{link_to 'codemarks.com', codemarks_path} will has links to add new codemarks. You can any type of codemark as long as you're signed in.".html_safe
+        %li
+          %h4.icon-screen with the codemarklet
+          %p
+            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank', :class => 'bold'} or drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet', :class => 'bold'} to your bookmark bar. Both will load a codemarklet that will help you save resources. If you're on a site, it will pre-load that website.".html_safe
+
+        %li
+          %h4.icon-mail by emailing save@codemarks.com (kinda)
+          %p
+            - user_link = current_user.present? ? link_to('private profile', edit_user_path(current_user), :class => 'bold') : 'private profile'
+            = "Once you've added your email address to your #{user_link}, you can email #{link_to 'save@codemarks.com', 'mail_to:save@codemarks.com'} and Codemarks will save any links in that email to your account. This is great for saving articles to read later.".html_safe
+        %li
+          %h4.icon-github with git hooks (coming soon)
+          %p
+            Share your best commits with others! Register the codemarks git hook on any publish project, and if you include "#cm" in any git commit message, we will store it on your Codemarks account!
+
+      %h2 What to save?
+      %ul.clearfix
+        %li
+          %h4.icon-link-2 links
+          %p
+            Link to any website online. Codemarks will try to tag the site for you, but feel free to add your own!
+        %li
+          %h4.icon-paper-2 markdown text
+          %p
+            = "Use TextMarks to make notes, write blogs, or track to-dos. All notes are markdown parsed, including #{link_to 'custom embedded codemark markdown syntax', codemark_path(5892), :class => 'bold'} in case you want to link between codemarks.".html_safe
+
+        %li
+          %h4.icon-picture images
+          %p
+            Upload images from your computer. This is helpful to use in note codemarks if you want to include screenshots or other images. GIFs welcome!
+
+        %li
+          %h4.icon-github git repositories (coming soon)
+          %p
+            Github projects have enough meta-data to warrant their own codemark type. Find out follower counts, churn, and more for your favorite github repos.
+
+      %h2 How to find?
+      %ul.clearfix
+        %li
+          %h4.icon-search Browse
+          %p
+            Start browsing codemarks today. Filter by topic, user, or search query. Sort by date saved, popularity, visit count, or the new 'buzzing' sort.
+
+        %li
+          %h4.icon-tag Topics
+          %p
+            = "View the #{link_to 'most popular topics', topics_path, :class => 'bold'}.".html_safe
+
+        %li
+          %h4.icon-user-2 Users
+          %p
+            = "View the #{link_to 'most active users', users_path, :class => 'bold'}.".html_safe
+
+        %li
+          %h4.icon-twitter Codemark of the Day
+          %p
+            Follow
+            = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank', :class => 'bold'
+            for the latest features, updates, and the Codemark of the Day, yesterday's most popular codemark.
