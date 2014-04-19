@@ -51,13 +51,12 @@ App.CodemarkShowView = Backbone.View.extend
 
   data: ->
     markdown_html: @model.get('resource').html
-    title: @model.get('title')
     'user_image@src': @model.get('user')?.image || ''
     resource_url:
       content: ''
       src: @model.get('resource')?.url
     external_link:
-      content: 'New Tab'
+      content: @model.get('title')
       href: @model.get('resource')?.url
     'user_link@href': "/users/#{@model.get('user')?.slug}"
     'name': @model.get('user')?.name
