@@ -352,5 +352,16 @@ namespace :backfill  do
       r.type.constantize.reset_counters(r.id, :clicks)
     end
   end
+
+  desc 'cleanup broken images'
+  task :fix_broken_images => :environment do
+    Link.order('created_at DESC').each do |r|
+      next if r.snapshot_url == '/assets/error_loading.png'
+      next unless Faraday.get(r.snapshot_url).headers['content-length'].to_i == 0
+      p r.snapshot_url
+      r.update_attributes!(:snapshot_url => nil, :snapshot_id => nil)
+      r.trigger_snapshot
+    end
+  end
 end
 
