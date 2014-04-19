@@ -355,7 +355,7 @@ namespace :backfill  do
 
   desc 'cleanup broken images'
   task :fix_broken_images => :environment do
-    Link.order('created_at DESC').each do |r|
+    Link.order('created_at DESC').find_each do |r|
       next if r.snapshot_url == '/assets/error_loading.png'
       next unless Faraday.get(r.snapshot_url).headers['content-length'].to_i == 0
       p r.snapshot_url
