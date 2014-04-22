@@ -44,7 +44,7 @@
             = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank', :class => 'bold'} or drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet', :class => 'bold'} to your bookmark bar. Both will load a codemarklet that will help you save resources. If you're on a site, it will pre-load that website.".html_safe
 
         %li
-          %h4.icon-mail by emailing save@codemarks.com (kinda)
+          %h4.icon-mail by emailing save@codemarks.com
           %p
             - user_link = current_user.present? ? link_to('private profile', edit_user_path(current_user), :class => 'bold') : 'private profile'
             = "Once you've added your email address to your #{user_link}, you can email #{link_to 'save@codemarks.com', 'mail_to:save@codemarks.com'} and Codemarks will save any links in that email to your account. This is great for saving articles to read later.".html_safe
