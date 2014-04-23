@@ -34,14 +34,7 @@ class Link < Resource
   end
 
   def self.repository_for_url(url)
-    if matches = url.match(/github\.com\/(?<name>\w*)\/(?<repo>[\w-]*)$/)
-      name = matches['name']
-      repo = matches['repo']
-      if repository = Repository.new_from_login_and_repo(name, repo)
-        repository.save!
-        repository
-      end
-    end
+    Repository.create_from_url(url)
   end
 
   def default_title

@@ -1,6 +1,17 @@
 class Repository < Resource
   hstore_indexed_attr :title, :description, :forks_count, :stargazers_count, :watchers_count, :language, :owner_login
 
+  def self.create_from_url(url)
+    return unless matches = url.match(/github\.com\/(?<name>\w*)\/(?<repo>[\w-]*)$/)
+    name = matches['name']
+    repo = matches['repo']
+
+    if repository = (find_by_login_and_repo(name, repo) || new_from_login_and_repo(name, repo))
+      repository.save!
+      repository
+    end
+  end
+
   def self.new_from_login_and_repo(login, repo)
     request = Faraday.get("https://api.github.com/repos/#{login}/#{repo}?client_id=#{ENV['CODEMARK_GITHUB_KEY']}&client_secret=#{ENV['CODEMARK_GITHUB_SECRET']}")
     if request.success?
@@ -16,6 +27,10 @@ class Repository < Resource
       }
       new(data)
     end
+  end
+
+  def self.find_by_login_and_repo(login, repo)
+    has_owner_login(login).has_title(repo).first
   end
 
   def url
