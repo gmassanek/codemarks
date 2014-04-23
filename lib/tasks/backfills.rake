@@ -369,11 +369,9 @@ namespace :backfill  do
       next unless repository = Repository.create_from_url(link.url)
       p link.url
 
-      codemarks = Codemark.where(:resource_type => 'Link', :resource_id => link.id)
-      codemarks.map { |cm| cm.update_attributes(:resource => repository) }
+      link.codemarks.map { |cm| cm.update_attributes(:resource => repository) }
 
-      clicks = Click.where(:resource_type => 'Link', :resource_id => link.id)
-      clicks.map { |click| click.update_attributes(:resource => repository) }
+      link.clicks.map { |click| click.update_attributes(:resource => repository) }
     end
   end
 end
