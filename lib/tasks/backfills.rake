@@ -193,7 +193,6 @@ namespace :backfill  do
     end
 
     p authors
-
   end
 
   desc 'removed duplicate topics'
@@ -361,6 +360,20 @@ namespace :backfill  do
       p r.snapshot_url
       r.update_attributes!(:snapshot_url => nil, :snapshot_id => nil)
       r.trigger_snapshot
+    end
+  end
+
+  desc 'convert links to repos'
+  task :convert_links_to_repos => :environment do
+    Link.has_host('github.com').each do |link|
+      next unless repository = Repository.create_from_url(link.url)
+      p link.url
+
+      codemarks = Codemark.where(:resource_type => 'Link', :resource_id => link.id)
+      codemarks.map { |cm| cm.update_attributes(:resource => repository) }
+
+      clicks = Click.where(:resource_type => 'Link', :resource_id => link.id)
+      clicks.map { |click| click.update_attributes(:resource => repository) }
     end
   end
 end
