@@ -7,20 +7,20 @@ describe 'Authentication' do
     it 'from twitter' do
       visit new_session_path
       expect {
-        within('.sessions.new') { page.click_link 'sign in with twitter' }
+        within('#main_content.sessions.new') { page.click_link 'sign in with twitter' }
       }.to change(User, :count).by(1)
     end
 
     it 'from github' do
       visit new_session_path
       expect {
-        within('.sessions.new') { page.click_link 'sign in with github' }
+        within('#main_content.sessions.new') { page.click_link 'sign in with github' }
       }.to change(User, :count).by(1)
     end
 
     it "sets the user's slug from the auth's nickname" do
       visit new_session_path
-      within('.sessions.new') { page.click_link 'sign in with github' }
+      within('#main_content.sessions.new') { page.click_link 'sign in with github' }
       user = User.last
       user.slug.should == user.authentications.first.nickname
     end
@@ -30,26 +30,26 @@ describe 'Authentication' do
     it 'from twitter', :js => true do
       # create user and logout
       visit new_session_path
-      within('.sessions.new') { page.click_link 'sign in with twitter' }
+      within('#main_content.sessions.new') { page.click_link 'sign in with twitter' }
       page.execute_script("$('.options').show()")
       page.click_link 'Log Out'
 
       visit new_session_path
       expect {
-        within('.sessions.new') { page.click_link 'sign in with twitter' }
+        within('#main_content.sessions.new') { page.click_link 'sign in with twitter' }
       }.to change(User, :count).by(0)
     end
 
     it 'from github', :js => true do
       # create user and logout
       visit new_session_path
-      within('.sessions.new') { page.click_link 'sign in with github' }
+      within('#main_content.sessions.new') { page.click_link 'sign in with github' }
       page.execute_script("$('.options').show()")
       page.click_link 'Log Out'
 
       visit new_session_path
       expect {
-        within('.sessions.new') { page.click_link 'sign in with github' }
+        within('#main_content.sessions.new') { page.click_link 'sign in with github' }
       }.to change(User, :count).by(0)
     end
   end
