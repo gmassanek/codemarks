@@ -24,3 +24,4 @@
 //= require backbone/textFormView
 //= require backbone/filemarkFormView
 //= require backbone/imageFileFormView
+//= require backbone/repositoryFormView
