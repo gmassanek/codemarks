@@ -1,9 +1,6 @@
 App.EditCodemarkParentView = App.ModalView.extend
   initialize: ->
-    @view = new App["#{@model.get('resource_type')}FormView"]
-      model: @model
-      source: @options.source
-    @bindToView()
+    @setupView(@model)
 
   render: ->
     @$el.html(@view.el)
@@ -16,3 +13,15 @@ App.EditCodemarkParentView = App.ModalView.extend
     @view.bind('cancel', => @trigger('cancel'))
     @view.bind('updated', => @trigger('updated'))
     @view.bind('created', => @trigger('created'))
+    @view.bind('rerender', (model) =>
+      @setupView(model)
+      @view.render()
+      @$el.html(@view.el)
+    )
+
+  setupView: (model) ->
+    @model = model
+    @view = new App["#{@model.get('resource_type')}FormView"]
+      model: @model
+      source: @options.source
+    @bindToView()

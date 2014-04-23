@@ -14,7 +14,7 @@ class Link < Resource
 
   def self.for_url(url)
     url = PostRank::URI.clean(url)
-    has_url(url).first || create_link_from_internet(url)
+    repository_for_url(url) || has_url(url).first || create_link_from_internet(url)
   end
 
   def self.create_link_from_internet(url)
@@ -31,6 +31,17 @@ class Link < Resource
     p e
     link.update_attributes(:site_data => nil)
     link
+  end
+
+  def self.repository_for_url(url)
+    if matches = url.match(/github\.com\/(?<name>\w*)\/(?<repo>[\w-]*)$/)
+      name = matches['name']
+      repo = matches['repo']
+      if repository = Repository.new_from_login_and_repo(name, repo)
+        repository.save!
+        repository
+      end
+    end
   end
 
   def default_title
