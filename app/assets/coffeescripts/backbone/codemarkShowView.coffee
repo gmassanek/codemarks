@@ -50,28 +50,38 @@ App.CodemarkShowView = Backbone.View.extend
         @commentsView.render()
 
   data: ->
-    markdown_html: @model.get('resource').html
-    'user_image@src': @model.get('user')?.image || ''
-    resource_url:
-      content: ''
-      src: @model.get('resource')?.url
-    title: @model.get('title')
-    external_link:
-      content: @model.get('title')
-      href: @model.get('resource')?.url
-    'user_link@href': "/users/#{@model.get('user')?.slug}"
-    'name': @model.get('user')?.name
-    'nickname': @model.get('user')?.nickname
-    'timeago': new Date(@model.get('created_at')).toLocaleDateString()
-    description: @model.get('description')
-    'main-image':
-      content: ''
-      src: @model.get('resource').attachment_url
-    attachment_name: @model.get('resource').attachment_file_name
-    attachment_size: @model.get('resource').attachment_size
-    download:
-      content: 'Download'
-      href: @model.get('resource').attachment_url
+    allData =
+      markdown_html: @model.get('resource').html
+      'user_image@src': @model.get('user')?.image || ''
+      resource_url:
+        content: ''
+        src: @model.get('resource')?.url
+      external_link:
+        content: @model.get('title')
+        href: @model.get('resource')?.url
+      'user_link@href': "/users/#{@model.get('user')?.slug}"
+      'name': @model.get('user')?.name
+      'nickname': @model.get('user')?.nickname
+      'timeago': new Date(@model.get('created_at')).toLocaleDateString()
+      description: @model.get('description')
+      'main-image':
+        content: ''
+        src: @model.get('resource').attachment_url
+      attachment_name: @model.get('resource').attachment_file_name
+      attachment_size: @model.get('resource').attachment_size
+      download:
+        content: 'Download'
+        href: @model.get('resource').attachment_url
+      description: @model.get('resource').description
+      forks_count: @model.get('resource').forks_count
+      stargazers_count: @model.get('resource').stargazers_count
+      watchers_count: @model.get('resource').watchers_count
+      language: @model.get('resource').language
+      owner_login: @model.get('resource').owner_login
+
+    if @model.get('resource_type') != 'Link' && @model.get('resource_type') != 'Repository'
+      allData['title'] = @model.get('title')
+    allData
 
   addCodemarkClicked: (e) ->
     e?.preventDefault()
