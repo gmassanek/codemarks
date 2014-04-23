@@ -64,6 +64,15 @@ class PresentCodemarks
       attrs['attachment_file_name'] = resource.attachment_file_name
       attrs['attachment_url'] = resource.attachment.url
       attrs['attachment_size'] = resource.kilabytes_in_words
+    elsif resource.is_a?(Repository)
+      attrs['title'] = resource.title
+      attrs['description'] = resource.description
+      attrs['forks_count'] = resource.forks_count
+      attrs['stargazers_count'] = resource.stargazers_count
+      attrs['watchers_count'] = resource.watchers_count
+      attrs['language'] = resource.language
+      attrs['owner_login'] = resource.owner_login
+      attrs['url'] = resource.url
     end
     attrs['user'] = PresentUsers.present(resource.author) if resource.author
     attrs
