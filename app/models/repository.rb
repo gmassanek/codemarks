@@ -2,7 +2,7 @@ class Repository < Resource
   hstore_indexed_attr :title, :description, :forks_count, :stargazers_count, :watchers_count, :language, :owner_login
 
   def self.create_from_url(url)
-    return unless matches = url.match(/github\.com\/(?<name>\w*)\/(?<repo>[\w-]*)$/)
+    return unless matches = url.match(/github\.com\/(?<name>[\w-]*)\/(?<repo>[\w-]*)$/)
     name = matches['name']
     repo = matches['repo']
 
