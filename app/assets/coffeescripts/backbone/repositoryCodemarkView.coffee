@@ -9,7 +9,7 @@ App.RepositoryCodemarkView = App.CodemarkView.extend
     resource = @model.get('resource')
     data = App.CodemarkView.prototype.presentedAttributes.call(this)
     data['title_link'] =
-      content: @model.get('title'),
+      content: "#{resource.owner_login}/#{@model.get('title')}",
       href: "/codemarks/#{@model.get('id')}"
     data['description'] = resource.description
     data['forks_count'] = resource.forks_count
