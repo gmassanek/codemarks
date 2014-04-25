@@ -8,9 +8,9 @@
       = link_to "sign in with github", sign_in_path(:github), :class => "btn-auth btn-github"
 
     #site_explanation.clearfix
-      %p= "Ever find yourself wondering \"Where can I get an #{link_to("icon set", codemarks_path(:topic_ids => 'icon-set', :by => 'popularity'), :class => 'bold')} for my site?\" or \"What is this #{link_to("AngularJS", codemarks_path(:topic_ids => 'angularjs', :by => 'popularity'), :class => 'bold')} thing everyone's talking about?\" Enter: Codemarks.".html_safe
+      %p= "Ever find yourself wondering \"Where can I get an #{link_to("icon set", codemarks_path(:topic_ids => 'icon-set', :by => 'popularity'))} for my site?\" or \"What is this #{link_to("AngularJS", codemarks_path(:topic_ids => 'angularjs', :by => 'popularity'))} thing everyone's talking about?\" Enter: Codemarks.".html_safe
       %p
-        = link_to "Codemarks", root_path, :class => 'bold'
+        = link_to "Codemarks", root_path
         = "is a community of tech folks interested in learning, sharing, and discovering the latest, best tech resources online. Write a tutorial, share your favorite Github project, or brainstorm for your next project.".html_safe
 
       = image_tag asset_path('screenshot_on_macbook.jpg')
@@ -18,7 +18,7 @@
         %li
           %h2.icon-bookmark Save
           %p
-            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank', :class => 'bold'}, drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet', :class => 'bold'} to your bookmark bar, or visit the site to save Codemarks.".html_safe
+            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank'}, drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'} to your bookmark bar, or visit the site to save Codemarks.".html_safe
         %li
           %h2.icon-search Search
           %p
@@ -41,12 +41,12 @@
         %li
           %h4.icon-screen with the codemarklet
           %p
-            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank', :class => 'bold'} or drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet', :class => 'bold'} to your bookmark bar. Both will load a codemarklet that will help you save resources. If you're on a site, it will pre-load that website.".html_safe
+            = "Install the #{link_to 'Chrome Extension', 'https://chrome.google.com/webstore/search-extensions/codemarks', :target => '_blank'} or drag this #{link_to 'Codemarklet', bookmarklet_url, :id => 'bookmarklet'} to your bookmark bar. Both will load a codemarklet that will help you save resources. If you're on a site, it will pre-load that website.".html_safe
 
         %li
           %h4.icon-mail by emailing save@codemarks.com
           %p
-            - user_link = current_user.present? ? link_to('private profile', edit_user_path(current_user), :class => 'bold') : 'private profile'
+            - user_link = current_user.present? ? link_to('private profile', edit_user_path(current_user)) : 'private profile'
             = "Once you've added your email address to your #{user_link}, you can email #{link_to 'save@codemarks.com', 'mail_to:save@codemarks.com'} and Codemarks will save any links in that email to your account. This is great for saving articles to read later.".html_safe
         %li
           %h4.icon-github with git hooks (coming soon)
@@ -62,7 +62,7 @@
         %li
           %h4.icon-paper-2 Markdown
           %p
-            = "Use TextMarks to make notes, write blogs, or track to-dos. All notes are markdown parsed, including #{link_to 'custom embedded codemark markdown syntax', codemark_path(5944), :class => 'bold'} in case you want to link between codemarks.".html_safe
+            = "Use TextMarks to make notes, write blogs, or track to-dos. All notes are markdown parsed, including #{link_to 'custom embedded codemark markdown syntax', codemark_path(5944)} in case you want to link between codemarks.".html_safe
 
         %li
           %h4.icon-picture Images
@@ -84,16 +84,16 @@
         %li
           %h4.icon-tag Topics
           %p
-            = "View the #{link_to 'most popular topics', topics_path, :class => 'bold'}.".html_safe
+            = "View the #{link_to 'most popular topics', topics_path}.".html_safe
 
         %li
           %h4.icon-user-2 Users
           %p
-            = "View the #{link_to 'most active users', users_path, :class => 'bold'}.".html_safe
+            = "View the #{link_to 'most active users', users_path}.".html_safe
 
         %li
           %h4.icon-twitter Codemark of the Day
           %p
             Follow
-            = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank', :class => 'bold'
+            = link_to '@codemarks', 'https://twitter.com/intent/user?region=follow&screen_name=codemarks&source=followbutton&variant=2.0', :target => '_blank'
             for the latest features, updates, and the "Codemark of the Day" (yesterday's most popular codemark).
