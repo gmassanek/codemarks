@@ -22,8 +22,12 @@ class PresentCodemarks
   end
 
   def self.present_pagination(codemarks)
+    if codemarks.first.try(:full_count)
+      total_pages = (codemarks.first.full_count.to_f / codemarks.first.page_size.to_f).ceil
+    end
+
     {
-      :total_pages => codemarks.num_pages
+      :total_pages => total_pages || 1
     }
   end
 

@@ -280,7 +280,7 @@ describe FindCodemarks do
         it "does not overload crazy ones" do
           resource1 = Fabricate(:codemark, :created_at => 3.months.ago).resource
           resource2 = Fabricate(:codemark, :created_at => 1.month.ago).resource
-          50.times { Fabricate(:click, :resource => resource1) }
+          50.times { begin; Fabricate(:click, :resource => resource1) rescue retry; end}
           5.times { Fabricate(:click, :resource => resource2) }
 
           all_cms = FindCodemarks.new(:by => :buzzing)
@@ -290,26 +290,32 @@ describe FindCodemarks do
     end
 
     context "with paging" do
-      it "can take the result from a query and page it" do
-        codemarks = FindCodemarks.new(:user => @user, :page => 1, :per_page => 1)
-        codemarks.codemarks.all.count.should == 1
-      end
+      before do
+        Codemark.destroy_all
 
-      it "defaults to 25 per page" do
-        25.times do
+        5.times do
           begin
             Fabricate(:codemark)
           rescue ActiveRecord::RecordInvalid
             retry
           end
         end
-        response = FindCodemarks.new
-        response.codemarks.all.count.should == FindCodemarks::PAGE_SIZE
       end
 
-      it 'returns total pages' do
-        response = FindCodemarks.new(:user => @user, :per_page => 9999)
-        response.codemarks.num_pages.should == 1
+      it "defaults to 24 per page" do
+        FindCodemarks.new.codemarks.first.page_size.should == "24"
+      end
+
+      it 'returns total count' do
+        FindCodemarks.new.codemarks.first.full_count.should == "5"
+      end
+
+      it 'can limit page size' do
+        FindCodemarks.new(:per_page => 2).codemarks.should have(2).items
+      end
+
+      it 'can request a given page' do
+        FindCodemarks.new(:per_page => 2, :page => 1).codemarks.should_not == FindCodemarks.new(:per_page => 2, :page => 2).codemarks
       end
     end
 

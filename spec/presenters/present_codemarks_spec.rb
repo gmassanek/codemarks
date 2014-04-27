@@ -32,12 +32,14 @@ describe PresentCodemarks do
   end
 
   it 'presents pagination' do
-    data = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    codemark.stub(:full_count => 5, :page_size => 24)
+    data = PresentCodemarks.for([codemark])
     data[:pagination].should be_present
   end
 
   it 'presents users' do
-    data = PresentCodemarks.for(Kaminari.paginate_array([codemark]).page(1))
+    codemark.stub(:full_count => 5, :page_size => 24)
+    data = PresentCodemarks.for([codemark])
     data[:users].should be_present
   end
 end
