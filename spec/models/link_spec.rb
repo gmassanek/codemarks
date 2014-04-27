@@ -29,7 +29,7 @@ describe Link do
       @book = Topic.create!(:title => 'book')
     end
 
-    it "could get all #{Link::TAG_SUGGESTION_LIMIT} from the title" do
+    it "could get all #{Tagger::TAG_SUGGESTION_LIMIT} from the title" do
       @link.assign_attributes(:title => 'Github rspec google')
       @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @google.slug]
     end
@@ -49,7 +49,7 @@ describe Link do
       @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @book.slug]
     end
 
-    it "limits to #{Link::TAG_SUGGESTION_LIMIT} topics" do
+    it "limits to #{Tagger::TAG_SUGGESTION_LIMIT} topics" do
       @link.assign_attributes(:title => 'Github github rspec rspec google book')
       @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @google.slug]
     end

@@ -52,19 +52,6 @@ class Codemark < ActiveRecord::Base
     resource_type.underscore
   end
 
-  def suggested_topics
-    return [] unless resource
-
-    case resource.class.to_s
-    when 'Link'
-      resource.suggested_topics
-    when 'Text'
-      []
-    else
-      []
-    end
-  end
-
   def mark_as_private
     self.private = self.topics.map(&:id).include?(Topic.private_topic_id)
     true

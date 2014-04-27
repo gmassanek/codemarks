@@ -8,7 +8,7 @@ class CodemarksController < ApplicationController
       resource = Link.for_url(params[:url] || session[:url])
       codemark = Codemark.for_user_and_resource(current_user.try(:id), resource.try(:id))
       codemark ||= Codemark.new(:resource => resource, :user => current_user)
-      codemark.topics = codemark.suggested_topics unless codemark.persisted?
+      codemark.topics = resource.suggested_topics unless codemark.persisted?
     end
     render :json => PresentCodemarks.present(codemark, current_user)
   end
@@ -40,7 +40,7 @@ class CodemarksController < ApplicationController
       codemark ||= Codemark.new(:resource => resource, :user => user, :source => 'sendgrid')
       codemark.description = params['text'].split(/\r?\n/).first.to_s.gsub(PostRank::URI::URIREGEX[:valid_url], '')
       unless codemark.persisted?
-        codemark.topics = codemark.suggested_topics 
+        codemark.topics = resource.suggested_topics
         codemark.save!
       end
     end
@@ -132,7 +132,7 @@ class CodemarksController < ApplicationController
         resource = Link.for_url(params[:url] || session[:url])
         codemark = Codemark.for_user_and_resource(current_user.try(:id), resource.try(:id))
         codemark ||= Codemark.new(:resource => resource, :user => current_user)
-        codemark.topics = codemark.suggested_topics unless codemark.persisted?
+        codemark.topics = resource.suggested_topics unless codemark.persisted?
         codemarks << codemark
       end
     end

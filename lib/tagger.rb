@@ -1,4 +1,6 @@
 class Tagger
+  TAG_SUGGESTION_LIMIT = 3
+
   def self.tag(text, user = nil)
     return [] if text.blank?
     words = sanitize(text).scan(/\w+/).each_with_object(Hash.new{ |i| 0 }){ |w,h| h[w] += 1}

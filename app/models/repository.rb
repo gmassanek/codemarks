@@ -36,4 +36,11 @@ class Repository < Resource
   def url
     "https://github.com/#{owner_login}/#{title}"
   end
+
+  def suggested_topics
+    title_topic = Topic.search_for(self.title) || Topic.create!(:title => self.title.downcase) if self.title
+    language_topic = Topic.search_for(self.language) || Topic.create!(:title => self.language.downcase) if self.language
+    description_topics = Topic.where(:title => Tagger.tag(self.description)) if self.description
+    [title_topic, language_topic, description_topics].flatten.compact.uniq.first(Tagger::TAG_SUGGESTION_LIMIT)
+  end
 end

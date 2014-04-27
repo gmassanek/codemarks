@@ -30,5 +30,9 @@ class Topic < ActiveRecord::Base
   def clear_topic_cache
     Rails.cache.delete('topics-json')
   end
+
+  def self.search_for(topic)
+    where('LOWER(?) = LOWER(title)', topic).first
+  end
 end
 

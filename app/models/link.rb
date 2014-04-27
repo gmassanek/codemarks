@@ -6,8 +6,6 @@ class Link < Resource
   hstore_attr :site_data, :snapshot_url, :snapshot_id
   hstore_indexed_attr :title, :url, :host
 
-  TAG_SUGGESTION_LIMIT = 3
-
   before_validation :default_title, :default_host
   after_create :trigger_snapshot
   validates_presence_of :url, :host
@@ -54,10 +52,10 @@ class Link < Resource
 
   def suggested_topics
     topic_ids = Tagger.tag(self.title, self.author)
-    if topic_ids.length < TAG_SUGGESTION_LIMIT
+    if topic_ids.length < Tagger::TAG_SUGGESTION_LIMIT
       topic_ids += Tagger.tag(self.site_data, self.author)
     end
-    topic_ids = topic_ids.uniq.first(TAG_SUGGESTION_LIMIT)
+    topic_ids = topic_ids.uniq.first(Tagger::TAG_SUGGESTION_LIMIT)
     Topic.where(:slug => topic_ids)
   end
 end

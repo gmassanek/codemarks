@@ -116,25 +116,6 @@ describe Codemark do
     end
   end
 
-  describe "#suggested_topics" do
-    before do
-      @github = Topic.create!(:title => 'github')
-      @rspec = Topic.create!(:title => 'rspec')
-    end
-
-    it "has none without a resource" do
-      codemark = Fabricate(:codemark, :user => user)
-      codemark.resource = nil
-      codemark.suggested_topics.should == []
-    end
-
-    it "delegates to Link" do
-      codemark = Fabricate(:codemark, :user => user)
-      codemark.resource.stub(:suggested_topics => [@github, @rspec])
-      codemark.suggested_topics.should == [@github, @rspec]
-    end
-  end
-
   describe '#mark_as_private' do
     before do
       @private = Topic.find_by_title('private') || Fabricate(:topic, :title => 'private')

@@ -19,4 +19,8 @@ class Resource < ActiveRecord::Base
   def update_author(author_id = nil)
     update_attributes(:author_id => author_id) if orphan?
   end
+
+  def suggested_topics
+    []
+  end
 end
