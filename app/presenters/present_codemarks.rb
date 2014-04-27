@@ -10,22 +10,14 @@ class PresentCodemarks
   end
 
   def self.present(codemark, current_user = nil)
-    if current_user == codemark.user
-      user = codemark.user
-    else
-      user = codemark.resource_author || codemark.user
-    end
-
-    data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
-    data['title'] = codemark.title || 'No title'
-    data['resource_type'] = codemark.resource_type
-
+    data = codemark.attributes.slice('id', 'user_id', 'resource_id', 'resource_type', 'created_at', 'updated_at', 'description', 'title', 'group_id', 'private', 'save_count', 'visit_count')
     data.merge!({
       resource: present_resource(codemark.resource),
       topics: codemark.topics.map(&:attributes),
       editable: UserCodemarkAuthorizer.new(current_user, codemark, :edit).authorized?,
       user: PresentUsers.present(codemark.user)
     })
+    data['title'] ||= 'No title'
     data
   end
 
