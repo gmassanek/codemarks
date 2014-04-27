@@ -1,5 +1,5 @@
 class PresentResource
-  def self.present(resources)
+  def self.present_all(resources)
     resources.map { |resource | new(resources).present }
   end
 
