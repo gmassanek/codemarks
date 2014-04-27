@@ -47,6 +47,13 @@ describe FindCodemarks do
       all_cms.codemarks.first.save_count.should == "1"
     end
 
+    it "returns the save count for a repo" do
+      user = Fabricate(:user)
+      repo_cm = Fabricate(:codemark, :user => user, :resource => Repository.create!(:title => 'title'))
+      all_cms = FindCodemarks.new(:user => user)
+      all_cms.codemarks.first.save_count.should == "1"
+    end
+
     it "textmarks for anonymous users" do
       user = Fabricate(:user)
       text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
