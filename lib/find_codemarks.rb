@@ -18,7 +18,7 @@ class FindCodemarks
 
   def codemarks
     query = Codemark.scoped
-    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, resources.codemarks_count AS save_count, resources.clicks_count AS visit_count')
+    query = query.select('codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.resource_type, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, resources.codemarks_count AS save_count, resources.clicks_count AS visit_count')
     query = query.joins("RIGHT JOIN (#{filter_query.to_sql}) summary ON codemarks.id = summary.id")
     query = query.joins(:resource)
 

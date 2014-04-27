@@ -8,6 +8,7 @@ class Codemark < ActiveRecord::Base
 
   validates_presence_of :resource_id, :resource_type, :user_id
 
+  before_validation :set_resource_type
   before_save :mark_as_private
   after_create :track
 
@@ -36,11 +37,11 @@ class Codemark < ActiveRecord::Base
   end
 
   def resource_author
-    resource.author if resource
+    resource.author
   end
 
   def title
-    attributes['title'] || resource.try(:title)
+    attributes['title'] || resource.title
   end
 
   def resource_type_underscore
@@ -65,5 +66,9 @@ class Codemark < ActiveRecord::Base
 
   def track
     Global.track(:user_id => self.user.nickname, :event => 'codemark_created', :properties => tracking_data)
+  end
+
+  def set_resource_type
+    self.resource_type = resource.class.to_s
   end
 end

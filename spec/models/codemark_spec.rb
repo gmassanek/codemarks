@@ -17,11 +17,6 @@ describe Codemark do
       codemark.should_not be_valid
     end
 
-    it "a resource type" do
-      codemark.resource_type = nil
-      codemark.should_not be_valid
-    end
-
     it "a user" do
       codemark.user = nil
       codemark.should_not be_valid
