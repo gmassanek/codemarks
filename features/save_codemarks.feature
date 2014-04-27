@@ -29,7 +29,7 @@ Feature: Saving Codemarks
     And I should be Google's author
     And that codemark's source should be "codemarklet"
 
-  @vcr
+  @vcr_without_params
   Scenario: Saving a repo via the codemarklet
     When I open the codemarklet for "https://github.com/gmassanek/codemarks"
     And I get to the new link form from the codemarklet
@@ -43,7 +43,7 @@ Feature: Saving Codemarks
     Then I should see "Some text"
     And I should be that codemark's author
 
-  @vcr
+  @vcr_without_params
   Scenario: Saving a repository codemark
     And I fill out and submit the add codemark form with "https://github.com/gmassanek/codemarks"
     Then I should see "gmassanek/codemarks"

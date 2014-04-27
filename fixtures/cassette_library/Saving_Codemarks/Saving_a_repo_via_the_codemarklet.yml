@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.segment.io/v1/import
     body:
       encoding: US-ASCII
-      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T11:29:30-05:00","action":"identify","requestId":"e54de7f3c025063c6"}]}'
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T18:41:09Z"},"timestamp":"2014-04-27T13:41:10-05:00","action":"identify","requestId":"70dc9cf53c2176b15"},{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T18:41:09Z"},"timestamp":"2014-04-27T13:41:11-05:00","action":"identify","requestId":"de3fb81d4e1b9f3f5"},{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T18:41:09Z"},"timestamp":"2014-04-27T13:41:11-05:00","action":"identify","requestId":"2fb2058a517f01792"}]}'
     headers:
       Accept:
       - application/json
@@ -21,7 +21,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 27 Apr 2014 16:29:04 GMT
+      - Sun, 27 Apr 2014 18:40:44 GMT
       X-Powered-By:
       - Express
       Content-Length:
@@ -32,13 +32,13 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"success":true}'
     http_version: 
-  recorded_at: Sun, 27 Apr 2014 16:29:32 GMT
+  recorded_at: Sun, 27 Apr 2014 18:41:12 GMT
 - request:
     method: post
     uri: https://api.segment.io/v1/import
     body:
       encoding: US-ASCII
-      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T11:29:31-05:00","action":"identify","requestId":"414f4e481717bc05d"},{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T16:29:32Z"},"timestamp":"2014-04-27T11:29:32-05:00","action":"identify","requestId":"85b792e017d3859e7"}]}'
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T13:41:11-05:00","action":"identify","requestId":"af4c7cce853276134"},{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T13:41:11-05:00","action":"identify","requestId":"1b5b84ee1cef2999f"},{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T18:41:11Z"},"timestamp":"2014-04-27T13:41:12-05:00","action":"identify","requestId":"6ba81425f7f85f501"}]}'
     headers:
       Accept:
       - application/json
@@ -54,7 +54,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 27 Apr 2014 16:29:05 GMT
+      - Sun, 27 Apr 2014 18:40:44 GMT
       X-Powered-By:
       - Express
       Content-Length:
@@ -65,10 +65,43 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"success":true}'
     http_version: 
-  recorded_at: Sun, 27 Apr 2014 16:29:33 GMT
+  recorded_at: Sun, 27 Apr 2014 18:41:12 GMT
+- request:
+    method: post
+    uri: https://api.segment.io/v1/import
+    body:
+      encoding: US-ASCII
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T18:41:11Z"},"timestamp":"2014-04-27T13:41:12-05:00","action":"identify","requestId":"2554474be0d78297d"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 27 Apr 2014 18:40:45 GMT
+      X-Powered-By:
+      - Express
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true}'
+    http_version: 
+  recorded_at: Sun, 27 Apr 2014 18:41:13 GMT
 - request:
     method: get
-    uri: !ruby/regexp /https:\/\/api\.github\.com\/repos\/gmassanek\/codemarks/
+    uri: https://api.github.com/repos/gmassanek/codemarks
     body:
       encoding: US-ASCII
       string: ''
@@ -90,7 +123,7 @@ http_interactions:
         R2l0SHViLmNvbQ==
       !binary "RGF0ZQ==":
       - !binary |-
-        U3VuLCAyNyBBcHIgMjAxNCAxNjoyOTowNSBHTVQ=
+        U3VuLCAyNyBBcHIgMjAxNCAxODo0MDo0NiBHTVQ=
       !binary "Q29udGVudC1UeXBl":
       - !binary |-
         YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
@@ -105,19 +138,19 @@ http_interactions:
         NTAwMA==
       !binary "WC1SYXRlbGltaXQtUmVtYWluaW5n":
       - !binary |-
-        NDk5Ng==
+        NDk5OQ==
       !binary "WC1SYXRlbGltaXQtUmVzZXQ=":
       - !binary |-
-        MTM5ODYxOTIxMw==
+        MTM5ODYyNzY0Ng==
       !binary "Q2FjaGUtQ29udHJvbA==":
       - !binary |-
         cHVibGljLCBtYXgtYWdlPTYwLCBzLW1heGFnZT02MA==
       !binary "TGFzdC1Nb2RpZmllZA==":
       - !binary |-
-        RnJpLCAyNSBBcHIgMjAxNCAxNTo0MzozOSBHTVQ=
+        U3VuLCAyNyBBcHIgMjAxNCAxODozNjo0NSBHTVQ=
       !binary "RXRhZw==":
       - !binary |-
-        ImZiNGJmMDNiOWNmYzZkOGU3MDUwODA5MjMwNmNhNDhkIg==
+        Ijk3YWU4NDQ5ZGE4MjJlNWNlY2E2NmYwZWFlMjk0Njk2Ig==
       !binary "VmFyeQ==":
       - !binary |-
         QWNjZXB0
@@ -149,7 +182,7 @@ http_interactions:
         Kg==
       !binary "WC1HaXRodWItUmVxdWVzdC1JZA==":
       - !binary |-
-        QURBNTE3Q0U6NzY2MDpCNjFDM0M6NTM1RDMwNTE=
+        QTY5MzY2QzM6NzY2MToxMzRDMUU0OjUzNUQ0RjJE
       !binary "U3RyaWN0LVRyYW5zcG9ydC1TZWN1cml0eQ==":
       - !binary |-
         bWF4LWFnZT0zMTUzNjAwMA==
@@ -158,195 +191,37 @@ http_interactions:
         bm9zbmlmZg==
       !binary "WC1TZXJ2ZWQtQnk=":
       - !binary |-
-        OTcxYWY0MDM5MGFjNDM5OGZjZGQ0NWM4ZGFiMGZiZTc=
+        YThkOGU0OTJkNjk2NmYwYzIzZGVlMmVlZDY0YzY3OGE=
       !binary "Q29udGVudC1FbmNvZGluZw==":
       - !binary |-
         Z3ppcA==
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        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
+        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
     http_version: 
-  recorded_at: Sun, 27 Apr 2014 16:29:33 GMT
-- request:
-    method: post
-    uri: https://api.segment.io/v1/import
-    body:
-      encoding: US-ASCII
-      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"gmassanek","context":{"library":"analytics-ruby"},"traits":{"username":"gmassanek","name":null,"created":"2014-04-27T16:31:13Z"},"timestamp":"2014-04-27T11:31:13-05:00","action":"identify","requestId":"18aaacae91317d730"}]}'
-    headers:
-      Accept:
-      - application/json
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Sun, 27 Apr 2014 16:30:46 GMT
-      X-Powered-By:
-      - Express
-      Content-Length:
-      - '16'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"success":true}'
-    http_version: 
-  recorded_at: Sun, 27 Apr 2014 16:31:14 GMT
-- request:
-    method: get
-    uri: https://api.github.com/repos/gmassanek/codemarks?client_id=17d564cb5975e018dd77&client_secret=319b7a70e661bd287f8ff100ef4fc42fc3fba71a
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: !binary |-
-        T0s=
-    headers:
-      !binary "U2VydmVy":
-      - !binary |-
-        R2l0SHViLmNvbQ==
-      !binary "RGF0ZQ==":
-      - !binary |-
-        U3VuLCAyNyBBcHIgMjAxNCAxNjozMDo0NiBHTVQ=
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
-      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
-      - !binary |-
-        Y2h1bmtlZA==
-      !binary "U3RhdHVz":
-      - !binary |-
-        MjAwIE9L
-      !binary "WC1SYXRlbGltaXQtTGltaXQ=":
-      - !binary |-
-        NTAwMA==
-      !binary "WC1SYXRlbGltaXQtUmVtYWluaW5n":
-      - !binary |-
-        NDk5NQ==
-      !binary "WC1SYXRlbGltaXQtUmVzZXQ=":
-      - !binary |-
-        MTM5ODYxOTIxMw==
-      !binary "Q2FjaGUtQ29udHJvbA==":
-      - !binary |-
-        cHVibGljLCBtYXgtYWdlPTYwLCBzLW1heGFnZT02MA==
-      !binary "TGFzdC1Nb2RpZmllZA==":
-      - !binary |-
-        RnJpLCAyNSBBcHIgMjAxNCAxNTo0MzozOSBHTVQ=
-      !binary "RXRhZw==":
-      - !binary |-
-        ImZiNGJmMDNiOWNmYzZkOGU3MDUwODA5MjMwNmNhNDhkIg==
-      !binary "VmFyeQ==":
-      - !binary |-
-        QWNjZXB0
-      - !binary |-
-        QWNjZXB0LUVuY29kaW5n
-      !binary "WC1HaXRodWItTWVkaWEtVHlwZQ==":
-      - !binary |-
-        Z2l0aHViLnYz
-      !binary "WC1Yc3MtUHJvdGVjdGlvbg==":
-      - !binary |-
-        MTsgbW9kZT1ibG9jaw==
-      !binary "WC1GcmFtZS1PcHRpb25z":
-      - !binary |-
-        ZGVueQ==
-      !binary "Q29udGVudC1TZWN1cml0eS1Qb2xpY3k=":
-      - !binary |-
-        ZGVmYXVsdC1zcmMgJ25vbmUn
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctQ3JlZGVudGlhbHM=":
-      - !binary |-
-        dHJ1ZQ==
-      !binary "QWNjZXNzLUNvbnRyb2wtRXhwb3NlLUhlYWRlcnM=":
-      - !binary |-
-        RVRhZywgTGluaywgWC1HaXRIdWItT1RQLCBYLVJhdGVMaW1pdC1MaW1pdCwg
-        WC1SYXRlTGltaXQtUmVtYWluaW5nLCBYLVJhdGVMaW1pdC1SZXNldCwgWC1P
-        QXV0aC1TY29wZXMsIFgtQWNjZXB0ZWQtT0F1dGgtU2NvcGVzLCBYLVBvbGwt
-        SW50ZXJ2YWw=
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
-      - !binary |-
-        Kg==
-      !binary "WC1HaXRodWItUmVxdWVzdC1JZA==":
-      - !binary |-
-        QURBNTE3Q0U6Mjg3QjoxMTkwNzE6NTM1RDMwQjY=
-      !binary "U3RyaWN0LVRyYW5zcG9ydC1TZWN1cml0eQ==":
-      - !binary |-
-        bWF4LWFnZT0zMTUzNjAwMA==
-      !binary "WC1Db250ZW50LVR5cGUtT3B0aW9ucw==":
-      - !binary |-
-        bm9zbmlmZg==
-      !binary "WC1TZXJ2ZWQtQnk=":
-      - !binary |-
-        ODhkOTI0ZWQ4NjE3MzZkMjc0OWNlMWE1NTc2NmNiNTM=
-      !binary "Q29udGVudC1FbmNvZGluZw==":
-      - !binary |-
-        Z3ppcA==
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA6WY3W7qOBSF3yW3QzHh57Tk5swzjM7czA1yEpNYJHZkO6A2
-        6rvPsh2SgAqlRjrqoanX55Xtve1tuojnUbL89fYar3/NIkFrFiVRJnNWU3XQ
-        0Szat1W1658XNdWaCnYg0xHyJJiKki6qZMEF5MMwyC1+tV69beNZRI/UULVr
-        VYVBpTGNTgjxD/W84KZs01YzlUlhmDDzTNakJV78G6hC9QDLjDZveZrSOGWr
-        nC2ybL+i6+2GbV/f0jxLl8sFBFcTNbyfxJMxkyZTq6Wpqytz3pQbPx25l1Ul
-        T9Bfv8vdKcggs2F1CC6KEARkHZGmZAgmXuPTBodr80M7TtIR+9+O5xaisTyK
-        5T+z1ItgyObBZ0cUa6SjtanOFG8Ml+KH1i6kQElVUME/aAAKUpvG1tQPTTgJ
-        pOyIbPyh1ms60ih+pNm7DYdiGeNHRDeEdyUGzrw3tlT/xfrbWHPDdjSvbf3t
-        aaXZ5yxycxsMcg9mqLiH8vuitnM2LCEmw0R7qQ4D8W6BufCNZXOBtZRvInpT
-        jjLyO9OBvQczrLYj+NlnfoZypKlU1Mjvqvq2sQtIhxcemTYBDKN1sGEnBqSU
-        MjxyTgwI17plD+Xh7Zd1DE3OiS7aOvU70SPpfRvr1fCIk4YXgrHgiA2Ajpw3
-        yVRRkZXhyLO+I/6TW1VaBFu0WiDSSqbBDBxRxAE6okvqjwKze8aVJVr9BVCx
-        /VMWrX4AGvXEujp7FjDgcAIZLHGwv7OedH0EKyqKlhbhxAFgt2YcqgX9+LZb
-        uF0TIwE42x0pnrbPbVQjwzr0BzXqNzyEI2IEupP/fjNx56Un3YN77brm353C
-        t2m9/CKln0TaPLzG2t+/bxbu27T6joz7qd+se3JoNPvd+uyPdCO/b7eDl/6s
-        J91fDTWl3YEwTUMVCzXby0mXUjQy8/m8Kxl1DWrN1BNV6dXAUJWVaMVC/XVn
-        PTqRmhrX8u6tvRwtcCVpHhzLAQCYX7JQj149zaMGF7lgY048pdW8YtpIEb5H
-        joQpV0jD9zx7pNO/XUYXkO635iJjM1pVM2Sl4RlHnuIKZVcMTR8Lj4pXwz6u
-        zb7FrxhSNjjKinl9R/x9LFMMDXy+owbN93IRxy/4t4j/xHGy3iSr1//wBm2T
-        X4xZvyzWL8vNn3iTrFfJamvHNK0uJ5ivhmA361MNn3At/+rmO7bw9iINrtbl
-        KPp7lCRffFHQS7IKOXOV1I/Ndbw+Su7LYK+UNWtwjPubi+Yf+BRvl5vFxaGc
-        yVYgvvFmFp2oQXuIU3Dy7HyUA/JPm75bLNU7X15RYlRrb1Z4Mpbu5OGJH/hw
-        W/KXnh6NL1tqrpTsvw4RqC9ccxsmevRgwV+5dJRAMfk7DI9+vfuc7WlbmZ3v
-        TeEX39YYdzsUzJxwaTozQZoe+b2j9ef/nPoIKA0SAAA=
-    http_version: 
-  recorded_at: Sun, 27 Apr 2014 16:31:14 GMT
+  recorded_at: Sun, 27 Apr 2014 18:41:14 GMT
 recorded_with: VCR 2.3.0

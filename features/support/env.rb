@@ -11,6 +11,7 @@ require Rails.root.join("spec/support/vcr.rb")
 
 VCR.cucumber_tags do |t|
   t.tag '@vcr', :use_scenario_name => true
+  t.tag '@vcr_without_params', :use_scenario_name => true, :match_requests_on => [:method, :host, :path]
 end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
