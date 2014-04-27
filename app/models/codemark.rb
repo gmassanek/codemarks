@@ -68,6 +68,11 @@ class Codemark < ActiveRecord::Base
     Global.track(:user_id => self.user.nickname, :event => 'codemark_created', :properties => tracking_data)
   end
 
+  def resource=(resource)
+    super
+    set_resource_type
+  end
+
   def set_resource_type
     self.resource_type = resource.class.to_s
   end
