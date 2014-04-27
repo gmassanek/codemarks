@@ -34,7 +34,7 @@ class TopicsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        @topics = Topic.for_user(current_user).order(:title)
+        @topics = Topic.for_user(current_user).select([:description, :slug, :title])
         render :json => PresentTopics.for(@topics)
       end
 
