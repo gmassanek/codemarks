@@ -1,6 +1,7 @@
 codemarks
 =========
 [![Build Status](https://secure.travis-ci.org/gmassanek/codemarks.png?branch=master)](http://travis-ci.org/gmassanek/codemarks)
+[![Code Climate](https://codeclimate.com/github/gmassanek/codemarks.png)](https://codeclimate.com/github/gmassanek/codemarks)
 
 Development Environment Setup
 -----------------------------
