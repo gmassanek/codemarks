@@ -12,8 +12,13 @@ describe Codemark do
   end
 
   context "requires" do
-    it "a resource" do
-      codemark.resource = nil
+    it "a resource id" do
+      codemark.resource_id = nil
+      codemark.should_not be_valid
+    end
+
+    it "a resource type" do
+      codemark.resource_type = nil
       codemark.should_not be_valid
     end
 

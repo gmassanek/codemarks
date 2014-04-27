@@ -6,8 +6,7 @@ class Codemark < ActiveRecord::Base
   has_many :codemark_topics, :dependent => :destroy
   has_many :topics, :through => :codemark_topics
 
-  validates_presence_of :resource_id
-  validates_presence_of :user_id
+  validates_presence_of :resource_id, :resource_type, :user_id
 
   before_save :mark_as_private
   after_create :track
@@ -42,10 +41,6 @@ class Codemark < ActiveRecord::Base
 
   def title
     attributes['title'] || resource.try(:title)
-  end
-
-  def resource_type
-    resource.try(:type)
   end
 
   def resource_type_underscore
