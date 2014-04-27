@@ -25,9 +25,9 @@ class FindCodemarks
     query = query.where("summary.rk = 1")
     query = full_text_searchify(query) if @search_term
 
-    query = query.includes(:resource => {:author => :authentications})
+    query = query.includes(:resource => {:author => [:authentications, :groups]})
     query = query.includes(:topics)
-    query = query.includes(:user => :authentications)
+    query = query.includes(:user => [:authentications, :groups])
 
     query = order(query)
     query = page_query(query)
@@ -47,7 +47,7 @@ class FindCodemarks
     if @group_ids
       query = query.where(:group_id => @group_ids)
     else
-      query = query.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(User.find_by_id(current_user_id).try(:group_ids)))
+      query = query.where('codemarks.group_id IS NULL OR codemarks.group_id IN (?)', Array(@current_user.try(:group_ids)))
     end
     if @topic_ids.present?
       query = join_topics(query, @topic_ids)
