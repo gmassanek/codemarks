@@ -1,6 +1,6 @@
 class PresentTopics
   def self.for(topics)
-    topics.map { |topic| present(topic) }.sort_by { |data| data[:title] }
+    topics.map { |topic| present(topic) }
   end
 
   def self.present(topic)
