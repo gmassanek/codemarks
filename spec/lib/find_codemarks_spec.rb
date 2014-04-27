@@ -325,6 +325,24 @@ describe FindCodemarks do
         FindCodemarks.new(:search_term => 'MacMahan').codemarks.collect(&:id).should =~ [cm.id]
       end
 
+      it 'searches a texts title' do
+        text = Text.create!(:title => 'Some cool new tool')
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :resource => text)
+        FindCodemarks.new(:search_term => 'cool new tool').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'searches a repos description' do
+        repo = Repository.create!(:description => 'Some cool new tool')
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :resource => repo)
+        FindCodemarks.new(:search_term => 'cool new tool').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
+      it 'searches a repos owner' do
+        repo = Repository.create!(:owner_login => 'gmassanek')
+        cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :resource => repo)
+        FindCodemarks.new(:search_term => 'gmassanek').codemarks.collect(&:id).should =~ [cm.id]
+      end
+
       it 'matches topics from search' do
         topic = Fabricate(:topic, :title => 'Github')
         cm = Fabricate(:codemark, :user => @user, :title => 'My pretty pony', :topics => [topic])
