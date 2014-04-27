@@ -49,6 +49,16 @@ Given /^I have (\d+) text codemark(s)$/ do |num, _|
   @codemarks
 end
 
+Given /^I have (\d+) repository codemark(s)$/ do |num, _|
+  @codemarks = []
+  num.to_i.times do
+    topics = [Fabricate(:topic), Topic.last].compact
+    repo = Repository.create!(:text => 'wooooohooo', :forks_count => 3, :language => 'Ruby')
+    @codemarks << Fabricate(:codemark, :resource => repo, :user => @current_user, :topics => topics)
+  end
+  @codemarks
+end
+
 Given /^(t|T)here (is|are) (\d+) text codemark$/ do |_, _, num|
   @codemarks = []
   num.to_i.times do

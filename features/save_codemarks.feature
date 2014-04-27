@@ -7,7 +7,7 @@ Feature: Saving Codemarks
 
   @vcr
   Scenario: Saving google on the dashboard
-    And I fill out and submit the add codemark form with Google
+    And I fill out and submit the add codemark form with "http://www.google.com"
     Then I should see "Google"
     And I should be Google's author
     And that codemark's source should be "web-browse"
@@ -16,22 +16,37 @@ Feature: Saving Codemarks
   Scenario: Saving google on the dashboard to a group
     And I am in the "Foobar" group
     And I am on the codemarks page
-    And I fill out and submit the add codemark form with Google in that group
+    And I fill out and submit the add codemark form with "http://www.google.com" in that group
     Then I should see "Google"
     And that codemark should be in that group
 
   @vcr
   Scenario: Saving google via the codemarklet
-    When I open the codemarklet for Google
+    When I open the codemarklet for "http://www.google.com"
     And I get to the new link form from the codemarklet
     And I submit the codemark form
     Then I should see "Codemark saved successfully"
     And I should be Google's author
     And that codemark's source should be "codemarklet"
 
+  @vcr
+  Scenario: Saving a repo via the codemarklet
+    When I open the codemarklet for "https://github.com/gmassanek/codemarks"
+    And I get to the new link form from the codemarklet
+    And I submit the codemark form
+    Then I should see "Codemark saved successfully"
+    And I should be that codemark's author
+    And that codemark's source should be "codemarklet"
+
   Scenario: Saving a text codemark
     And I fill out and submit the add note codemark form with "Some text"
     Then I should see "Some text"
+    And I should be that codemark's author
+
+  @vcr
+  Scenario: Saving a repository codemark
+    And I fill out and submit the add codemark form with "https://github.com/gmassanek/codemarks"
+    Then I should see "gmassanek/codemarks"
     And I should be that codemark's author
 
   Scenario: Stealing somebody's codemark leaves them as the author

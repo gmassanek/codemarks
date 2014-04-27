@@ -1,0 +1,319 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.segment.io/v1/import
+    body:
+      encoding: US-ASCII
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T11:20:38-05:00","action":"identify","requestId":"ee99746cdd59662c3"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 27 Apr 2014 16:20:11 GMT
+      X-Powered-By:
+      - Express
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true}'
+    http_version: 
+  recorded_at: Sun, 27 Apr 2014 16:20:39 GMT
+- request:
+    method: post
+    uri: https://api.segment.io/v1/import
+    body:
+      encoding: US-ASCII
+      string: ! '{"secret":"vshafc8f00","batch":[{"userId":"logged-out","context":{"library":"analytics-ruby"},"traits":{},"timestamp":"2014-04-27T11:20:39-05:00","action":"identify","requestId":"c55426726b96c8490"}]}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 27 Apr 2014 16:20:12 GMT
+      X-Powered-By:
+      - Express
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true}'
+    http_version: 
+  recorded_at: Sun, 27 Apr 2014 16:20:40 GMT
+- request:
+    method: get
+    uri: !ruby/regexp /https:\/\/api\.github\.com\/repos\/gmassanek\/codemarks/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "U2VydmVy":
+      - !binary |-
+        R2l0SHViLmNvbQ==
+      !binary "RGF0ZQ==":
+      - !binary |-
+        U3VuLCAyNyBBcHIgMjAxNCAxNjoyMDoxMyBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "U3RhdHVz":
+      - !binary |-
+        MjAwIE9L
+      !binary "WC1SYXRlbGltaXQtTGltaXQ=":
+      - !binary |-
+        NTAwMA==
+      !binary "WC1SYXRlbGltaXQtUmVtYWluaW5n":
+      - !binary |-
+        NDk5OQ==
+      !binary "WC1SYXRlbGltaXQtUmVzZXQ=":
+      - !binary |-
+        MTM5ODYxOTIxMw==
+      !binary "Q2FjaGUtQ29udHJvbA==":
+      - !binary |-
+        cHVibGljLCBtYXgtYWdlPTYwLCBzLW1heGFnZT02MA==
+      !binary "TGFzdC1Nb2RpZmllZA==":
+      - !binary |-
+        RnJpLCAyNSBBcHIgMjAxNCAxNTo0MzozOSBHTVQ=
+      !binary "RXRhZw==":
+      - !binary |-
+        ImZiNGJmMDNiOWNmYzZkOGU3MDUwODA5MjMwNmNhNDhkIg==
+      !binary "VmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      - !binary |-
+        QWNjZXB0LUVuY29kaW5n
+      !binary "WC1HaXRodWItTWVkaWEtVHlwZQ==":
+      - !binary |-
+        Z2l0aHViLnYz
+      !binary "WC1Yc3MtUHJvdGVjdGlvbg==":
+      - !binary |-
+        MTsgbW9kZT1ibG9jaw==
+      !binary "WC1GcmFtZS1PcHRpb25z":
+      - !binary |-
+        ZGVueQ==
+      !binary "Q29udGVudC1TZWN1cml0eS1Qb2xpY3k=":
+      - !binary |-
+        ZGVmYXVsdC1zcmMgJ25vbmUn
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctQ3JlZGVudGlhbHM=":
+      - !binary |-
+        dHJ1ZQ==
+      !binary "QWNjZXNzLUNvbnRyb2wtRXhwb3NlLUhlYWRlcnM=":
+      - !binary |-
+        RVRhZywgTGluaywgWC1HaXRIdWItT1RQLCBYLVJhdGVMaW1pdC1MaW1pdCwg
+        WC1SYXRlTGltaXQtUmVtYWluaW5nLCBYLVJhdGVMaW1pdC1SZXNldCwgWC1P
+        QXV0aC1TY29wZXMsIFgtQWNjZXB0ZWQtT0F1dGgtU2NvcGVzLCBYLVBvbGwt
+        SW50ZXJ2YWw=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "WC1HaXRodWItUmVxdWVzdC1JZA==":
+      - !binary |-
+        QURBNTE3Q0U6M0REMzoxNUE0MTkxOjUzNUQyRTND
+      !binary "U3RyaWN0LVRyYW5zcG9ydC1TZWN1cml0eQ==":
+      - !binary |-
+        bWF4LWFnZT0zMTUzNjAwMA==
+      !binary "WC1Db250ZW50LVR5cGUtT3B0aW9ucw==":
+      - !binary |-
+        bm9zbmlmZg==
+      !binary "WC1TZXJ2ZWQtQnk=":
+      - !binary |-
+        NjJhMTMwM2FlOTU5MzFlNTZlMzg3ZTg3ZDM1NGJiMjQ=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WY3W7qOBSF3yW3QzHh57Tk5swzjM7czA1yEpNYJHZkO6A2
+        6rvPsh2SgAqlRjrqoanX55Xtve1tuojnUbL89fYar3/NIkFrFiVRJnNWU3XQ
+        0Szat1W1658XNdWaCnYg0xHyJJiKki6qZMEF5MMwyC1+tV69beNZRI/UULVr
+        VYVBpTGNTgjxD/W84KZs01YzlUlhmDDzTNakJV78G6hC9QDLjDZveZrSOGWr
+        nC2ybL+i6+2GbV/f0jxLl8sFBFcTNbyfxJMxkyZTq6Wpqytz3pQbPx25l1Ul
+        T9Bfv8vdKcggs2F1CC6KEARkHZGmZAgmXuPTBodr80M7TtIR+9+O5xaisTyK
+        5T+z1ItgyObBZ0cUa6SjtanOFG8Ml+KH1i6kQElVUME/aAAKUpvG1tQPTTgJ
+        pOyIbPyh1ms60ih+pNm7DYdiGeNHRDeEdyUGzrw3tlT/xfrbWHPDdjSvbf3t
+        aaXZ5yxycxsMcg9mqLiH8vuitnM2LCEmw0R7qQ4D8W6BufCNZXOBtZRvInpT
+        jjLyO9OBvQczrLYj+NlnfoZypKlU1Mjvqvq2sQtIhxcemTYBDKN1sGEnBqSU
+        MjxyTgwI17plD+Xh7Zd1DE3OiS7aOvU70SPpfRvr1fCIk4YXgrHgiA2Ajpw3
+        yVRRkZXhyLO+I/6TW1VaBFu0WiDSSqbBDBxRxAE6okvqjwKze8aVJVr9BVCx
+        /VMWrX4AGvXEujp7FjDgcAIZLHGwv7OedH0EKyqKlhbhxAFgt2YcqgX9+LZb
+        uF0TIwE42x0pnrbPbVQjwzr0BzXqNzyEI2IEupP/fjNx56Un3YN77brm353C
+        t2m9/CKln0TaPLzG2t+/bxbu27T6joz7qd+se3JoNPvd+uyPdCO/b7eDl/6s
+        J91fDTWl3YEwTUMVCzXby0mXUjQy8/m8Kxl1DWrN1BNV6dXAUJWVaMVC/XVn
+        PTqRmhrX8u6tvRwtcCVpHhzLAQCYX7JQj149zaMGF7lgY048pdW8YtpIEb5H
+        joQpV0jD9zx7pNO/XUYXkO635iJjM1pVM2Sl4RlHnuIKZVcMTR8Lj4pXwz6u
+        zb7FrxhSNjjKinl9R/x9LFMMDXy+owbN93IRxy/4t4j/xHGy3iSr1//wBm2T
+        X4xZvyzWL8vNn3iTrFfJamvHNK0uJ5ivhmA361MNn3At/+rmO7bw9iINrtbl
+        KPp7lCRffFHQS7IKOXOV1I/Ndbw+Su7LYK+UNWtwjPubi+Yf+BRvl5vFxaGc
+        yVYgvvFmFp2oQXuIU3Dy7HyUA/JPm75bLNU7X15RYlRrb1Z4Mpbu5OGJH/hw
+        W/KXnh6NL1tqrpTsvw4RqC9ccxsmevRgwV+5dJRAMfk7DI9+vfuc7WlbmZ3v
+        TeEX39YYdzsUzJxwaTozQZoe+b2j9ef/nPoIKA0SAAA=
+    http_version: 
+  recorded_at: Sun, 27 Apr 2014 16:20:40 GMT
+- request:
+    method: get
+    uri: https://api.github.com/repos/gmassanek/codemarks?client_id=17d564cb5975e018dd77&client_secret=319b7a70e661bd287f8ff100ef4fc42fc3fba71a
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "U2VydmVy":
+      - !binary |-
+        R2l0SHViLmNvbQ==
+      !binary "RGF0ZQ==":
+      - !binary |-
+        U3VuLCAyNyBBcHIgMjAxNCAxNjoyMzo0OCBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "U3RhdHVz":
+      - !binary |-
+        MjAwIE9L
+      !binary "WC1SYXRlbGltaXQtTGltaXQ=":
+      - !binary |-
+        NTAwMA==
+      !binary "WC1SYXRlbGltaXQtUmVtYWluaW5n":
+      - !binary |-
+        NDk5OA==
+      !binary "WC1SYXRlbGltaXQtUmVzZXQ=":
+      - !binary |-
+        MTM5ODYxOTIxMw==
+      !binary "Q2FjaGUtQ29udHJvbA==":
+      - !binary |-
+        cHVibGljLCBtYXgtYWdlPTYwLCBzLW1heGFnZT02MA==
+      !binary "TGFzdC1Nb2RpZmllZA==":
+      - !binary |-
+        RnJpLCAyNSBBcHIgMjAxNCAxNTo0MzozOSBHTVQ=
+      !binary "RXRhZw==":
+      - !binary |-
+        ImZiNGJmMDNiOWNmYzZkOGU3MDUwODA5MjMwNmNhNDhkIg==
+      !binary "VmFyeQ==":
+      - !binary |-
+        QWNjZXB0
+      - !binary |-
+        QWNjZXB0LUVuY29kaW5n
+      !binary "WC1HaXRodWItTWVkaWEtVHlwZQ==":
+      - !binary |-
+        Z2l0aHViLnYz
+      !binary "WC1Yc3MtUHJvdGVjdGlvbg==":
+      - !binary |-
+        MTsgbW9kZT1ibG9jaw==
+      !binary "WC1GcmFtZS1PcHRpb25z":
+      - !binary |-
+        ZGVueQ==
+      !binary "Q29udGVudC1TZWN1cml0eS1Qb2xpY3k=":
+      - !binary |-
+        ZGVmYXVsdC1zcmMgJ25vbmUn
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctQ3JlZGVudGlhbHM=":
+      - !binary |-
+        dHJ1ZQ==
+      !binary "QWNjZXNzLUNvbnRyb2wtRXhwb3NlLUhlYWRlcnM=":
+      - !binary |-
+        RVRhZywgTGluaywgWC1HaXRIdWItT1RQLCBYLVJhdGVMaW1pdC1MaW1pdCwg
+        WC1SYXRlTGltaXQtUmVtYWluaW5nLCBYLVJhdGVMaW1pdC1SZXNldCwgWC1P
+        QXV0aC1TY29wZXMsIFgtQWNjZXB0ZWQtT0F1dGgtU2NvcGVzLCBYLVBvbGwt
+        SW50ZXJ2YWw=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "WC1HaXRodWItUmVxdWVzdC1JZA==":
+      - !binary |-
+        QURBNTE3Q0U6NjQwMzo4RDM0QkU6NTM1RDJGMTQ=
+      !binary "U3RyaWN0LVRyYW5zcG9ydC1TZWN1cml0eQ==":
+      - !binary |-
+        bWF4LWFnZT0zMTUzNjAwMA==
+      !binary "WC1Db250ZW50LVR5cGUtT3B0aW9ucw==":
+      - !binary |-
+        bm9zbmlmZg==
+      !binary "WC1TZXJ2ZWQtQnk=":
+      - !binary |-
+        ODhkOTI0ZWQ4NjE3MzZkMjc0OWNlMWE1NTc2NmNiNTM=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WY3W7qOBSF3yW3QzHh57Tk5swzjM7czA1yEpNYJHZkO6A2
+        6rvPsh2SgAqlRjrqoanX55Xtve1tuojnUbL89fYar3/NIkFrFiVRJnNWU3XQ
+        0Szat1W1658XNdWaCnYg0xHyJJiKki6qZMEF5MMwyC1+tV69beNZRI/UULVr
+        VYVBpTGNTgjxD/W84KZs01YzlUlhmDDzTNakJV78G6hC9QDLjDZveZrSOGWr
+        nC2ybL+i6+2GbV/f0jxLl8sFBFcTNbyfxJMxkyZTq6Wpqytz3pQbPx25l1Ul
+        T9Bfv8vdKcggs2F1CC6KEARkHZGmZAgmXuPTBodr80M7TtIR+9+O5xaisTyK
+        5T+z1ItgyObBZ0cUa6SjtanOFG8Ml+KH1i6kQElVUME/aAAKUpvG1tQPTTgJ
+        pOyIbPyh1ms60ih+pNm7DYdiGeNHRDeEdyUGzrw3tlT/xfrbWHPDdjSvbf3t
+        aaXZ5yxycxsMcg9mqLiH8vuitnM2LCEmw0R7qQ4D8W6BufCNZXOBtZRvInpT
+        jjLyO9OBvQczrLYj+NlnfoZypKlU1Mjvqvq2sQtIhxcemTYBDKN1sGEnBqSU
+        MjxyTgwI17plD+Xh7Zd1DE3OiS7aOvU70SPpfRvr1fCIk4YXgrHgiA2Ajpw3
+        yVRRkZXhyLO+I/6TW1VaBFu0WiDSSqbBDBxRxAE6okvqjwKze8aVJVr9BVCx
+        /VMWrX4AGvXEujp7FjDgcAIZLHGwv7OedH0EKyqKlhbhxAFgt2YcqgX9+LZb
+        uF0TIwE42x0pnrbPbVQjwzr0BzXqNzyEI2IEupP/fjNx56Un3YN77brm353C
+        t2m9/CKln0TaPLzG2t+/bxbu27T6joz7qd+se3JoNPvd+uyPdCO/b7eDl/6s
+        J91fDTWl3YEwTUMVCzXby0mXUjQy8/m8Kxl1DWrN1BNV6dXAUJWVaMVC/XVn
+        PTqRmhrX8u6tvRwtcCVpHhzLAQCYX7JQj149zaMGF7lgY048pdW8YtpIEb5H
+        joQpV0jD9zx7pNO/XUYXkO635iJjM1pVM2Sl4RlHnuIKZVcMTR8Lj4pXwz6u
+        zb7FrxhSNjjKinl9R/x9LFMMDXy+owbN93IRxy/4t4j/xHGy3iSr1//wBm2T
+        X4xZvyzWL8vNn3iTrFfJamvHNK0uJ5ivhmA361MNn3At/+rmO7bw9iINrtbl
+        KPp7lCRffFHQS7IKOXOV1I/Ndbw+Su7LYK+UNWtwjPubi+Yf+BRvl5vFxaGc
+        yVYgvvFmFp2oQXuIU3Dy7HyUA/JPm75bLNU7X15RYlRrb1Z4Mpbu5OGJH/hw
+        W/KXnh6NL1tqrpTsvw4RqC9ccxsmevRgwV+5dJRAMfk7DI9+vfuc7WlbmZ3v
+        TeEX39YYdzsUzJxwaTozQZoe+b2j9ef/nPoIKA0SAAA=
+    http_version: 
+  recorded_at: Sun, 27 Apr 2014 16:24:16 GMT
+recorded_with: VCR 2.3.0

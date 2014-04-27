@@ -10,7 +10,7 @@ Feature: Private Codemarks
 
   @vcr
   Scenario: Saving a private codemark
-    When I fill out the add codemark form with Google
+    When I fill out the add codemark form with "http://www.google.com"
     And I select "private" from ".topics"
     And I submit the codemark form
     Then I should see "Google"

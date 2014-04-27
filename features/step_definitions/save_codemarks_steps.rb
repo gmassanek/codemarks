@@ -1,7 +1,7 @@
-When /^I fill out the add codemark form with Google$/ do
+When /^I fill out the add codemark form with "(.*)"$/ do |url|
   Fabricate(:topic, :title => 'google')
   step 'I get to the new link form'
-  page.fill_in('url', :with => 'http://www.google.com')
+  page.fill_in('url', :with => url)
   page.click_button('Add')
   step 'I wait until all Ajax requests are complete'
 end
@@ -19,14 +19,14 @@ When /^I get to the new text form$/ do
   page.find('.add-note').click()
 end
 
-When /^I fill out and submit the add codemark form with Google$/ do
-  step 'I fill out the add codemark form with Google'
+When /^I fill out and submit the add codemark form with "(.*)"$/ do |url|
+  step "I fill out the add codemark form with \"#{url}\""
   step 'I submit the codemark form'
 end
 
-When /^I open the codemarklet for Google$/ do
+When /^I open the codemarklet for "(.*)"$/ do |url|
   Fabricate(:topic, :title => 'google')
-  visit new_codemarklet_path(:url => 'http://www.google.com')
+  visit new_codemarklet_path(:url => url)
 end
 
 When /^I fill out the codemark form with the existing one$/ do
@@ -65,8 +65,8 @@ Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note
   step 'I wait until all Ajax requests are complete'
 end
 
-Given /^I fill out and submit the add codemark form with Google in that group$/ do
-  step 'I fill out the add codemark form with Google'
+Given /^I fill out and submit the add codemark form with "(.*)" in that group$/ do |url|
+  step "I fill out the add codemark form with \"#{url}\""
   page.select(@group.name, :from => 'group_id')
   step 'I submit the codemark form'
 end

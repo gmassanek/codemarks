@@ -20,6 +20,13 @@ Feature: View Codemarks
     Then I should see that codemark
     And I should be on the show page
 
+  Scenario: Viewing one Codemark
+    And I have 1 repository codemarks
+    And I am on the codemarks page
+    When I click on that codemark
+    Then I should see that codemark
+    And I should be on the show page
+
   Scenario: I only see my Codemarks when filtered by me
     And I have 3 codemarks
     And someone else has codemarks
