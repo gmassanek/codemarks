@@ -1,6 +1,53 @@
 require 'spec_helper'
 
 describe Repository do
+  describe '.create_from_url' do
+    it 'returns nil for invalid urls' do
+      Repository.create_from_url('https://developer.github.com/v3/repos/#get').should == nil
+    end
+
+    it 'returns an existing repo if there is one' do
+      existing_repo = Repository.create!(:owner_login => 'gmassanek', :title => 'codemarks')
+      repo = Repository.create_from_url('https://github.com/gmassanek/codemarks')
+      existing_repo.id.should == repo.id
+    end
+
+    it 'creates a new repository from gitbub' do
+      VCR.use_cassette :get_github_repository, :match_requests_on => [:host, :path] do
+        repo = Repository.create_from_url('https://github.com/gmassanek/codemarks')
+        repo.should be_persisted
+        repo.owner_login.should == 'gmassanek'
+        repo.title.should == 'codemarks'
+        repo.language.should == 'Ruby'
+      end
+    end
+  end
+
+  describe '#refresh_remote_data!' do
+    it 'returns false if remote call failed' do
+      VCR.use_cassette :get_github_repository_failed, :match_requests_on => [:host, :path] do
+        repo = Repository.new(:owner_login => 'gmassanek', :title => 'codemarks')
+        repo.refresh_remote_data!.should == false
+      end
+    end
+
+    it 'returns false if the data url cannot be created' do
+      repo = Repository.new(:owner_login => nil, :title => 'codemarks')
+      repo.refresh_remote_data!.should == false
+    end
+
+    it 'refreshes its data from a remote call' do
+      VCR.use_cassette :get_github_repository, :match_requests_on => [:host, :path] do
+        repo = Repository.new(:owner_login => 'gmassanek', :title => 'codemarks')
+        repo.refresh_remote_data!
+
+        repo.owner_login.should == 'gmassanek'
+        repo.title.should == 'codemarks'
+        repo.language.should == 'Ruby'
+      end
+    end
+  end
+
   describe "#suggested_topics" do
     before do
       @repo = Repository.new

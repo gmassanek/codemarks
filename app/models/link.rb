@@ -12,7 +12,7 @@ class Link < Resource
 
   def self.for_url(url)
     url = PostRank::URI.clean(url)
-    repository_for_url(url) || has_url(url).first || create_link_from_internet(url)
+    Repository.create_from_url(url) || has_url(url).first || create_link_from_internet(url)
   end
 
   def self.create_link_from_internet(url)
@@ -29,10 +29,6 @@ class Link < Resource
     p e
     link.update_attributes(:site_data => nil)
     link
-  end
-
-  def self.repository_for_url(url)
-    Repository.create_from_url(url)
   end
 
   def default_title
