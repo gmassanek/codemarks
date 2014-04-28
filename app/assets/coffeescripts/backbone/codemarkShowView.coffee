@@ -74,7 +74,6 @@ App.CodemarkShowView = Backbone.View.extend
         href: @model.get('resource').attachment_url
       description: @model.get('resource').description
       forks_count: @model.get('resource').forks_count
-      stargazers_count: @model.get('resource').stargazers_count
       watchers_count: @model.get('resource').watchers_count
       language: @model.get('resource').language
       owner_login: @model.get('resource').owner_login

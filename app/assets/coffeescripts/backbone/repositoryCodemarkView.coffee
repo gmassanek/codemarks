@@ -13,7 +13,6 @@ App.RepositoryCodemarkView = App.CodemarkView.extend
       href: "/codemarks/#{@model.get('id')}"
     data['description'] = resource.description
     data['forks_count'] = resource.forks_count
-    data['stargazers_count'] = resource.stargazers_count
     data['watchers_count'] = resource.watchers_count
     data['language'] = resource.language
     data['owner_login'] = resource.owner_login

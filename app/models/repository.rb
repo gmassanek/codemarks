@@ -1,5 +1,5 @@
 class Repository < Resource
-  hstore_indexed_attr :title, :description, :forks_count, :stargazers_count, :watchers_count, :language, :owner_login
+  hstore_indexed_attr :title, :description, :forks_count, :watchers_count, :language, :owner_login
 
   def self.create_from_url(url)
     return unless matches = url.match(/github\.com\/(?<name>[\w-]*)\/(?<title>[\w-]*)$/)
@@ -41,7 +41,6 @@ class Repository < Resource
       :title => json['name'],
       :description => json['description'],
       :forks_count => json['forks_count'],
-      :stargazers_count => json['stargazers_count'],
       :watchers_count => json['watchers_count'],
       :language => json['language'],
       :owner_login => json['owner']['login']

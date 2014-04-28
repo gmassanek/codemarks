@@ -56,7 +56,6 @@ class PresentResource
       'title' => @resource.title,
       'description' => @resource.description,
       'forks_count' => @resource.forks_count,
-      'stargazers_count' => @resource.stargazers_count,
       'watchers_count' => @resource.watchers_count,
       'language' => @resource.language,
       'owner_login' => @resource.owner_login,
