@@ -21,8 +21,7 @@ namespace :whenever do
   task :refresh_github_repos => :environment do
     next unless ENV['RAILS_ENV'] == 'production'
 
-    Repository.find_each.each_with_index do |repo, i|
-      p i
+    Repository.find_each do |repo|
       repo.refresh_remote_data!
     end
   end
