@@ -6,6 +6,7 @@ VCR.configure do |config|
   config.ignore_localhost = true
   config.default_cassette_options = {
     :record => :none
+    #:record => :all
     #:record => :new_episodes
   }
 end

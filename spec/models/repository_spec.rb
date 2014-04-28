@@ -15,10 +15,20 @@ describe Repository do
     it 'creates a new repository from gitbub' do
       VCR.use_cassette :get_github_repository, :match_requests_on => [:host, :path] do
         repo = Repository.create_from_url('https://github.com/gmassanek/codemarks')
+
         repo.should be_persisted
-        repo.owner_login.should == 'gmassanek'
-        repo.title.should == 'codemarks'
+
+        repo.description.should == 'Bookmarks for Social Coders'
+        repo.fork.should == 'false'
+        repo.forks_count.should == '6'
         repo.language.should == 'Ruby'
+        repo.owner_avatar_url.should == 'https://avatars.githubusercontent.com/u/343891?'
+        repo.owner_gravatar_id.should == '58dbba1be3de0ccf3a495e978bdcb220'
+        repo.owner_login.should == 'gmassanek'
+        repo.pushed_at.should == '2014-04-27T21:36:00Z'
+        repo.repo_created_at.should == '2011-11-01T11:45:37Z'
+        repo.size.should == '19250'
+        repo.title.should == 'codemarks'
       end
     end
   end

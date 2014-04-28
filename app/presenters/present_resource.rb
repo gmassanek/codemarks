@@ -59,7 +59,13 @@ class PresentResource
       'watchers_count' => @resource.watchers_count,
       'language' => @resource.language,
       'owner_login' => @resource.owner_login,
-      'url' => @resource.url
+      'url' => @resource.url,
+      'pushed_at' => @resource.pushed_at,
+      'repo_created_at' => @resource.repo_created_at,
+      'owner_avatar_url' => @resource.owner_avatar_url,
+      'owner_gravatar_id' => @resource.owner_gravatar_id,
+      'fork' => @resource.fork,
+      'size' => @resource.size
     }
   end
 end

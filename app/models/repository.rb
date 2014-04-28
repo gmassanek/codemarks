@@ -1,5 +1,6 @@
 class Repository < Resource
-  hstore_indexed_attr :title, :description, :forks_count, :watchers_count, :language, :owner_login
+  hstore_indexed_attr :title, :description, :language, :owner_login, :pushed_at, :repo_created_at
+  hstore_attr :owner_avatar_url, :owner_gravatar_id, :fork, :size, :forks_count, :watchers_count
 
   def self.create_from_url(url)
     return unless matches = url.match(/github\.com\/(?<name>[\w-]*)\/(?<title>[\w-]*)$/)
@@ -38,12 +39,18 @@ class Repository < Resource
 
     json = JSON.parse(request.body)
     update_attributes({
-      :title => json['name'],
       :description => json['description'],
+      :fork => json['fork'],
       :forks_count => json['forks_count'],
-      :watchers_count => json['watchers_count'],
       :language => json['language'],
-      :owner_login => json['owner']['login']
+      :owner_avatar_url => json['owner']['avatar_url'],
+      :owner_gravatar_id => json['owner']['gravatar_id'],
+      :owner_login => json['owner']['login'],
+      :pushed_at => json['pushed_at'],
+      :repo_created_at => json['created_at'],
+      :size => json['size'],
+      :title => json['name'],
+      :watchers_count => json['watchers_count']
     })
   end
 

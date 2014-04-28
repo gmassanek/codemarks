@@ -16,6 +16,13 @@ App.RepositoryCodemarkView = App.CodemarkView.extend
     data['watchers_count'] = resource.watchers_count
     data['language'] = resource.language
     data['owner_login'] = resource.owner_login
+    data['pushed_at' ] = resource.pushed_at
+    data['repo_created_at' ] = resource.repo_created_at
+    data['owner_avatar_url' ] = resource.owner_avatar_url
+    data['owner_gravatar_id' ] = resource.owner_gravatar_id
+    data['fork' ] = resource.fork
+    data['size' ] = resource.size
+    data['data' ] = resource.data
     data
 
   recordClick: (e) ->

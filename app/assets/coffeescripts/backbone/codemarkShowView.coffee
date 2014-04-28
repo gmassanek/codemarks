@@ -75,6 +75,12 @@ App.CodemarkShowView = Backbone.View.extend
       description: @model.get('resource').description
       forks_count: @model.get('resource').forks_count
       watchers_count: @model.get('resource').watchers_count
+      pushed_at: @model.get('resource').pushed_at
+      repo_created_at: @model.get('resource').repo_created_at
+      owner_avatar_url: @model.get('resource').owner_avatar_url
+      owner_gravatar_id: @model.get('resource').owner_gravatar_id
+      fork: @model.get('resource').fork
+      size: @model.get('resource').size
       language: @model.get('resource').language
       owner_login: @model.get('resource').owner_login
 

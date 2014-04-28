@@ -8,7 +8,7 @@ module ActiveHstore
         scope "has_#{key}", lambda { |value| where("properties @> hstore(?, ?)", key, value) }
 
         define_method(key) do
-          self.properties.present? && properties[key]
+          properties[key] if self.properties.present?
         end
 
         define_method("#{key}=") do |value|
@@ -25,7 +25,7 @@ module ActiveHstore
         scope "has_#{key}", lambda { |value| where("indexed_properties @> hstore(?, ?)", key, value) }
 
         define_method(key) do
-          self.indexed_properties.present? && indexed_properties[key]
+          indexed_properties[key] if self.indexed_properties.present?
         end
 
         define_method("#{key}=") do |value|
