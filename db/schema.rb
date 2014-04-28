@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140427212748) do
+ActiveRecord::Schema.define(:version => 20140427231108) do
 
   create_table "authentications", :force => true do |t|
     t.string   "uid"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20140427212748) do
     t.string   "nickname"
   end
 
+  add_index "authentications", ["uid", "provider"], :name => "index_authentications_on_uid_and_provider"
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "clicks", :force => true do |t|
