@@ -20,6 +20,11 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "log/cron_log.log"
+
 every :day, :at => '10:00am', :roles => [:app] do
   rake "whenever:codemark_of_the_day"
+end
+
+every 30.minutes, :roles => [:app] do
+  rake "whenever:refresh_github_repos"
 end

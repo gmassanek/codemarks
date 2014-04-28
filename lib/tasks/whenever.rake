@@ -16,4 +16,13 @@ namespace :whenever do
       puts "No codemarks saved yesterday"
     end
   end
+
+  desc 'Refresh github repositories'
+  task :refresh_github_repos => :environment do
+    next unless ENV['RAILS_ENV'] == 'production'
+
+    Repository.find_each do |repo|
+      repo.refresh_remote_data!
+    end
+  end
 end
