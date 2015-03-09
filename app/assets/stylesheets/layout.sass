@@ -41,22 +41,6 @@ $tile-main-height: $tile-height - $tile-footer-height - $tile-header-height
     $tile-count: 2
     $total-width: 720px
     $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
-    background-color: red
-
-    width: $total-width
-    .tile
-      margin: 0px $tile-margin 20px
-
-  @media only screen and (min-device-width : 320px) and (max-device-width : 480px)
-    $tile-count: 2
-    $total-width: 960px
-
-    $tile-width: 430px
-    $tile-height: 430px
-    $tile-footer-height: 30px
-    $tile-header-height: 45px
-    $tile-main-height: $tile-height - $tile-footer-height - $tile-header-height
-    $tile-margin: ($total-width - ($tile-count * $tile-width)) / (2 * $tile-count)
 
     width: $total-width
     .tile
