@@ -1,5 +1,5 @@
 $image-width: $tile-width - 2px
-$image-height: 260px
+$image-height: $tile-height - $tile-header-height - $tile-footer-height
 $snapshot-original-width: 705
 $snapshot-original-height: 642
 $visible-image-height: 150px
@@ -36,7 +36,7 @@ $visible-image-height: 150px
       .title
         display: block
         float: left
-        width: 172px
+        width: $tile-width - 65
         height: 32px
         overflow: hidden
         line-height: 16px
