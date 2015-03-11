@@ -17,7 +17,8 @@ App.CodemarkView = Backbone.View.extend
     @$el.addClass(@model.get('resource_type').toLowerCase())
 
     fellow_codemarkers = @model.get("fellow_codemarkers")
-    @$el.find(".saves").attr("title", fellow_codemarkers.join(", ")) if fellow_codemarkers.length
+    if fellow_codemarkers.length
+      @$el.find(".saves").attr("title", fellow_codemarkers.join(", ")).tooltip({ placement: "bottom" })
 
   initialize: ->
     @model.bind 'change', => @render()
