@@ -11,6 +11,7 @@
 //= require jquery.fileupload
 //= require jquery.iframe-transport
 //= require select2
+//= require tooltip
 
 //= require util
 
