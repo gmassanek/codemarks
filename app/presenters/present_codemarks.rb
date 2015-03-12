@@ -16,7 +16,7 @@ class PresentCodemarks
       topics: codemark.topics.map(&:attributes),
       editable: UserCodemarkAuthorizer.new(current_user, codemark, :edit).authorized?,
       user: PresentUsers.present(codemark.user),
-      fellow_codemarkers: codemark.resource.codemarks.reject { |cm| cm.id == codemark.id }.map{ |cm| cm.user.nickname }
+      fellow_codemarkers: codemark.resource.codemarks.map{ |cm| cm.user.nickname }
     })
     data['title'] ||= 'No title'
     data
