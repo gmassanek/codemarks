@@ -25,7 +25,8 @@ class FindCodemarks
     query = query.where("summary.rk = 1")
     query = full_text_searchify(query) if @search_term
 
-    query = query.includes(:resource => {:author => [:authentications, :groups]})
+    #query = query.includes(:resource)
+    query = query.includes(:resource => {:author => [:authentications, :groups], :codemarks => [:user]})
     query = query.includes(:topics)
     query = query.includes(:user => [:authentications, :groups])
 
