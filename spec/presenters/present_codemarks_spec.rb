@@ -16,14 +16,14 @@ describe PresentCodemarks do
     data['description'].should == codemark.description
     data['title'].should == codemark.title
     data['group_id'].should == codemark.group_id
-    data[:fellow_codemarkers].should be_empty
+    data[:fellow_codemarkers].should == [user.nickname]
   end
 
   it 'presents fellow codemarkers' do
     wombat = Fabricate(:user, :nickname => 'wombat')
     Fabricate(:codemark, :resource => link, :user => wombat)
     data = PresentCodemarks.present(codemark)
-    data[:fellow_codemarkers].should == ['wombat']
+    data[:fellow_codemarkers].should =~ ['wombat', user.nickname]
   end
 
   it 'presents a link codemarks' do
