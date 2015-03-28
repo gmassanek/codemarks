@@ -70,7 +70,7 @@ class Codemark < ActiveRecord::Base
 
   def resource=(resource)
     super
-    self.title = resource.title
+    self.title = resource.title if resource.title
     set_resource_type
   end
 

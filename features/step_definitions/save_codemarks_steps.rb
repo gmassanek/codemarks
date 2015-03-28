@@ -58,9 +58,10 @@ Given /^tom_brady has codemarked Google$/ do
   @codemark = @google = Fabricate(:codemark, :user => @tom_brady, :resource => google, :topics => [topic])
 end
 
-Given /^I fill out and submit the add note codemark form with "(.*?)"$/ do |note_text|
+Given /^I fill out and submit the add note codemark form with a title and "(.*?)"$/ do |note_text|
   step 'I get to the new text form'
   page.fill_in('text', :with => note_text)
+  page.fill_in('Title', :with => 'A New Title')
   page.click_button('Submit')
   step 'I wait until all Ajax requests are complete'
 end
@@ -73,6 +74,10 @@ end
 
 Then /^I should be that codemark's author$/ do
   Codemark.last.resource.author.should == @current_user
+end
+
+Then /^that codemark has a title$/ do
+  Codemark.last.title.should == 'A New Title'
 end
 
 Then /^I should see a codemark form$/ do
