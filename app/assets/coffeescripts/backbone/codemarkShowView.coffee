@@ -119,7 +119,7 @@ App.CodemarkShowView = Backbone.View.extend
     angelo('add_codemark.html')
 
   _codemarkTemplate: ->
-    angelo("show#{@model.get('resource_type')}Codemark.html")
+    angelo("#{@model.get('resource_type')}/show.html")
 
   _frameTemplate: ->
     angelo("showCodemark.html")

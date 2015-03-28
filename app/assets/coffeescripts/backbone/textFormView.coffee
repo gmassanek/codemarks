@@ -2,9 +2,6 @@ App.TextFormView = App.CodemarkFormView.extend
   _render: ->
     @resizeTextArea(@$('textarea.text'))
 
-  template: ->
-    angelo('textForm.html')
-
   presentedAttributes: ->
     title: @model.get('title') || ''
     text: @model.get('resource').text || ''

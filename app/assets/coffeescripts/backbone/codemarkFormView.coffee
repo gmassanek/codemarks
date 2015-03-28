@@ -112,3 +112,6 @@ App.CodemarkFormView = Backbone.View.extend
       $hiddenDiv = @$('.text-height-container')
       $hiddenDiv.html(val.replace(/\n/g, '<br>') + "</br></br></br></br>")
       @$('textarea.text').css('height', $hiddenDiv.height())
+
+  template: ->
+    angelo("#{@model.get('resource_type')}/form.html")
