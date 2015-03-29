@@ -1,4 +1,4 @@
-Fabricator(:codemark_topic) do
+Fabricator(:codemarks_topic) do
   codemark
   topic
 end

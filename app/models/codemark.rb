@@ -3,8 +3,7 @@ class Codemark < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
 
-  has_many :codemark_topics, :dependent => :destroy
-  has_many :topics, :through => :codemark_topics
+  has_and_belongs_to_many :topics
 
   validates_presence_of :resource_id, :resource_type, :user_id
 
@@ -13,7 +12,7 @@ class Codemark < ActiveRecord::Base
   after_create :track
 
   def self.for_user_and_resource(user_id, resource_id)
-    find(:first, :conditions => {:user_id => user_id, :resource_id => resource_id})
+    where({:user_id => user_id, :resource_id => resource_id}).first
   end
 
   def self.update_or_create(attributes)

@@ -17,7 +17,7 @@ class FindCodemarks
   end
 
   def codemarks
-    query = Codemark.scoped
+    query = Codemark.all
     query = query.select("codemarks.id, codemarks.user_id, codemarks.resource_id, codemarks.resource_type, codemarks.created_at, codemarks.updated_at, codemarks.description, codemarks.title, codemarks.group_id, codemarks.private, resources.codemarks_count AS save_count, resources.clicks_count AS visit_count, count(*) OVER() AS full_count, #{PAGE_SIZE} as page_size")
     query = query.joins("RIGHT JOIN (#{filter_query.to_sql}) summary ON codemarks.id = summary.id")
     query = query.joins(:resource)
@@ -41,7 +41,7 @@ class FindCodemarks
 
   private
   def filter_query
-    query = Codemark.scoped.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
+    query = Codemark.select("id, ROW_NUMBER() OVER(#{partition_string}) AS rk")
     query = query.where(:user_id => @user_id) if @user_id
     query = query.where(['private = ? OR (private = ? AND codemarks.user_id = ?)', false, true, current_user_id])
     if @group_ids
@@ -59,7 +59,7 @@ class FindCodemarks
   def join_topics(query, topic_ids)
     @topic_join_count ||= 0
     @topic_join_count += 1
-    query.joins("LEFT JOIN (#{CodemarkTopic.group('codemark_id').select('codemark_id, count(*)').where(:topic_id => topic_ids).to_sql}) cm_topics_#{@topic_join_count} on codemarks.id = cm_topics_#{@topic_join_count}.codemark_id")
+    query.joins("LEFT JOIN (#{CodemarksTopic.group('codemark_id').select('codemark_id, count(*)').where(:topic_id => topic_ids).to_sql}) cm_topics_#{@topic_join_count} on codemarks.id = cm_topics_#{@topic_join_count}.codemark_id")
   end
 
   def partition_string
@@ -116,8 +116,8 @@ class FindCodemarks
   end
 
   def search_params
-    topics = Topic.for_user(@current_user).find_all_by_id(@topic_ids).map(&:slug) if @topic_ids.present?
-    groups = Group.find_all_by_id(@group_ids)
+    topics = Topic.for_user(@current_user).where(:id => @topic_ids).map(&:slug) if @topic_ids.present?
+    groups = Group.where(id: @group_ids)
 
     params = { }
     params[:page] = @page if @page

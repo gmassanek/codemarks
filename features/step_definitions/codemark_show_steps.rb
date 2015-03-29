@@ -1,9 +1,9 @@
 Given /^there is a text codemark in group1$/ do
-  @codemark = Fabricate(:codemark, :resource => Text.create!(:text => 'foo text'), :group => Group.find_or_create_by_name("Group 1"))
+  @codemark = Fabricate(:codemark, :resource => Text.create!(:text => 'foo text'), :group => Group.find_or_create_by(name: "Group 1"))
 end
 
 Given /^I have a text codemark in group1$/ do
-  @codemark = Fabricate(:codemark, :resource => Text.create!(:text => 'foo text'), :user => @current_user, :group => Group.find_or_create_by_name('Group 1'))
+  @codemark = Fabricate(:codemark, :resource => Text.create!(:text => 'foo text'), :user => @current_user, :group => Group.find_or_create_by(name: 'Group 1'))
 end
 
 Given /^there is a text codemark$/ do

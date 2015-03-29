@@ -22,6 +22,8 @@ module Codemarks
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/app/lib/**/)
     config.autoload_paths += %W(#{config.root}/presenters/*)
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -54,13 +56,13 @@ module Codemarks
     config.assets.paths << Rails.root.join('app', 'assets', 'coffeescripts')
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
 
-    config.autoload_paths += %W(#{config.root}/lib)
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
-
     config.generators do |g|
       g.test_framework :rspec
       g.template_engine :haml
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
     end
+
+    config.active_record.raise_in_transactional_callbacks = true
+    config.eager_load = true
   end
 end

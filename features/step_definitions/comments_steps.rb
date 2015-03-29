@@ -1,9 +1,9 @@
 Given /^there (is|are) (\d+) comment(s) for that codemark's resource$/ do |_, num_comments, _|
   @comments = []
   num_comments.to_i.times do  |i|
-    @comments << Comment.build_from(@codemark.resource, Fabricate(:user), "Comment #{i}")
+    @comments << Comment.build_from(@codemark.resource, Fabricate(:user).id, "Comment #{i}")
   end
-  @comments.map(&:save)
+  @comments.map(&:save!)
 end
 
 Given /^I made (\d+) comment for that codemark's resource$/ do |num_comments|
@@ -11,7 +11,7 @@ Given /^I made (\d+) comment for that codemark's resource$/ do |num_comments|
   num_comments.to_i.times do  |i|
     @comments << Comment.build_from(@codemark.resource, @current_user.id, "Comment #{i}")
   end
-  @comments.map(&:save)
+  @comments.map(&:save!)
 end
 
 Then /^I should see those comments$/ do

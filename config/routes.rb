@@ -31,8 +31,15 @@ Codemarks::Application.routes.draw do
     end
   end
 
-  match 'auth/:provider/callback', to: 'sessions#create'
-  match 'auth/failure', to: 'sessions#failure'
+  post 'auth/:provider/callback', to: 'sessions#create'
+  post 'auth/failure', to: 'sessions#failure'
+
+  put 'auth/:provider/callback', to: 'sessions#create'
+  put 'auth/failure', to: 'sessions#failure'
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: 'sessions#failure'
+
   resources :sessions, :only => [:new, :create] do
     collection do
       get :codemarklet

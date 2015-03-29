@@ -1,10 +1,6 @@
 class Resource < ActiveRecord::Base
   include ActiveHstore
 
-  serialize :properties, ActiveRecord::Coders::Hstore
-  serialize :indexed_properties, ActiveRecord::Coders::Hstore
-  attr_accessible :author_id, :author, :clicks_count, :codemarks_count, :created_at, :updated_at
-
   has_many :topics, :through => :codemarks
   has_many :codemarks
   has_many :clicks

@@ -5,4 +5,3 @@ namespace :db  do
     puts "DONE"
   end
 end
-

@@ -12,10 +12,11 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   def self.build_from(obj, user_id, comment)
-    new \
+    new({
       :commentable => obj,
       :body        => comment,
       :user_id     => user_id
+    })
   end
 
   def has_children?

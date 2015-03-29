@@ -1,9 +1,5 @@
 class User < ActiveRecord::Base
 
-  extend FriendlyId
-  friendly_id :nickname, :use => :slugged
-
-
   has_many :authentications, :dependent => :destroy
   has_many :codemarks, :dependent => :destroy
   has_many :resources, :through => :codemarks
@@ -13,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :nuggets, :class_name => 'Link', :foreign_key => :author_id
 
+  before_save :set_slug
   after_save :take_nickname_from_authentication
 
   validates_uniqueness_of :nickname
@@ -28,10 +25,13 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_authentication(provider, nickname)
-    User.find(:first,
-              :joins => :authentications,
-              :conditions => {:authentications => {:provider => provider, :nickname => nickname}}
-             )
+    User.joins(:authentications)
+      .where(:authentications => {:provider => provider, :nickname => nickname} )
+      .first
+  end
+
+  def set_slug
+    self.slug = self.nickname.parameterize if self.nickname
   end
 
   def take_nickname_from_authentication

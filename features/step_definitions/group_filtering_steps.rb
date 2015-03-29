@@ -1,11 +1,11 @@
 Given /^I am in group1$/ do
-  @group1 = Group.find_or_create_by_name('Group 1')
+  @group1 = Group.find_or_create_by(name: 'Group 1')
   @current_user.groups << @group1
 end
 
 Given /^user2 is in group2$/ do
   @user2 = Fabricate(:user)
-  @group2 = Group.find_or_create_by_name('Group 2')
+  @group2 = Group.find_or_create_by(name: 'Group 2')
   @user2.groups << @group2
 end
 

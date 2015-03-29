@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.github.com/repos/gmassanek/codemarks
+    uri: https://api.github.com/repos/gmassanek/codemarks?client_id=17d564cb5975e018dd77&client_secret=319b7a70e661bd287f8ff100ef4fc42fc3fba71a
     body:
       encoding: US-ASCII
       string: ''
@@ -10,120 +10,66 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - ! '*/*'
+      - "*/*"
       User-Agent:
       - Ruby
   response:
     status:
       code: 200
-      message: !binary |-
-        T0s=
+      message: OK
     headers:
-      !binary "U2VydmVy":
-      - !binary |-
-        R2l0SHViLmNvbQ==
-      !binary "RGF0ZQ==":
-      - !binary |-
-        TW9uLCAyOCBBcHIgMjAxNCAwMzowMToyNyBHTVQ=
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD11dGYtOA==
-      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
-      - !binary |-
-        Y2h1bmtlZA==
-      !binary "U3RhdHVz":
-      - !binary |-
-        MjAwIE9L
-      !binary "WC1SYXRlbGltaXQtTGltaXQ=":
-      - !binary |-
-        NTAwMA==
-      !binary "WC1SYXRlbGltaXQtUmVtYWluaW5n":
-      - !binary |-
-        NDk4NA==
-      !binary "WC1SYXRlbGltaXQtUmVzZXQ=":
-      - !binary |-
-        MTM5ODY1NDg0Mw==
-      !binary "Q2FjaGUtQ29udHJvbA==":
-      - !binary |-
-        cHVibGljLCBtYXgtYWdlPTYwLCBzLW1heGFnZT02MA==
-      !binary "TGFzdC1Nb2RpZmllZA==":
-      - !binary |-
-        TW9uLCAyOCBBcHIgMjAxNCAwMjo1Njo0NSBHTVQ=
-      !binary "RXRhZw==":
-      - !binary |-
-        IjcxZTAxZWU5MDAyNjc2MjEzMjM4M2E4ZGFkY2VjZGNjIg==
-      !binary "VmFyeQ==":
-      - !binary |-
-        QWNjZXB0
-      - !binary |-
-        QWNjZXB0LUVuY29kaW5n
-      !binary "WC1HaXRodWItTWVkaWEtVHlwZQ==":
-      - !binary |-
-        Z2l0aHViLnYz
-      !binary "WC1Yc3MtUHJvdGVjdGlvbg==":
-      - !binary |-
-        MTsgbW9kZT1ibG9jaw==
-      !binary "WC1GcmFtZS1PcHRpb25z":
-      - !binary |-
-        ZGVueQ==
-      !binary "Q29udGVudC1TZWN1cml0eS1Qb2xpY3k=":
-      - !binary |-
-        ZGVmYXVsdC1zcmMgJ25vbmUn
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctQ3JlZGVudGlhbHM=":
-      - !binary |-
-        dHJ1ZQ==
-      !binary "QWNjZXNzLUNvbnRyb2wtRXhwb3NlLUhlYWRlcnM=":
-      - !binary |-
-        RVRhZywgTGluaywgWC1HaXRIdWItT1RQLCBYLVJhdGVMaW1pdC1MaW1pdCwg
-        WC1SYXRlTGltaXQtUmVtYWluaW5nLCBYLVJhdGVMaW1pdC1SZXNldCwgWC1P
-        QXV0aC1TY29wZXMsIFgtQWNjZXB0ZWQtT0F1dGgtU2NvcGVzLCBYLVBvbGwt
-        SW50ZXJ2YWw=
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
-      - !binary |-
-        Kg==
-      !binary "WC1HaXRodWItUmVxdWVzdC1JZA==":
-      - !binary |-
-        QURBNTE3Q0U6NkUxNjoxMjg1RUI6NTM1REM0ODY=
-      !binary "U3RyaWN0LVRyYW5zcG9ydC1TZWN1cml0eQ==":
-      - !binary |-
-        bWF4LWFnZT0zMTUzNjAwMA==
-      !binary "WC1Db250ZW50LVR5cGUtT3B0aW9ucw==":
-      - !binary |-
-        bm9zbmlmZg==
-      !binary "WC1TZXJ2ZWQtQnk=":
-      - !binary |-
-        YzQzNmIyYjQ0MzQ1YzcyZmY5MDYwNTlmNjA0OTkxZTc=
-      !binary "Q29udGVudC1FbmNvZGluZw==":
-      - !binary |-
-        Z3ppcA==
+      Server:
+      - GitHub.com
+      Date:
+      - Sun, 29 Mar 2015 04:22:13 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4997'
+      X-Ratelimit-Reset:
+      - '1427606533'
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Last-Modified:
+      - Sun, 29 Mar 2015 01:12:50 GMT
+      Etag:
+      - W/"d001381e2a9dbc0c15c77ff29b8009a5"
+      Vary:
+      - Accept
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - 32AC0847:6DB9:170D9E:55177DF5
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - 173530fed4bbeb1e264b2ed22e8b5c20
     body:
       encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA6VYXW/rKBD9K5VfNy1xPtrUL/fq3n+w233ZlwjbxEaxjQU4
-        UWv1v+8BHNuJbr6IVLUJ5RwOw8wwQxvwNIhmr6u3cPE6CSpasiAKEpGyksqt
-        CibBpimKdTeelVQpWrEtGc8Q+4rJIGqDQmS8AryfBrihny/mq/dwEtAd1VSu
-        G1lgUq51rSJC3KB6ybjOm7hRTCai0qzSL4koSUMc+AeoMtkRGM5guUrjmIYx
-        m6dsmiSbOV28L9n72ypOk3g2mwJwslDNu0UcM1ZSZCw112VxIs6JsvPHMzei
-        KMQe+NO9XFyC9DBjVkvBq8yHArCWCJ0zGBPb+DbG4UrfKcdCWmL+rHlqSBSO
-        R7L0PkkdCIKMH3y3RLJaWLYmVonkteaiulPaERRUQma04l/UgwpQ48ZG1J0i
-        LARQtoM33ol1mJbUku9o8mnMIVnC+A7W9eE7AYNOf9YmVP/F+Rtbc83WNC1N
-        /G1oodj3JLBra0yyAxNE3E3+fRTbKeuPEIv9EmJr88LTRsinf0TCafH0G8lC
-        2kwh5LZf7GLsWcsOEXW0omG5YuyzcESYS1pb9unNYbAtwe8uKBJEKo2FpFpc
-        C/jzwo5IWmx44DS+oRktvQVbMEhynI43iQWDhCvVsJtc9PxmLYcihxiomjJ2
-        SeoWzz9P69DQiEuIZxVj3pvtCVpyyJ+xpFWS+1Me8C1xn+yp0sxbosGCIi5E
-        7M2B24tYgpaonLpbQq8fUWUYDf6IULLNQxINvifU8oFztfIMQU+Hy0njiL31
-        HfCk7SxY0CpraObP2BOYrI37NqNfVwuJ8zExMIDOFE6Sx81jiWrgMArdHY74
-        9TfhQDEQ2qLgcp1xYdOjwsJuuyz5tQv6PFsHP3LpBymNH57Smu/X64jLMg2+
-        JUM+dcm6Y/a1ZpetD/pIO/B3lbj30R/wpP2rpjo3GQjL1FQyX7EdnLQxRY3z
-        8vLS5oza2rVk8oGodGjQUJnkqNJ89bUHPCqRkmpbDW+MvBTVcSFo6m3LngBk
-        7sh8NTr02I9q9Hjewix4zFbygiktKv8cOTCMeSuh+YYntzQB58PoiKT9oXiV
-        sAktigm8UvOEw0/RXZkTQ9HH/K3i0JCPjtpV/wWDy3pbWTKHb4lr1RLJUNun
-        a6pRl8+mYfiMn2n4EYbRYhnN3/7DDpo6PZqzeJ4unmerj+ksWr5implTNyof
-        0bgpbx+zMJq/RtOpmYJs1rkaPqFj/1NTPJTwpscGSKl8AP0cINEf3hA6SFLA
-        Z06c+ra1dqdXyWUY5OWiZDWu8e4hArvqXzRstz9+31D8C/PC99lyenRlJ6Kp
-        YP1wOQn2VKN4xB05Gjtc9Fji7yb+NItStXbBF0RaNqYlw8gQ2KPBPd/yvpdy
-        LVFHjVeakkspuneUCtGH/rhmVUfdS3ANmQoiIEb/h+BBr1Ofsg1tCr12lSv0
-        4plH27ayYnqPlurACaZxQdApWnz/D8RQsjZGEgAA
+      string: '{"id":2687146,"name":"codemarks","full_name":"gmassanek/codemarks","owner":{"login":"gmassanek","id":343891,"avatar_url":"https://avatars.githubusercontent.com/u/343891?v=3","gravatar_id":"","url":"https://api.github.com/users/gmassanek","html_url":"https://github.com/gmassanek","followers_url":"https://api.github.com/users/gmassanek/followers","following_url":"https://api.github.com/users/gmassanek/following{/other_user}","gists_url":"https://api.github.com/users/gmassanek/gists{/gist_id}","starred_url":"https://api.github.com/users/gmassanek/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gmassanek/subscriptions","organizations_url":"https://api.github.com/users/gmassanek/orgs","repos_url":"https://api.github.com/users/gmassanek/repos","events_url":"https://api.github.com/users/gmassanek/events{/privacy}","received_events_url":"https://api.github.com/users/gmassanek/received_events","type":"User","site_admin":false},"private":false,"html_url":"https://github.com/gmassanek/codemarks","description":"Bookmarks
+        for Social Coders!","fork":false,"url":"https://api.github.com/repos/gmassanek/codemarks","forks_url":"https://api.github.com/repos/gmassanek/codemarks/forks","keys_url":"https://api.github.com/repos/gmassanek/codemarks/keys{/key_id}","collaborators_url":"https://api.github.com/repos/gmassanek/codemarks/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/gmassanek/codemarks/teams","hooks_url":"https://api.github.com/repos/gmassanek/codemarks/hooks","issue_events_url":"https://api.github.com/repos/gmassanek/codemarks/issues/events{/number}","events_url":"https://api.github.com/repos/gmassanek/codemarks/events","assignees_url":"https://api.github.com/repos/gmassanek/codemarks/assignees{/user}","branches_url":"https://api.github.com/repos/gmassanek/codemarks/branches{/branch}","tags_url":"https://api.github.com/repos/gmassanek/codemarks/tags","blobs_url":"https://api.github.com/repos/gmassanek/codemarks/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/gmassanek/codemarks/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/gmassanek/codemarks/git/refs{/sha}","trees_url":"https://api.github.com/repos/gmassanek/codemarks/git/trees{/sha}","statuses_url":"https://api.github.com/repos/gmassanek/codemarks/statuses/{sha}","languages_url":"https://api.github.com/repos/gmassanek/codemarks/languages","stargazers_url":"https://api.github.com/repos/gmassanek/codemarks/stargazers","contributors_url":"https://api.github.com/repos/gmassanek/codemarks/contributors","subscribers_url":"https://api.github.com/repos/gmassanek/codemarks/subscribers","subscription_url":"https://api.github.com/repos/gmassanek/codemarks/subscription","commits_url":"https://api.github.com/repos/gmassanek/codemarks/commits{/sha}","git_commits_url":"https://api.github.com/repos/gmassanek/codemarks/git/commits{/sha}","comments_url":"https://api.github.com/repos/gmassanek/codemarks/comments{/number}","issue_comment_url":"https://api.github.com/repos/gmassanek/codemarks/issues/comments{/number}","contents_url":"https://api.github.com/repos/gmassanek/codemarks/contents/{+path}","compare_url":"https://api.github.com/repos/gmassanek/codemarks/compare/{base}...{head}","merges_url":"https://api.github.com/repos/gmassanek/codemarks/merges","archive_url":"https://api.github.com/repos/gmassanek/codemarks/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/gmassanek/codemarks/downloads","issues_url":"https://api.github.com/repos/gmassanek/codemarks/issues{/number}","pulls_url":"https://api.github.com/repos/gmassanek/codemarks/pulls{/number}","milestones_url":"https://api.github.com/repos/gmassanek/codemarks/milestones{/number}","notifications_url":"https://api.github.com/repos/gmassanek/codemarks/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/gmassanek/codemarks/labels{/name}","releases_url":"https://api.github.com/repos/gmassanek/codemarks/releases{/id}","created_at":"2011-11-01T11:45:37Z","updated_at":"2015-03-29T01:12:50Z","pushed_at":"2015-03-29T01:12:49Z","git_url":"git://github.com/gmassanek/codemarks.git","ssh_url":"git@github.com:gmassanek/codemarks.git","clone_url":"https://github.com/gmassanek/codemarks.git","svn_url":"https://github.com/gmassanek/codemarks","homepage":"http://codemarks.com/about","size":18427,"stargazers_count":17,"watchers_count":17,"language":"Ruby","has_issues":true,"has_downloads":true,"has_wiki":false,"has_pages":true,"forks_count":9,"mirror_url":null,"open_issues_count":2,"forks":9,"open_issues":2,"watchers":17,"default_branch":"master","network_count":9,"subscribers_count":3}'
     http_version: 
-  recorded_at: Mon, 28 Apr 2014 03:01:57 GMT
-recorded_with: VCR 2.3.0
+  recorded_at: Sun, 29 Mar 2015 04:23:13 GMT
+recorded_with: VCR 2.9.3

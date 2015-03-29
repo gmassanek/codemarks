@@ -1,11 +1,6 @@
 class Topic < ActiveRecord::Base
-  extend FriendlyId
 
-  #paginates_per 15
-  friendly_id :title, :use => :slugged
-
-  has_many :codemark_topics
-  has_many :codemarks, :through => :codemark_topics
+  has_and_belongs_to_many :codemarks
   has_many :resources, :through => :codemarks
   belongs_to :group
 
@@ -13,7 +8,12 @@ class Topic < ActiveRecord::Base
 
   scope :for_link_topics, lambda { |link_topics| joins(:link_topics).where(['"link_topics".id in (?)', link_topics]).uniq }
 
+  before_save :set_slug
   after_create :clear_topic_cache
+
+  def set_slug
+    self.slug = self.title.parameterize if self.title
+  end
 
   def self.private_topic_id
     where(:title => 'private').pluck(:id).first

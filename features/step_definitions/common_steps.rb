@@ -35,7 +35,7 @@ Given /^I have (\d+) codemark(s)$/ do |num, _|
 end
 
 Given /^I am in the "(.*?)" group$/ do |group_name|
-  @group = Group.find_or_create_by_name(group_name)
+  @group = Group.find_or_create_by(name: group_name)
   @current_user.update_attributes(:groups => Group.all)
 end
 
@@ -53,7 +53,7 @@ Given /^I have (\d+) repository codemark(s)$/ do |num, _|
   @codemarks = []
   num.to_i.times do
     topics = [Fabricate(:topic), Topic.last].compact
-    repo = Repository.create!(:text => 'wooooohooo', :forks_count => 3, :language => 'Ruby')
+    repo = Repository.create!(:title => 'wooooohooo', :forks_count => 3, :language => 'Ruby')
     @codemarks << Fabricate(:codemark, :resource => repo, :user => @current_user, :topics => topics)
   end
   @codemarks
