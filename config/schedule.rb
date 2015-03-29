@@ -25,6 +25,10 @@ every :day, :at => '10:00am', :roles => [:app] do
   rake "whenever:codemark_of_the_day"
 end
 
+every :day, :at => '3:00am', :roles => [:app] do
+  rake "backfill:fix_broken_images"
+end
+
 every 30.minutes, :roles => [:app] do
   rake "whenever:refresh_github_repos"
 end

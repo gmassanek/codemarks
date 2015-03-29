@@ -6,4 +6,4 @@ class App.SocketListener
 
   refreshCodemark: (data) =>
     model = App.codemarks.where(resource_id: data.resourceId)[0]
-    model.fetch()
+    model?.fetch()
