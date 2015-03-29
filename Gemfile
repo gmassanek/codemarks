@@ -31,7 +31,7 @@ gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
 gem "bitly"
 gem "redcarpet", "~> 3.0.0"
 gem 'analytics-ruby', '<1.0'
-gem 'open_uri_redirections', "~> 0.1.4"
+gem 'open_uri_redirections', '~> 0.2.1'
 gem "acts_as_commentable_with_threading", "~> 2.0"
 gem 'paperclip', '~> 4.2.1'
 gem 'github-v3-api', '~> 0.4.1'

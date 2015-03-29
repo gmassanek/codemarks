@@ -13,6 +13,12 @@ Feature: Saving Codemarks
     And that codemark's source should be "web-browse"
 
   @vcr
+  Scenario: Saving a site the redireces from https to http
+    And I fill out and submit the add codemark form with "https://ops-school.readthedocs.org/en/latest"
+    Then I should see "Ops School Curriculum"
+    And that codemark's source should be "web-browse"
+
+  @vcr
   Scenario: Saving google on the dashboard to a group
     And I am in the "Foobar" group
     And I am on the codemarks page
