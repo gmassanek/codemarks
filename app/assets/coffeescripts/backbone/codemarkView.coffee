@@ -123,4 +123,4 @@ App.CodemarkView = Backbone.View.extend
     @trigger('createCopy')
 
   template: ->
-    angelo("#{@model.get('resource_type')}/tile.html")
+    angelo("#{@model.get('resource_type').toLowerCase()}/tile.html")
