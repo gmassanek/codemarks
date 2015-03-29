@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'open_uri_redirections'
 require 'postrank-uri'
 
 class Link < Resource
@@ -20,7 +21,7 @@ class Link < Resource
     link.url = url
     link.host = URI.parse(url).host
 
-    html_response = Nokogiri::HTML(open(url))
+    html_response = Nokogiri::HTML(open(url, :allow_redirections => :all))
     link.title = html_response.title.try(:strip)
     link.site_data = html_response.content
     link.save!
