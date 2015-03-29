@@ -100,7 +100,8 @@ class CodemarksController < ApplicationController
   def update
     @codemark = Codemark.find(params[:id])
     params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"], params['codemark']['group_id'])
-    success = @codemark.update_attributes(params['codemark']) && @codemark.resource.update_attributes(params['resource'])
+    success = @codemark.update_attributes(params['codemark'].permit!)
+    success &= @codemark.resource.update_attributes(params['resource'].permit!) if params['resource'].present?
     respond_to do |format|
       format.html do
         if success

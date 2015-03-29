@@ -15,6 +15,10 @@ class Topic < ActiveRecord::Base
     self.slug = self.title.parameterize if self.title
   end
 
+  def to_param
+    self.slug
+  end
+
   def self.private_topic_id
     where(:title => 'private').pluck(:id).first
   end

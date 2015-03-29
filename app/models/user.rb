@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     self.slug = self.nickname.parameterize if self.nickname
   end
 
+  def to_param
+    self.slug
+  end
+
   def take_nickname_from_authentication
     if self.nickname.nil?
       nickname = authentications.first.nickname

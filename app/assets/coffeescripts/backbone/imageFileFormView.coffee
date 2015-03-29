@@ -1,1 +1,1 @@
-App.ImageFileFormView = App.FilemarkFormView.extend
+App.ImageFileFormView = App.FilemarkFormView.extend({})
