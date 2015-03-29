@@ -39,9 +39,10 @@ Feature: Saving Codemarks
     And that codemark's source should be "codemarklet"
 
   Scenario: Saving a text codemark
-    And I fill out and submit the add note codemark form with "Some text"
+    And I fill out and submit the add note codemark form with a title and "Some text"
     Then I should see "Some text"
     And I should be that codemark's author
+    And that codemark has a title
 
   @vcr_without_params
   Scenario: Saving a repository codemark
