@@ -25,7 +25,7 @@ gem 'delayed_job_active_record', '~> 4.0.3'
 gem 'daemons'
 gem "postrank-uri", "~> 1.0.17"
 gem 'gibbon'
-gem 'whenever', "0.7", :require => false
+gem 'whenever', '~> 0.9.4', :require => false
 gem 'twitter'
 gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
 gem "bitly"
