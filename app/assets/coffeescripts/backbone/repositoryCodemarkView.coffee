@@ -2,9 +2,6 @@ App.RepositoryCodemarkView = App.CodemarkView.extend
   extraEvents:
     'click .title': 'recordClick'
 
-  template: ->
-    angelo('repository_codemark.html')
-
   presentedAttributes: ->
     resource = @model.get('resource')
     data = App.CodemarkView.prototype.presentedAttributes.call(this)
