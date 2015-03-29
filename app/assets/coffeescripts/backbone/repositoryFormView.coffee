@@ -1,6 +1,4 @@
 App.RepositoryFormView = App.CodemarkFormView.extend
-  template: ->
-    angelo('repositoryForm.html')
 
   presentedAttributes: ->
     title: @model.get('title') || ''

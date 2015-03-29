@@ -16,9 +16,6 @@ App.LinkFormView = App.CodemarkFormView.extend
         setFlash('error', 'Sorry, but something went wrong. <br/> <a href="https://codemarks.uservoice.com/" target="_blank">Tell us what happened</a> or, even better, <a href="https://github.com/gmassanek/codemarks" target="_blank">fix it here</a>!')
         @cancel()
 
-  template: ->
-    angelo('linkForm.html')
-
   presentedAttributes: ->
     url: @model.get('resource').url
     title: @model.get('title') || ''

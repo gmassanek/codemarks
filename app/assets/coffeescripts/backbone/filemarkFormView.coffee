@@ -23,9 +23,6 @@ App.FilemarkFormView = App.CodemarkFormView.extend
       progress: (e, data) =>
         console.log data.loaded / data.total
 
-  template: ->
-    angelo('filemarkForm.html')
-
   presentedAttributes: ->
     data =
       title: @model.get('title') || ''

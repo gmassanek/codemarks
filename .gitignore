@@ -8,7 +8,7 @@ tmp/
 config/database.yml
 spec/javascripts/*.js
 spec/javascripts/**/*.js
-public/templates/*.html
+public/templates/**/*.html
 public/system/*
 **/.DS_Store
 **/*/.DS_Store

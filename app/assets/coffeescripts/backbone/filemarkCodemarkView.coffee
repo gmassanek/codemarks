@@ -1,6 +1,4 @@
 App.FilemarkCodemarkView = App.CodemarkView.extend
-  template: ->
-    angelo('filemark_codemark.html')
 
   presentedAttributes: ->
     resource = @model.get('resource')
