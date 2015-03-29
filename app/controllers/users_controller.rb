@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find params[:id]
+    @user = User.find_by(slug: params[:id]) || User.find_by(id: params[:id])
     @favorite_topics = @user.favorite_topics
   end
 
@@ -24,9 +24,10 @@ class UsersController < ApplicationController
     @users = User.includes(:authentications).
       joins("LEFT JOIN (#{Codemark.select('user_id, count(*)').group(:user_id).to_sql}) cm_count ON users.id = cm_count.user_id").
       joins("LEFT JOIN (#{Click.select('user_id, count(*)').group(:user_id).to_sql}) click_count ON users.id = click_count.user_id").
-      select('users.*, COALESCE(cm_count.count, 0) as cm_count, COALESCE(click_count.count, 0) as click_count')
-      @users.sort_by! { |u| u.cm_count.to_i + u.click_count.to_i }.reverse!
-      @users = Kaminari.paginate_array(@users).page(params[:page]).per(50)
+      select('users.*, cm_count.count AS cm_count, click_count.count AS click_count')
+
+    @users = @users.to_a.sort_by { |u| u.cm_count.to_i + u.click_count.to_i }.reverse
+    @users = Kaminari.paginate_array(@users).page(params[:page]).per(50)
   end
 
   def subscribe

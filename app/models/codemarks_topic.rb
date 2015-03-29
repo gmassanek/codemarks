@@ -1,4 +1,4 @@
-class CodemarkTopic < ActiveRecord::Base
+class CodemarksTopic < ActiveRecord::Base
 
   belongs_to :codemark
   belongs_to :topic

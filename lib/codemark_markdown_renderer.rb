@@ -1,7 +1,5 @@
 class CodemarkMarkdownRenderer < Redcarpet::Render::HTML
   include ActionView::Helpers::UrlHelper
-  include Sprockets::Helpers::RailsHelper
-  include Sprockets::Helpers::IsolatedHelper
   include ActionView::Helpers::AssetTagHelper
 
   def autolink(link, type)

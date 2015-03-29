@@ -14,12 +14,12 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    @topic = Topic.find params[:id]
+    @topic = Topic.find_by(slug: params[:id]) || Topic.find_by(id: params[:id])
   end
 
   def update
     @topic = Topic.find params[:id]
-    if @topic.update_attributes params[:topic]
+    if @topic.update_attributes params[:topic].permit!
       redirect_to @topic, :notice => "Topic updated"
     else
       render :edit
@@ -40,8 +40,8 @@ class TopicsController < ApplicationController
 
       format.html do
         @topics = Topic.for_user(current_user).order(:title)
-        @topics = @topics.joins("LEFT JOIN (#{CodemarkTopic.select('topic_id, count(*)').group(:topic_id).to_sql}) cm_count ON topics.id = cm_count.topic_id").select('topics.*, COALESCE(cm_count.count, 0) as cm_count')
-        @topics.shuffle!
+        @topics = @topics.joins("LEFT JOIN (#{CodemarksTopic.select('topic_id, count(*)').group(:topic_id).to_sql}) cm_count ON topics.id = cm_count.topic_id").select('topics.*, COALESCE(cm_count.count, 0) as cm_count')
+        @topics = @topics.to_a.shuffle
         @max = @topics.max_by { |t| t.cm_count.to_i }.cm_count.to_f
       end
     end

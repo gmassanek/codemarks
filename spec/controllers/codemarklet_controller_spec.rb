@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe CodemarkletController do
-  use_vcr_cassette 'codemarks'
-
   describe "#new" do
-    it "is successful" do
+    it "is successful", :vcr => { cassette_name: 'codemarks' } do
       CodemarkletController.any_instance.stub(:'logged_in?' => true)
       user = Fabricate(:user)
       controller.stub(:current_user => user)

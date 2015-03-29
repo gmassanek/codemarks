@@ -50,6 +50,7 @@ class PresentResource
       'attachment_size' => @resource.kilabytes_in_words
     }
   end
+  alias :imagefile_attributes :filemark_attributes
 
   def repository_attributes
     {

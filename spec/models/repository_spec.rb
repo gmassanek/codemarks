@@ -18,16 +18,16 @@ describe Repository do
 
         repo.should be_persisted
 
-        repo.description.should == 'Bookmarks for Social Coders'
-        repo.fork.should == 'false'
-        repo.forks_count.should == '6'
+        repo.description.should == 'Bookmarks for Social Coders!'
+        repo.fork.should == false
+        repo.forks_count.should == 9
         repo.language.should == 'Ruby'
-        repo.owner_avatar_url.should == 'https://avatars.githubusercontent.com/u/343891?'
-        repo.owner_gravatar_id.should == '58dbba1be3de0ccf3a495e978bdcb220'
+        repo.owner_avatar_url.should == 'https://avatars.githubusercontent.com/u/343891?v=3'
+        repo.owner_gravatar_id.should == ''
         repo.owner_login.should == 'gmassanek'
-        repo.pushed_at.should == '2014-04-27T21:36:00Z'
-        repo.repo_created_at.should == '2011-11-01T11:45:37Z'
-        repo.size.should == '19250'
+        Time.parse(repo.pushed_at).should be_a(Time)
+        Time.parse(repo.repo_created_at).should be_a(Time)
+        repo.size.should == 18427
         repo.title.should == 'codemarks'
       end
     end
@@ -36,7 +36,7 @@ describe Repository do
   describe '#refresh_remote_data!' do
     it 'returns false if remote call failed' do
       VCR.use_cassette :get_github_repository_failed, :match_requests_on => [:host, :path] do
-        repo = Repository.new(:owner_login => 'gmassanek', :title => 'codemarks')
+        repo = Repository.new(:owner_login => 'gmassanek', :title => 'goobar')
         repo.refresh_remote_data!.should == false
       end
     end

@@ -36,7 +36,7 @@ class PresentCodemarks
     users = User.where(:id => codemarks.map(&:user_id)).includes(:groups, :authentications)
     users << current_user
     users << searched_user
-    users.compact.uniq.map do |user|
+    users.to_a.compact.uniq.map do |user|
       PresentUsers.present(user)
     end
   end

@@ -7,7 +7,6 @@ class ResourcesController < ApplicationController
   end
 
   def create
-    p params
     case params['type']
     when 'Filemark'
       resource = Filemark.new(:attachment => params['attachment'])

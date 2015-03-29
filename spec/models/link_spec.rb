@@ -51,7 +51,7 @@ describe Link do
 
     it "limits to #{Tagger::TAG_SUGGESTION_LIMIT} topics" do
       @link.assign_attributes(:title => 'Github github rspec rspec google book')
-      @link.suggested_topics.map(&:slug).should =~ [@github.slug, @rspec.slug, @google.slug]
+      @link.suggested_topics.should have(3).items
     end
   end
 end

@@ -17,17 +17,14 @@ class CodemarksController < ApplicationController
     attributes = params[:codemark]
     attributes[:user_id] = current_user.id
     attributes[:topic_ids] = process_topic_slugs(params['codemark']["topic_ids"], params['codemark']['group_id'])
-    attributes[:resource] = attributes[:resource_type].constantize.create(params[:resource]) unless attributes[:resource_id].present?
+    attributes[:resource] = attributes[:resource_type].constantize.create(params[:resource].permit!) unless attributes[:resource_id].present?
 
-    @codemark = Codemark.update_or_create(attributes)
+    @codemark = Codemark.update_or_create(attributes.permit!)
 
     render :json => {
       :codemark => PresentCodemarks.present(@codemark, current_user).to_json,
       :success => true
     }
-  rescue Exception => e
-    p e
-    puts e.backtrace.first(10).join("\n")
   end
 
   def sendgrid
@@ -103,7 +100,8 @@ class CodemarksController < ApplicationController
   def update
     @codemark = Codemark.find(params[:id])
     params['codemark']["topic_ids"] = process_topic_slugs(params['codemark']["topic_ids"], params['codemark']['group_id'])
-    success = @codemark.update_attributes(params['codemark']) && @codemark.resource.update_attributes(params['resource'])
+    success = @codemark.update_attributes(params['codemark'].permit!)
+    success &= @codemark.resource.update_attributes(params['resource'].permit!) if params['resource'].present?
     respond_to do |format|
       format.html do
         if success

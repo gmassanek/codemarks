@@ -9,6 +9,7 @@ class Filemark < Resource
   validate :attachment_size
 
   def attachment_size
+    pp s3_credentials
     if attachment_file_size && attachment_file_size.to_i > 2.megabytes
       @errors.add(:attachment, "must be less than 2MB")
     end
@@ -16,8 +17,8 @@ class Filemark < Resource
 
   def s3_credentials
     { 
-      access_key_id: 'AKIAJCMCZ4JDCPNNUE7Q',
-      secret_access_key: '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',
+      access_key_id: ENV['CODEMARK_S3_KEY'],
+      secret_access_key: ENV['CODEMARK_S3_SECRET'],
       bucket: 'codemarks_user_uploads'
     }
   end

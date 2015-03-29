@@ -19,6 +19,10 @@ SKIP_SEARCH_INDEXES = false
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec::Matchers::OperatorMatcher.register(ActiveRecord::Relation, '=~', RSpec::Matchers::MatchArray)
 
+VCR.configure do |config|
+  config.configure_rspec_metadata!
+end
+
 RSpec.configure do |config|
   if TEST_BROKEN == false
     config.filter_run_excluding :broken => true
@@ -36,7 +40,6 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
-  config.extend VCR::RSpec::Macros
   Capybara.javascript_driver = :poltergeist
 end
 

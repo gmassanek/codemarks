@@ -16,14 +16,14 @@ describe FindCodemarks do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark, :user => user)
       all_cms = FindCodemarks.new
-      all_cms.codemarks.should =~ [@cm, @cm2, @cm3]
+      all_cms.codemarks.map(&:id).should =~ [@cm.id, @cm2.id, @cm3.id]
     end
 
     it "doesn't return multiple cms for the same link" do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new
-      all_cms.codemarks.all.count.should == 2
+      all_cms.codemarks.to_a.count.should == 2
     end
 
     it "returns my cm even if other people saved the same link" do
@@ -37,21 +37,21 @@ describe FindCodemarks do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new
-      all_cms.codemarks.first.save_count.should == "2"
+      all_cms.codemarks.first.save_count.should == 2
     end
 
     it "returns the save count for text" do
       user = Fabricate(:user)
       text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
       all_cms = FindCodemarks.new(:user => user)
-      all_cms.codemarks.first.save_count.should == "1"
+      all_cms.codemarks.first.save_count.should == 1
     end
 
     it "returns the save count for a repo" do
       user = Fabricate(:user)
       repo_cm = Fabricate(:codemark, :user => user, :resource => Repository.create!(:title => 'title'))
       all_cms = FindCodemarks.new(:user => user)
-      all_cms.codemarks.first.save_count.should == "1"
+      all_cms.codemarks.first.save_count.should == 1
     end
 
     it "textmarks for anonymous users" do
@@ -59,14 +59,14 @@ describe FindCodemarks do
       text_cm = Fabricate(:codemark, :user => user, :resource => Text.create!(:text => 'text'))
       Fabricate(:codemark, :user => user, :resource => text_cm.resource)
       all_cms = FindCodemarks.new(:by => 'popularity')
-      all_cms.codemarks.first.save_count.should == "2"
+      all_cms.codemarks.first.save_count.should == 2
     end
 
     it "returns the save count when scoped by user" do
       user = Fabricate(:user)
       @cm3 = Fabricate(:codemark, :user => user, :resource => @cm.resource)
       all_cms = FindCodemarks.new(:user => user)
-      all_cms.codemarks.first.save_count.should == "2"
+      all_cms.codemarks.first.save_count.should == 2
     end
 
     it "returns the resource author" do
@@ -214,7 +214,7 @@ describe FindCodemarks do
         @cm4= Fabricate(:codemark, :user => @user)
 
         all_cms = FindCodemarks.new(:by => :count)
-        all_cms.codemarks.first.save_count.should == "2"
+        all_cms.codemarks.first.save_count.should == 2
       end
 
       it "can be ordered by visit_count" do
@@ -224,8 +224,8 @@ describe FindCodemarks do
         3.times { Fabricate(:click, :user => user, :resource => text_cm.resource) }
 
         all_cms = FindCodemarks.new(:by => :visits)
-        all_cms.codemarks.first.visit_count.should == "3"
-        all_cms.codemarks.first.visit_count.should == "3"
+        all_cms.codemarks.first.visit_count.should == 3
+        all_cms.codemarks.first.visit_count.should == 3
       end
 
       describe 'by popularity' do
@@ -303,11 +303,11 @@ describe FindCodemarks do
       end
 
       it "defaults to 24 per page" do
-        FindCodemarks.new.codemarks.first.page_size.should == "24"
+        FindCodemarks.new.codemarks.first.page_size.should == 24
       end
 
       it 'returns total count' do
-        FindCodemarks.new.codemarks.first.full_count.should == "5"
+        FindCodemarks.new.codemarks.first.full_count.should == 5
       end
 
       it 'can limit page size' do
@@ -375,7 +375,7 @@ describe FindCodemarks do
         2.times { Fabricate(:click, :user => @user, :resource => cm2.resource) }
 
         all_cms = FindCodemarks.new(:by => :visits, :search_term => 'pony')
-        all_cms.codemarks.first.visit_count.should == "2"
+        all_cms.codemarks.first.visit_count.should == 2
       end
     end
   end
