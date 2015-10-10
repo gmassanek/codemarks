@@ -13,6 +13,7 @@ class CodemarkletController < ApplicationController
     @url = params[:url] || session[:url]
     resource = Link.for_url(@url) if @url
 
+    response.headers.delete('X-Frame-Options')
     Global.track(:user_id => current_user.nickname, :event => 'codemarklet_loaded', :properties => {:url => @url})
   end
 
