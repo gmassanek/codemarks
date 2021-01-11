@@ -29,7 +29,7 @@ gem 'whenever', '~> 0.9.4', :require => false
 gem 'twitter'
 gem 'pusher', :git => "https://github.com/pusher/pusher-gem"
 gem "bitly"
-gem "redcarpet", "~> 3.0.0"
+gem "redcarpet", "~> 3.5.1"
 gem 'analytics-ruby', '<1.0'
 gem 'open_uri_redirections', '~> 0.2.1'
 gem "acts_as_commentable_with_threading", "~> 2.0"
